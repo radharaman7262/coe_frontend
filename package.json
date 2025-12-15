@@ -1,0 +1,81 @@
+{
+    "name": "cbl",
+    "version": "0.1.0",
+    "private": true,
+    "engines": {
+        "node": ">=16",
+        "npm": ">=7"
+    },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "export": "next build && next export",
+        "build:staging": "env-cmd -f .env.staging yarn build",
+        "build:prod": "env-cmd -f .env.production yarn build",
+        "start:staging": "next start -p 5017",
+        "start:qa": "next start -p 5018",
+        "start:uat": "next start -p 5019",
+        "start:production": "next start -p 5017",
+        "check-types": "tsc --pretty --noEmit",
+        "check-lint": "eslint . --ext ts --ext tsx --ext js",
+        "test-all": "yarn check-lint && yarn check-types && yarn build",
+        "prepare": "husky install",
+        "pre-commit": "lint-staged",
+        "lint:styles": "stylelint \"**/*.{css,scss}\" --quiet",
+        "lint:styles:fix": "stylelint \"**/*.{css,scss}\" --fix"
+    },
+    "lint-staged": {
+        "*.{js,ts,tsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.{json,md,css,scss}": [
+            "prettier --write"
+        ]
+    },
+    "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.0",
+        "@mui/material": "^7.0.2",
+        "@mui/styled-engine-sc": "^7.0.2",
+        "@mui/x-date-pickers": "^8.5.3",
+        "@tanstack/react-query": "^5.75.7",
+        "chart.js": "^4.4.9",
+        "classnames": "^2.5.1",
+        "crypto-js": "^4.2.0",
+        "dayjs": "^1.11.13",
+        "js-cookie": "^3.0.5",
+        "next": "15.3.0",
+        "react": "^19.0.0",
+        "react-chartjs-2": "^5.3.0",
+        "react-dom": "^19.0.0",
+        "react-toastify": "^11.0.5",
+        "styled-components": "^6.1.17"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^19.8.0",
+        "@eslint/eslintrc": "^3",
+        "@eslint/js": "^9.24.0",
+        "@svgr/webpack": "^8.1.0",
+        "@types/chart.js": "^2.9.41",
+        "@types/crypto-js": "^4.2.2",
+        "@types/js-cookie": "^3.0.6",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "@typescript-eslint/eslint-plugin": "^8.29.1",
+        "@typescript-eslint/parser": "^8.29.1",
+        "env-cmd": "^10.1.0",
+        "eslint": "^9.24.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-next": "15.3.0",
+        "eslint-config-prettier": "^10.1.2",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^15.5.1",
+        "prettier": "^3.5.3",
+        "sass": "^1.86.3",
+        "typescript": "^5"
+    }
+}

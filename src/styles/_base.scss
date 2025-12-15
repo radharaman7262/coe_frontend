@@ -1,0 +1,62 @@
+@use '@styles/theme' as *;
+
+html {
+    box-sizing: border-box;
+    --webkit-font-smoothing: antialiased;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hide scrollbar for WebKit browsers */
+*::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Styling for Firefox */
+* {
+    scrollbar-color: var(--custom-scrollbar-color) transparent; /* Adjust as needed */
+    scrollbar-width: var(--custom-scrollbar-width); /* Adjust as needed */
+}
+
+a {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+input {
+    border: unset;
+}
+
+button {
+    border: unset;
+    background-color: unset;
+}
+
+:root {
+    font-size: 62.5%;
+    --container-max-width: 1440px;
+    --sm: 640px;
+    --md: 768px;
+    --lg: 1024px;
+    --xl: 1280px;
+    --2xl: 1536px;
+
+    --white: #ffffff;
+    --black: #000000;
+}
+
+body {
+    font-size: 1.6rem;
+}

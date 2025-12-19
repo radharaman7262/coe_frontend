@@ -1,0 +1,47 @@
+@use '@styles/theme' as *;
+
+.table {
+    width: 100%;
+}
+
+.rowHeader,
+.row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 12px;
+}
+
+.rowHeader {
+    font-size: 13px;
+    color: #667085;
+    margin-bottom: 12px;
+}
+
+.row {
+    padding: 12px 0;
+}
+
+.cell {
+    position: relative;
+    font-size: 14px;
+    color: #101828;
+    display: flex;
+    align-items: center;
+}
+
+.colorBar {
+    width: 4px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.box-position-full{
+    width: 100%;
+}
+
+.box-position-width {
+    width: 50px;
+    word-wrap: break-word;
+}

@@ -1,0 +1,49 @@
+@use '@styles/theme' as *;
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .svg {
+        rotate: 180deg;
+    }
+
+    .svg-color {
+        fill: red;
+    }
+
+    .disable-button {
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    .count-list {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        gap: 4px;
+
+        .in-active-count {
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .cursor {
+            cursor: pointer;
+        }
+
+        .cursor--not--allowed {
+            pointer-events: none;
+        }
+
+        .active-count {
+            @extend .in-active-count;
+
+            background-color: $primary-nav-link;
+            color: $primary-cta;
+;
+        }
+    }
+}

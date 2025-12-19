@@ -1,0 +1,17 @@
+@use '@styles/theme' as *;
+
+.container-wrapper {
+    background-color: $white;
+    padding: 13px 15px;
+    border-radius: 12px;
+    min-width: 200px;
+    display: flex;
+    gap: 13px;
+    width: 100%;
+
+    .text-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+}

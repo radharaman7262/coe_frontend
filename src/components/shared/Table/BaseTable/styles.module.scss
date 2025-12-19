@@ -1,0 +1,23 @@
+@use '@styles/theme' as *;
+
+.table-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    width: calc(100vw - 300px);
+
+    @include custom-scrollbar();
+
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+
+        &:focus {
+            border: 1px solid $gray-200;
+        }
+    }
+
+    .height-no-content {
+        height: 220px;
+    }
+}

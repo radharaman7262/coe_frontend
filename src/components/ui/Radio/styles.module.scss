@@ -1,0 +1,19 @@
+@use '@styles/theme' as *;
+
+.wrapper {
+    display: flex;
+    gap: 12px;
+
+    .radio {
+        height: 24px;
+        width: 24px;
+        appearance: none;
+        border-radius: 50%;
+        border: 1px solid $gray-300;
+        cursor: pointer;
+
+        &:checked {
+            border: 5px solid $primary-nav-link;
+        }
+    }
+}

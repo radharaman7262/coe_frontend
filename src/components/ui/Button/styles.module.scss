@@ -1,0 +1,80 @@
+@use '@styles/theme' as *;
+
+.button-base {
+    @include button-base(12px, 32px, 8px);
+    cursor: pointer;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:disabled {
+        background-color: $primary-cta-disable;
+        pointer-events: none;
+    }
+}
+
+.solid {
+    @extend .button-base;
+    background-color: $primary-cta;
+    border-radius: 8px;
+}
+
+.outline {
+    @extend .button-base;
+    border: 1px solid $gray-300;
+    background-color: transparent;
+}
+
+.warn {
+    @extend .button-base;
+    background-color: $red-500;
+}
+
+.normal {
+    @extend .button-base;
+}
+
+.pagination {
+    @extend .button-base;
+    border: 1px solid $gray-300;
+    background-color: transparent;
+}
+
+.disablePagination {
+    @extend .button-base;
+    border: 1px solid $gray-200;
+    background-color: $white;
+}
+
+.reportDownloadButton {
+    @extend .button-base;
+    border: 1px solid $primary-nav-link;
+    background-color: $primary-nav-link;
+}
+
+.large {
+    @include button-base(16px, 32px, 8px);
+}
+
+.medium {
+    @include button-base(12px, 32px, 8px);
+}
+
+.small {
+    @include button-base(10px, 24px, 8px);
+}
+
+.x-small {
+    @include button-base(6px, 24px, 8px);
+}
+
+.loader-size {
+    width: 10px !important;
+    height: 10px !important;
+
+    @include breakpoints('xl') {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}

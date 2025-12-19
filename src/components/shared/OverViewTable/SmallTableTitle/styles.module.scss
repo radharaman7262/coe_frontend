@@ -1,0 +1,13 @@
+@use '@styles/theme' as *;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 16px;
+}
+
+.actionBtn {
+    padding: 6px 10px;
+}

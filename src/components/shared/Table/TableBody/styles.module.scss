@@ -1,0 +1,29 @@
+@use '@styles/theme' as *;
+
+.table-body {
+    overflow-x: auto;
+    background-color: $gray-50;
+
+    .table-row {
+        border-bottom: 1px solid $gray-200;
+
+        .table-row-cell {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 150px;
+            max-width: 350px;
+            padding: 26px 12px;
+            text-align: start;
+        }
+    }
+
+    .table-row:last-child {
+        border-bottom: none;
+    }
+
+    .hover-effect:hover {
+        background-color: $gray-200;
+        cursor: pointer;
+    }
+}

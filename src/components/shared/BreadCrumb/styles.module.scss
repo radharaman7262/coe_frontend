@@ -1,0 +1,17 @@
+@use '@styles/theme' as *;
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px;
+    gap: 8px;
+    border-radius: 30px;
+    border: 1px solid $border-text-gray;
+
+    .text-wrap {
+        background-color: $text-bg-gray;
+        border-radius: 30px;
+        padding: 2px 12px;
+    }
+}

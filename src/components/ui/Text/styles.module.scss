@@ -1,0 +1,220 @@
+@use '@styles/theme' as *;
+
+/* In the font variable function will sequentially follow the below order
+1. Font family
+2. Font size
+3. Font weight
+4. Line Height
+*/
+
+$fonts: (
+    // ===== DISPLAY =====
+    // ===== 2XL =====
+    'display_Desktop_2xl_regular': ('Inter, sans-serif', 72, 400, 88),
+    'display_Dektop_2xl_medium': ('Inter, sans-serif', 72, 500, 88),
+    'display_Desktop_2xl_semibold': ('Inter, sans-serif', 72, 600, 88),
+    'display_Desktop_2xl_bold': ('Inter, sans-serif', 72, 700, 88),
+    // ==== XL ====
+    'display_Desktop_xl_regular': ('Inter, sans-serif', 60, 400, 72),
+    'display_Desktop_xl_medium': ('Inter, sans-serif', 60, 500, 72),
+    'display_Desktop_xl_semibold': ('Inter, sans-serif', 60, 600, 72),
+    'display_Desktop_xl_bold': ('Inter, sans-serif', 60, 700, 72),
+    // ==== LG ====
+    'display_Desktop_lg_regular': ('Inter, sans-serif', 48, 400, 60),
+    'display_Desktop_lg_medium': ('Inter, sans-serif', 48, 500, 60),
+    'display_Desktop_lg_semibold': ('Inter, sans-serif', 48, 600, 60),
+    'display_Desktop_lg_bold': ('Inter, sans-serif', 48, 700, 60),
+    // ==== MD ====
+    'display_Desktop_md_regular': ('Inter, sans-serif', 36, 400, 44),
+    'display_Desktop_md_medium': ('Inter, sans-serif', 36, 500, 44),
+    'display_Desktop_md_semibold': ('Inter, sans-serif', 36, 600, 44),
+    'display_Desktop_md_bold': ('Inter, sans-serif', 36, 700, 44),
+    // ==== SM ====
+    'display_Desktop_sm_regular': ('Inter, sans-serif', 30, 400, 38),
+    'display_Desktop_sm_medium': ('Inter, sans-serif', 30, 500, 38),
+    'display_Desktop_sm_semibold': ('Inter, sans-serif', 30, 600, 38),
+    'display_Desktop_sm_bold': ('Inter, sans-serif', 30, 700, 38),
+    // ===== TEXT =====
+    // ==== XL ====
+    'text_xl_regular': ('Inter, sans-serif', 20, 400, 32),
+    'text_xl_medium': ('Inter, sans-serif', 20, 500, 32),
+    'text_xl_semibold': ('Inter, sans-serif', 20, 600, 32),
+    'text_xl_bold': ('Inter, sans-serif', 20, 700, 32),
+    // ==== LG ====
+    'text_lg_regular': ('Inter, sans-serif', 18, 400, 28),
+    'text_lg_medium': ('Inter, sans-serif', 18, 500, 28),
+    'text_lg_semibold': ('Inter, sans-serif', 18, 600, 28),
+    'text_lg_bold': ('Inter, sans-serif', 18, 700, 28),
+    // ==== MD ====
+    'text_md_regular': ('Inter, sans-serif', 16, 400, 24),
+    'text_md_medium': ('Inter, sans-serif', 16, 500, 24),
+    'text_md_semibold': ('Inter, sans-serif', 16, 600, 24),
+    'text_md_bold': ('Inter, sans-serif', 16, 700, 24),
+    // ==== SM ====
+    'text_sm_regular': ('Inter, sans-serif', 14, 400, 20),
+    'text_sm_medium': ('Inter, sans-serif', 14, 500, 20),
+    'text_sm_semibold': ('Inter, sans-serif', 14, 600, 20),
+    'text_sm_bold': ('Inter, sans-serif', 14, 700, 20),
+    // ==== XS ====
+    'text_xs_regular': ('Inter, sans-serif', 12, 400, 18),
+    'text_xs_medium': ('Inter, sans-serif', 12, 500, 18),
+    'text_xs_semibold': ('Inter, sans-serif', 12, 600, 18),
+    'text_xs_bold': ('Inter, sans-serif', 12, 700, 18),
+    // ===== XXS =====
+    'text_xxs_regular': ('Inter, sans-serif', 10, 400, 14),
+    'text_xxs_medium': ('Inter, sans-serif', 10, 500, 14),
+    'text_xxs_semibold': ('Inter, sans-serif', 10, 600, 14),
+    'text_xxs_bold': ('Inter, sans-serif', 10, 700, 14)
+);
+
+$colors: (
+    // ===== BASE =====
+    white: #ffffff,
+    black: #000000,
+
+    // ===== PRIMARY =====
+    primary-nav-link: #6941c6,
+    primary-cta: #7f56d9,
+    primary-cta-disable: #d1c5ec,
+
+    // ===== TEXT =====
+    text-gray-900: #101828,
+    text-idle: #717680,
+    text-highlight: #e25994,
+    text-cta-1: #0ba5ec,
+    text-cta-2: #004eeb,
+    text-cta-3: #f0653d,
+
+    // ===== WIDGET =====
+    widget-pink: #f95cff,
+    widget-blue: #82d9ff,
+    widget-green: #4ad991,
+    widget-orange: #ff9066,
+
+    // ===== BACKGROUND =====
+    bg-gray: #f9fafb,
+
+    // ===== BADGE =====
+    badge-error: #c4320a,
+    badge-warning: #ffb84d,
+    badge-success: #027a48,
+    badge-info: #004eeb,
+    badge-neutral: #f9fafb,
+    badge-dark: #363f72,
+
+    // ===== MISC =====
+    bar-graph: #988eff,
+
+    // ===== BLUE SCALE =====
+    blue-0: #f5faff,
+    blue-100: #e0f2ff,
+    blue-200: #b2ddff,
+    blue-300: #84caff,
+    blue-400: #53b1fd,
+    blue-500: #2e90fa,
+    blue-600: #1570ef,
+    blue-700: #175cd3,
+    blue-800: #1849a9,
+    blue-900: #194185,
+
+    // ===== GREEN SCALE =====
+    green-0: #ecfdf3,
+    green-100: #d1fadf,
+    green-200: #a6f4c5,
+    green-300: #6ce9a6,
+    green-400: #32d583,
+    green-500: #12b76a,
+    green-600: #039855,
+    green-700: #027a48,
+    green-800: #05603a,
+    green-900: #054f31,
+
+    // ===== PURPLE SCALE =====
+    purple-0: #f4f3ff,
+    purple-100: #ebe9fe,
+    purple-200: #d9d6fe,
+    purple-300: #bdb4fe,
+    purple-400: #9b8afb,
+    purple-500: #7a5af8,
+    purple-600: #6938ef,
+    purple-700: #5925dc,
+    purple-800: #4a1fb8,
+    purple-900: #3e1c96,
+
+    // ===== RED SCALE =====
+    red-0: #fef3f2,
+    red-100: #fee4e2,
+    red-200: #fecdca,
+    red-300: #fda29b,
+    red-400: #f97066,
+    red-500: #f04438,
+    red-600: #d92d20,
+    red-700: #b42318,
+    red-800: #912018,
+    red-900: #7a271a,
+
+    // ===== ORANGE SCALE =====
+    orange-0: #fff6ed,
+    orange-100: #ffead5,
+    orange-200: #fddcab,
+    orange-300: #feb273,
+    orange-400: #fd853a,
+    orange-500: #fb6514,
+    orange-600: #ec4a0a,
+    orange-700: #c4320a,
+    orange-800: #9c2a10,
+    orange-900: #7e2410,
+
+    // ===== YELLOW SCALE =====
+    yellow-50: #fffaeb,
+    yellow-100: #fef0c7,
+    yellow-200: #fedf89,
+    yellow-300: #fec84b,
+    yellow-400: #fdb022,
+    yellow-500: #f79009,
+    yellow-600: #dc6803,
+    yellow-700: #b54708,
+    yellow-800: #93370d,
+    yellow-900: #7a2e0e,
+
+    // ===== GRAY SCALE =====
+    gray-50: #f9fafb,
+    gray-100: #f2f4f7,
+    gray-200: #eaecf0,
+    gray-300: #d0d5dd,
+    gray-400: #98a2b3,
+    gray-500: #667085,
+    gray-600: #475467,
+    gray-700: #344054,
+    gray-800: #1d2939,
+    gray-900: #101828,
+    text-gray: #6a6a6a,
+    text-bg-gray: #f4f4f4,
+    border-text-gray: #f0f0f0
+);
+
+@each $name, $color in $colors {
+    .color--#{$name} {
+        color: $color;
+    }
+}
+
+@each $fontName, $font in $fonts {
+    .text__#{$fontName} {
+        font-family: #{nth($font, 1)};
+        font-size: #{nth($font, 2)}px;
+        font-weight: #{nth($font, 3)};
+        line-height: #{nth($font, -1)}px;
+    }
+}
+
+@each $fontName, $font in $fonts {
+    .text__desktop_#{$fontName} {
+        @include breakpoints('xl') {
+            font-family: #{nth($font, 1)};
+            font-size: #{nth($font, 2)}px;
+            font-weight: #{nth($font, 3)};
+            line-height: #{nth($font, -1)}px;
+        }
+    }
+}

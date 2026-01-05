@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClientProvider } from '@tanstack/react-query';
 
 import { queryClient } from '@/utils/react-query-client';
 
@@ -11,7 +11,7 @@ type ProvidersProps = {
 
 const Providers = ({ children }: ProvidersProps) => (
     <QueryClientProvider client={queryClient}>
-        <HydrationBoundary state={{}}>{children}</HydrationBoundary>
+        <HydrationBoundary state={null}>{children}</HydrationBoundary>
     </QueryClientProvider>
 );
 

@@ -5,6 +5,18 @@ export type TagType = keyof Pick<
     'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'label'
 >;
 
+/**
+ * Image src type
+ */
+export type NextImageSrc =
+    | {
+          src: string;
+          height: number;
+          width: number;
+          blurDataURL?: string;
+      }
+    | string;
+
 export enum FontType {
     // ===== DISPLAY 2XL =====
     'display_Desktop_2xl_regular' = 'display_Desktop_2xl_regular',

@@ -21,3 +21,4 @@ export { default as TableActions } from './shared/Table/TableActions';
 export { default as SmallTableTitle } from './shared/OverViewTable/SmallTableTitle';
 export { default as SmallTableBody } from './shared/OverViewTable/SmallTableBody';
 export { default as OverViewTable } from './shared/OverViewTable';
+export { default as ImageContainer } from './ui/Images';

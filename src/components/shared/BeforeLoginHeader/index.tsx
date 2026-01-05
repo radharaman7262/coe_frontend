@@ -6,12 +6,11 @@ import { Button } from '@components/index';
 
 import RupantarIcon from '@public/assets/svg/rupantar-header-icon.svg';
 
-import { ButtonVariant } from '@/types/typographyCommon';
+import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import styles from './styles.module.scss';
 
 const BeforeLoginHeader = () => {
-    
     const handleLoggingIn = () => {
         //
     };
@@ -23,11 +22,13 @@ const BeforeLoginHeader = () => {
             <RupantarIcon />
 
             <Button
-                label='Log in'
+                label='Login'
                 type='button'
                 variant={ButtonVariant.SOLID}
                 color='white'
                 onClick={handleLoggingIn}
+                font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                className={styles['btn-class']}
             />
         </div>
     );

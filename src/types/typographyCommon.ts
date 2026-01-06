@@ -220,7 +220,8 @@ export type ColorVariant =
     | 'gray-900'
     | 'text-gray'
     | 'text-bg-gray'
-    | 'border-text-gray';
+    | 'border-text-gray'
+    | 'neutral-gray';
 
 /**
  * Button Variant

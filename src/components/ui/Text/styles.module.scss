@@ -200,7 +200,8 @@ $colors: (
     gray-900: #101828,
     text-gray: #6a6a6a,
     text-bg-gray: #f4f4f4,
-    border-text-gray: #f0f0f0
+    border-text-gray: #f0f0f0,
+    neutral-gray: #dedede
 );
 
 @each $name, $color in $colors {

@@ -24,7 +24,7 @@ const LandingImageSection = () => (
 
         <div className={styles['hero-content']}>
             <Text
-                font={[FontType.display_Desktop_lg_bold, FontType.display_Desktop_lg_bold]}
+                font={[FontType.display_Desktop_xlg_bold, FontType.display_Desktop_xlg_bold]}
                 color='white'
             >
                 {title.mothersGrace}

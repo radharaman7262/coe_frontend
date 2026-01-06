@@ -3,35 +3,35 @@
 .hero-wrapper {
     position: relative;
     width: 100%;
-    height: calc(100vh - 83px);
-}
+    height: calc(100vh - 80px);
 
-.hero-image {
-    object-fit: cover;
-    z-index: 1;
-}
+    .hero-image {
+        object-fit: cover;
+        z-index: 1;
+    }
 
-.hero-content {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: $white;
-    text-align: center;
-}
+    .hero-content {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+        text-align: center;
 
-.tagline-text {
-    display: flex;
-    justify-content: center;
-    padding: 7px 32px;
-    background: $primary-nav-link;
-    border-radius: 23px;
-}
+        .tagline-text {
+            display: flex;
+            justify-content: center;
+            padding: 7px 32px;
+            background: $primary-nav-link;
+            border-radius: 23px;
+        }
 
-.description-text {
-    margin-top: 14px;
-    max-width: 560px;
+        .description-text {
+            margin-top: 14px;
+            max-width: 560px;
+        }
+    }
 }

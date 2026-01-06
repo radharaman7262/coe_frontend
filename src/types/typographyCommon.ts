@@ -30,11 +30,23 @@ export enum FontType {
     'display_Desktop_xl_semibold' = 'display_Desktop_xl_semibold',
     'display_Desktop_xl_bold' = 'display_Desktop_xl_bold',
 
+    // ===== DISPLAY XLG =====
+    'display_Desktop_xlg_regular' = 'display_Desktop_xlg_regular',
+    'display_Desktop_xlg_medium' = 'display_Desktop_xlg_medium',
+    'display_Desktop_xlg_semibold' = 'display_Desktop_xlg_semibold',
+    'display_Desktop_xlg_bold' = 'display_Desktop_xlg_bold',
+
     // ===== DISPLAY LG =====
     'display_Desktop_lg_regular' = 'display_Desktop_lg_regular',
     'display_Desktop_lg_medium' = 'display_Desktop_lg_medium',
     'display_Desktop_lg_semibold' = 'display_Desktop_lg_semibold',
     'display_Desktop_lg_bold' = 'display_Desktop_lg_bold',
+
+    // ===== DISPLAY MD =====
+    'display_Desktop_xmd_regular' = 'display_Desktop_xmd_regular',
+    'display_Desktop_xmd_medium' = 'display_Desktop_xmd_medium',
+    'display_Desktop_xmd_semibold' = 'display_Desktop_xmd_semibold',
+    'display_Desktop_xmd_bold' = 'display_Desktop_xmd_bold',
 
     // ===== DISPLAY MD =====
     'display_Desktop_md_regular' = 'display_Desktop_md_regular',

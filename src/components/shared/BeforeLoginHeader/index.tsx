@@ -8,11 +8,15 @@ import RupantarIcon from '@public/assets/svg/rupantar-header-icon.svg';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
+import { useUserContext } from '@/app/(landing-page)/_contextProvider';
+
 import styles from './styles.module.scss';
 
 const BeforeLoginHeader = () => {
+    const { setOpenLoginDrawer } = useUserContext();
+
     const handleLoggingIn = () => {
-        //
+        setOpenLoginDrawer(true);
     };
 
     const containerWrapperClass = styles['container-wrapper'];

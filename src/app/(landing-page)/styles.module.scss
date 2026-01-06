@@ -1,1 +1,22 @@
 @use '@styles/theme' as *;
+
+.drawer-header {
+    border-bottom: 1px solid $border-text-gray;
+    padding: 12px;
+    display: flex;
+    justify-content: flex-end;
+
+    .cross-icon {
+        cursor: pointer;
+    }
+}
+
+.drawer-middle {
+    padding: 8px 60px 10px 120px;
+    position: relative;
+    height: 100%;
+
+    @include breakpoints('2xl') {
+        padding: 16px 120px 10px 120px;
+    }
+}

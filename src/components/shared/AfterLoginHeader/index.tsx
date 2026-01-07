@@ -2,20 +2,28 @@
 
 import React, { memo } from 'react';
 
+import { usePathname } from 'next/navigation';
+
 import { BreadCrumb, Text } from '@components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
 import BoldDropDown from '@public/assets/svg/bold-dropdown.svg';
 
+import { pageNameMap } from './pageName';
+
 import styles from './styles.module.scss';
 
 const AfterLoginHeader = () => {
+    const pathname = usePathname();
+
     const containerWrapperClass = styles['container-wrapper'];
+
+    const PageName = pageNameMap[pathname];
 
     return (
         <div className={containerWrapperClass}>
-            <BreadCrumb label='Center Management' />
+            <BreadCrumb label={PageName} />
 
             <div className={styles['logged-user']}>
                 <hr />

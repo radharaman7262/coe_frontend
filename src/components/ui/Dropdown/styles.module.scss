@@ -30,8 +30,7 @@
         background-color: $white;
         width: 100%;
         z-index: 100;
-        height: max-content;
-        max-height: 27vh;
+        height: 200px;
         overflow-y: scroll;
 
         &::-webkit-scrollbar {
@@ -50,20 +49,16 @@
 
         .search-input-container {
             position: relative;
+            display: flex;
+            justify-content: flex-end;
 
             .search-input {
                 border-radius: 12px;
                 border: 1px solid $gray-200;
-                width: 100%;
-                padding: 14px 44px;
-                font-size: 14px;
-                font-weight: 400;
-                line-height: 22px;
-                font-family: 'Inter';
-                color: #333;
+                padding: 7px 14px;
 
                 @include breakpoints('xl') {
-                    padding: 14px 38px;
+                    padding: 7px 14px;
                 }
 
                 &::-webkit-search-cancel-button {
@@ -88,6 +83,10 @@
                 border: 1px solid $gray-500;
             }
 
+            .input-base-class {
+                width: 100%;
+            }
+
             .icon {
                 position: absolute;
                 left: 12px;
@@ -99,32 +98,45 @@
             }
         }
 
+        .noOptionContainer {
+            display: flex;
+            margin-top: 50px;
+            position: relative;
+            left: 22%;
+        }
+
         .options-container {
             margin-top: 12px;
-
-            .option {
-                display: flex;
-                flex-direction: column;
-
-                .item {
-                    list-style: none;
-                    cursor: pointer;
-                    padding: 8px 0 8px 8px;
-
-                    &:hover {
-                        background-color: red;
-                    }
-                }
-
-                .selected {
-                    padding: 8px 0 8px 8px;
-                    background-color: $gray-200;
-                }
-            }
 
             .checkbox-gap {
                 gap: 12px;
             }
+        }
+    }
+
+    .option {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        gap: 8px;
+        margin-top: 10px;
+        height: 40px;
+        padding: 6px;
+        cursor: pointer;
+
+        .item {
+            list-style: none;
+            cursor: pointer;
+            padding: 8px 0 8px 8px;
+
+            &:hover {
+                background-color: red;
+            }
+        }
+
+        .selected {
+            padding: 8px 0 8px 8px;
+            background-color: $gray-200;
         }
     }
 

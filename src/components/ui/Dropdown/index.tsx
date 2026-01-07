@@ -3,13 +3,11 @@
 import React, { JSX, useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 
-import { Checkbox, CircularLoader, Text, ShimmerUiContainer } from '@components/index';
+import { CircularLoader, Text, ShimmerUiContainer, Input } from '@components/index';
 
 import ArrowDown from '@public/assets/svg/chevron-down.svg';
 
 import useClickOutside from '@/hooks/useClickOutside';
-
-import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { FontType } from '@/types/typographyCommon';
 
@@ -23,7 +21,11 @@ const Dropdown = <T extends { selectValue: keyof T }>({
     label = 'Select',
     options,
     multipleSelection = false,
-    noOptionText = <Text>Options are not available</Text>,
+    noOptionText = (
+        <Text font={[FontType.text_sm_regular, FontType.text_sm_regular]}>
+            Options are not available
+        </Text>
+    ),
     selectValue,
     value,
     loading,
@@ -49,7 +51,8 @@ const Dropdown = <T extends { selectValue: keyof T }>({
 
     useClickOutside(dropdownRef, () => setIsOpen(false));
 
-    const handleCheckbox = (item: T) => () => onChange?.(item);
+    // const handleCheckbox = (item: T) => () => onChange?.(item);
+
     const handleSelectOption = (item: T) => () => {
         onChange?.(item);
         setIsOpen(false);
@@ -84,53 +87,54 @@ const Dropdown = <T extends { selectValue: keyof T }>({
         }
     }, [isOpen]);
 
-    const renderOptions = (item: T) => {
-        const label = getOptionLabel(item, selectValue);
+    // const renderOptions = (item: T) => {
+    //     const label = getOptionLabel(item, selectValue);
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const arrayofDropdownlabel: any = [];
-        if (value && Array.isArray(value) && value?.length > 0) {
-            const arrayOfLabel = value.map((item) => getOptionLabel(item, selectValue));
-            arrayofDropdownlabel.push(...arrayOfLabel);
-        }
+    //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //     const arrayofDropdownlabel: any = [];
+    //     if (value && Array.isArray(value) && value?.length > 0) {
+    //         const arrayOfLabel = value.map((item) => getOptionLabel(item, selectValue));
+    //         arrayofDropdownlabel.push(...arrayOfLabel);
+    //     }
 
-        return (
-            <div className={styles.checkbox}>
-                <Checkbox
-                    isChecked={arrayofDropdownlabel.includes(label)}
-                    label={label}
-                    onChange={handleCheckbox(item)}
-                />
-            </div>
-        );
-    };
+    //     return (
+    //         <div className={styles.checkbox}>
+    //             <Checkbox
+    //                 isChecked={arrayofDropdownlabel.includes(label)}
+    //                 label={label}
+    //                 onChange={handleCheckbox(item)}
+    //             />
+    //         </div>
+    //     );
+    // };
 
-    const renderSingleSelectOption = (item: T) => {
-        const label = getOptionLabel(item, selectValue);
-        return (
-            <div
-                key={label}
-                tabIndex={0}
-                role='button'
-                className={cx(
-                    styles['options-list-container'],
-                    optionsClassName,
-                    styles.item,
-                    dropdownValue === label && styles.selected,
-                )}
-                onClick={handleSelectOption(item)}
-                onKeyDown={(e) => e.key === KeyboardEvent.ENTER && handleSelectOption(item)()}
-            >
-                <Text
-                    font={[FontType.text_sm_regular, FontType.text_sm_regular]}
-                    color='black'
-                    className={styles['cursor-pointer']}
-                >
-                    {label}
-                </Text>
-            </div>
-        );
-    };
+    // It is not used might be wriiten for some functionality, delete later if not used
+    // const renderSingleSelectOption = (item: T) => {
+    //     const label = getOptionLabel(item, selectValue);
+    //     return (
+    //         <div
+    //             key={label}
+    //             tabIndex={0}
+    //             role='button'
+    //             className={cx(
+    //                 styles['options-list-container'],
+    //                 optionsClassName,
+    //                 styles.item,
+    //                 dropdownValue === label && styles.selected,
+    //             )}
+    //             onClick={handleSelectOption(item)}
+    //             onKeyDown={(e) => e.key === KeyboardEvent.ENTER && handleSelectOption(item)()}
+    //         >
+    //             <Text
+    //                 font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+    //                 color='black'
+    //                 className={styles['cursor-pointer']}
+    //             >
+    //                 {label}
+    //             </Text>
+    //         </div>
+    //     );
+    // };
 
     return (
         <div className={cx(styles.wrapper, widthClassName)} ref={dropdownRef}>
@@ -181,12 +185,14 @@ const Dropdown = <T extends { selectValue: keyof T }>({
                         >
                             {isSearchable && !loading && (
                                 <div className={styles['search-input-container']}>
-                                    <input
-                                        type='search'
+                                    <Input
+                                        name='dropdown'
+                                        value={searchFilter || ''}
+                                        type='text'
                                         placeholder={DROPDOWN_SEARCH_INPUT_PLACEHOLDER}
-                                        value={searchFilter}
                                         className={styles['search-input']}
                                         onChange={handleSearch}
+                                        inputBaseClass={styles['input-base-class']}
                                     />
                                 </div>
                             )}
@@ -194,16 +200,36 @@ const Dropdown = <T extends { selectValue: keyof T }>({
                             {loading ? (
                                 <CircularLoader />
                             ) : options?.length === 0 ? (
-                                noOptionText
+                                <div className={styles.noOptionContainer}>{noOptionText}</div>
                             ) : (
-                                <ul
-                                    className={cx(styles.option, {
-                                        [styles['checkbox-gap']]: multipleSelection,
+                                <ul className={styles.option}>
+                                    {options.map((item) => {
+                                        const label = getOptionLabel(item, selectValue);
+
+                                        return (
+                                            <div
+                                                key={label}
+                                                role='button'
+                                                tabIndex={0}
+                                                className={cx(
+                                                    styles.optionItem,
+                                                    dropdownValue === label && styles.selected,
+                                                    optionsClassName,
+                                                )}
+                                                onClick={handleSelectOption(item)}
+                                                onKeyDown={handleSelectOption(item)}
+                                            >
+                                                <Text
+                                                    font={[
+                                                        FontType.text_sm_medium,
+                                                        FontType.text_sm_medium,
+                                                    ]}
+                                                >
+                                                    {label}
+                                                </Text>
+                                            </div>
+                                        );
                                     })}
-                                >
-                                    {multipleSelection
-                                        ? options.map((item) => renderOptions(item))
-                                        : options.map(renderSingleSelectOption)}
                                 </ul>
                             )}
                         </div>
@@ -213,5 +239,4 @@ const Dropdown = <T extends { selectValue: keyof T }>({
         </div>
     );
 };
-
 export default React.memo(Dropdown) as unknown as <T>(props: DropdownProps<T>) => JSX.Element;

@@ -60,6 +60,12 @@ export enum FontType {
     'display_Desktop_sm_semibold' = 'display_Desktop_sm_semibold',
     'display_Desktop_sm_bold' = 'display_Desktop_sm_bold',
 
+    // ===== TEXT XXL =====
+    'text_xxl_regular' = 'text_xxl_regular',
+    'text_xxl_medium' = 'text_xxl_medium',
+    'text_xxl_semibold' = 'text_xxl_semibold',
+    'text_xxl_bold' = 'text_xxl_bold',
+
     // ===== TEXT XL =====
     'text_xl_regular' = 'text_xl_regular',
     'text_xl_medium' = 'text_xl_medium',

@@ -45,6 +45,11 @@ $fonts: (
     'display_Desktop_sm_semibold': ('Inter, sans-serif', 30, 600, 38),
     'display_Desktop_sm_bold': ('Inter, sans-serif', 30, 700, 38),
     // ===== TEXT =====
+    // ==== XXL ====
+    'text_xxl_regular': ('Inter, sans-serif', 24, 400, 30),
+    'text_xxl_medium': ('Inter, sans-serif', 24, 500, 30),
+    'text_xxl_semibold': ('Inter, sans-serif', 24, 600, 30),
+    'text_xxl_bold': ('Inter, sans-serif', 24, 700, 30),
     // ==== XL ====
     'text_xl_regular': ('Inter, sans-serif', 20, 400, 32),
     'text_xl_medium': ('Inter, sans-serif', 20, 500, 32),
@@ -191,6 +196,7 @@ $colors: (
     gray-50: #f9fafb,
     gray-100: #f2f4f7,
     gray-200: #eaecf0,
+    gray-250: #dedede,
     gray-300: #d0d5dd,
     gray-400: #98a2b3,
     gray-500: #667085,

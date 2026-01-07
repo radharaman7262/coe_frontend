@@ -14,6 +14,7 @@ type TextProps<T extends React.ElementType> = {
     font?: [FontType, FontType];
     className?: string;
     color?: ColorVariant;
+    required?: boolean;
 };
 
 type Props<T extends React.ElementType> = React.PropsWithChildren<TextProps<T>> &
@@ -27,6 +28,7 @@ const Text = <T extends React.ElementType = 'span'>(props: Props<T>) => {
         variant = 'description',
         className,
         color = 'black',
+        required = false,
         ...restProps
     } = props;
 
@@ -42,10 +44,21 @@ const Text = <T extends React.ElementType = 'span'>(props: Props<T>) => {
                 styles[`color--${color}`],
                 variant,
                 className,
+                required,
             )}
             {...restProps}
         >
             {children}
+            
+            {required && (
+                <Text
+                    className={styles.required}
+                    font={[FontType.text_md_medium, FontType.text_md_medium]}
+                    color='text-cta-3'
+                >
+                    *
+                </Text>
+            )}
         </Component>
     );
 };

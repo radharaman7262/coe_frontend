@@ -1,0 +1,44 @@
+@use '@styles/theme' as *;
+
+.container {
+    background-color: $white;
+    overflow: hidden;
+
+    .header{
+        display: flex;
+        flex-direction: column;
+        padding: 12px 24px;
+        align-items: flex-start;
+        border-bottom: 1px solid $gray-250;
+    }
+
+    .body{
+        display: flex;
+        flex-direction: column;
+        padding: 16px 24px;
+        gap: 10px;
+
+        @include breakpoints('2xl'){
+            gap: 16px;
+        }
+        
+        .field{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+    }
+
+    .footer{
+        display: flex;
+        padding: 12px 24px;
+        border-top: 1px solid $gray-250;
+        justify-content: flex-end;
+
+        .button {
+            border-radius: 8px;
+            padding: 10px 16px;
+        }
+    }
+    
+}

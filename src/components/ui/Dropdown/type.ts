@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 export type DropdownProps<T> = {
     /**
@@ -30,6 +30,10 @@ export type DropdownProps<T> = {
      * noOptionstext for if no options are available then showing it's text.
      */
     noOptionText?: React.ReactNode;
+
+    searchStartIcon?: ReactNode;
+
+    searchEndIcon?: React.ReactNode;
 
     onChange?: (argument: T) => void;
     /**

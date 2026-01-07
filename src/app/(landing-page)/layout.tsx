@@ -15,12 +15,10 @@ export default function LandingLayout({
 }) {
     return (
         <ContextProvider>
-            <div>
+            <div className={styles['image-wrapper']}>
+                {landingHeader}
+                {landingImageSection}
                 {children}
-                <div className={styles['image-wrapper']}>
-                    {landingHeader}
-                    {landingImageSection}
-                </div>
             </div>
         </ContextProvider>
     );

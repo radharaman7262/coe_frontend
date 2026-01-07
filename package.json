@@ -12,7 +12,7 @@
         "export": "next build && next export",
         "build:staging": "env-cmd -f .env.staging yarn build",
         "build:prod": "env-cmd -f .env.production yarn build",
-        "start:staging": "next start -p 5017",
+        "start:staging": "next start -p 5013",
         "start:qa": "next start -p 5018",
         "start:uat": "next start -p 5019",
         "start:production": "next start -p 5017",

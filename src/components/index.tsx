@@ -24,3 +24,5 @@ export { default as OverViewTable } from './shared/OverViewTable';
 export { default as ImageContainer } from './ui/Images';
 export { default as AfterLoginHeader } from './shared/AfterLoginHeader';
 export { default as NoDataContainer } from './shared/NoDataContainer';
+export { default as Sidebar } from './shared/Sidebar';
+export { default as PageHeader } from './shared/PageHeader';

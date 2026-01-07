@@ -15,66 +15,69 @@
         width: 100%;
         padding: 10px 14px;
         gap: 12px;
+
         border: 1px solid $gray-300;
         border-radius: 8px;
         background-color: $white;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
 
         &[data-display='true'] {
-            border: 1px solid $red-500;
-
-            &:hover {
-                border: 1px solid $red-600;
-            }
+            border-color: $red-500;
         }
 
         &[data-display='false'] {
-            border: 1px solid $gray-300;
+            border-color: $gray-300;
+        }
+
+        &:hover:not([data-display='true']):not(.disabled) {
+            border-color: $primary-nav-link;
+            box-shadow:
+                0px 1px 2px 0px rgba(16, 24, 40, 0.05),
+                0px 0px 0px 1px $primary-nav-link;
         }
 
         .input-container {
             width: 100%;
             outline: none;
+            border: none;
+            background: transparent;
+
             color: $black;
             font-family: Inter;
             font-style: normal;
             font-weight: 500;
-            line-height: 24px;
             font-size: 14px;
+            line-height: 24px;
 
             &:disabled {
-                background-color: $gray-200;
+                background-color: transparent;
                 color: $black;
+                cursor: not-allowed;
             }
 
             &::placeholder {
                 color: $gray-400;
-
-                /* body/large/regular */
                 font-family: Inter;
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 160%; /* 25.6px */
+                line-height: 160%;
             }
         }
 
-        &:hover {
-            border: 1px solid $primary-nav-link;
-            box-shadow:
-                0px 1px 2px 0px rgba(16, 24, 40, 0.05),
-                0px 0px 0px 1px $primary-nav-link;
+        .cursor-pointer {
+            cursor: pointer;
         }
-    }
-
-    .cursor-pointer {
-        cursor: pointer;
     }
 }
 
 .disabled {
     background-color: $gray-200 !important;
+    border-color: $gray-200 !important;
+    cursor: not-allowed;
 
     &:hover {
-        border: 1px solid $gray-200 !important;
+        border-color: $gray-200 !important;
+        box-shadow: none !important;
     }
 }

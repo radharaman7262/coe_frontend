@@ -13,7 +13,7 @@ const Login = ({ openLoginDrawer }: LoginPropsType) => {
 
     return (
         <>
-            <LoginForm />
+            <LoginForm openLoginDrawer={openLoginDrawer} />
             <Toaster />
         </>
     );

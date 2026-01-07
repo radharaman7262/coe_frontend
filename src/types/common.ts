@@ -15,6 +15,13 @@ export type GraphValues = {
     };
 };
 
+export enum HTTP_METHOD {
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    DELETE = 'DELETE',
+}
+
 export interface PaginationType {
     page: string;
     limit?: string;

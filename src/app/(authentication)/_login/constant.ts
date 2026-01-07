@@ -1,3 +1,6 @@
+import { PASSWORD_MAX_LENGTH, USER_NAME_MAX_LENGTH } from "@/constant/appConstants";
+import { SignInFormKeys } from "@/types/signInFormType";
+
 export const LOGIN_PAGE_DATA = {
     heading: 'Admin',
     dashboardLogin: 'Dashboard Login',
@@ -14,4 +17,9 @@ export const LOGIN_PAGE_DATA = {
 
 export const BUTTON_TEXT = {
     login: 'Login',
+};
+
+export const MAX_LENGTHS = {
+    [SignInFormKeys.NAME]: USER_NAME_MAX_LENGTH,
+    [SignInFormKeys.PASSWORD]: PASSWORD_MAX_LENGTH,
 };

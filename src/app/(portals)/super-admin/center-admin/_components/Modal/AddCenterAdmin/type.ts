@@ -1,6 +1,10 @@
+import React from 'react';
+
 export interface AddCenterAdminProps {
     open: boolean;
     setOpen: (state: boolean) => void;
+    formValues: FormValues;
+    setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
 }
 
 export type SpecializationType = {

@@ -22,3 +22,5 @@ export const USER_NAME_MIN_LENGTH = 10;
 export const PASSWORD_MAX_LENGTH = 30;
 
 export const USER_NAME_MAX_LENGTH = 50;
+
+export const DEBOUNCE_SEARCH_TIME = 1500;

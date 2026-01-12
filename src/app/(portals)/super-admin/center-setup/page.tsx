@@ -1,7 +1,6 @@
 import React from 'react';
 
-const CenterSetup = () => {
-    console.warn('hello SuperAdmin CenterSetup');
-    return <>Hello SuperAdmin Center Setup</>;
-};
+import CenterSetupPage from './_components';
+
+const CenterSetup = () => <CenterSetupPage />;
 export default CenterSetup;

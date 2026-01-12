@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 import Modal from '@/components/shared/Modal';
 
@@ -14,7 +14,6 @@ import { KeyboardEvent } from '@/constant/enumConstant';
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
 import {
-    INITIAL_STATE as initialValues,
     EMPTY_OPTIONS,
     CENTER_ADMIN_TEXT as text,
     CENTER_LIST,
@@ -25,13 +24,11 @@ import { AddCenterAdminProps, CenterType, FormField, FormValues, SpecializationT
 
 import styles from './styles.module.scss';
 
-const AddCenterAdmin = ({ open, setOpen }: AddCenterAdminProps) => {
+const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterAdminProps) => {
     const firstNameRef = useRef<HTMLInputElement | null>(null);
     const lastNameRef = useRef<HTMLInputElement | null>(null);
     const phoneNoRef = useRef<HTMLInputElement | null>(null);
     const emailIdRef = useRef<HTMLInputElement | null>(null);
-
-    const [formValues, setFormValues] = useState<FormValues>(initialValues);
 
     const INPUT_MAPPING: Record<string, React.RefObject<HTMLInputElement | null>> = {
         [FormField?.FIRST_NAME]: lastNameRef,

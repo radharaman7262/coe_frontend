@@ -1,0 +1,15 @@
+@use '@styles/theme' as *;
+
+.search-bar {
+    width: 25%;
+}
+
+.table-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .clear-text {
+        cursor: pointer;
+    }
+}

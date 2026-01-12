@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 import { Button, Dropdown, Input, Text } from '@/components';
 
@@ -13,24 +13,16 @@ import { MODAL_STYLING } from '@/constant/appConstants';
 
 import { KeyboardEvent } from '@/constant/enumConstant';
 
-import { DROPDOWN_LIST, NEW_CENTRE_TEXT as title } from './constant';
+import { DROPDOWN_LIST,INITIAL_STATE as initialState, NEW_CENTRE_TEXT as title } from './constant';
 
 import { AddNewCentreProps, AdminType, FormField, FormValues } from './type';
 
 import styles from './styles.module.scss';
 
-const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
+const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentreProps) => {
     const centerNameRef = useRef<HTMLInputElement | null>(null);
     const addressRef = useRef<HTMLInputElement | null>(null);
     const contactRef = useRef<HTMLInputElement | null>(null);
-
-    const [formValues, setFormValues] = useState<FormValues>({
-        centerName: '',
-        address: '',
-        contactDetails: '',
-        selectedAdmin: null,
-        searchFilter: '',
-    });
 
     const INPUT_MAPPING: Record<string, React.RefObject<HTMLInputElement | null>> = {
         [FormField?.CENTER_NAME]: addressRef,
@@ -77,6 +69,16 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
 
     const handleAdminSelect = (item: AdminType | null) => {
         updateFormValue(FormField.SELECTED_ADMIN, item);
+    };
+
+    const handleCancel = () => {
+        setFormValues(initialState);
+        setOpen(false);
+    };
+
+    const handleSubmit = () => {
+        setFormValues(initialState);
+        setOpen(false);
     };
 
     return (
@@ -170,7 +172,7 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
                     <Button
                         label={title.cancel}
                         variant={ButtonVariant.NORMAL}
-                        onClick={() => setOpen(false)}
+                        onClick={handleCancel}
                         color='black'
                     />
                     <Button
@@ -180,6 +182,7 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
                         StartIcon={<PlusIcon />}
                         className={styles.button}
                         disabled={isCreateDisabled}
+                        onClick={handleSubmit}
                     />
                 </div>
             </div>

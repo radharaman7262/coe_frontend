@@ -13,7 +13,13 @@ export const NEW_CENTRE_TEXT = {
     createCenter: 'Create Center',
 };
 
-export const EMPTY_OPTIONS: [] = [];
+export const INITIAL_STATE = {
+    centerName: '',
+    address: '',
+    contactDetails: '',
+    selectedAdmin: null,
+    searchFilter: '',
+};
 
 export const DROPDOWN_LIST = [
     { id: 1, name: 'Ishan Verma' },

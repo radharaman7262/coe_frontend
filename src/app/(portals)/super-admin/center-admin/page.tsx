@@ -1,7 +1,6 @@
 import React from 'react';
 
-const CenterAdmin = () => {
-    console.warn('hello SuperAdmin CenterSetup');
-    return <>Hello SuperAdmin Center Admin</>;
-};
+import CenterAdminPage from './_components';
+
+const CenterAdmin = () => <CenterAdminPage />;
 export default CenterAdmin;

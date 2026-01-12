@@ -22,6 +22,7 @@
         "prepare": "husky install",
         "pre-commit": "lint-staged",
         "lint:styles": "stylelint \"**/*.{css,scss}\" --quiet",
+        "lint": "eslint . --ext ts --ext tsx --ext js",
         "lint:styles:fix": "stylelint \"**/*.{css,scss}\" --fix"
     },
     "lint-staged": {
@@ -63,8 +64,8 @@
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
-        "@typescript-eslint/eslint-plugin": "^8.29.1",
-        "@typescript-eslint/parser": "^8.29.1",
+        "@typescript-eslint/eslint-plugin": "^8.52.0",
+        "@typescript-eslint/parser": "^8.52.0",
         "env-cmd": "^10.1.0",
         "eslint": "^9.24.0",
         "eslint-config-airbnb": "^19.0.4",

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export enum FormField {
     CENTER_NAME = 'centerName',
     ADDRESS = 'address',
@@ -5,12 +7,6 @@ export enum FormField {
     SELECTED_ADMIN = 'selectedAdmin',
     SEARCH_FILTER = 'searchFilter',
 }
-
-export interface AddNewCentreProps {
-    open: boolean;
-    setOpen: (state: boolean) => void;
-}
-
 export type AdminType = {
     id: number;
     name: string;
@@ -22,4 +18,10 @@ export interface FormValues {
     contactDetails: string;
     selectedAdmin: AdminType | null;
     searchFilter: string;
+}
+export interface AddNewCentreProps {
+    open: boolean;
+    setOpen: (state: boolean) => void;
+    formValues: FormValues;
+    setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
 }

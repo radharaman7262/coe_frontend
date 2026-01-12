@@ -2,7 +2,7 @@
  * @file
  * Table component
  */
-import React, { memo } from 'react';
+import React, { memo, ReactNode } from 'react';
 
 import cx from 'classnames';
 
@@ -85,9 +85,10 @@ interface AdminTablePropsType {
     /**
      * Minimize Maximize icon Collapse
      */
-    collapseOpen?: boolean;
 
-    tableBodyTextColor?: ColorVariant
+    tableBodyTextColor?: ColorVariant;
+
+    children?: ReactNode;
 }
 
 const AdminTable = (props: AdminTablePropsType) => {
@@ -108,13 +109,14 @@ const AdminTable = (props: AdminTablePropsType) => {
         baseTableClassName,
         handleClickOnCount,
         tableClassName,
-        collapseOpen = true,
         tableBodyTextColor,
+        children,
     } = props;
 
     return (
-        <div className={cx(styles.wrapper, tableClassName)}>
-            {collapseOpen && (
+        <div className={styles['body-argument']}>
+            {children}
+            <div className={cx(styles.wrapper, tableClassName)}>
                 <div>
                     <BaseTable
                         columns={columns}
@@ -141,7 +143,7 @@ const AdminTable = (props: AdminTablePropsType) => {
                         </div>
                     ) : null}
                 </div>
-            )}
+            </div>
         </div>
     );
 };

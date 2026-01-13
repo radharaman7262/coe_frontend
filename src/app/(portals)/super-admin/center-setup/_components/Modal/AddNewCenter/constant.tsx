@@ -1,3 +1,5 @@
+import { CenterSetupFormKeys } from './type';
+
 export const NEW_CENTRE_TEXT = {
     addNewCenter: 'Add New Center',
     centerName: 'Center Name',
@@ -14,11 +16,11 @@ export const NEW_CENTRE_TEXT = {
 };
 
 export const INITIAL_STATE = {
-    centerName: '',
-    address: '',
-    contactDetails: '',
-    selectedAdmin: null,
-    searchFilter: '',
+    [CenterSetupFormKeys.CENTER_NAME]: '',
+    [CenterSetupFormKeys.ADDRESS]: '',
+    [CenterSetupFormKeys.CONTACT_DETAILS]: '',
+    [CenterSetupFormKeys.SELECTED_ADMIN]: null,
+    [CenterSetupFormKeys.SEARCH_FILTER]: '',
 };
 
 export const DROPDOWN_LIST = [

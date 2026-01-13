@@ -1,7 +1,6 @@
 import React from 'react';
 
-const MenuMaster = () => {
-    console.warn('Menu Master');
-    return <>Menu Master</>;
-};
+import MenuMasterPage from './_components';
+
+const MenuMaster = () => <MenuMasterPage />;
 export default MenuMaster;

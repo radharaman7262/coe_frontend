@@ -1,7 +1,6 @@
 import React from 'react';
 
-const MenuMapping = () => {
-    console.warn('Menu Mapping');
-    return <>Menu Mapping</>;
-};
+import MenuMappingPage from './_components';
+
+const MenuMapping = () => <MenuMappingPage />;
 export default MenuMapping;

@@ -1,16 +1,14 @@
 @use '@styles/theme' as *;
 
 .main-container {
-    display: flex;
+    @include flex-center(normal, normal, normal, 16px);
     padding: 16px;
-    gap: 16px;
 
     .left-section {
         width: 76%;
 
         .tracker-overview-wrapper {
-            display: flex;
-            gap: 12px;
+            @include flex-center(normal, normal, normal, 12px);
             margin-top: 12px;
         }
     }

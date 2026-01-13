@@ -5,12 +5,16 @@ import React, { useEffect, useState } from 'react';
 import { PageHeader } from '@/components/index';
 
 import useDebounce from '@/utils/useDebounce';
+
 import { DEBOUNCE_SEARCH_TIME } from '@/constant/appConstants';
-import TableUi from './TableUi';
+
+import { INITIAL_STATE as initialState } from './Modal/AddCenterAdmin/constant';
+
+import { FormValues } from './Modal/AddCenterAdmin/type';
 
 import AddCenterAdmin from './Modal/AddCenterAdmin';
-import { FormValues } from './Modal/AddCenterAdmin/type';
-import { INITIAL_STATE as initialState } from './Modal/AddCenterAdmin/constant';
+
+import TableUi from './TableUi';
 
 import { CENTERADMIN_TEXT as text } from './constant';
 

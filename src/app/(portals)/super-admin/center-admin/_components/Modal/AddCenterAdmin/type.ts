@@ -27,7 +27,7 @@ export interface FormValues {
     searchFilter: string;
 }
 
-export enum FormField {
+export enum CenterAdminFormKeys {
     FIRST_NAME = 'firstName',
     LAST_NAME = 'lastName',
     PHONE_NO = 'phoneNo',
@@ -36,3 +36,18 @@ export enum FormField {
     SELECTED_CENTER = 'selectedCenter',
     SEARCH_FILTER = 'searchFilter',
 }
+type StringOnlyCenterAdminFormKeys = Exclude<
+    CenterAdminFormKeys,
+    CenterAdminFormKeys.SELECTED_SPECIALIZATION
+>;
+
+type StringFieldMap = {
+    [key in StringOnlyCenterAdminFormKeys]: string;
+};
+
+export type CenterAdminFormType = StringFieldMap & {
+    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: SpecializationType | null;
+};
+export type CenterAdminFormErrorType = {
+    [key in CenterAdminFormKeys]?: string;
+};

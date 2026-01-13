@@ -8,12 +8,13 @@ import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
 import { ZERO_DATA } from '@/constant/appConstants';
 
+import CompilenceTrackerProgress from './CompilenceTrackerProgress';
+
 import { DashboardTrackerData } from './type';
 
 import { TRACKER_TEXT as text } from './constant';
 
 import styles from './styles.module.scss';
-import CompilenceTrackerProgress from './CompilenceTrackerProgress';
 
 interface CompilenceTrackerProps {
     data: DashboardTrackerData[];
@@ -53,7 +54,7 @@ const CompilenceTracker = (props: CompilenceTrackerProps) => {
                         </Text>
                     </div>
                 ) : (
-                    data?.map((item) => <CompilenceTrackerProgress item={item} />)
+                    data?.map((item) => <CompilenceTrackerProgress key={item.id} item={item} />)
                 )}
             </div>
         </div>

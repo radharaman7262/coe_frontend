@@ -1,12 +1,10 @@
 @use '@styles/theme' as *;
 
 .overview-wrapper {
-    display: flex;
+    @include flex-center(column, normal, normal, 16px);
     width: 50%;
     height: 64vh;
     padding: 13px 15px;
-    flex-direction: column;
-    gap: 16px;
     border-radius: 12px;
     background-color: $white;
     box-shadow:
@@ -18,10 +16,7 @@
     }
 
     .overview-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 13px;
+        @include flex-center(normal, space-between, center, 13px);
 
         .btn-class {
             padding: 6px 10px;
@@ -32,9 +27,7 @@
     }
 
     .no-data {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-center(normal, center, center);
         margin-top: 50%;
     }
 }

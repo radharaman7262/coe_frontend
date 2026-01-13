@@ -5,9 +5,7 @@
 }
 
 .table-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    @include flex-center(normal, normal, center, 12px);
 
     .clear-text {
         cursor: pointer;

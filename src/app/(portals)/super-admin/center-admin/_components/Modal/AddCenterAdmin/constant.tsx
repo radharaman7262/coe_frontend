@@ -1,3 +1,5 @@
+import { CenterAdminFormKeys } from './type';
+
 export const CENTER_ADMIN_TEXT = {
     addCenterAdmin: 'Add center admin',
     firstName: 'First Name',
@@ -35,11 +37,11 @@ export const CENTER_LIST = [
 ];
 
 export const INITIAL_STATE = {
-    firstName: '',
-    lastName: '',
-    phoneNo: '',
-    emailId: '',
-    selectedSpecialization: null,
-    selectedCenter: null,
-    searchFilter: '',
+    [CenterAdminFormKeys.FIRST_NAME]: '',
+    [CenterAdminFormKeys.LAST_NAME]: '',
+    [CenterAdminFormKeys.PHONE_NO]: '',
+    [CenterAdminFormKeys.EMAIL_ID]: '',
+    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: null,
+    [CenterAdminFormKeys.SELECTED_CENTER]: null,
+    [CenterAdminFormKeys.SEARCH_FILTER]: '',
 };

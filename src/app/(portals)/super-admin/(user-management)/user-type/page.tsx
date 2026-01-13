@@ -1,7 +1,6 @@
 import React from 'react';
 
-const UserTypeMaster = () => {
-    console.warn('user type');
-    return <>User Type Master</>;
-};
-export default UserTypeMaster;
+import UserTypePage from './_components';
+
+const UserType = () => <UserTypePage />;
+export default UserType;

@@ -1,8 +1,12 @@
 import { Text } from '@/components/index';
+
 import LinearProgressBar from '@/components/shared/LinearProgressBar';
+
 import { FontType } from '@/types/typographyCommon';
-import styles from './styles.module.scss';
+
 import { DashboardTrackerData } from './type';
+
+import styles from './styles.module.scss';
 
 interface CompilenceTrackerProgressProps {
     item: DashboardTrackerData;

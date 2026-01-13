@@ -13,6 +13,8 @@ import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
+import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
+
 import {
     EMPTY_OPTIONS,
     CENTER_ADMIN_TEXT as text,
@@ -20,7 +22,13 @@ import {
     SPECIALIZATION_LIST,
 } from './constant';
 
-import { AddCenterAdminProps, CenterType, FormField, FormValues, SpecializationType } from './type';
+import {
+    AddCenterAdminProps,
+    CenterAdminFormKeys,
+    CenterType,
+    FormValues,
+    SpecializationType,
+} from './type';
 
 import styles from './styles.module.scss';
 
@@ -31,9 +39,9 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
     const emailIdRef = useRef<HTMLInputElement | null>(null);
 
     const INPUT_MAPPING: Record<string, React.RefObject<HTMLInputElement | null>> = {
-        [FormField?.FIRST_NAME]: lastNameRef,
-        [FormField?.LAST_NAME]: phoneNoRef,
-        [FormField?.PHONE_NO]: emailIdRef,
+        [CenterAdminFormKeys.FIRST_NAME]: lastNameRef,
+        [CenterAdminFormKeys.LAST_NAME]: phoneNoRef,
+        [CenterAdminFormKeys.PHONE_NO]: emailIdRef,
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -52,27 +60,27 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
     const filteredSpecialization = useMemo(
         () =>
             SPECIALIZATION_LIST.filter((admin) =>
-                admin?.name.toLowerCase().includes(formValues?.searchFilter.toLowerCase()),
+                admin?.name.toLowerCase().includes(formValues.searchFilter.toLowerCase()),
             ),
-        [formValues?.searchFilter],
+        [formValues.searchFilter],
     );
 
     const filteredCenter = useMemo(
         () =>
-            CENTER_LIST.filter((admin) =>
-                admin?.name.toLowerCase().includes(formValues?.searchFilter.toLowerCase()),
+            CENTER_LIST?.filter((admin) =>
+                admin?.name.toLowerCase().includes(formValues.searchFilter.toLowerCase()),
             ),
-        [formValues?.searchFilter],
+        [formValues.searchFilter],
     );
 
     const isCreateDisabled =
-        !formValues?.firstName.trim() ||
-        !formValues?.lastName.trim() ||
-        !formValues?.emailId.trim() ||
-        !formValues?.phoneNo.trim() ||
-        formValues?.selectedSpecialization === null;
+        !formValues.firstName?.trim() ||
+        !formValues.lastName?.trim() ||
+        !formValues.emailId?.trim() ||
+        !formValues.phoneNo?.trim() ||
+        !formValues.selectedSpecialization;
 
-    const updateFormValue = <K extends FormField>(key: K, value: FormValues[K]) => {
+    const updateFormValue = <K extends CenterAdminFormKeys>(key: K, value: FormValues[K]) => {
         setFormValues((prev) => ({
             ...prev,
             [key]: value,
@@ -80,16 +88,18 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
     };
 
     const handleChange =
-        (field: FormField) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            updateFormValue(field, e.target.value);
+        (field: CenterAdminFormKeys) =>
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            const value = e.target.value.replace(NO_LEADING_SPACES_REGEX, '');
+            updateFormValue(field, value);
         };
 
     const handleSpecializationSelect = (item: SpecializationType | null) => {
-        updateFormValue(FormField.SELECTED_SPECIALIZATION, item);
+        updateFormValue(CenterAdminFormKeys.SELECTED_SPECIALIZATION, item);
     };
 
     const handleCenterSelect = (item: CenterType | null) => {
-        updateFormValue(FormField.SELECTED_CENTER, item);
+        updateFormValue(CenterAdminFormKeys.SELECTED_CENTER, item);
     };
 
     return (
@@ -112,10 +122,10 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                             </Text>
                             <Input
                                 ref={firstNameRef}
-                                value={formValues?.firstName}
-                                name={FormField?.FIRST_NAME}
+                                value={formValues[CenterAdminFormKeys.FIRST_NAME]}
+                                name={CenterAdminFormKeys.FIRST_NAME}
                                 placeholder={text.enterHere}
-                                onChange={handleChange(FormField?.FIRST_NAME)}
+                                onChange={handleChange(CenterAdminFormKeys.FIRST_NAME)}
                                 onKeyDown={handleKeyDown}
                             />
                         </div>
@@ -129,10 +139,10 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                             </Text>
                             <Input
                                 ref={lastNameRef}
-                                value={formValues?.lastName}
-                                name={FormField?.LAST_NAME}
+                                value={formValues[CenterAdminFormKeys.LAST_NAME]}
+                                name={CenterAdminFormKeys.LAST_NAME}
                                 placeholder={text.enterHere}
-                                onChange={handleChange(FormField?.LAST_NAME)}
+                                onChange={handleChange(CenterAdminFormKeys.LAST_NAME)}
                                 onKeyDown={handleKeyDown}
                             />
                         </div>
@@ -148,10 +158,10 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                             </Text>
                             <Input
                                 ref={phoneNoRef}
-                                value={formValues?.phoneNo}
-                                name={FormField?.PHONE_NO}
+                                value={formValues[CenterAdminFormKeys.PHONE_NO]}
+                                name={CenterAdminFormKeys.PHONE_NO}
                                 placeholder={text.enterHere}
-                                onChange={handleChange(FormField?.PHONE_NO)}
+                                onChange={handleChange(CenterAdminFormKeys.PHONE_NO)}
                                 onKeyDown={handleKeyDown}
                             />
                         </div>
@@ -165,10 +175,10 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                             </Text>
                             <Input
                                 ref={emailIdRef}
-                                value={formValues?.emailId}
-                                name={FormField?.EMAIL_ID}
+                                value={formValues[CenterAdminFormKeys.EMAIL_ID]}
+                                name={CenterAdminFormKeys.EMAIL_ID}
                                 placeholder={text.enterHere}
-                                onChange={handleChange(FormField?.EMAIL_ID)}
+                                onChange={handleChange(CenterAdminFormKeys.EMAIL_ID)}
                                 onKeyDown={handleKeyDown}
                             />
                         </div>
@@ -202,9 +212,9 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                                 label={text.selectSpecialization}
                                 options={filteredSpecialization}
                                 selectValue='name'
-                                value={formValues?.selectedSpecialization}
-                                searchFilter={formValues?.searchFilter}
-                                handleSearch={handleChange(FormField?.SEARCH_FILTER)}
+                                value={formValues[CenterAdminFormKeys.SELECTED_SPECIALIZATION]}
+                                searchFilter={formValues[CenterAdminFormKeys.SEARCH_FILTER]}
+                                handleSearch={handleChange(CenterAdminFormKeys.SEARCH_FILTER)}
                                 onChange={handleSpecializationSelect}
                                 searchStartIcon={SearchIcon}
                             />
@@ -221,9 +231,9 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                             label={text.selectCenter}
                             options={filteredCenter}
                             selectValue='name'
-                            value={formValues?.selectedCenter}
-                            searchFilter={formValues?.searchFilter}
-                            handleSearch={handleChange(FormField?.SEARCH_FILTER)}
+                            value={formValues[CenterAdminFormKeys.SELECTED_CENTER]}
+                            searchFilter={formValues[CenterAdminFormKeys.SEARCH_FILTER]}
+                            handleSearch={handleChange(CenterAdminFormKeys.SEARCH_FILTER)}
                             onChange={handleCenterSelect}
                             searchStartIcon={SearchIcon}
                         />

@@ -13,20 +13,22 @@ import { MODAL_STYLING } from '@/constant/appConstants';
 
 import { KeyboardEvent } from '@/constant/enumConstant';
 
-import { DROPDOWN_LIST,INITIAL_STATE as initialState, NEW_CENTRE_TEXT as title } from './constant';
+import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
 
-import { AddNewCentreProps, AdminType, FormField, FormValues } from './type';
+import { DROPDOWN_LIST, INITIAL_STATE as initialState, NEW_CENTRE_TEXT as title } from './constant';
+
+import { AddNewCentreProps, AdminType, CenterSetupFormKeys, FormValues } from './type';
 
 import styles from './styles.module.scss';
 
-const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentreProps) => {
+const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentreProps) => {
     const centerNameRef = useRef<HTMLInputElement | null>(null);
     const addressRef = useRef<HTMLInputElement | null>(null);
     const contactRef = useRef<HTMLInputElement | null>(null);
 
     const INPUT_MAPPING: Record<string, React.RefObject<HTMLInputElement | null>> = {
-        [FormField?.CENTER_NAME]: addressRef,
-        [FormField?.ADDRESS]: contactRef,
+        [CenterSetupFormKeys.CENTER_NAME]: addressRef,
+        [CenterSetupFormKeys.ADDRESS]: contactRef,
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -44,18 +46,18 @@ const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentr
 
     const filteredAdmins = useMemo(
         () =>
-            DROPDOWN_LIST.filter((admin) =>
-                admin.name.toLowerCase().includes(formValues?.searchFilter.toLowerCase()),
+            DROPDOWN_LIST?.filter((admin) =>
+                admin?.name.toLowerCase().includes(formValues.searchFilter.toLowerCase()),
             ),
-        [formValues?.searchFilter],
+        [formValues.searchFilter],
     );
 
     const isCreateDisabled =
-        !formValues?.centerName.trim() ||
-        !formValues?.address.trim() ||
-        !formValues?.contactDetails.trim();
+        !formValues.centerName?.trim() ||
+        !formValues.address?.trim() ||
+        !formValues.contactDetails?.trim();
 
-    const updateFormValue = <K extends FormField>(key: K, value: FormValues[K]) => {
+    const updateFormValue = <K extends CenterSetupFormKeys>(key: K, value: FormValues[K]) => {
         setFormValues((prev) => ({
             ...prev,
             [key]: value,
@@ -63,12 +65,14 @@ const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentr
     };
 
     const handleChange =
-        (field: FormField) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            updateFormValue(field, e.target.value);
+        (field: CenterSetupFormKeys) =>
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            const value = e.target.value.replace(NO_LEADING_SPACES_REGEX, '');
+            updateFormValue(field, value);
         };
 
     const handleAdminSelect = (item: AdminType | null) => {
-        updateFormValue(FormField.SELECTED_ADMIN, item);
+        updateFormValue(CenterSetupFormKeys.SELECTED_ADMIN, item);
     };
 
     const handleCancel = () => {
@@ -101,10 +105,10 @@ const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentr
                         </Text>
                         <Input
                             ref={centerNameRef}
-                            value={formValues?.centerName}
-                            name={FormField?.CENTER_NAME}
+                            value={formValues[CenterSetupFormKeys.CENTER_NAME]}
+                            name={CenterSetupFormKeys.CENTER_NAME}
                             placeholder={title.enterCenterName}
-                            onChange={handleChange(FormField?.CENTER_NAME)}
+                            onChange={handleChange(CenterSetupFormKeys.CENTER_NAME)}
                             onKeyDown={handleKeyDown}
                         />
                     </div>
@@ -118,10 +122,10 @@ const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentr
                         </Text>
                         <Input
                             ref={addressRef}
-                            value={formValues?.address}
-                            name={FormField?.ADDRESS}
+                            value={formValues[CenterSetupFormKeys.ADDRESS]}
+                            name={CenterSetupFormKeys.ADDRESS}
                             placeholder={title.enterFullAddressHere}
-                            onChange={handleChange(FormField?.ADDRESS)}
+                            onChange={handleChange(CenterSetupFormKeys.ADDRESS)}
                             onKeyDown={handleKeyDown}
                         />
                     </div>
@@ -135,10 +139,10 @@ const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentr
                         </Text>
                         <Input
                             ref={contactRef}
-                            value={formValues?.contactDetails}
-                            name={FormField?.CONTACT_DETAILS}
+                            value={formValues[CenterSetupFormKeys.CONTACT_DETAILS]}
+                            name={CenterSetupFormKeys.CONTACT_DETAILS}
                             placeholder={title.enterContactDetails}
-                            onChange={handleChange(FormField?.CONTACT_DETAILS)}
+                            onChange={handleChange(CenterSetupFormKeys.CONTACT_DETAILS)}
                             onKeyDown={handleKeyDown}
                         />
                     </div>
@@ -153,9 +157,9 @@ const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentr
                             label={title.selectCenterAdmin}
                             options={filteredAdmins}
                             selectValue='name'
-                            value={formValues?.selectedAdmin}
-                            searchFilter={formValues?.searchFilter}
-                            handleSearch={handleChange(FormField?.SEARCH_FILTER)}
+                            value={formValues[CenterSetupFormKeys.SELECTED_ADMIN]}
+                            searchFilter={formValues[CenterSetupFormKeys.SEARCH_FILTER]}
+                            handleSearch={handleChange(CenterSetupFormKeys.SEARCH_FILTER)}
                             onChange={handleAdminSelect}
                             searchStartIcon={SearchIcon}
                         />
@@ -173,7 +177,7 @@ const AddNewCentre = ({ open, setOpen , formValues, setFormValues }: AddNewCentr
                         label={title.cancel}
                         variant={ButtonVariant.NORMAL}
                         onClick={handleCancel}
-                        color='black'
+                        color='gray-600'
                     />
                     <Button
                         label={title.createCenter}

@@ -1,0 +1,33 @@
+@use '@styles/theme' as *;
+
+.container {
+    background-color: $white;
+    overflow: hidden;
+
+    .header {
+        @include flex-center(column, normal, normal, 16px);
+        padding: 16px 24px;
+        border-bottom: 1px solid $gray-50;
+        width: 428px;
+    }
+
+    .body {
+        @include flex-center(column, normal, normal, 6px);
+    }
+
+    .forceUp {
+        position: relative;
+        bottom: 50%;
+    }
+
+    .footer {
+        @include flex-center(normal, flex-end, normal, 14px);
+        padding: 16px 24px;
+        border-top: 1px solid $gray-250;
+
+        .button {
+            border-radius: 8px;
+            padding: 10px 16px;
+        }
+    }
+}

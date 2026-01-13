@@ -2,33 +2,33 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { PageHeader } from '@/components/index';
-import { DEBOUNCE_SEARCH_TIME } from '@/constant/appConstants';
+import { NoDataContainer, PageHeader } from '@/components/index';
 
-import useDebounce from '@/utils/useDebounce';
+import CloudIcon from '@/public/assets/svg/cloud-no-data.svg';
 
-import TableUi from './TableUi';
+import { INITIAL_STATE as initialState } from './Modal/AddNewCenter/constant';
 
 import { FormValues } from './Modal/AddNewCenter/type';
+
 import AddNewCentre from './Modal/AddNewCenter';
-import { INITIAL_STATE as initialState } from './Modal/AddNewCenter/constant';
+
 import { NEW_CENTRE_TEXT as text } from './constant';
 
 const CenterSetupPage = () => {
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    // const [currentPage, setCurrentPage] = useState<number>(1);
 
     const [addNewCenterModal, setAddNewCenterModal] = useState<boolean>(false);
 
     const [formValues, setFormValues] = useState<FormValues>(initialState);
 
-    const [tableFilter, setTableFilter] = useState<string>('');
+    // const [tableFilter, setTableFilter] = useState<string>('');
 
     const handleAddNewCenter = () => {
         setFormValues(initialState);
         setAddNewCenterModal(true);
     };
 
-    const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
+    // const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
     const getCenterSetupData = () => {
         // Api Call here
@@ -36,7 +36,7 @@ const CenterSetupPage = () => {
 
     useEffect(() => {
         getCenterSetupData();
-    }, [debouncedFilters]);
+    }, []);
 
     return (
         <>
@@ -52,11 +52,17 @@ const CenterSetupPage = () => {
                 buttonLabel={text.createCenter}
                 onButtonClick={handleAddNewCenter}
             />
-            <TableUi
+            {/* <TableUi
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 setTableFilter={setTableFilter}
                 tableFilter={tableFilter}
+            /> */}
+
+            <NoDataContainer
+                Icon={<CloudIcon />}
+                title='No Center added yet'
+                description='Add user type to get started with viewing and managing them here.'
             />
         </>
     );

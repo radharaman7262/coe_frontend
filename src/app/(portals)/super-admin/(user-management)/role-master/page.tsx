@@ -1,7 +1,6 @@
 import React from 'react';
 
-const RoleMaster = () => {
-    console.warn('role master');
-    return <>Role Master</>;
-};
+import RoleMasterPage from './_components';
+
+const RoleMaster = () => <RoleMasterPage />;
 export default RoleMaster;

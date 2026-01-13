@@ -1,6 +1,5 @@
 @use '@styles/theme' as *;
 
 .grid-layout {
-    display: flex;
-    gap: 12px;
+    @include flex-center(normal, normal, normal, 12px);
 }

@@ -6,7 +6,7 @@ import SearchIcon from '@/public/assets/svg/search-icon.svg';
 
 import { FontType } from '@/types/typographyCommon';
 
-import { COLUMNS as constantColumns } from './constant';
+import { COLUMNS as constantColumns, NEW_CENTRE_TEXT as text } from './constant';
 
 import styles from './styles.module.scss';
 
@@ -53,7 +53,7 @@ const TableUi = (props: tableUiProps) => {
                 <Input
                     name='search'
                     value={tableFilter}
-                    placeholder='Search name or Unique ID'
+                    placeholder={text.searchNameOrUniqueId}
                     inputBaseClass={styles['search-bar']}
                     onChange={handleSearchFilter}
                     StartAdornment={SearchIcon}
@@ -65,7 +65,7 @@ const TableUi = (props: tableUiProps) => {
                     className={styles['clear-text']}
                     onClick={handleClear}
                 >
-                    Clear
+                    {text.clear}
                 </Text>
             </div>
         </Table>

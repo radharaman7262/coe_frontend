@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { MenuItem } from './constant';
 
-import SidebarItem from './SidebarItem';
+import SidebarItem from './DashboardSidebardItem';
 
 import styles from './styles.module.scss';
 
@@ -21,9 +21,9 @@ export const SidebarDropdown = ({ menu }: { menu: MenuItem }) => {
         }
     };
 
-    useEffect(()=>{
-        setHasChildrenState(false)
-    },[])
+    useEffect(() => {
+        setHasChildrenState(false);
+    }, []);
 
     const childrenLength = menu?.children?.length || 0;
 
@@ -38,7 +38,7 @@ export const SidebarDropdown = ({ menu }: { menu: MenuItem }) => {
                 <SidebarItem
                     label={menu.menuName}
                     icon={menu.menuIcon}
-                    showIcon = {childrenLength}
+                    showIcon={childrenLength}
                     open={open}
                 />
             </div>

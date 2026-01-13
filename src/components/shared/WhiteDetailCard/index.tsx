@@ -30,4 +30,5 @@ const WhiteDetailCard = (props: WhiteDetailType) => {
         </div>
     );
 };
+
 export default WhiteDetailCard;

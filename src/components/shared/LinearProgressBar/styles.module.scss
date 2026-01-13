@@ -1,0 +1,24 @@
+@use '@styles/theme' as *;
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.progress-bar {
+    flex: 1;
+    background-color: $text-bg-gray;
+    height: 8px;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background-color: $bar-graph;
+    height: 100%;
+    transition: width 0.3s ease;
+    border-radius: 12px 0 0 12px;
+}

@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
-import { SmallTableHeaderType, TableDataType } from '@/types/TableType';
+import { SmallTableHeaderType } from '@/types/TableType';
 
 import { Text } from '@components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
+import { DashboardOverviewData } from '@/app/(portals)/super-admin/dashboard/_components/CenterUserOverView/type';
+
 import styles from './styles.module.scss';
 
 interface SmallTableBodyProps {
     columns: SmallTableHeaderType[];
-    data: TableDataType[];
+    data: DashboardOverviewData[];
 }
 
 const SmallTableBody = (props: SmallTableBodyProps) => {
@@ -52,8 +54,12 @@ const SmallTableBody = (props: SmallTableBodyProps) => {
                                 />
                             )}
                             <Text
-                                color='text-idle'
-                                font={[FontType.text_xxs_medium, FontType.text_xxs_medium]}
+                                color={index === 0 ? 'text-gray-900' : 'text-idle'}
+                                font={
+                                    index === 0
+                                        ? [FontType.text_xs_semibold, FontType.text_xs_semibold]
+                                        : [FontType.text_xs_regular, FontType.text_xs_regular]
+                                }
                             >
                                 {String(row[col.accessor])}
                             </Text>

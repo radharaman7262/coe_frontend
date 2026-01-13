@@ -4,8 +4,14 @@ export const NEW_CENTRE_TEXT = {
     address: 'Address',
     contactDetails: 'Contact Details',
     centerAdmin: 'Center Admin',
-    heyjustheads: 'Hey, just a heads up: you can totally add or swap out the center admin later!'
-}
+    heyjustheads: 'Hey, just a heads up: you can totally add or swap out the center admin later!',
+    enterCenterName: 'Enter Center Name',
+    enterFullAddressHere: 'Enter Full Address Here',
+    enterContactDetails: 'Enter Contact Details',
+    selectCenterAdmin: 'Select Center Admin',
+    cancel: 'Cancel',
+    createCenter: 'Create Center',
+};
 
 export const EMPTY_OPTIONS: [] = [];
 

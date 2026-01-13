@@ -4,10 +4,17 @@
     background-color: $white;
     padding: 13px 15px;
     border-radius: 12px;
-    min-width: 200px;
+    min-width: none;
     display: flex;
     gap: 13px;
     width: 100%;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.06),
+        0 8px 24px rgba(0, 0, 0, 0.12);
+
+    @include breakpoints('2xl') {
+        min-width: 200px;
+    }
 
     .text-wrapper {
         display: flex;

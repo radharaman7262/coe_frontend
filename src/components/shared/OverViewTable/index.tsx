@@ -2,14 +2,16 @@ import React from 'react';
 
 import { SmallTableTitle, SmallTableBody } from '@components/index';
 
-import { SmallTableHeaderType, TableDataType } from '@/types/TableType';
+import { SmallTableHeaderType } from '@/types/TableType';
+
+import { DashboardOverviewData } from '@/app/(portals)/super-admin/dashboard/_components/CenterUserOverView/type';
 
 import styles from './styles.module.scss';
 
 interface OverviewTableProps {
     title: string;
     columns: SmallTableHeaderType[];
-    data: TableDataType[];
+    data: DashboardOverviewData[];
     showAction?: boolean;
     actionLabel?: string;
 }
@@ -22,11 +24,7 @@ const OverviewTable = ({
     actionLabel,
 }: OverviewTableProps) => (
     <div className={styles.card}>
-        <SmallTableTitle
-            title={title}
-            showAction={showAction}
-            actionLabel={actionLabel}
-        />
+        <SmallTableTitle title={title} showAction={showAction} actionLabel={actionLabel} />
 
         <SmallTableBody columns={columns} data={data} />
     </div>

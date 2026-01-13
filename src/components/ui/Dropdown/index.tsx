@@ -1,6 +1,7 @@
 'use client';
 
 import React, { JSX, useEffect, useRef, useState } from 'react';
+
 import cx from 'classnames';
 
 import { CircularLoader, Text, ShimmerUiContainer, Input } from '@components/index';
@@ -39,6 +40,7 @@ const Dropdown = <T extends { selectValue: keyof T }>({
     shimmerLoader,
     shimmerClassName = '',
     className,
+    searchStartIcon,
     widthClassName,
     dropDownTitle,
     optionAreaHeight,
@@ -193,6 +195,7 @@ const Dropdown = <T extends { selectValue: keyof T }>({
                                         className={styles['search-input']}
                                         onChange={handleSearch}
                                         inputBaseClass={styles['input-base-class']}
+                                        StartAdornment={searchStartIcon}
                                     />
                                 </div>
                             )}

@@ -1,14 +1,17 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 
 import { Button, Dropdown, Input, Text } from '@/components';
 
 import Modal from '@/components/shared/Modal';
 
 import PlusIcon from '@/public/assets/svg/plus-icon.svg';
+import SearchIcon from '@/public/assets/svg/search-icon.svg';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import { MODAL_STYLING } from '@/constant/appConstants';
+
+import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { DROPDOWN_LIST, NEW_CENTRE_TEXT as title } from './constant';
 
@@ -17,6 +20,10 @@ import { AddNewCentreProps, AdminType, FormField, FormValues } from './type';
 import styles from './styles.module.scss';
 
 const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
+    const centerNameRef = useRef<HTMLInputElement | null>(null);
+    const addressRef = useRef<HTMLInputElement | null>(null);
+    const contactRef = useRef<HTMLInputElement | null>(null);
+
     const [formValues, setFormValues] = useState<FormValues>({
         centerName: '',
         address: '',
@@ -24,6 +31,24 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
         selectedAdmin: null,
         searchFilter: '',
     });
+
+    const INPUT_MAPPING: Record<string, React.RefObject<HTMLInputElement | null>> = {
+        [FormField?.CENTER_NAME]: addressRef,
+        [FormField?.ADDRESS]: contactRef,
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key !== KeyboardEvent.ENTER) return;
+
+        event.preventDefault();
+
+        const target = event.target as HTMLInputElement;
+        const nextRef = INPUT_MAPPING[target.name];
+
+        if (nextRef?.current) {
+            nextRef?.current.focus();
+        }
+    };
 
     const filteredAdmins = useMemo(
         () =>
@@ -73,10 +98,12 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
                             {title.centerName}
                         </Text>
                         <Input
+                            ref={centerNameRef}
                             value={formValues?.centerName}
-                            name='center name'
-                            placeholder='Enter Center Name'
+                            name={FormField?.CENTER_NAME}
+                            placeholder={title.enterCenterName}
                             onChange={handleChange(FormField?.CENTER_NAME)}
+                            onKeyDown={handleKeyDown}
                         />
                     </div>
                     <div className={styles.field}>
@@ -88,10 +115,12 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
                             {title.address}
                         </Text>
                         <Input
+                            ref={addressRef}
                             value={formValues?.address}
-                            name='address'
-                            placeholder='Enter Full Address Here'
+                            name={FormField?.ADDRESS}
+                            placeholder={title.enterFullAddressHere}
                             onChange={handleChange(FormField?.ADDRESS)}
+                            onKeyDown={handleKeyDown}
                         />
                     </div>
                     <div className={styles.field}>
@@ -103,10 +132,12 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
                             {title.contactDetails}
                         </Text>
                         <Input
+                            ref={contactRef}
                             value={formValues?.contactDetails}
-                            name='contact details'
-                            placeholder='Enter contact details'
+                            name={FormField?.CONTACT_DETAILS}
+                            placeholder={title.enterContactDetails}
                             onChange={handleChange(FormField?.CONTACT_DETAILS)}
+                            onKeyDown={handleKeyDown}
                         />
                     </div>
                     <div className={styles.field}>
@@ -117,13 +148,14 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
                             {title.centerAdmin}
                         </Text>
                         <Dropdown<AdminType>
-                            label='Select Center Admin'
+                            label={title.selectCenterAdmin}
                             options={filteredAdmins}
                             selectValue='name'
                             value={formValues?.selectedAdmin}
                             searchFilter={formValues?.searchFilter}
                             handleSearch={handleChange(FormField?.SEARCH_FILTER)}
                             onChange={handleAdminSelect}
+                            searchStartIcon={SearchIcon}
                         />
                     </div>
                     <Text
@@ -136,13 +168,13 @@ const AddNewCentre = ({ open, setOpen }: AddNewCentreProps) => {
 
                 <div className={styles.footer}>
                     <Button
-                        label='Cancel'
+                        label={title.cancel}
                         variant={ButtonVariant.NORMAL}
                         onClick={() => setOpen(false)}
                         color='black'
                     />
                     <Button
-                        label='Create Center'
+                        label={title.createCenter}
                         variant={ButtonVariant.SOLID}
                         color='white'
                         StartIcon={<PlusIcon />}

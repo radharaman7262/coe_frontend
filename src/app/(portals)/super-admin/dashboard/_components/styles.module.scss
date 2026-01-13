@@ -1,0 +1,21 @@
+@use '@styles/theme' as *;
+
+.main-container {
+    display: flex;
+    padding: 16px;
+    gap: 16px;
+
+    .left-section {
+        width: 76%;
+
+        .tracker-overview-wrapper {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+    }
+
+    .right-section {
+        width: 24%;
+    }
+}

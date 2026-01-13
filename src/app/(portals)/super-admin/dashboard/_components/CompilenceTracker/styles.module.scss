@@ -1,0 +1,58 @@
+@use '@styles/theme' as *;
+
+.tracker-wrapper {
+    display: flex;
+    width: 50%;
+    height: 64vh;
+    padding: 16px;
+    flex-direction: column;
+    gap: 16px;
+    border-radius: 12px;
+    background-color: $white;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.06),
+        0 8px 24px rgba(0, 0, 0, 0.12);
+
+    @include breakpoints('2xl') {
+        height: 72vh;
+    }
+
+    .top-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 13px;
+
+        .btn-class {
+            padding: 6px 10px;
+            border-radius: 8px;
+            background-color: $white;
+            border: 1px solid $gray-300;
+        }
+    }
+
+    .tracker-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .no-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50%;
+        }
+
+        .tracker-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .row-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    }
+}

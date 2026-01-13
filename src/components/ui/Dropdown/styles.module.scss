@@ -118,25 +118,26 @@
         display: flex;
         flex-direction: column;
         list-style-type: none;
-        gap: 8px;
+        gap: 4px;
         margin-top: 10px;
         height: 40px;
-        padding: 6px;
         cursor: pointer;
 
-        .item {
-            list-style: none;
-            cursor: pointer;
+        .optionItem {
             padding: 8px 0 8px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
 
             &:hover {
-                background-color: red;
+                background-color: $gray-300;
             }
         }
 
         .selected {
             padding: 8px 0 8px 8px;
             background-color: $gray-200;
+            border-radius: 8px;
         }
     }
 
@@ -164,6 +165,7 @@
     &.upwards {
         bottom: 100%;
         margin-bottom: 5px;
+        border: 1px solid $gray-300;
     }
 }
 

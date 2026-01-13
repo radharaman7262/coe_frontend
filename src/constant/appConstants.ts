@@ -13,6 +13,8 @@ export const MODAL_STYLING = {
     },
 };
 
+export const ZERO_DATA = 0;
+
 export const PASSWORD_MIN_LENGTH = 8;
 
 export const USER_NAME_MIN_LENGTH = 10;

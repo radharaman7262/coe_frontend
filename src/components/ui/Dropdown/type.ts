@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 export type DropdownProps<T> = {
     /**
@@ -31,9 +31,9 @@ export type DropdownProps<T> = {
      */
     noOptionText?: React.ReactNode;
 
-    searchStartIcon?: ReactNode;
+    searchStartIcon?: React.ElementType;
 
-    searchEndIcon?: React.ReactNode;
+    searchEndIcon?: React.ElementType;
 
     onChange?: (argument: T) => void;
     /**

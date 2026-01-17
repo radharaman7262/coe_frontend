@@ -28,7 +28,7 @@ interface AdminTablePropsType {
     /**
      * This represents total data present.
      */
-    totalCount: number;
+    totalCount?: number;
     /**
      * This represents current page in pagination.
      */
@@ -130,7 +130,11 @@ const AdminTable = (props: AdminTablePropsType) => {
                         tableBodyTextColor={tableBodyTextColor}
                     />
 
-                    {isPagination && handleNextButton && handlePreviousButton && data?.length ? (
+                    {isPagination &&
+                    handleNextButton &&
+                    handlePreviousButton &&
+                    data?.length &&
+                    totalCount ? (
                         <div className={styles['pagination-container']}>
                             <Pagination
                                 totalCount={totalCount}

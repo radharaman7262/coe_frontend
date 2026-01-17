@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import UserTypePage from './_components';
+import { ShimmerUiContainer } from '@/components/index';
+import FetchUserTypeData from './_components/FetchUserTypeData';
 
-const UserType = () => <UserTypePage />;
+const UserType = () => (
+    <Suspense fallback={<ShimmerUiContainer />}>
+        <FetchUserTypeData />
+    </Suspense>
+);
 export default UserType;

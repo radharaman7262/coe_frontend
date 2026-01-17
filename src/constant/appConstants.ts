@@ -24,3 +24,10 @@ export const PASSWORD_MAX_LENGTH = 30;
 export const USER_NAME_MAX_LENGTH = 50;
 
 export const DEBOUNCE_SEARCH_TIME = 1500;
+
+export const LOADING_TIME_DURATION = 2000;
+
+export enum UserStatusNumber {
+    ACTIVE = 1,
+    INACTIVE = 0,
+}

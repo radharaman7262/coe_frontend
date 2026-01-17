@@ -2,8 +2,6 @@ import { toast } from 'react-toastify';
 
 import { TOASTER_STATUS } from '@/constant/enumConstant';
 
-// import SuccessIcon from '../../public/assets/svg/success-icon.svg';
-
 import styles from './styles.module.scss';
 
 type ShowToastProps = {

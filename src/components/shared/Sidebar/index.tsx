@@ -18,7 +18,9 @@ interface SidebarDataType {
 
 const Sidebar = (props: SidebarDataType) => {
     const { sideBarData } = props;
+
     const menuTree = buildMenuTree(sideBarData);
+
     return (
         <aside className={styles['sidebar-wrapper']}>
             <div className={styles['sidebar-header']}>
@@ -34,7 +36,7 @@ const Sidebar = (props: SidebarDataType) => {
             </div>
 
             <div className={styles['sidebar-menu']}>
-                {menuTree.map((menu: MenuItem) => (
+                {menuTree?.map((menu: MenuItem) => (
                     <SidebarDropdown key={menu.menuId} menu={menu} />
                 ))}
             </div>

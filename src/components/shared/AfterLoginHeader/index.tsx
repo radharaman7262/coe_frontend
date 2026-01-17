@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
 
@@ -11,15 +11,20 @@ import LogoutModal from '@/components/Modal/LogOutModal';
 
 import { BreadCrumb, Text } from '@components/index';
 
+import { LoggedUserDetailType } from '@/types/LoggedUserDetailType';
 import { FontType } from '@/types/typographyCommon';
 
 import useClickOutside from '@/hooks/useClickOutside';
+
+import { getUserDetails } from '@/utils/cookieInServer';
 
 import { pageNameMap } from './pageName';
 
 import styles from './styles.module.scss';
 
 const AfterLoginHeader = () => {
+    const [userDetails, setUserDetails] = useState<LoggedUserDetailType | null>(null);
+
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -35,6 +40,20 @@ const AfterLoginHeader = () => {
 
     const PageName = pageNameMap[pathname];
 
+    const getDetails = async () => {
+        const user = (await getUserDetails()) || {};
+
+        const details = typeof user === 'string' ? JSON.parse(user) : {};
+
+        setUserDetails(details);
+    };
+
+    const { firstName, role } = userDetails || {};
+
+    useEffect(() => {
+        getDetails();
+    }, []);
+
     return (
         <>
             <div className={styles['container-wrapper']}>
@@ -49,7 +68,7 @@ const AfterLoginHeader = () => {
                                 font={[FontType.text_sm_bold, FontType.text_sm_bold]}
                                 color='black'
                             >
-                                Super Admin
+                                {firstName || '_'}
                             </Text>
                             <BoldDropDown />
                         </div>
@@ -58,7 +77,7 @@ const AfterLoginHeader = () => {
                             font={[FontType.text_sm_regular, FontType.text_sm_regular]}
                             color='primary-cta'
                         >
-                            SuperAdmin
+                            {role?.name || '_'}
                         </Text>
 
                         {open && (

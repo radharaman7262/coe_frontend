@@ -2,12 +2,32 @@
 
 import { cookies } from 'next/headers';
 
-import { JWT_TOKEN } from './cookieManager';
+import { JWT_TOKEN, USER_MENU_LIST, USER_DETAIL } from './cookieManager';
 
 export const getCookie = async (name: string) => {
     const cookieStore = cookies();
 
     const cookieValue = (await cookieStore).get(name);
+
+    const { value } = cookieValue || {};
+
+    return value || null;
+};
+
+export const getUserDetails = async () => {
+    const cookieStore = cookies();
+
+    const cookieValue = (await cookieStore).get(USER_DETAIL);
+
+    const { value } = cookieValue || {};
+
+    return value || null;
+};
+
+export const getUserMenu = async () => {
+    const cookieStore = cookies();
+
+    const cookieValue = (await cookieStore).get(USER_MENU_LIST);
 
     const { value } = cookieValue || {};
 

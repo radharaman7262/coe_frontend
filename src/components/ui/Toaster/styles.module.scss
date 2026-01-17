@@ -1,11 +1,11 @@
 @use '@styles/theme' as *;
 
 .fancy-progress-bar-error {
-    background: $red-700;
+    background: $red-400;
     opacity: 1;
 }
 
 .fancy-progress-bar-success {
-    background-color: $green-700 !important;
+    background-color: $green-400 !important;
     opacity: 1;
 }

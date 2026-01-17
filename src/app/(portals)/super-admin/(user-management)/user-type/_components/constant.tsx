@@ -7,8 +7,8 @@ export const USERTYPE_TEXT = {
 };
 
 export const COLUMNS = [
-    { header: 'User Type', accessor: 'userType' },
+    { header: 'User Type', accessor: 'name' },
     { header: 'Created at', accessor: 'createdAt' },
     { header: 'Status', accessor: 'status' },
-    { header: 'Action', accessor: 'action' },
+    { header: 'Action', accessor: 'edit' },
 ];

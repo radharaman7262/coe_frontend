@@ -1,5 +1,7 @@
 import type { ElementType } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import cx from 'classnames';
 
 import { Text } from '@/components/index';
@@ -16,24 +18,44 @@ interface SidebarItemProps {
     icon?: ElementType;
     showIcon?: number;
     open?: boolean;
+    link: string;
 }
 
-const SidebarItem = ({ label, active, icon: Icon, open, showIcon }: SidebarItemProps) => (
-    <div className={cx(styles['sidebar-item'], active && styles.active)}>
-        <div className={styles['sidebar-text']}>
-            {Icon && <Icon className={styles.icon} />}
-            <Text font={[FontType.text_md_regular, FontType.text_md_regular]} color='gray-700'>
-                {label}
-            </Text>
-        </div>
+const SidebarItem = ({ label, active, icon: Icon, open, showIcon, link }: SidebarItemProps) => {
+    const route = useRouter();
 
-        {showIcon && showIcon > 0 ? (
-            <ChevronDown
-                className={!open ? styles.chevron : styles.revolveChevron}
-                data-open={open}
-            />
-        ) : null}
-    </div>
-);
+    const handleRedirection = (redirectionLink: string) => {
+        if (redirectionLink) {
+            route.replace(redirectionLink);
+        }
+    };
+    return (
+        <div className={cx(styles['sidebar-item'], active && styles.active)}>
+            <div
+                className={styles['sidebar-text']}
+                onClick={() => {
+                    handleRedirection(link);
+                }}
+                aria-hidden='true'
+            >
+                {Icon && <Icon className={styles.icon} />}
+                <Text
+                    font={[FontType.text_md_regular, FontType.text_md_regular]}
+                    color='gray-700'
+                    className={styles.whitespace}
+                >
+                    {label}
+                </Text>
+            </div>
+
+            {showIcon && showIcon > 0 ? (
+                <ChevronDown
+                    className={!open ? styles.chevron : styles.revolveChevron}
+                    data-open={open}
+                />
+            ) : null}
+        </div>
+    );
+};
 
 export default SidebarItem;

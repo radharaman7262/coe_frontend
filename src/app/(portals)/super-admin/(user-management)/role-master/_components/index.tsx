@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { NoDataContainer, PageHeader, Table } from '@/components';
 
@@ -22,14 +22,6 @@ const RoleMasterPage = () => {
         setFormValues(initialState);
         setAddRoleMasterModal(true);
     };
-
-    const getRoleMastereData = () => {
-        // Api Call here
-    };
-
-    useEffect(() => {
-        getRoleMastereData();
-    }, []);
 
     return (
         <>

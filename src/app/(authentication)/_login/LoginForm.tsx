@@ -2,6 +2,8 @@
 
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { Input, Text, Button } from '@/components/index';
 
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
@@ -16,7 +18,13 @@ import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { showToast } from '@/components/ui/Toaster/constant';
 
-import { encryptKey } from '@/utils/encryptKey';
+import { storeDataInServerSideCookies } from '@/utils/storeDataInServerSideCookies';
+
+import { ServerSideRoutes } from '@/constant/serverSideRoutes';
+
+import { setClientSideUserDetail } from '@/utils/cookieManager';
+
+import { LOADING_TIME_DURATION } from '@/constant/appConstants';
 import { checkAllValueValidOrNot, loginApiCall, validateInput } from './utils';
 
 import { LOGIN_PAGE_DATA as staticLabel, BUTTON_TEXT as button, MAX_LENGTHS } from './constant';
@@ -29,6 +37,8 @@ interface LoginFormType {
 
 const LoginForm = (props: LoginFormType) => {
     const { openLoginDrawer } = props;
+
+    const router = useRouter();
 
     const [formValues, setFormValues] = useState<SignInFormType>({
         [SignInFormKeys.NAME]: '',
@@ -80,21 +90,44 @@ const LoginForm = (props: LoginFormType) => {
         try {
             setLoading(true);
 
-            const { email } = formValues;
+            const body = { ...formValues };
 
-            const encryptedUserName = encryptKey(email);
+            const loginData = await loginApiCall(body);
 
-            const body = { ...formValues, [SignInFormKeys.NAME]: encryptedUserName };
+            const { status, response, message } = loginData || {};
 
-            const response = await loginApiCall(body);
-
-            const { isSuccess, error, data } = response;
-
-            if (!isSuccess) {
-                throw new Error(error);
+            if (!status) {
+                throw new Error(message);
             }
 
-            console.warn(data);
+            const { token, Message, data: userDetail } = response || {};
+
+            const { assignedMenus: menuLists } = userDetail || {};
+
+            if (!menuLists.length) {
+                showToast({ type: 'error', message: 'Please mapped at least one menu.' });
+                return;
+            }
+
+            await Promise.all([
+                storeDataInServerSideCookies(ServerSideRoutes.STORE_AUTH_TOKEN, { token }),
+
+                storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_MENU_LIST, {
+                    menuList: menuLists,
+                }),
+
+                storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_DETAIL_ROUTE, {
+                    userDetail,
+                }),
+            ]);
+
+            setClientSideUserDetail(userDetail);
+
+            showToast({ type: 'success', message: Message });
+
+            setTimeout(() => {
+                router.push('/super-admin/dashboard');
+            }, LOADING_TIME_DURATION);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
 

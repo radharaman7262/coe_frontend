@@ -1,10 +1,14 @@
 'use client';
 
-import { Sidebar, AfterLoginHeader } from '@/components';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 
-import { SIDEBAR_MENU as menuList } from '@/components/shared/Sidebar/constant';
+import { Sidebar, AfterLoginHeader, ShimmerUiContainer } from '@/components/index';
 
-import { ReactNode } from 'react';
+import { getUserMenu } from '@/utils/cookieInServer';
+
+import { AssignedMenuType } from '@/types/assignedMenuType';
+
+import { ICON_MAP } from './constant';
 
 import styles from './styles.module.scss';
 
@@ -12,12 +16,59 @@ interface ClientLayoutProps {
     children: ReactNode;
 }
 
-const ClientLayout = (props: ClientLayoutProps) => {
-    const { children } = props;
+const ClientLayout = ({ children }: ClientLayoutProps) => {
+    const [userMenuList, setUserMenuList] = useState<AssignedMenuType[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchMenu = async () => {
+            try {
+                const [menu] = await Promise.all([getUserMenu()]);
+
+                if (menu) {
+                    setUserMenuList(JSON.parse(menu));
+                }
+            } catch (err) {
+                console.warn(err);
+                setError('Something went wrong while loading your dashboard.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMenu();
+    }, []);
+
+    const sidebarContent = useMemo<AssignedMenuType[]>(() => {
+        if (!userMenuList.length) return [];
+
+        return userMenuList.map((item) => ({
+            ...item,
+            menuIcon: ICON_MAP[item.menuName] ?? null,
+        }));
+    }, [userMenuList]);
+
+    if (loading)
+        return (
+            <div className={styles.layout}>
+                <ShimmerUiContainer className={styles.shimmer} />
+            </div>
+        );
+    if (error)
+        return (
+            <div className={styles.layout}>
+                <div className={styles.errorBox}>
+                    <h2>Oops!</h2>
+                    <p>{error}</p>
+                </div>
+            </div>
+        );
+
     return (
         <div className={styles['main-dashboard-layout']}>
             <aside>
-                <Sidebar sideBarData={menuList} />
+                <Sidebar sideBarData={sidebarContent} />
             </aside>
 
             <div className={styles.header}>

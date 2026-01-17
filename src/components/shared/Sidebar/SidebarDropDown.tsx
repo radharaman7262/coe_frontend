@@ -40,13 +40,18 @@ export const SidebarDropdown = ({ menu }: { menu: MenuItem }) => {
                     icon={menu.menuIcon}
                     showIcon={childrenLength}
                     open={open}
+                    link={menu?.menuLink}
                 />
             </div>
 
             {hasChildrenState && open && (
                 <div className={styles.subMenu}>
                     {menu.children!.map((child) => (
-                        <SidebarItem key={child.menuId} label={child.menuName} />
+                        <SidebarItem
+                            key={child.menuId}
+                            label={child.menuName}
+                            link={child?.menuLink}
+                        />
                     ))}
                 </div>
             )}

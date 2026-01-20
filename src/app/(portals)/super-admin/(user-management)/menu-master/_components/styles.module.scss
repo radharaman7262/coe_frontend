@@ -4,10 +4,32 @@
     width: 25%;
 }
 
+.table-container {
+    height: calc(100vh - 248px);
+}
+
+.table-wrapper {
+    height: 100%;
+}
+
+.table-data {
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.shimmer-data {
+    width: calc(100vw - 320px);
+    height: calc(100vh - 216px);
+}
+
 .table-row {
     @include flex-center(normal, normal, center, 12px);
 
     .clear-text {
         cursor: pointer;
     }
+}
+
+.toggle-data {
+    @include flex-center(normal, normal, center);
 }

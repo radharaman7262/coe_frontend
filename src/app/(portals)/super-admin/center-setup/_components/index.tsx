@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react';
 
 import { NoDataContainer, PageHeader } from '@/components/index';
 
-import CloudIcon from '@/public/assets/svg/cloud-no-data.svg';
-
 import { INITIAL_STATE as initialState } from './Modal/AddNewCenter/constant';
 
 import { FormValues } from './Modal/AddNewCenter/type';
@@ -60,7 +58,6 @@ const CenterSetupPage = () => {
             /> */}
 
             <NoDataContainer
-                Icon={<CloudIcon />}
                 title='No Center added yet'
                 description='Add user type to get started with viewing and managing them here.'
             />

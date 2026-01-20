@@ -6,7 +6,7 @@ import React, { memo, ReactNode } from 'react';
 
 import cx from 'classnames';
 
-import { Pagination } from '@components/index';
+import { NoDataContainer, Pagination } from '@components/index';
 
 import { FiltersType, TableDataType, TableHeaderType } from '@/types/TableType';
 
@@ -89,6 +89,12 @@ interface AdminTablePropsType {
     tableBodyTextColor?: ColorVariant;
 
     children?: ReactNode;
+
+    baseTableContainerClassName?: string;
+
+    noTitleContainer?: string;
+
+    noDescriptionContainer?: string;
 }
 
 const AdminTable = (props: AdminTablePropsType) => {
@@ -111,42 +117,51 @@ const AdminTable = (props: AdminTablePropsType) => {
         tableClassName,
         tableBodyTextColor,
         children,
+        baseTableContainerClassName,
+        noTitleContainer,
+        noDescriptionContainer,
     } = props;
+
+    const TablePagination =
+        isPagination && handleNextButton && handlePreviousButton && data?.length && totalCount;
 
     return (
         <div className={styles['body-argument']}>
             {children}
             <div className={cx(styles.wrapper, tableClassName)}>
-                <div>
-                    <BaseTable
-                        columns={columns}
-                        data={data}
-                        filters={filters}
-                        handleFilterChange={handleFilterChange}
-                        handleRedirection={handleRedirection}
-                        isFilterPresent={isFilterPresent}
-                        actions={actions}
-                        baseTableClassName={baseTableClassName}
-                        tableBodyTextColor={tableBodyTextColor}
+                {!data?.length ? (
+                    <NoDataContainer
+                        title={noTitleContainer || ''}
+                        description={noDescriptionContainer || ''}
                     />
+                ) : (
+                    <div className={cx(baseTableContainerClassName)}>
+                        <BaseTable
+                            columns={columns}
+                            data={data}
+                            filters={filters}
+                            handleFilterChange={handleFilterChange}
+                            handleRedirection={handleRedirection}
+                            isFilterPresent={isFilterPresent}
+                            actions={actions}
+                            baseTableClassName={baseTableClassName}
+                            tableBodyTextColor={tableBodyTextColor}
+                        />
 
-                    {isPagination &&
-                    handleNextButton &&
-                    handlePreviousButton &&
-                    data?.length &&
-                    totalCount ? (
-                        <div className={styles['pagination-container']}>
-                            <Pagination
-                                totalCount={totalCount}
-                                handleNextButton={handleNextButton}
-                                handlePreviousButton={handlePreviousButton}
-                                currentPage={currentPage}
-                                numberOfRowsPerPage={numberOfRowsPerPage}
-                                handleClickOnCount={handleClickOnCount}
-                            />
-                        </div>
-                    ) : null}
-                </div>
+                        {TablePagination ? (
+                            <div className={styles['pagination-container']}>
+                                <Pagination
+                                    totalCount={totalCount}
+                                    handleNextButton={handleNextButton}
+                                    handlePreviousButton={handlePreviousButton}
+                                    currentPage={currentPage}
+                                    numberOfRowsPerPage={numberOfRowsPerPage}
+                                    handleClickOnCount={handleClickOnCount}
+                                />
+                            </div>
+                        ) : null}
+                    </div>
+                )}
             </div>
         </div>
     );

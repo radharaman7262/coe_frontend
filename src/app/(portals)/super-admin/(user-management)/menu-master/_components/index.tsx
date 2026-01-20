@@ -1,24 +1,28 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import { NoDataContainer, PageHeader } from '@/components/index';
+import { PageHeader, ShimmerUiContainer, Toggle } from '@/components/index';
 
-import CloudIcon from '@/public/assets/svg/cloud-no-data.svg';
+import EditIcon from '@/public/assets/svg/edit-icon.svg';
 
-import { DEBOUNCE_SEARCH_TIME } from '@/constant/appConstants';
+import { DEBOUNCE_SEARCH_TIME, MenuMasterStatusNumber } from '@/constant/appConstants';
 
 import useDebounce from '@/utils/useDebounce';
 
+import { menuMasterType } from '@/types/menuMasterType';
+
+import { useGetMenuMasterList } from '../queries';
+
 import { FormValues } from './Modal/MenuMaster/type';
-
 import { INITIAL_STATE as initialState } from './Modal/MenuMaster/constant';
-
 import MenuMasterModal from './Modal/MenuMaster';
 
 import TableUi from './TableUi';
 
 import { MENU_MASTER_TEXT as text } from './constant';
+
+import styles from './styles.module.scss';
 
 const MenuMasterPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -36,13 +40,39 @@ const MenuMasterPage = () => {
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
-    const getCenterSetupData = () => {
-        // Api Call here
-    };
+    const { isLoading, data } = useGetMenuMasterList({
+        page: currentPage,
+        limit: 10,
+        search: debouncedFilters,
+    });
+
+    const { response } = data || {};
+
+    const { limit, results = [], totalCount = 0 } = response || {};
 
     useEffect(() => {
-        getCenterSetupData();
-    }, [debouncedFilters]);
+        setCurrentPage(1);
+    }, []);
+
+    const getMenuMasterType = (userData: menuMasterType[]) => {
+        const data = userData?.map((item) => ({
+            ...item,
+            status: (
+                <div className={styles['toggle-data']}>
+                    <Toggle
+                        value={item?.id.toString()}
+                        isToggled={item?.status === MenuMasterStatusNumber.ACTIVE}
+                        onToggle={() => {}}
+                    />
+                </div>
+            ),
+            edit: <EditIcon onClick={() => {}} />,
+        }));
+
+        return data;
+    };
+
+    const menuMasterList = useMemo(() => getMenuMasterType(results), [results]);
 
     return (
         <>
@@ -58,17 +88,21 @@ const MenuMasterPage = () => {
                 buttonLabel={text.addMenu}
                 onButtonClick={handleAddMenuMaster}
             />
-            <NoDataContainer
-                Icon={<CloudIcon />}
-                title={text.noMenuMaster}
-                description={text.addMenutoGetStarted}
-            />
-            <TableUi
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                setTableFilter={setTableFilter}
-                tableFilter={tableFilter}
-            />
+            {isLoading ? (
+                <ShimmerUiContainer className={styles['shimmer-data']} />
+            ) : (
+                <TableUi
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    setTableFilter={setTableFilter}
+                    tableFilter={tableFilter}
+                    data={menuMasterList}
+                    totalCount={totalCount}
+                    limit={limit}
+                    noTitleContainer={text.noMenuMaster}
+                    noDescriptionContainer={text.addMenutoGetStarted}
+                />
+            )}
         </>
     );
 };

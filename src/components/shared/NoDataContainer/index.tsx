@@ -1,26 +1,27 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import cx from 'classnames';
 
 import { Text } from '@components/index';
+
+import CloudIcon from '@/public/assets/svg/cloud-no-data.svg';
 
 import { FontType } from '@/types/typographyCommon';
 
 import styles from './styles.module.scss';
 
 interface NoDataContainerProps {
-    Icon: ReactNode;
     title: string;
     description: string;
     noDatClassName?: string;
 }
 
 const NoDataContainer = (props: NoDataContainerProps) => {
-    const { Icon, title, description, noDatClassName } = props;
+    const { title, description, noDatClassName } = props;
 
     return (
         <div className={cx(styles['box-container'], noDatClassName)}>
-            {Icon}
+            <CloudIcon />
             <div className={styles['text-container']}>
                 <Text font={[FontType.text_lg_semibold, FontType.text_lg_semibold]} color='black'>
                     {title}

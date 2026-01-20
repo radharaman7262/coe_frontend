@@ -4,11 +4,25 @@ import { menuMasterTypeKeys } from '@/services/menuMaster';
 
 import { getMenuMasterApiCall } from './utils';
 
-export const useGetMenuMasterList = () => {
-    console.warn('');
-
-    return useQuery({
-        queryKey: menuMasterTypeKeys.getMenuMasterTypeList(),
-        queryFn: () => getMenuMasterApiCall(),
+export const useGetMenuMasterList = ({
+    page,
+    limit,
+    search,
+}: {
+    page: number | string;
+    limit: number | string;
+    search?: string;
+}) =>
+    useQuery({
+        queryKey: menuMasterTypeKeys.getMenuMasterTypeList({
+            page,
+            limit,
+            search,
+        }),
+        queryFn: () =>
+            getMenuMasterApiCall({
+                page,
+                limit,
+                search,
+            }),
     });
-};

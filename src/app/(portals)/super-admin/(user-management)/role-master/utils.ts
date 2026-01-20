@@ -1,5 +1,7 @@
 import callApi from '@/app/api/api';
 
+import { ROLE_MASTER_ENDPOINT } from '@/app/api/apiRoutes';
+
 import { HTTP_METHOD } from '@/types/common';
 
 import { getCookie } from '@/utils/cookieInServer';
@@ -11,7 +13,7 @@ export const getRoleMasterTypeApiCall = async () => {
 
     const response = await callApi({
         method: HTTP_METHOD.GET,
-        url: '',
+        url: ROLE_MASTER_ENDPOINT,
         headers: { Authorization: `Bearer ${authToken}` },
     });
 

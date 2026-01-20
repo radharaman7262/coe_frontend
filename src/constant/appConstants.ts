@@ -31,3 +31,13 @@ export enum UserStatusNumber {
     ACTIVE = 1,
     INACTIVE = 0,
 }
+
+export enum RoleMasterStatusNumber {
+    ACTIVE = 1,
+    INACTIVE = 0,
+}
+
+export enum MenuMasterStatusNumber {
+    ACTIVE = 1,
+    INACTIVE = 0,
+}

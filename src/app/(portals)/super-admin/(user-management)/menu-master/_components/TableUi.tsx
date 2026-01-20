@@ -6,7 +6,9 @@ import SearchIcon from '@/public/assets/svg/search-icon.svg';
 
 import { FontType } from '@/types/typographyCommon';
 
-import { COLUMNS as dummyColumns, MENU_MASTER_TEXT as text } from './constant';
+import { TableDataType } from '@/types/TableType';
+
+import { MENU_MASTER_COLUMNS as dummyColumns, MENU_MASTER_TEXT as text } from './constant';
 
 import styles from './styles.module.scss';
 
@@ -15,17 +17,40 @@ interface tableUiProps {
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     setTableFilter: React.Dispatch<React.SetStateAction<string>>;
     tableFilter: string;
+    data: TableDataType[];
+    totalCount: number;
+    limit: number;
+    noTitleContainer: string;
+    noDescriptionContainer: string;
 }
 
-const TableUi = (props: tableUiProps) => {
-    const { currentPage, setCurrentPage, setTableFilter, tableFilter } = props;
+const TableUi = ({
+    currentPage,
+    setCurrentPage,
+    setTableFilter,
+    tableFilter,
+    data,
+    totalCount,
+    limit,
+    noTitleContainer,
+    noDescriptionContainer,
+}: tableUiProps) => {
+    const totalPages = Math.ceil(totalCount / limit);
 
     const handleNextButton = () => {
-        setCurrentPage(currentPage + 1);
+        if (currentPage < totalPages) {
+            setCurrentPage((prev) => prev + 1);
+        }
     };
 
     const handlePreviousButton = () => {
-        setCurrentPage(currentPage - 1);
+        if (currentPage > 1) {
+            setCurrentPage((prev) => prev - 1);
+        }
+    };
+
+    const handleClickOnCount = (page: number) => {
+        setCurrentPage(page);
     };
 
     const handleSearchFilter = (
@@ -43,11 +68,18 @@ const TableUi = (props: tableUiProps) => {
     return (
         <Table
             columns={dummyColumns}
-            data={[]}
+            data={data}
             currentPage={currentPage}
             handleNextButton={handleNextButton}
             handlePreviousButton={handlePreviousButton}
-            totalCount={200}
+            handleClickOnCount={handleClickOnCount}
+            totalCount={totalCount}
+            numberOfRowsPerPage={limit}
+            tableClassName={styles['table-container']}
+            baseTableContainerClassName={styles['table-wrapper']}
+            baseTableClassName={styles['table-data']}
+            noTitleContainer={noTitleContainer}
+            noDescriptionContainer={noDescriptionContainer}
         >
             <div className={styles['table-row']}>
                 <Input

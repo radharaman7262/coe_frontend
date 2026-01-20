@@ -7,9 +7,9 @@ export const ROLE_MASTER_TEXT = {
 };
 
 export const ROLE_MASTER_COLUMNS = [
-    { header: 'User Type', accessor: 'userType' },
+    { header: 'User Type', accessor: 'userTypeName' },
     { header: 'Role Name', accessor: 'roleName' },
     { header: 'Created at', accessor: 'createdAt' },
     { header: 'Status', accessor: 'status' },
-    { header: 'Action', accessor: 'action' },
+    { header: 'Action', accessor: 'edit' },
 ];

@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import RoleMasterPage from './_components';
+import { ShimmerUiContainer } from '@/components/index';
 
-const RoleMaster = () => <RoleMasterPage />;
-export default RoleMaster;
+import FetchRoleMaster from './_components/FetchRoleMasterData';
+
+const RoleMasterType = () => (
+    <Suspense fallback={<ShimmerUiContainer />}>
+        <FetchRoleMaster />
+    </Suspense>
+);
+export default RoleMasterType;

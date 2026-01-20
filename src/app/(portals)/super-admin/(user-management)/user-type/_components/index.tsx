@@ -6,7 +6,6 @@ import { NoDataContainer, PageHeader, Table, Toggle } from '@/components/index';
 
 import { UserStatusNumber } from '@/constant/appConstants';
 
-import CloudIcon from '@/public/assets/svg/cloud-no-data.svg';
 import EditIcon from '@public/assets/svg/edit-icon.svg';
 
 import { FormValues } from './Modal/UserType/type';
@@ -14,6 +13,8 @@ import { INITIAL_STATE as initialState } from './Modal/UserType/constant';
 import UserTypeModal from './Modal/UserType';
 
 import { COLUMNS, USERTYPE_TEXT as text } from './constant';
+
+import styles from './styles.module.scss';
 
 interface userDataType {
     id: string;
@@ -38,11 +39,13 @@ const UserTypePage = (props: UserTypePageProps) => {
             ...item,
             createdAt: item?.createdAt?.split('T')[0],
             status: (
-                <Toggle
-                    value={item?.id.toString()}
-                    isToggled={item?.status === UserStatusNumber.ACTIVE}
-                    onToggle={() => {}}
-                />
+                <div className={styles['toggle-data']}>
+                    <Toggle
+                        value={item?.id.toString()}
+                        isToggled={item?.status === UserStatusNumber.ACTIVE}
+                        onToggle={() => {}}
+                    />
+                </div>
             ),
             edit: <EditIcon onClick={() => {}} />,
         }));
@@ -72,11 +75,7 @@ const UserTypePage = (props: UserTypePageProps) => {
                 onButtonClick={handleAddUserType}
             />
             {!userData?.length ? (
-                <NoDataContainer
-                    Icon={<CloudIcon />}
-                    title={text.noUserType}
-                    description={text.addUserTypetoStarted}
-                />
+                <NoDataContainer title={text.noUserType} description={text.addUserTypetoStarted} />
             ) : (
                 <Table columns={COLUMNS} data={userTypeList} />
             )}

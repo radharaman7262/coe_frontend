@@ -1,11 +1,11 @@
-export const COLUMNS = [
+export const MENU_MASTER_COLUMNS = [
     { header: 'Menu Name', accessor: 'menuName' },
-    { header: 'Link', accessor: 'link' },
+    { header: 'Link', accessor: 'menuLink' },
     { header: 'Priority', accessor: 'priority' },
     { header: 'Remarks', accessor: 'remarks' },
     { header: 'Is parent', accessor: 'isParent' },
     { header: 'Status', accessor: 'status' },
-    { header: 'Action', accessor: 'action' },
+    { header: 'Action', accessor: 'edit' },
 ];
 
 export const MENU_MASTER_TEXT = {

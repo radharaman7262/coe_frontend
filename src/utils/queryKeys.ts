@@ -5,4 +5,5 @@ export enum QueryKeys {
     ROLE_MASTER_TYPE = 'roleMasterType',
     MENU_MASTER_TYPE = 'menuMasterType',
     MENU_MAPPING = 'menuMapping',
+    SUP_COMPILENCE_TRACKER = 'supCompilenceTracker',
 }

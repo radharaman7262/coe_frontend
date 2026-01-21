@@ -5,3 +5,10 @@ export interface DashboardCardData {
     count: number | string;
     icon: React.ElementType;
 }
+
+export interface StatsListType {
+    activeStudents: string;
+    center: string;
+    sessionConducted: string;
+    users: string;
+}

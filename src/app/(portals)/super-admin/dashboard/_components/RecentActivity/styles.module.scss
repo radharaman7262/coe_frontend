@@ -15,4 +15,16 @@
     @include breakpoints('2xl') {
         height: 85vh;
     }
+
+    .activity-gap {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .content-activity-schedule {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
 }

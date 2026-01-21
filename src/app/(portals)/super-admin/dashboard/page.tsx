@@ -2,13 +2,13 @@ import { Suspense } from 'react';
 
 import { ShimmerUiContainer } from '@/components/index';
 
-import FetchDashboard from './_components';
+import FetchSuperAdminDashboard from './_components/FetchSuperAdminData';
 
 import styles from '../../styles.module.scss';
 
 const SuperAdminDashboard = () => (
     <Suspense fallback={<ShimmerUiContainer className={styles.shimmer} />}>
-        <FetchDashboard />
+        <FetchSuperAdminDashboard />
     </Suspense>
 );
 

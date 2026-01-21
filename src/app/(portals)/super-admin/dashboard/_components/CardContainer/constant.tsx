@@ -15,3 +15,19 @@ export const DUMMY_RESPONSE: DashboardCardData[] = [
 export const CARD_TEXT = {
     noDataFound: 'No Data Found',
 };
+
+export type StatsTitleKey = keyof typeof STATS_DETAIL_TITLE;
+
+export const STATS_DETAIL_TITLE = {
+    activeStudents: 'Active Students',
+    center: 'Total Centers',
+    sessionConducted: 'Session conducted',
+    users: 'Total Users',
+};
+
+export const STATS_ICONS: Record<StatsTitleKey, string> = {
+    activeStudents: ActiveStudentIcon,
+    center: TotalCenterIcon,
+    sessionConducted: SessionIcon,
+    users: TotalUserIcon,
+};

@@ -5,29 +5,37 @@ import CompilenceTracker from './CompilenceTracker';
 import CenterUserOverView from './CenterUserOverView';
 import CardContainer from './CardContainer';
 
-import { DUMMY_RESPONSE } from './CompilenceTracker/constant';
-
-import { DUMMY_RESPONSE as OVERVIEW_DATA } from './CenterUserOverView/constant';
+import { DashboardTrackerData } from './CompilenceTracker/type';
+import { StatsListType } from './CardContainer/type';
+import { DashboardOverviewData } from './CenterUserOverView/type';
+import { RecentActivityDataType } from './RecentActivity/type';
 
 import styles from './styles.module.scss';
 
-const FetchDashboard = () => {
-    console.warn('fetch dashboard');
+interface SuperAdminDashboardType {
+    CompilenceTrackerData: DashboardTrackerData[];
+    StatsListData: StatsListType | undefined;
+    CenterUserOverViewData: DashboardOverviewData[];
+    RecentActivityList: RecentActivityDataType[];
+}
 
+const SuperAdminDashboardPage = (props: SuperAdminDashboardType) => {
+    const { CompilenceTrackerData, StatsListData, CenterUserOverViewData, RecentActivityList } =
+        props;
     return (
         <div className={styles['main-container']}>
             <div className={styles['left-section']}>
-                <CardContainer />
+                <CardContainer StatsListData={StatsListData} />
                 <div className={styles['tracker-overview-wrapper']}>
-                    <CompilenceTracker data={DUMMY_RESPONSE} />
-                    <CenterUserOverView data={OVERVIEW_DATA} />
+                    <CompilenceTracker data={CompilenceTrackerData} />
+                    <CenterUserOverView data={CenterUserOverViewData} />
                 </div>
             </div>
 
             <div className={styles['right-section']}>
-                <RecentActivity />
+                <RecentActivity RecentActivityList={RecentActivityList} />
             </div>
         </div>
     );
 };
-export default FetchDashboard;
+export default SuperAdminDashboardPage;

@@ -6,3 +6,5 @@ export const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
 export const NO_LEADING_SPACES_REGEX = /^\s+/;
 
 export const USER_TYPE_REGEX = /^[A-Za-z\s]*$/;
+
+export const ALPHA_NUMERIC_REGEX = /^(?=.*[a-zA-Z])[a-zA-Z ]{3,30}$/;

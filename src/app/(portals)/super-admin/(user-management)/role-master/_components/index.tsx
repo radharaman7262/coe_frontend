@@ -2,21 +2,31 @@
 
 import { useState, useMemo } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { NoDataContainer, PageHeader, Table, Toggle } from '@/components';
 
 import EditIcon from '@/public/assets/svg/edit-icon.svg';
 
-import { RoleMasterStatusNumber } from '@/constant/appConstants';
+import {
+    RoleMasterStatusNumber,
+    UserStatusNumber,
+    UserStatusString,
+} from '@/constant/appConstants';
 
 import { RoleType } from '@/types/roleType';
 
+import { ToastContainer } from 'react-toastify';
+
 import RoleMasterModal from './Modal/RoleMaster';
 
-import { FormValues } from './Modal/RoleMaster/type';
+import { FormValues, RoleFormKeys } from './Modal/RoleMaster/type';
 
 import { INITIAL_STATE as initialState } from './Modal/RoleMaster/constant';
 
 import { ROLE_MASTER_COLUMNS, ROLE_MASTER_TEXT as text } from './constant';
+
+import { useChangeRoleMasterStatusMutation } from './mutation';
 
 import styles from './styles.module.scss';
 
@@ -27,7 +37,13 @@ interface roleMasterPageProps {
 const RoleMasterPage = (props: roleMasterPageProps) => {
     const { roleMasterData } = props;
 
+    const router = useRouter();
+
+    const { mutate } = useChangeRoleMasterStatusMutation({ router });
+
     const [addRoleMasterModal, setAddRoleMasterModal] = useState<boolean>(false);
+    const [roleId, setRoleId] = useState<number | null>(null);
+
     const [formValues, setFormValues] = useState<FormValues>(initialState);
 
     const getRoleMaster = (roleMasterData: RoleType[]) => {
@@ -39,16 +55,42 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
                     <Toggle
                         value={item?.id.toString()}
                         isToggled={item?.status === RoleMasterStatusNumber.ACTIVE}
-                        onToggle={() => {}}
+                        onToggle={(_, id) => {
+                            mutate({
+                                status:
+                                    item?.status === UserStatusNumber.ACTIVE
+                                        ? UserStatusString.INACTIVE
+                                        : UserStatusString.ACTIVE,
+                                id: id?.toString(),
+                            });
+                        }}
                     />
                 </div>
             ),
-            edit: <EditIcon onClick={() => {}} />,
+            edit: (
+                <EditIcon
+                    onClick={() => {
+                        setAddRoleMasterModal(true);
+                        setRoleId(Number(item?.id));
+                        setFormValues((prevValues) => ({
+                            ...prevValues,
+                            [RoleFormKeys.ROLE_NAME]: item?.roleName,
+                            [RoleFormKeys.SELECTED_USER_TYPE]: {
+                                id: item?.userTypeId,
+                                name: item.userTypeName,
+                                status: UserStatusNumber.ACTIVE,
+                            },
+                        }));
+                    }}
+                    className={styles['cursor-pointer']}
+                />
+            ),
         }));
 
         return data;
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const roleMasterList = useMemo(() => getRoleMaster(roleMasterData), [roleMasterData]);
 
     const handleRoleMasterType = () => {
@@ -58,12 +100,16 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
 
     return (
         <>
-            <RoleMasterModal
-                open={addRoleMasterModal}
-                setOpen={setAddRoleMasterModal}
-                formValues={formValues}
-                setFormValues={setFormValues}
-            />
+            {addRoleMasterModal && (
+                <RoleMasterModal
+                    open={addRoleMasterModal}
+                    setOpen={setAddRoleMasterModal}
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    roleId={roleId}
+                    setRoleId={setRoleId}
+                />
+            )}
             <PageHeader
                 title={text.roleMaster}
                 description={text.manageAndCustomize}
@@ -75,6 +121,8 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
             ) : (
                 <Table columns={ROLE_MASTER_COLUMNS} data={roleMasterList} />
             )}
+
+            <ToastContainer />
         </>
     );
 };

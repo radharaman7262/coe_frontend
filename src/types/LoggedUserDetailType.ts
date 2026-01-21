@@ -1,5 +1,5 @@
 import { AssignedMenuType } from './assignedMenuType';
-import { RoleType } from './roleType';
+import { LoggedRoleType } from './roleType';
 import { UserType } from './userType';
 
 export interface LoggedUserDetailType {
@@ -14,6 +14,6 @@ export interface LoggedUserDetailType {
     status: number;
     token: null;
     assignedMenus: AssignedMenuType[];
-    role: RoleType;
+    role: LoggedRoleType;
     userType: UserType;
 }

@@ -1,3 +1,7 @@
+import { ALPHA_NUMERIC_REGEX } from '@/utils/regex';
+
+import { ROLE_LENGTH } from '@/constant/appConstants';
+
 import { RoleFormKeys } from './type';
 
 export const ROLE_TEXT = {
@@ -7,19 +11,28 @@ export const ROLE_TEXT = {
     addRole: 'Add Role',
     enterRoleName: 'Enter Role Name',
     selectUserType: 'Select User Type',
+    updateRole: 'Update Role',
 };
 
 export const INITIAL_STATE = {
     [RoleFormKeys.ROLE_NAME]: '',
     [RoleFormKeys.SELECTED_USER_TYPE]: null,
-    [RoleFormKeys.SEARCH_FILTER]: '',
 };
 
-// dUMMY Data //
+export const MAX_LENGTHS: Record<RoleFormKeys, number> = {
+    [RoleFormKeys.ROLE_NAME]: ROLE_LENGTH,
+    [RoleFormKeys.SELECTED_USER_TYPE]: 0,
+};
 
-export const ROLE_MASTER_LIST = [
-    { id: 1, name: 'Center Admin' },
-    { id: 2, name: 'Clinical Psychologist' },
-    { id: 3, name: 'Special Educator' },
-    { id: 4, name: 'Therapist' },
-];
+export const ERROR_MESSAGES = {
+    roleError: 'User Role should be between 3 to 30 characters.',
+};
+
+export const VALIDATION_RULES = {
+    [RoleFormKeys.ROLE_NAME]: {
+        regex: ALPHA_NUMERIC_REGEX,
+        required: true,
+        errorMessage: ERROR_MESSAGES.roleError,
+    },
+    [RoleFormKeys.SELECTED_USER_TYPE]: null,
+};

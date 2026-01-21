@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import Modal from '@/components/shared/Modal';
 
@@ -11,15 +12,56 @@ import { FontType, ButtonVariant } from '@/types/typographyCommon';
 import SearchIcon from '@/public/assets/svg/search-icon.svg';
 import PlusIcon from '@/public/assets/svg/plus-icon.svg';
 
-import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
+import { useGetUserTypeList } from '../../../../user-type/queries';
 
 import { FormValues, RoleFormKeys, RoleMasterProps, RoleMasterType } from './type';
 
-import { ROLE_MASTER_LIST, ROLE_TEXT as text } from './constant';
+import { MAX_LENGTHS, ROLE_TEXT as text } from './constant';
+
+import { useAddRoleMasterMutation, useUpdateRoleMasterMutation } from '../../mutation';
+
+import {
+    checkAllFieldValidOrNot,
+    RoleErrorMessagesType,
+    setErrorMsgOnValidationFailed,
+    validateInput,
+} from './utils';
+
+import { getUserType } from '../../../utils';
 
 import styles from './styles.module.scss';
 
-const RoleMasterModal = ({ open, setOpen, formValues, setFormValues }: RoleMasterProps) => {
+const RoleMasterModal = ({
+    open,
+    setOpen,
+    formValues,
+    setFormValues,
+    roleId,
+    setRoleId,
+}: RoleMasterProps) => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [errorMessages, setErrorMessages] = useState<RoleErrorMessagesType>({});
+    const [isFormValid, setIsFormValid] = useState<boolean>(false);
+    const [searchFilter, setSearchFilter] = useState<string>('');
+
+    const router = useRouter();
+
+    const { mutate } = useAddRoleMasterMutation({
+        setLoader: setLoading,
+        setShow: setOpen,
+        router,
+    });
+
+    const { mutate: updateRoleMasterMutation } = useUpdateRoleMasterMutation({
+        setLoader: setLoading,
+        setShow: setOpen,
+        router,
+    });
+
+    const { data } = useGetUserTypeList();
+
+    const { response: userTypeList } = data || {};
+
     const updateFormValue = <K extends RoleFormKeys>(key: K, value: FormValues[K]) => {
         setFormValues((prev) => ({
             ...prev,
@@ -27,25 +69,77 @@ const RoleMasterModal = ({ open, setOpen, formValues, setFormValues }: RoleMaste
         }));
     };
 
-    const handleChange =
-        (field: RoleFormKeys) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            const value = e.target.value.replace(NO_LEADING_SPACES_REGEX, '');
-            updateFormValue(field, value);
-        };
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
 
-    const filteredUserType = useMemo(
-        () =>
-            ROLE_MASTER_LIST?.filter((admin) =>
-                admin?.name.toLowerCase().includes(formValues.searchFilter.toLowerCase()),
-            ),
-        [formValues.searchFilter],
-    );
+        if (
+            !MAX_LENGTHS[name as RoleFormKeys] ||
+            value.length <= MAX_LENGTHS[name as RoleFormKeys]
+        ) {
+            updateFormValue(name as RoleFormKeys, value);
+
+            const isFieldValid = validateInput(name as RoleFormKeys, value);
+
+            const { key, message, isInputValid } = isFieldValid;
+
+            setErrorMsgOnValidationFailed({ key, message, isInputValid, setErrorMessages });
+        }
+    };
 
     const handleUserTypeSelect = (item: RoleMasterType | null) => {
         updateFormValue(RoleFormKeys.SELECTED_USER_TYPE, item);
     };
 
-    const isCreateDisabled = !formValues.roleName?.trim() || !formValues.selectedUserType;
+    const userTypeOptions = useMemo(() => getUserType(userTypeList), [userTypeList]);
+
+    const filteredUserType = useMemo(
+        () =>
+            userTypeOptions?.filter((admin) =>
+                admin?.name.toLowerCase().includes(searchFilter.toLowerCase()),
+            ),
+        [searchFilter, userTypeOptions],
+    );
+
+    const handleAddNewRole = () => {
+        setLoading(true);
+
+        let body: {
+            id?: string;
+            name: string;
+            userTypeId: string;
+        } = {
+            name: formValues?.roleName,
+            userTypeId: formValues?.selectedUserType?.id || '',
+        };
+
+        if (roleId) {
+            body = {
+                ...body,
+                id: roleId?.toString() || '',
+            };
+
+            updateRoleMasterMutation(body);
+        } else {
+            mutate(body);
+        }
+    };
+
+    const handleCancel = () => {
+        setOpen(false);
+        setRoleId(null);
+    };
+
+    const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setSearchFilter(value);
+    };
+
+    useEffect(() => {
+        const isValid = checkAllFieldValidOrNot({ formValues, errorMessages });
+
+        setIsFormValid(isValid);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formValues]);
 
     return (
         <Modal open={open} setOpen={setOpen} sx={MODAL_STYLING}>
@@ -62,7 +156,9 @@ const RoleMasterModal = ({ open, setOpen, formValues, setFormValues }: RoleMaste
                             value={formValues[RoleFormKeys.ROLE_NAME]}
                             name={RoleFormKeys.ROLE_NAME}
                             placeholder={text.enterRoleName}
-                            onChange={handleChange(RoleFormKeys.ROLE_NAME)}
+                            onChange={handleChange}
+                            error={!!errorMessages[RoleFormKeys.ROLE_NAME]}
+                            helperText={errorMessages[RoleFormKeys.ROLE_NAME] || ''}
                         />
                     </div>
                     <div className={styles.body}>
@@ -77,8 +173,8 @@ const RoleMasterModal = ({ open, setOpen, formValues, setFormValues }: RoleMaste
                             options={filteredUserType}
                             selectValue='name'
                             value={formValues[RoleFormKeys.SELECTED_USER_TYPE]}
-                            searchFilter={formValues[RoleFormKeys.SEARCH_FILTER]}
-                            handleSearch={handleChange(RoleFormKeys.SEARCH_FILTER)}
+                            searchFilter={searchFilter}
+                            handleSearch={handleFilterChange}
                             onChange={handleUserTypeSelect}
                             searchStartIcon={SearchIcon}
                             optionAreaHeight={styles.forceUp}
@@ -89,17 +185,19 @@ const RoleMasterModal = ({ open, setOpen, formValues, setFormValues }: RoleMaste
                     <Button
                         label={text.cancel}
                         variant={ButtonVariant.NORMAL}
-                        onClick={() => setOpen(false)}
+                        onClick={() => handleCancel()}
                         color='gray-600'
                         className={styles.button}
                     />
                     <Button
-                        label={text.addRole}
+                        label={!roleId ? text.addRole : text.updateRole}
                         variant={ButtonVariant.SOLID}
                         color='white'
                         StartIcon={<PlusIcon />}
                         className={styles.button}
-                        disabled={isCreateDisabled}
+                        loader={loading}
+                        disabled={loading || !isFormValid}
+                        onClick={handleAddNewRole}
                     />
                 </div>
             </div>

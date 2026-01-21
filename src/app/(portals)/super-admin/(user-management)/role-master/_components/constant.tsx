@@ -13,3 +13,7 @@ export const ROLE_MASTER_COLUMNS = [
     { header: 'Status', accessor: 'status' },
     { header: 'Action', accessor: 'edit' },
 ];
+
+export const ROLE_ACTIVE_STATUS_MESSAGE = 'Role Active Succesfully';
+
+export const ROLE_INACTIVE_STATUS_MESSAGE = 'Role In Active Succesfully';

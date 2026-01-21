@@ -19,6 +19,7 @@ const USER_TYPE_STATUS_ENDPOINT = `${API_URL}/user-type/status`;
 
 /** Role Type */
 const ROLE_MASTER_ENDPOINT = `${API_URL}/roles`;
+const ROLE_MASTER_STATUS_ENDPOINT = `${ROLE_MASTER_ENDPOINT}/status`;
 
 /** Menu Master */
 const MENU_MASTER_ENDPOINT = `${API_URL}/menu`;
@@ -42,4 +43,5 @@ export {
     CREATE_USER_TYPE_ENDPOINT,
     UPDATE_USER_TYPE_ENDPOINT,
     USER_TYPE_STATUS_ENDPOINT,
+    ROLE_MASTER_STATUS_ENDPOINT,
 };

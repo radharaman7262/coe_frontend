@@ -46,3 +46,5 @@ export enum MenuMasterStatusNumber {
     ACTIVE = 1,
     INACTIVE = 0,
 }
+
+export const ROLE_LENGTH = 30;

@@ -20,19 +20,9 @@ import { useAddUserTypeMutation } from './mutation';
 
 import { COLUMNS, USERTYPE_TEXT as text } from './constant';
 
+import { userDataType, UserTypePageProps } from './type';
+
 import styles from './styles.module.scss';
-
-interface userDataType {
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    name: string;
-    status: number;
-}
-
-interface UserTypePageProps {
-    userData: userDataType[];
-}
 
 const UserTypePage = (props: UserTypePageProps) => {
     const { userData } = props;
@@ -117,14 +107,17 @@ const UserTypePage = (props: UserTypePageProps) => {
 
     return (
         <>
-            <UserTypeModal
-                open={addNewUserTypeModal}
-                setOpen={setAddNewUserTypeModal}
-                formValues={formValues}
-                setFormValues={setFormValues}
-                onSubmit={handleSubmitUserType}
-                isEditMode={Boolean(editingUserId)}
-            />
+            {addNewUserTypeModal && (
+                <UserTypeModal
+                    open={addNewUserTypeModal}
+                    setOpen={setAddNewUserTypeModal}
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    onSubmit={handleSubmitUserType}
+                    isEditMode={Boolean(editingUserId)}
+                />
+            )}
+
             <PageHeader
                 title={text.userTypeMaster}
                 description={text.manageAndCustomize}

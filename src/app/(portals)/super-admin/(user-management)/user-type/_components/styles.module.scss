@@ -3,3 +3,16 @@
 .toggle-data {
     @include flex-center(normal, normal, center);
 }
+
+.table-container{
+    height: calc(100vh - 190px);
+}
+
+.table-data {
+    max-height: calc(100vh - 190px);
+    overflow-y: scroll;
+}
+
+.edit-cursor{
+    cursor: pointer;
+}

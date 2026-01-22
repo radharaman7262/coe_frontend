@@ -32,6 +32,11 @@ export enum UserStatusNumber {
     INACTIVE = 0,
 }
 
+export enum UserStatusString {
+    ACTIVE = '1',
+    INACTIVE = '0',
+}
+
 export enum RoleMasterStatusNumber {
     ACTIVE = 1,
     INACTIVE = 0,

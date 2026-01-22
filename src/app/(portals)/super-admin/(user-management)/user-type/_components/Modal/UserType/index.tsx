@@ -10,7 +10,9 @@ import PlusIcon from '@/public/assets/svg/plus-icon.svg';
 
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
-import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
+import { NO_LEADING_SPACES_REGEX, USER_TYPE_REGEX } from '@/utils/regex';
+
+import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { USERTYPE_TEXT as text } from './constant';
 
@@ -18,7 +20,7 @@ import { FormValues, UserTypeFormKeys, UserTypeProps } from './type';
 
 import styles from './styles.module.scss';
 
-const UserTypeModal = ({ open, setOpen, formValues, setFormValues }: UserTypeProps) => {
+const UserTypeModal = ({ open, setOpen, formValues, setFormValues, onSubmit, isEditMode }: UserTypeProps) => {
     const isCreateDisabled = !formValues.userType.trim();
 
     const updateFormValue = <K extends UserTypeFormKeys>(key: K, value: FormValues[K]) => {
@@ -30,10 +32,19 @@ const UserTypeModal = ({ open, setOpen, formValues, setFormValues }: UserTypePro
 
     const handleChange =
         (field: UserTypeFormKeys) =>
-        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            const value = e.target.value.replace(NO_LEADING_SPACES_REGEX, '');
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => { 
+
+            let { value } = e.target;
+
+            value = value.replace(NO_LEADING_SPACES_REGEX, '');
+
+            if (!USER_TYPE_REGEX.test(value)){
+                return;
+            }
+
             updateFormValue(field, value);
         };
+
 
     return (
         <Modal open={open} setOpen={setOpen} sx={MODAL_STYLING}>
@@ -51,6 +62,11 @@ const UserTypeModal = ({ open, setOpen, formValues, setFormValues }: UserTypePro
                             name={UserTypeFormKeys.USER_TYPE}
                             placeholder={text.enterUserType}
                             onChange={handleChange(UserTypeFormKeys.USER_TYPE)}
+                            onKeyDown={(e) => {
+                                if (e.key === KeyboardEvent.ENTER && !isCreateDisabled) {
+                                    onSubmit();
+                                }
+                            }}
                         />
                     </div>
                 </div>
@@ -64,12 +80,13 @@ const UserTypeModal = ({ open, setOpen, formValues, setFormValues }: UserTypePro
                         className={styles.button}
                     />
                     <Button
-                        label={text.addUserType}
+                        label={isEditMode ? text.updateUserType: text.addUserType}
                         variant={ButtonVariant.SOLID}
                         color='white'
-                        StartIcon={<PlusIcon />}
+                        StartIcon={!isEditMode && <PlusIcon />}
                         className={styles.button}
                         disabled={isCreateDisabled}
+                        onClick={onSubmit}
                     />
                 </div>
             </div>

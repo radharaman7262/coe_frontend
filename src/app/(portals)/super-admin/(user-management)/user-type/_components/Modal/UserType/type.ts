@@ -5,6 +5,8 @@ export interface UserTypeProps {
     setOpen: (state: boolean) => void;
     formValues: FormValues;
     setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
+    onSubmit: () => void;
+    isEditMode: boolean;
 }
 
 export interface FormValues {

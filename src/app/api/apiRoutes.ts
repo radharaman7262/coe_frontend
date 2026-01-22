@@ -1,5 +1,4 @@
 const API_URL = `${process.env.NEXT_PUBLIC_APP_URL}api/v1`;
-const DASHBOARD_API_URL = `${API_URL}/dashboard`;
 
 /** Authentication Endpoint */
 const LOGIN_ENDPOINT = `${API_URL}/login`;
@@ -9,14 +8,23 @@ const LOGIN_ENDPOINT = `${API_URL}/login`;
 /** User Type */
 const USER_TYPE_ENDPOINT = `${API_URL}/user-type`;
 
+/** Create User Type */
+const CREATE_USER_TYPE_ENDPOINT = `${API_URL}/user-type`;
+
+/** Update User Type */
+const UPDATE_USER_TYPE_ENDPOINT = `${API_URL}/user-type`;
+
+/** User Type Status Endpoint */
+const USER_TYPE_STATUS_ENDPOINT = `${API_URL}/user-type/status`;
+
 /** Role Type */
 const ROLE_MASTER_ENDPOINT = `${API_URL}/roles`;
 
 /** Menu Master */
-
 const MENU_MASTER_ENDPOINT = `${API_URL}/menu`;
 
-/** Dashboard */
+/** Super Admin Dashboard */
+const DASHBOARD_API_URL = `${API_URL}/dashboard`;
 const SUPER_ADMIN_COMPILENCE_TRACKER = `${DASHBOARD_API_URL}/compliance-tracker`;
 const SUPER_ADMIN_DASHBOARD_STATS = `${DASHBOARD_API_URL}/stats`;
 const SUPER_ADMIN_CENTER_OVERVIEW = `${DASHBOARD_API_URL}/center-user-overview`;
@@ -31,4 +39,7 @@ export {
     SUPER_ADMIN_DASHBOARD_STATS,
     SUPER_ADMIN_CENTER_OVERVIEW,
     SUPER_ADMIN_RECENT_ACTIVITY,
+    CREATE_USER_TYPE_ENDPOINT,
+    UPDATE_USER_TYPE_ENDPOINT,
+    USER_TYPE_STATUS_ENDPOINT,
 };

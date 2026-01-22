@@ -242,7 +242,7 @@ const LoginForm = (props: LoginFormType) => {
                         color='white'
                         font={[FontType.text_md_semibold, FontType.text_md_semibold]}
                         className={styles['btn-class']}
-                        EndIcon={<RightIcon />}
+                        EndIcon={!loading ? <RightIcon /> : null}
                         onClick={handleLogin}
                         disabled={loading || !isFormValid}
                         loader={loading}

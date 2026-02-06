@@ -1,10 +1,7 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import MenuMasterPage from './_components';
 
-const MenuMaster = () => (
-    <Suspense>
-        <MenuMasterPage />
-    </Suspense>
-);
+const MenuMaster = () => <MenuMasterPage />;
+
 export default MenuMaster;

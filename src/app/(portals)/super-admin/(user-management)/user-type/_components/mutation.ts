@@ -43,10 +43,6 @@ export const useAddUserTypeMutation = ({
             throw new Error('Invalid mutation payload');
         },
 
-        onMutate() {
-            setLoader(true);
-        },
-
         onSuccess(_, variables) {
             let message = 'Success';
 

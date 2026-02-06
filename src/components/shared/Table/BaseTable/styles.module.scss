@@ -2,7 +2,7 @@
 
 .table-wrapper {
     overflow-x: auto;
-    overflow-y: hidden;
+    // overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
 
     @include custom-scrollbar();

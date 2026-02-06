@@ -4,9 +4,9 @@ export interface menuMasterType {
     id: string;
     menuName: string;
     menuLink: string;
-    priority: number;
+    priority: string;
     remarks: string | null;
-    parentId: number | null;
+    parentId: string | null;
     parentMenu: string | null;
     isParent: string;
     status: number;
@@ -18,9 +18,9 @@ export interface MenuMasterTableDataType {
     id: string;
     menuName: string;
     menuLink: string;
-    priority: number;
+    priority: string;
     remarks: string | null;
-    parentId: number | null;
+    parentId: string | null;
     parentMenu: string | null;
     isParent: string;
 }

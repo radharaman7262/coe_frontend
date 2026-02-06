@@ -24,6 +24,18 @@ const ROLE_MASTER_STATUS_ENDPOINT = `${ROLE_MASTER_ENDPOINT}/status`;
 /** Menu Master */
 const MENU_MASTER_ENDPOINT = `${API_URL}/menu`;
 
+/** Create Menu Master */
+
+const CREATE_MENU_MASTER_ENDPOINT = `${API_URL}/menu`;
+
+/** Update Menu Master */
+
+const UPDATE_MENU_MASTER_ENDPOINT = `${API_URL}/menu`;
+
+/** Menu Master Status Endpoint */
+
+const MENU_MASTER_STATUS_ENDPOINT = `${API_URL}/menu/status`;
+
 /** Super Admin Dashboard */
 const DASHBOARD_API_URL = `${API_URL}/dashboard`;
 const SUPER_ADMIN_COMPILENCE_TRACKER = `${DASHBOARD_API_URL}/compliance-tracker`;
@@ -67,4 +79,7 @@ export {
     ROLE_MENU_MAPPING,
     CENTER_ADMIN_SPECIALIZATION,
     CENTER_DROPDOWN_LIST_API,
+    CREATE_MENU_MASTER_ENDPOINT,
+    UPDATE_MENU_MASTER_ENDPOINT,
+    MENU_MASTER_STATUS_ENDPOINT,
 };

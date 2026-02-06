@@ -33,3 +33,7 @@
 .toggle-data {
     @include flex-center(normal, normal, center);
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}

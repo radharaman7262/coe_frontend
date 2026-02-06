@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 import Modal from '@/components/shared/Modal';
 
@@ -17,12 +17,22 @@ import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
 
 import { FormValues, MenuMasterFormKeys, MenuMasterProps, ParentMenuType } from './type';
 
-import { PARENT_MENU_OPTIONS, MENU_MASTER_TEXT as text } from './constant';
+import { MAX_LENGTHS, MIN_LENGTHS, MENU_MASTER_TEXT as text, VALIDATION_RULES } from './constant';
 
 import styles from './styles.module.scss';
 
-const MenuMasterModal = ({ open, setOpen, formValues, setFormValues }: MenuMasterProps) => {
-    const [checked, setIsChecked] = useState<boolean>(false);
+const MenuMasterModal = ({
+    open,
+    setOpen,
+    formValues,
+    setFormValues,
+    menuMasterList,
+    onSubmit,
+    isEditMode,
+    isParentChecked,
+    setIsParentChecked,
+}: MenuMasterProps) => {
+    const [errors, setErrors] = React.useState<Partial<Record<MenuMasterFormKeys, string>>>({});
 
     const menuNameRef = useRef<HTMLInputElement | null>(null);
     const menuURLRef = useRef<HTMLInputElement | null>(null);
@@ -58,24 +68,62 @@ const MenuMasterModal = ({ open, setOpen, formValues, setFormValues }: MenuMaste
     const handleChange =
         (field: MenuMasterFormKeys) =>
         (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            const value = e.target.value.replace(NO_LEADING_SPACES_REGEX, '');
+            let { value } = e.target;
+
+            value = value.replace(NO_LEADING_SPACES_REGEX, '');
+
+            const rule = VALIDATION_RULES[field];
+            if (rule?.regex && value && !rule.regex.test(value)) {
+                return;
+            }
+
+            const minLength = MIN_LENGTHS[field];
+            const maxLength = MAX_LENGTHS[field];
+
+            if (maxLength && value.length > maxLength) {
+                return;
+            }
+
+            if (rule?.required && value.length > 0 && value.length < minLength) {
+                setErrors((prev) => ({
+                    ...prev,
+                    [field]: rule.errorMessage,
+                }));
+            } else {
+                setErrors((prev) => ({
+                    ...prev,
+                    [field]: '',
+                }));
+            }
+
             updateFormValue(field, value);
         };
 
-    const filteredParentMenu = useMemo(
+    const parentMenuOptions = useMemo<ParentMenuType[]>(
         () =>
-            PARENT_MENU_OPTIONS?.filter((admin) =>
-                admin?.name.toLowerCase().includes(formValues.searchFilter.toLowerCase()),
-            ),
-        [formValues.searchFilter],
+            menuMasterList
+                ?.filter((menu) => menu.isParent === '1')
+                .map((menu) => ({
+                    id: menu.id,
+                    name: menu.menuName,
+                })),
+        [menuMasterList],
     );
+
+    const filteredParentMenu = useMemo(() => {
+        const search = (formValues.searchFilter ?? '').toLowerCase();
+
+        return parentMenuOptions.filter((menu) => (menu.name ?? '').toLowerCase().includes(search));
+    }, [parentMenuOptions, formValues.searchFilter]);
 
     const handleParentMenuSelect = (item: ParentMenuType | null) => {
         updateFormValue(MenuMasterFormKeys.SELECTED_PARENT_MENU, item);
     };
 
     const isCreateDisabled =
-        !formValues.menuName?.trim() || !formValues.menuURL?.trim() || !formValues.priority?.trim();
+        !formValues.menuName?.trim() ||
+        !formValues.menuURL?.trim() ||
+        !String(formValues.priority ?? '').trim();
 
     return (
         <Modal open={open} setOpen={setOpen} sx={MODAL_STYLING}>
@@ -96,6 +144,8 @@ const MenuMasterModal = ({ open, setOpen, formValues, setFormValues }: MenuMaste
                             placeholder={text.enterMenuName}
                             onChange={handleChange(MenuMasterFormKeys.MENU_NAME)}
                             onKeyDown={handleKeyDown}
+                            error={Boolean(errors[MenuMasterFormKeys.MENU_NAME])}
+                            helperText={errors[MenuMasterFormKeys.MENU_NAME]}
                         />
                     </div>
                     <div className={styles.body}>
@@ -129,6 +179,8 @@ const MenuMasterModal = ({ open, setOpen, formValues, setFormValues }: MenuMaste
                             placeholder={text.addRemarks}
                             onChange={handleChange(MenuMasterFormKeys.REMARKS)}
                             onKeyDown={handleKeyDown}
+                            error={Boolean(errors[MenuMasterFormKeys.REMARKS])}
+                            helperText={errors[MenuMasterFormKeys.REMARKS]}
                         />
                     </div>
                     <div className={styles.body}>
@@ -150,7 +202,19 @@ const MenuMasterModal = ({ open, setOpen, formValues, setFormValues }: MenuMaste
                     </div>
                     <div className={styles.body}>
                         <div className={styles.field}>
-                            <Checkbox onChange={setIsChecked} isChecked={checked} />
+                            <Checkbox
+                                isChecked={isParentChecked}
+                                onChange={(value) => {
+                                    setIsParentChecked(value);
+
+                                    if (!value) {
+                                        updateFormValue(
+                                            MenuMasterFormKeys.SELECTED_PARENT_MENU,
+                                            null,
+                                        );
+                                    }
+                                }}
+                            />
                             <Text
                                 font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                                 color='text-idle'
@@ -159,7 +223,7 @@ const MenuMasterModal = ({ open, setOpen, formValues, setFormValues }: MenuMaste
                             </Text>
                         </div>
                     </div>
-                    {checked && (
+                    {isParentChecked && (
                         <div className={styles.body}>
                             <Text
                                 font={[FontType.text_sm_medium, FontType.text_sm_medium]}
@@ -193,9 +257,10 @@ const MenuMasterModal = ({ open, setOpen, formValues, setFormValues }: MenuMaste
                         label={text.addMenu}
                         variant={ButtonVariant.SOLID}
                         color='white'
-                        StartIcon={<PlusIcon />}
+                        StartIcon={!isEditMode && <PlusIcon />}
                         className={styles.button}
                         disabled={isCreateDisabled}
+                        onClick={onSubmit}
                     />
                 </div>
             </div>

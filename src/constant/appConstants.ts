@@ -27,6 +27,8 @@ export const LOADING_TIME_DURATION = 2000;
 
 export const FIFTY_MAX_LENGTH = 50;
 
+export const THREE_MIN_LENGTH = 3;
+
 export enum StatusNumber {
     ACTIVE = 1,
     INACTIVE = 0,

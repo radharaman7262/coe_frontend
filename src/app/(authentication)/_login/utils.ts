@@ -8,7 +8,7 @@ import callApi from '@/app/api/api';
 
 import { EMAIL_REGEX, PASSWORD_PATTERN } from '@/utils/regex';
 
-import { PASSWORD_MIN_LENGTH, USER_NAME_MIN_LENGTH } from '@/constant/appConstants';
+import { EIGHT_MIN_LENGTH, TEN_MIN_LENGTH } from '@/constant/appConstants';
 import { LOGIN_ENDPOINT } from '@/app/api/apiRoutes';
 
 export const ERROR_MESSAGES = {
@@ -18,13 +18,13 @@ export const ERROR_MESSAGES = {
 
 export const VALIDATION_RULES = {
     [SignInFormKeys.PASSWORD]: {
-        length: PASSWORD_MIN_LENGTH,
+        length: EIGHT_MIN_LENGTH,
         required: true,
         regex: PASSWORD_PATTERN,
         errorMessage: ERROR_MESSAGES.passwordPattern,
     },
     [SignInFormKeys.NAME]: {
-        length: USER_NAME_MIN_LENGTH,
+        length: TEN_MIN_LENGTH,
         required: true,
         regex: EMAIL_REGEX,
         errorMessage: ERROR_MESSAGES.namePattern,

@@ -1,3 +1,7 @@
+import { TEN_MIN_LENGTH, THIRTY_MAX_LENGTH } from '@/constant/appConstants';
+
+import { EMAIL_REGEX, MOBILE_NUMBER_REGEX, NAME_REGEX } from '@/utils/regex';
+
 import { CenterAdminFormKeys } from './type';
 
 export const CENTER_ADMIN_TEXT = {
@@ -16,12 +20,12 @@ export const CENTER_ADMIN_TEXT = {
     selectCenter: 'Select Center',
     cancel: 'Cancel',
     create: 'Create',
+    update: 'Update',
 };
 
 export const EMPTY_OPTIONS: { id: number; name: string }[] = [];
 
 // TODO: Need to be remove after API Integration //
-
 export const SPECIALIZATION_LIST = [
     { id: 1, name: 'Speech Therapy' },
     { id: 2, name: 'Occupational Therapy' },
@@ -43,5 +47,51 @@ export const INITIAL_STATE = {
     [CenterAdminFormKeys.EMAIL_ID]: '',
     [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: null,
     [CenterAdminFormKeys.SELECTED_CENTER]: null,
-    [CenterAdminFormKeys.SEARCH_FILTER]: '',
+};
+
+export const MAX_LENGTHS: Partial<Record<CenterAdminFormKeys, number>> = {
+    [CenterAdminFormKeys.FIRST_NAME]: TEN_MIN_LENGTH,
+    [CenterAdminFormKeys.LAST_NAME]: TEN_MIN_LENGTH,
+    [CenterAdminFormKeys.PHONE_NO]: TEN_MIN_LENGTH,
+    [CenterAdminFormKeys.EMAIL_ID]: THIRTY_MAX_LENGTH,
+};
+
+export const ERROR_MESSAGES = {
+    firstNameErrorCreation: 'First Name should be between 3 to 10 characters.',
+    lastNameErrorCreation: 'Last Name should be between 3 to 10 characters.',
+    contactErrorDetail: 'Phone Number should be 10 numbers.',
+    emailErrorDetail: 'Email should be between 3 to 50 characters.',
+};
+
+export const VALIDATION_RULES = {
+    [CenterAdminFormKeys.FIRST_NAME]: {
+        regex: NAME_REGEX,
+        required: true,
+        errorMessage: ERROR_MESSAGES?.firstNameErrorCreation,
+    },
+    [CenterAdminFormKeys.LAST_NAME]: {
+        regex: NAME_REGEX,
+        required: true,
+        errorMessage: ERROR_MESSAGES?.lastNameErrorCreation,
+    },
+    [CenterAdminFormKeys.PHONE_NO]: {
+        regex: MOBILE_NUMBER_REGEX,
+        required: true,
+        errorMessage: ERROR_MESSAGES?.contactErrorDetail,
+    },
+    [CenterAdminFormKeys.EMAIL_ID]: {
+        regex: EMAIL_REGEX,
+        required: true,
+        errorMessage: ERROR_MESSAGES?.emailErrorDetail,
+    },
+    [CenterAdminFormKeys.SELECTED_CENTER]: {
+        regex: null,
+        required: false,
+        errorMessage: '',
+    },
+    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: {
+        regex: null,
+        required: false,
+        errorMessage: '',
+    },
 };

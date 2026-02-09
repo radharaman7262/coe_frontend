@@ -1,4 +1,6 @@
-import React, { useMemo, useRef } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+
+import { useRouter } from 'next/navigation';
 
 import { Button, Dropdown, Input, Text } from '@/components';
 
@@ -13,22 +15,65 @@ import { MODAL_STYLING } from '@/constant/appConstants';
 
 import { KeyboardEvent } from '@/constant/enumConstant';
 
-import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
+import { INITIAL_STATE as initialState, MAX_LENGTHS, NEW_CENTRE_TEXT as title } from './constant';
 
-import { DROPDOWN_LIST, INITIAL_STATE as initialState, NEW_CENTRE_TEXT as title } from './constant';
+import {
+    AddNewCentreProps,
+    AdminType,
+    CenterSetupFormKeys,
+    ErrorMessagesType,
+    FormValues,
+} from './type';
 
-import { AddNewCentreProps, AdminType, CenterSetupFormKeys, FormValues } from './type';
+import { useGetCenterAdminDropDownList } from '../../../queries';
+
+import { useAddCenterSetupMutation } from '../../../mutation';
+
+import { checkAllFieldValidOrNot, validateInput } from './utils';
 
 import styles from './styles.module.scss';
 
-const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentreProps) => {
+const AddNewCentre = ({
+    open,
+    setOpen,
+    formValues,
+    setFormValues,
+    centerId,
+    setCenterId,
+}: AddNewCentreProps) => {
     const centerNameRef = useRef<HTMLInputElement | null>(null);
     const addressRef = useRef<HTMLInputElement | null>(null);
     const contactRef = useRef<HTMLInputElement | null>(null);
 
+    const [loadingAddData, setLoadingAddData] = useState<boolean>(false);
+    const [dropDownFilter, setDropDownFilter] = useState<string>('');
+    const [errorMessages, setErrorMessages] = useState<ErrorMessagesType>({});
+    const [isFormValid, setIsFormValid] = useState<boolean>(false);
+
     const INPUT_MAPPING: Record<string, React.RefObject<HTMLInputElement | null>> = {
         [CenterSetupFormKeys.CENTER_NAME]: addressRef,
         [CenterSetupFormKeys.ADDRESS]: contactRef,
+    };
+
+    const router = useRouter();
+
+    const { mutate } = useAddCenterSetupMutation({
+        setLoader: setLoadingAddData,
+        setShow: setOpen,
+        router,
+        centerId,
+    });
+
+    const { data, isLoading: loadinDropdown } = useGetCenterAdminDropDownList();
+
+    const { response: adminDropDownList = [] } = data || {};
+
+    const handleSearchFilter = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        const { value } = event.target;
+
+        setDropDownFilter(value);
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -44,18 +89,13 @@ const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentre
         }
     };
 
-    const filteredAdmins = useMemo(
+    const filteredAdmins = useMemo<AdminType[]>(
         () =>
-            DROPDOWN_LIST?.filter((admin) =>
-                admin?.name.toLowerCase().includes(formValues.searchFilter.toLowerCase()),
+            (adminDropDownList ?? []).filter((admin: AdminType) =>
+                admin?.fullName.toLowerCase().includes(dropDownFilter?.toLowerCase()),
             ),
-        [formValues.searchFilter],
+        [adminDropDownList, dropDownFilter],
     );
-
-    const isCreateDisabled =
-        !formValues.centerName?.trim() ||
-        !formValues.address?.trim() ||
-        !formValues.contactDetails?.trim();
 
     const updateFormValue = <K extends CenterSetupFormKeys>(key: K, value: FormValues[K]) => {
         setFormValues((prev) => ({
@@ -64,12 +104,33 @@ const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentre
         }));
     };
 
-    const handleChange =
-        (field: CenterSetupFormKeys) =>
-        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            const value = e.target.value.replace(NO_LEADING_SPACES_REGEX, '');
-            updateFormValue(field, value);
-        };
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+
+        const fieldKey = name as CenterSetupFormKeys;
+
+        const isNumericField = [CenterSetupFormKeys.CONTACT_DETAILS].includes(fieldKey);
+
+        const isNumeric = !Number.isNaN(Number(value)) || value === '';
+
+        if (isNumericField && !isNumeric) return;
+
+        const maxLength = MAX_LENGTHS[fieldKey];
+
+        if (!value) {
+            setErrorMessages((prev) => ({
+                ...prev,
+                [name]: '',
+            }));
+            updateFormValue(fieldKey as CenterSetupFormKeys, value);
+            return;
+        }
+
+        if (!maxLength || value.length <= maxLength) {
+            updateFormValue(fieldKey, value);
+            validateInput(fieldKey, value, setErrorMessages);
+        }
+    };
 
     const handleAdminSelect = (item: AdminType | null) => {
         updateFormValue(CenterSetupFormKeys.SELECTED_ADMIN, item);
@@ -78,12 +139,32 @@ const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentre
     const handleCancel = () => {
         setFormValues(initialState);
         setOpen(false);
+        setCenterId(null);
     };
 
-    const handleSubmit = () => {
-        setFormValues(initialState);
-        setOpen(false);
+    const handleAddNewCenter = () => {
+        setLoadingAddData(true);
+        const body: {
+            name: string;
+            address: string;
+            phone: string;
+            adminId: string;
+        } = {
+            name: formValues?.centerName,
+            address: formValues?.address,
+            phone: formValues?.contactDetails,
+            adminId:
+                (formValues?.selectedAdmin && formValues?.selectedAdmin?.userId.toString()) || '',
+        };
+
+        mutate(body);
     };
+
+    useEffect(() => {
+        const isValid = checkAllFieldValidOrNot({ formValues, errorMessages });
+
+        setIsFormValid(isValid);
+    }, [errorMessages, formValues]);
 
     return (
         <Modal open={open} setOpen={setOpen} sx={MODAL_STYLING}>
@@ -108,8 +189,10 @@ const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentre
                             value={formValues[CenterSetupFormKeys.CENTER_NAME]}
                             name={CenterSetupFormKeys.CENTER_NAME}
                             placeholder={title.enterCenterName}
-                            onChange={handleChange(CenterSetupFormKeys.CENTER_NAME)}
+                            onChange={handleInputChange}
                             onKeyDown={handleKeyDown}
+                            error={!!errorMessages[CenterSetupFormKeys.CENTER_NAME]}
+                            helperText={errorMessages[CenterSetupFormKeys.CENTER_NAME] || ''}
                         />
                     </div>
                     <div className={styles.field}>
@@ -125,8 +208,10 @@ const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentre
                             value={formValues[CenterSetupFormKeys.ADDRESS]}
                             name={CenterSetupFormKeys.ADDRESS}
                             placeholder={title.enterFullAddressHere}
-                            onChange={handleChange(CenterSetupFormKeys.ADDRESS)}
+                            onChange={handleInputChange}
                             onKeyDown={handleKeyDown}
+                            error={!!errorMessages[CenterSetupFormKeys.ADDRESS]}
+                            helperText={errorMessages[CenterSetupFormKeys.ADDRESS] || ''}
                         />
                     </div>
                     <div className={styles.field}>
@@ -142,8 +227,10 @@ const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentre
                             value={formValues[CenterSetupFormKeys.CONTACT_DETAILS]}
                             name={CenterSetupFormKeys.CONTACT_DETAILS}
                             placeholder={title.enterContactDetails}
-                            onChange={handleChange(CenterSetupFormKeys.CONTACT_DETAILS)}
+                            onChange={handleInputChange}
                             onKeyDown={handleKeyDown}
+                            error={!!errorMessages[CenterSetupFormKeys.CONTACT_DETAILS]}
+                            helperText={errorMessages[CenterSetupFormKeys.CONTACT_DETAILS] || ''}
                         />
                     </div>
                     <div className={styles.field}>
@@ -156,12 +243,14 @@ const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentre
                         <Dropdown<AdminType>
                             label={title.selectCenterAdmin}
                             options={filteredAdmins}
-                            selectValue='name'
+                            selectValue='fullName'
                             value={formValues[CenterSetupFormKeys.SELECTED_ADMIN]}
-                            searchFilter={formValues[CenterSetupFormKeys.SEARCH_FILTER]}
-                            handleSearch={handleChange(CenterSetupFormKeys.SEARCH_FILTER)}
+                            isSearchable
+                            searchFilter={dropDownFilter}
+                            handleSearch={handleSearchFilter}
                             onChange={handleAdminSelect}
                             searchStartIcon={SearchIcon}
+                            loading={loadinDropdown}
                         />
                     </div>
                     <Text
@@ -180,13 +269,14 @@ const AddNewCentre = ({ open, setOpen, formValues, setFormValues }: AddNewCentre
                         color='gray-600'
                     />
                     <Button
-                        label={title.createCenter}
+                        label={!centerId ? title.createCenter : title.updatecenter}
                         variant={ButtonVariant.SOLID}
                         color='white'
                         StartIcon={<PlusIcon />}
                         className={styles.button}
-                        disabled={isCreateDisabled}
-                        onClick={handleSubmit}
+                        disabled={!isFormValid}
+                        onClick={handleAddNewCenter}
+                        loader={loadingAddData}
                     />
                 </div>
             </div>

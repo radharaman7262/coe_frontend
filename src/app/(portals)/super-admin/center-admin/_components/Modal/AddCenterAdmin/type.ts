@@ -5,6 +5,8 @@ export interface AddCenterAdminProps {
     setOpen: (state: boolean) => void;
     formValues: FormValues;
     setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
+    centerAdminId: number | null;
+    setCenterAdminId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 export type SpecializationType = {
@@ -14,7 +16,7 @@ export type SpecializationType = {
 
 export type CenterType = {
     id: number;
-    name: string;
+    name: string | null;
 };
 
 export interface FormValues {
@@ -24,7 +26,6 @@ export interface FormValues {
     emailId: string;
     selectedSpecialization: SpecializationType | null;
     selectedCenter: CenterType | null;
-    searchFilter: string;
 }
 
 export enum CenterAdminFormKeys {
@@ -34,11 +35,11 @@ export enum CenterAdminFormKeys {
     EMAIL_ID = 'emailId',
     SELECTED_SPECIALIZATION = 'selectedSpecialization',
     SELECTED_CENTER = 'selectedCenter',
-    SEARCH_FILTER = 'searchFilter',
 }
+
 type StringOnlyCenterAdminFormKeys = Exclude<
     CenterAdminFormKeys,
-    CenterAdminFormKeys.SELECTED_SPECIALIZATION
+    CenterAdminFormKeys.SELECTED_SPECIALIZATION | CenterAdminFormKeys.SELECTED_CENTER
 >;
 
 type StringFieldMap = {
@@ -47,7 +48,13 @@ type StringFieldMap = {
 
 export type CenterAdminFormType = StringFieldMap & {
     [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: SpecializationType | null;
+    [CenterAdminFormKeys.SELECTED_CENTER]: CenterType | null;
 };
+
 export type CenterAdminFormErrorType = {
+    [key in CenterAdminFormKeys]?: string;
+};
+
+export type ErrorMessagesType = {
     [key in CenterAdminFormKeys]?: string;
 };

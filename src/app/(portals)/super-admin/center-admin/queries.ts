@@ -3,11 +3,21 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getCenterAdminApiCall } from './utils';
 
-export const useGetCenterAdminList = () => {
-    console.warn('');
-
-    return useQuery({
-        queryKey: centerAdminKeys.getCenterAdminList(),
-        queryFn: () => getCenterAdminApiCall(),
+export const useGetCenterAdminList = ({
+    page,
+    limit,
+    search,
+}: {
+    page: string | number;
+    limit: number;
+    search: string;
+}) =>
+    useQuery({
+        queryKey: centerAdminKeys.getCenterAdminList({ page, limit, search }),
+        queryFn: () =>
+            getCenterAdminApiCall({
+                page,
+                limit,
+                search,
+            }),
     });
-};

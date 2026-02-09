@@ -1,9 +1,9 @@
 export const COLUMNS = [
-    { header: 'Center Name', accessor: 'centerName' },
-    { header: 'Full Address', accessor: 'fullAddress' },
+    { header: 'Center Detail', accessor: 'name' },
+    { header: 'Full Address', accessor: 'address' },
     { header: 'Center Admin', accessor: 'centerAdmin' },
+    { header: 'Email', accessor: 'email' },
     { header: 'Status', accessor: 'status' },
-    { header: 'Action', accessor: 'action' },
     { header: 'Edit', accessor: 'edit' },
 ];
 
@@ -14,3 +14,7 @@ export const NEW_CENTRE_TEXT = {
     clear: 'Clear',
     searchNameOrUniqueId: 'Search name or Unique ID',
 };
+
+export const CENTER_ACTIVE_STATUS_MESSAGE = 'Center Active Succesfully';
+
+export const CENTER_INACTIVE_STATUS_MESSAGE = 'Center In Active Succesfully';

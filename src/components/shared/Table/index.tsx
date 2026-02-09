@@ -128,13 +128,13 @@ const AdminTable = (props: AdminTablePropsType) => {
     return (
         <div className={styles['body-argument']}>
             {children}
-            <div className={cx(styles.wrapper, tableClassName)}>
-                {!data?.length ? (
-                    <NoDataContainer
-                        title={noTitleContainer || ''}
-                        description={noDescriptionContainer || ''}
-                    />
-                ) : (
+            {!data?.length ? (
+                <NoDataContainer
+                    title={noTitleContainer || ''}
+                    description={noDescriptionContainer || ''}
+                />
+            ) : (
+                <div className={cx(styles.wrapper, tableClassName)}>
                     <div className={cx(baseTableContainerClassName)}>
                         <BaseTable
                             columns={columns}
@@ -161,8 +161,8 @@ const AdminTable = (props: AdminTablePropsType) => {
                             </div>
                         ) : null}
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 };

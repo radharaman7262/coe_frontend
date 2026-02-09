@@ -8,9 +8,9 @@ import { useMemo, useState } from 'react';
 
 import { NoDataContainer, PageHeader, ShimmerUiContainer, Table, Toggle } from '@/components/index';
 
-import { UserStatusNumber, UserStatusString } from '@/constant/appConstants';
-
 import EditIcon from '@public/assets/svg/edit-icon.svg';
+
+import { StatusNumber, StatusNumberString } from '@/constant/appConstants';
 
 import { FormValues } from './Modal/UserType/type';
 import { INITIAL_STATE as initialState } from './Modal/UserType/constant';
@@ -54,9 +54,9 @@ const UserTypePage = (props: UserTypePageProps) => {
         addUserTypeMutation({
             id: item?.id,
             status:
-                item?.status === UserStatusNumber.ACTIVE
-                    ? UserStatusString.INACTIVE
-                    : UserStatusString.ACTIVE,
+                item?.status === StatusNumber.ACTIVE
+                    ? StatusNumberString.INACTIVE
+                    : StatusNumberString.ACTIVE,
         });
     };
 
@@ -68,7 +68,7 @@ const UserTypePage = (props: UserTypePageProps) => {
                 <div className={styles['toggle-data']}>
                     <Toggle
                         value={item?.id.toString()}
-                        isToggled={item?.status === UserStatusNumber.ACTIVE}
+                        isToggled={item?.status === StatusNumber.ACTIVE}
                         onToggle={() => handleToggleStatus(item)}
                     />
                 </div>

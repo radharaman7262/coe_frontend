@@ -227,7 +227,9 @@ export type ColorVariant =
     | 'text-gray'
     | 'text-bg-gray'
     | 'border-text-gray'
-    | 'neutral-gray';
+    | 'neutral-gray'
+    | 'indigo-50'
+    | 'indigo-blue';
 
 /**
  * Button Variant

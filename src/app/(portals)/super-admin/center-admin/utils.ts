@@ -1,24 +1,94 @@
 import callApi from '@/app/api/api';
 
+import { CENTER_ADMIN_LIST } from '@/app/api/apiRoutes';
+
 import { HTTP_METHOD } from '@/types/common';
 
 import { getCookie } from '@/utils/cookieInServer';
 
 import { JWT_TOKEN } from '@/utils/cookieManager';
 
-export const getCenterAdminApiCall = async () => {
+export const getCenterAdminApiCall = async ({
+    page,
+    limit,
+    search,
+}: {
+    page: string | number;
+    limit: number;
+    search?: string;
+}) => {
     const authToken = await getCookie(JWT_TOKEN);
-
-    console.warn(authToken);
-
-    const dummyAuthToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJlbWFpbCI6InN1cGVyYWRtaW5AYXVyb3NvY2lldHkub3JnIiwicm9sZUlkIjoiMSIsInVzZXJUeXBlSWQiOiIyIiwiaWF0IjoxNzY4MjYzMTQ4LCJleHAiOjE3NjgzNDk1NDh9.0ZSg9scl3smFWGn8C73upEEEl7YDHjc4Q7qVa0Ursok';
 
     const response = await callApi({
         method: HTTP_METHOD.GET,
-        url: '',
-        headers: { Authorization: `Bearer ${dummyAuthToken}` },
+        url: CENTER_ADMIN_LIST,
+        headers: { Authorization: `Bearer ${authToken}` },
+        queryParams: {
+            page: page.toString(),
+            limit: limit.toString(),
+            ...(search && { search }),
+        },
     });
 
     return response;
 };
+
+export const addCenterAdminApiCall = async (body: {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email: string;
+    roleId: string;
+    centerId: string;
+    specialization: { id: string }[];
+}) => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.POST,
+        url: '',
+        headers: { Authorization: `Bearer ${authToken}` },
+        body,
+    });
+
+    return response;
+};
+
+export const updateCenterAdminApiCall = async (
+    centerAdminId: number,
+    body: {
+        firstName: string;
+        lastName: string;
+        phone: string;
+        email: string;
+        roleId: string;
+        centerId: string;
+        specialization: { id: string }[];
+    },
+) => {
+    const authToken = await getCookie(JWT_TOKEN);
+    const url = '';
+
+    const response = await callApi({
+        method: HTTP_METHOD.PUT,
+        url,
+        headers: { Authorization: `Bearer ${authToken}` },
+        body,
+    });
+
+    return response;
+};
+
+// export const changeCenterSetupStatusApiCall = async (body: { id: string; status?: string }) => {
+//     const { id, status } = body;
+
+//     const authToken = await getCookie(JWT_TOKEN);
+
+//     const response = await callApi({
+//         method: HTTP_METHOD.POST,
+//         url: `${CENTER_ADMIN_STATUS}/${id}/${status}`,
+//         headers: { Authorization: `Bearer ${authToken}` },
+//     });
+
+//     return response;
+// };

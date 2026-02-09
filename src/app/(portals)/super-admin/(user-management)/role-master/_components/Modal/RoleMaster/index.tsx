@@ -18,7 +18,7 @@ import { FormValues, RoleFormKeys, RoleMasterProps, RoleMasterType } from './typ
 
 import { MAX_LENGTHS, ROLE_TEXT as text } from './constant';
 
-import { useAddRoleMasterMutation, useUpdateRoleMasterMutation } from '../../mutation';
+import { useAddRoleMasterMutation, useUpdateRoleMasterMutation } from '../../../mutation';
 
 import {
     checkAllFieldValidOrNot,
@@ -71,6 +71,15 @@ const RoleMasterModal = ({
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
+
+        if (!value) {
+            setErrorMessages((prev) => ({
+                ...prev,
+                [name]: '',
+            }));
+            updateFormValue(name as RoleFormKeys, value);
+            return;
+        }
 
         if (
             !MAX_LENGTHS[name as RoleFormKeys] ||

@@ -1,5 +1,5 @@
-import { PASSWORD_MAX_LENGTH, USER_NAME_MAX_LENGTH } from "@/constant/appConstants";
-import { SignInFormKeys } from "@/types/signInFormType";
+import { FIFTY_MAX_LENGTH, THIRTY_MAX_LENGTH } from '@/constant/appConstants';
+import { SignInFormKeys } from '@/types/signInFormType';
 
 export const LOGIN_PAGE_DATA = {
     heading: 'Admin',
@@ -20,6 +20,6 @@ export const BUTTON_TEXT = {
 };
 
 export const MAX_LENGTHS = {
-    [SignInFormKeys.NAME]: USER_NAME_MAX_LENGTH,
-    [SignInFormKeys.PASSWORD]: PASSWORD_MAX_LENGTH,
+    [SignInFormKeys.NAME]: FIFTY_MAX_LENGTH,
+    [SignInFormKeys.PASSWORD]: THIRTY_MAX_LENGTH,
 };

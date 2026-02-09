@@ -6,6 +6,8 @@ import { FontType } from '@/types/typographyCommon';
 
 import SearchIcon from '@/public/assets/svg/search-icon.svg';
 
+import { TableDataType } from '@/types/TableType';
+
 import { CENTERADMIN_TEXT as text, COLUMNS as constantColumns } from './constant';
 
 import styles from './styles.module.scss';
@@ -15,17 +17,21 @@ interface tableUiProps {
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     setTableFilter: React.Dispatch<React.SetStateAction<string>>;
     tableFilter: string;
+    data: TableDataType[];
+    limit: number;
+    totalCount: number;
 }
 
 const TableUi = (props: tableUiProps) => {
-    const { currentPage, setCurrentPage, setTableFilter, tableFilter } = props;
+    const { currentPage, setCurrentPage, setTableFilter, tableFilter, data, limit, totalCount } =
+        props;
 
     const handleNextButton = () => {
         setCurrentPage(currentPage + 1);
     };
 
     const handlePreviousButton = () => {
-        //
+        setCurrentPage(currentPage - 1);
     };
 
     const handleSearchFilter = (
@@ -43,11 +49,18 @@ const TableUi = (props: tableUiProps) => {
     return (
         <Table
             columns={constantColumns}
-            data={[]}
+            data={data}
             currentPage={currentPage}
             handleNextButton={handleNextButton}
             handlePreviousButton={handlePreviousButton}
-            totalCount={200}
+            totalCount={totalCount}
+            numberOfRowsPerPage={limit || 10}
+            isPagination
+            tableClassName={styles['table-container']}
+            baseTableContainerClassName={styles['table-wrapper']}
+            baseTableClassName={styles['table-data']}
+            noTitleContainer='No Users added yet'
+            noDescriptionContainer='Add user type to get started with viewing and managing them here.'
         >
             <div className={styles['table-row']}>
                 <Input

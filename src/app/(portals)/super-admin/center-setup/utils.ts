@@ -1,23 +1,97 @@
 import callApi from '@/app/api/api';
 
+import { CENTER_ADMIN_DROPDOWN_LIST, CENTER_STATUS, CENTER_SETUP_LIST } from '@/app/api/apiRoutes';
+
 import { HTTP_METHOD } from '@/types/common';
 
 import { getCookie } from '@/utils/cookieInServer';
 
 import { JWT_TOKEN } from '@/utils/cookieManager';
 
-export const getCenterSetupListApiCall = async () => {
+export const getCenterSetupListApiCall = async ({
+    page,
+    limit,
+    search,
+}: {
+    page: string | number;
+    limit: number;
+    search?: string;
+}) => {
     const authToken = await getCookie(JWT_TOKEN);
-
-    console.warn(authToken);
-
-    const dummyAuthToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJlbWFpbCI6InN1cGVyYWRtaW5AYXVyb3NvY2lldHkub3JnIiwicm9sZUlkIjoiMSIsInVzZXJUeXBlSWQiOiIyIiwiaWF0IjoxNzY4MjYzMTQ4LCJleHAiOjE3NjgzNDk1NDh9.0ZSg9scl3smFWGn8C73upEEEl7YDHjc4Q7qVa0Ursok';
 
     const response = await callApi({
         method: HTTP_METHOD.GET,
-        url: '',
-        headers: { Authorization: `Bearer ${dummyAuthToken}` },
+        url: CENTER_SETUP_LIST,
+        headers: { Authorization: `Bearer ${authToken}` },
+        queryParams: {
+            page: page.toString(),
+            limit: limit.toString(),
+            ...(search && { search }),
+        },
+    });
+    return response;
+};
+
+export const getCenterAdminDropDownListApiCall = async () => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.GET,
+        url: CENTER_ADMIN_DROPDOWN_LIST,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return response;
+};
+
+export const addCenterSetupApiCall = async (body: {
+    name?: string;
+    address: string;
+    phone: string;
+    adminId: string;
+}) => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.POST,
+        url: CENTER_SETUP_LIST,
+        headers: { Authorization: `Bearer ${authToken}` },
+        body,
+    });
+
+    return response;
+};
+
+export const updateCenterSetupApiCall = async (
+    centerId: number,
+    body: {
+        name?: string;
+        address: string;
+        phone: string;
+        adminId: string;
+    },
+) => {
+    const authToken = await getCookie(JWT_TOKEN);
+    const url = `${CENTER_SETUP_LIST}/${centerId}`;
+
+    const response = await callApi({
+        method: HTTP_METHOD.PUT,
+        url,
+        headers: { Authorization: `Bearer ${authToken}` },
+        body,
+    });
+
+    return response;
+};
+
+export const changeCenterSetupStatusApiCall = async (body: { id: string; status?: string }) => {
+    const { id, status } = body;
+
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.POST,
+        url: `${CENTER_STATUS}/${id}/${status}`,
+        headers: { Authorization: `Bearer ${authToken}` },
     });
 
     return response;

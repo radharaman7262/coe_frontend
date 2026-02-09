@@ -6,7 +6,7 @@ import { PageHeader, ShimmerUiContainer, Toggle } from '@/components/index';
 
 import EditIcon from '@/public/assets/svg/edit-icon.svg';
 
-import { DEBOUNCE_SEARCH_TIME, MenuMasterStatusNumber } from '@/constant/appConstants';
+import { DEBOUNCE_SEARCH_TIME, StatusNumber } from '@/constant/appConstants';
 
 import useDebounce from '@/utils/useDebounce';
 
@@ -61,7 +61,7 @@ const MenuMasterPage = () => {
                 <div className={styles['toggle-data']}>
                     <Toggle
                         value={item?.id.toString()}
-                        isToggled={item?.status === MenuMasterStatusNumber.ACTIVE}
+                        isToggled={item?.status === StatusNumber.ACTIVE}
                         onToggle={() => {}}
                     />
                 </div>

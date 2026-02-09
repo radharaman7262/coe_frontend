@@ -7,13 +7,9 @@ import { showToast } from '@/components/ui/Toaster/constant';
 import { AddUserTypePayload } from '@/types/addUserTypePayload';
 import { UpdateUserTypePayload } from '@/types/updateUserTypePayload';
 
-import { LOADING_TIME_DURATION, UserStatusString } from '@/constant/appConstants';
+import { LOADING_TIME_DURATION, StatusNumberString } from '@/constant/appConstants';
 
-import {
-    AddUserTypeApiCall,
-    UpdateUserTypeAPICall,
-    UpdateUserTypeStatusAPICall,
-} from '../utils';
+import { AddUserTypeApiCall, UpdateUserTypeAPICall, UpdateUserTypeStatusAPICall } from '../utils';
 
 export type MutationPayload = {
     id?: string;
@@ -55,7 +51,10 @@ export const useAddUserTypeMutation = ({
             let message = 'Success';
 
             if (variables.status) {
-                message = variables.status ===  UserStatusString.ACTIVE ? 'Activated Successfully' : 'Deactivated Successfully';
+                message =
+                    variables.status === StatusNumberString.ACTIVE
+                        ? 'Activated Successfully'
+                        : 'Deactivated Successfully';
             } else if (variables.id) {
                 message = 'User Type Updated Successfully';
                 setShow(false);
@@ -72,8 +71,7 @@ export const useAddUserTypeMutation = ({
         },
 
         onError(error) {
-            const errorMessage =
-                error instanceof Error ? error.message : String(error);
+            const errorMessage = error instanceof Error ? error.message : String(error);
 
             showToast({ type: 'error', message: errorMessage });
         },

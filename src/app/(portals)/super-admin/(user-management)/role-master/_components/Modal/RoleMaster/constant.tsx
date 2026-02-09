@@ -1,6 +1,6 @@
 import { ALPHA_NUMERIC_REGEX } from '@/utils/regex';
 
-import { ROLE_LENGTH } from '@/constant/appConstants';
+import { THIRTY_MAX_LENGTH } from '@/constant/appConstants';
 
 import { RoleFormKeys } from './type';
 
@@ -20,7 +20,7 @@ export const INITIAL_STATE = {
 };
 
 export const MAX_LENGTHS: Record<RoleFormKeys, number> = {
-    [RoleFormKeys.ROLE_NAME]: ROLE_LENGTH,
+    [RoleFormKeys.ROLE_NAME]: THIRTY_MAX_LENGTH,
     [RoleFormKeys.SELECTED_USER_TYPE]: 0,
 };
 

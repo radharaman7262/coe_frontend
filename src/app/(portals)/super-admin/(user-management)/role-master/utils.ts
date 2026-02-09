@@ -8,7 +8,8 @@ import { getCookie } from '@/utils/cookieInServer';
 
 import { JWT_TOKEN } from '@/utils/cookieManager';
 
-import { UserStatusNumber } from '@/constant/appConstants';
+import { StatusNumber } from '@/constant/appConstants';
+
 import { userDataType } from '../user-type/_components/type';
 
 export const getRoleMasterTypeApiCall = async () => {
@@ -74,9 +75,7 @@ export const changeRoleMasterStatusApiCall = async (body: { id: string; status?:
 
 export const getUserType = (results: userDataType[]) => {
     if (results) {
-        const activeUserTypeList = results?.filter(
-            (item) => item?.status === UserStatusNumber.ACTIVE,
-        );
+        const activeUserTypeList = results?.filter((item) => item?.status === StatusNumber.ACTIVE);
 
         const data = activeUserTypeList?.map((item) => ({
             name: item?.name,

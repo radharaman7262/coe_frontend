@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-import { LOADING_TIME_DURATION, UserStatusString } from '@/constant/appConstants';
+import { LOADING_TIME_DURATION, StatusNumberString } from '@/constant/appConstants';
 
 import { showToast } from '@/components/ui/Toaster/constant';
 
@@ -10,8 +10,8 @@ import {
     addRoleMasterApiCall,
     changeRoleMasterStatusApiCall,
     updaterRoleMasterApiCall,
-} from '../utils';
-import { ROLE_ACTIVE_STATUS_MESSAGE, ROLE_INACTIVE_STATUS_MESSAGE } from './constant';
+} from './utils';
+import { ROLE_ACTIVE_STATUS_MESSAGE, ROLE_INACTIVE_STATUS_MESSAGE } from './_components/constant';
 
 export const useAddRoleMasterMutation = ({
     setLoader,
@@ -35,7 +35,6 @@ export const useAddRoleMasterMutation = ({
             router.refresh();
 
             setShow(false);
-
             showToast({ type: 'success', message: response });
         },
 
@@ -111,7 +110,7 @@ export const useChangeRoleMasterStatusMutation = ({ router }: { router: AppRoute
             const { status: responseStatus } = response || {};
 
             const showMessage =
-                responseStatus.toString() === UserStatusString.ACTIVE
+                responseStatus.toString() === StatusNumberString.ACTIVE
                     ? ROLE_ACTIVE_STATUS_MESSAGE
                     : ROLE_INACTIVE_STATUS_MESSAGE;
 

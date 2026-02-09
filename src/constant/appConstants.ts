@@ -15,36 +15,24 @@ export const MODAL_STYLING = {
 
 export const ZERO_DATA = 0;
 
-export const PASSWORD_MIN_LENGTH = 8;
+export const EIGHT_MIN_LENGTH = 8;
 
-export const USER_NAME_MIN_LENGTH = 10;
+export const TEN_MIN_LENGTH = 10;
 
-export const PASSWORD_MAX_LENGTH = 30;
-
-export const USER_NAME_MAX_LENGTH = 50;
+export const THIRTY_MAX_LENGTH = 30;
 
 export const DEBOUNCE_SEARCH_TIME = 1500;
 
 export const LOADING_TIME_DURATION = 2000;
 
-export enum UserStatusNumber {
+export const FIFTY_MAX_LENGTH = 50;
+
+export enum StatusNumber {
     ACTIVE = 1,
     INACTIVE = 0,
 }
 
-export enum UserStatusString {
+export enum StatusNumberString {
     ACTIVE = '1',
     INACTIVE = '0',
 }
-
-export enum RoleMasterStatusNumber {
-    ACTIVE = 1,
-    INACTIVE = 0,
-}
-
-export enum MenuMasterStatusNumber {
-    ACTIVE = 1,
-    INACTIVE = 0,
-}
-
-export const ROLE_LENGTH = 30;

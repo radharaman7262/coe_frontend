@@ -8,17 +8,11 @@ import { NoDataContainer, PageHeader, Table, Toggle } from '@/components';
 
 import EditIcon from '@/public/assets/svg/edit-icon.svg';
 
-import {
-    RoleMasterStatusNumber,
-    UserStatusNumber,
-    UserStatusString,
-} from '@/constant/appConstants';
+import { StatusNumber, StatusNumberString } from '@/constant/appConstants';
 
 import { RoleType } from '@/types/roleType';
 
 import { ToastContainer } from 'react-toastify';
-
-import RoleMasterModal from './Modal/RoleMaster';
 
 import { FormValues, RoleFormKeys } from './Modal/RoleMaster/type';
 
@@ -26,7 +20,9 @@ import { INITIAL_STATE as initialState } from './Modal/RoleMaster/constant';
 
 import { ROLE_MASTER_COLUMNS, ROLE_MASTER_TEXT as text } from './constant';
 
-import { useChangeRoleMasterStatusMutation } from './mutation';
+import { useChangeRoleMasterStatusMutation } from '../mutation';
+
+import RoleMasterModal from './Modal/RoleMaster';
 
 import styles from './styles.module.scss';
 
@@ -54,13 +50,13 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
                 <div className={styles['toggle-data']}>
                     <Toggle
                         value={item?.id.toString()}
-                        isToggled={item?.status === RoleMasterStatusNumber.ACTIVE}
+                        isToggled={item?.status === StatusNumber.ACTIVE}
                         onToggle={(_, id) => {
                             mutate({
                                 status:
-                                    item?.status === UserStatusNumber.ACTIVE
-                                        ? UserStatusString.INACTIVE
-                                        : UserStatusString.ACTIVE,
+                                    item?.status === StatusNumber.ACTIVE
+                                        ? StatusNumberString.INACTIVE
+                                        : StatusNumberString.ACTIVE,
                                 id: id?.toString(),
                             });
                         }}
@@ -78,7 +74,7 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
                             [RoleFormKeys.SELECTED_USER_TYPE]: {
                                 id: item?.userTypeId,
                                 name: item.userTypeName,
-                                status: UserStatusNumber.ACTIVE,
+                                status: StatusNumber.ACTIVE,
                             },
                         }));
                     }}

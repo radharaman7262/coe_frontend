@@ -5,11 +5,13 @@ export interface AddNewCentreProps {
     setOpen: (state: boolean) => void;
     formValues: FormValues;
     setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
+    centerId: number | null;
+    setCenterId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 export type AdminType = {
-    id: number;
-    name: string;
+    userId: number;
+    fullName: string;
 };
 
 export interface FormValues {
@@ -17,7 +19,6 @@ export interface FormValues {
     address: string;
     contactDetails: string;
     selectedAdmin: AdminType | null;
-    searchFilter: string;
 }
 
 export enum CenterSetupFormKeys {
@@ -25,8 +26,8 @@ export enum CenterSetupFormKeys {
     ADDRESS = 'address',
     CONTACT_DETAILS = 'contactDetails',
     SELECTED_ADMIN = 'selectedAdmin',
-    SEARCH_FILTER = 'searchFilter',
 }
+
 type StringOnlyCenterSetupFormKeys = Exclude<
     CenterSetupFormKeys,
     CenterSetupFormKeys.SELECTED_ADMIN
@@ -40,5 +41,9 @@ export type CenterSetupFormType = StringFieldMap & {
     [CenterSetupFormKeys.SELECTED_ADMIN]: AdminType | null;
 };
 export type CenterSetupFormErrorType = {
+    [key in CenterSetupFormKeys]?: string;
+};
+
+export type ErrorMessagesType = {
     [key in CenterSetupFormKeys]?: string;
 };

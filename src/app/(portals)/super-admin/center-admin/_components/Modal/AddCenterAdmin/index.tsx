@@ -1,4 +1,5 @@
-import React, { useMemo, useRef } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import Modal from '@/components/shared/Modal';
 
@@ -13,36 +14,63 @@ import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
-import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
-
 import {
     EMPTY_OPTIONS,
     CENTER_ADMIN_TEXT as text,
     CENTER_LIST,
     SPECIALIZATION_LIST,
+    MAX_LENGTHS,
+    INITIAL_STATE as initialState,
 } from './constant';
+
+import { checkAllFieldValidOrNot, validateInput } from './utils';
 
 import {
     AddCenterAdminProps,
     CenterAdminFormKeys,
     CenterType,
+    ErrorMessagesType,
     FormValues,
     SpecializationType,
 } from './type';
 
+import { useAddCenterAdminMutation } from '../../../mutation';
+
 import styles from './styles.module.scss';
 
-const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterAdminProps) => {
+const AddCenterAdmin = ({
+    open,
+    setOpen,
+    formValues,
+    setFormValues,
+    centerAdminId,
+    setCenterAdminId,
+}: AddCenterAdminProps) => {
     const firstNameRef = useRef<HTMLInputElement | null>(null);
     const lastNameRef = useRef<HTMLInputElement | null>(null);
     const phoneNoRef = useRef<HTMLInputElement | null>(null);
     const emailIdRef = useRef<HTMLInputElement | null>(null);
+
+    const [loadingAddData, setLoadingAddData] = useState<boolean>(false);
+    const [centerListDropDownFilter, setCenterListDropDownFilter] = useState<string>('');
+    const [specializationDropDownFilter, setSpecializationDropDownFilter] = useState<string>('');
+    const [errorMessages, setErrorMessages] = useState<ErrorMessagesType>({});
+    const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
     const INPUT_MAPPING: Record<string, React.RefObject<HTMLInputElement | null>> = {
         [CenterAdminFormKeys.FIRST_NAME]: lastNameRef,
         [CenterAdminFormKeys.LAST_NAME]: phoneNoRef,
         [CenterAdminFormKeys.PHONE_NO]: emailIdRef,
     };
+
+    const router = useRouter();
+
+    const { mutate } = useAddCenterAdminMutation({
+        setLoader: setLoadingAddData,
+        setShow: setOpen,
+        router,
+        centerAdminId,
+    });
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key !== KeyboardEvent.ENTER) return;
@@ -60,25 +88,18 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
     const filteredSpecialization = useMemo(
         () =>
             SPECIALIZATION_LIST.filter((admin) =>
-                admin?.name.toLowerCase().includes(formValues.searchFilter.toLowerCase()),
+                admin?.name.toLowerCase().includes(specializationDropDownFilter.toLowerCase()),
             ),
-        [formValues.searchFilter],
+        [specializationDropDownFilter],
     );
 
     const filteredCenter = useMemo(
         () =>
             CENTER_LIST?.filter((admin) =>
-                admin?.name.toLowerCase().includes(formValues.searchFilter.toLowerCase()),
+                admin?.name.toLowerCase().includes(centerListDropDownFilter.toLowerCase()),
             ),
-        [formValues.searchFilter],
+        [centerListDropDownFilter],
     );
-
-    const isCreateDisabled =
-        !formValues.firstName?.trim() ||
-        !formValues.lastName?.trim() ||
-        !formValues.emailId?.trim() ||
-        !formValues.phoneNo?.trim() ||
-        !formValues.selectedSpecialization;
 
     const updateFormValue = <K extends CenterAdminFormKeys>(key: K, value: FormValues[K]) => {
         setFormValues((prev) => ({
@@ -87,12 +108,33 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
         }));
     };
 
-    const handleChange =
-        (field: CenterAdminFormKeys) =>
-        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            const value = e.target.value.replace(NO_LEADING_SPACES_REGEX, '');
-            updateFormValue(field, value);
-        };
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+
+        const fieldKey = name as CenterAdminFormKeys;
+
+        const isNumericField = [CenterAdminFormKeys.PHONE_NO].includes(fieldKey);
+
+        const isNumeric = !Number.isNaN(Number(value)) || value === '';
+
+        if (isNumericField && !isNumeric) return;
+
+        const maxLength = MAX_LENGTHS[fieldKey];
+
+        if (!value) {
+            setErrorMessages((prev) => ({
+                ...prev,
+                [name]: '',
+            }));
+            updateFormValue(fieldKey as CenterAdminFormKeys, value);
+            return;
+        }
+
+        if (!maxLength || value.length <= maxLength) {
+            updateFormValue(fieldKey, value);
+            validateInput(fieldKey, value, setErrorMessages);
+        }
+    };
 
     const handleSpecializationSelect = (item: SpecializationType | null) => {
         updateFormValue(CenterAdminFormKeys.SELECTED_SPECIALIZATION, item);
@@ -101,6 +143,61 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
     const handleCenterSelect = (item: CenterType | null) => {
         updateFormValue(CenterAdminFormKeys.SELECTED_CENTER, item);
     };
+
+    const handleCenterFilterSearch = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        const { value } = event.target;
+
+        setCenterListDropDownFilter(value);
+    };
+
+    const handleSpecializationFilterSearch = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        const { value } = event.target;
+
+        setSpecializationDropDownFilter(value);
+    };
+
+    const handleAddNewAdmin = () => {
+        setLoadingAddData(true);
+
+        const body: {
+            firstName: string;
+            lastName: string;
+            phone: string;
+            email: string;
+            roleId: string;
+            centerId: string;
+            specialization: { id: string }[];
+        } = {
+            firstName: formValues?.firstName,
+            lastName: formValues?.lastName,
+            phone: formValues?.phoneNo,
+            email: formValues?.emailId,
+            roleId: 'Center Admin',
+            centerId:
+                (formValues?.selectedCenter && formValues?.selectedCenter?.id?.toString()) || '',
+            specialization: formValues?.selectedSpecialization
+                ? [{ id: formValues.selectedSpecialization.id.toString() }]
+                : [],
+        };
+
+        mutate(body);
+    };
+
+    const handleCancel = () => {
+        setFormValues(initialState);
+        setOpen(false);
+        setCenterAdminId(null);
+    };
+
+    useEffect(() => {
+        const isValid = checkAllFieldValidOrNot({ formValues, errorMessages });
+
+        setIsFormValid(isValid);
+    }, [errorMessages, formValues]);
 
     return (
         <Modal open={open} setOpen={setOpen} sx={MODAL_STYLING}>
@@ -125,8 +222,10 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                                 value={formValues[CenterAdminFormKeys.FIRST_NAME]}
                                 name={CenterAdminFormKeys.FIRST_NAME}
                                 placeholder={text.enterHere}
-                                onChange={handleChange(CenterAdminFormKeys.FIRST_NAME)}
+                                onChange={handleInputChange}
                                 onKeyDown={handleKeyDown}
+                                error={!!errorMessages[CenterAdminFormKeys.FIRST_NAME]}
+                                helperText={errorMessages[CenterAdminFormKeys.FIRST_NAME] || ''}
                             />
                         </div>
                         <div className={styles.right}>
@@ -142,8 +241,10 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                                 value={formValues[CenterAdminFormKeys.LAST_NAME]}
                                 name={CenterAdminFormKeys.LAST_NAME}
                                 placeholder={text.enterHere}
-                                onChange={handleChange(CenterAdminFormKeys.LAST_NAME)}
+                                onChange={handleInputChange}
                                 onKeyDown={handleKeyDown}
+                                error={!!errorMessages[CenterAdminFormKeys.LAST_NAME]}
+                                helperText={errorMessages[CenterAdminFormKeys.LAST_NAME] || ''}
                             />
                         </div>
                     </div>
@@ -161,8 +262,10 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                                 value={formValues[CenterAdminFormKeys.PHONE_NO]}
                                 name={CenterAdminFormKeys.PHONE_NO}
                                 placeholder={text.enterHere}
-                                onChange={handleChange(CenterAdminFormKeys.PHONE_NO)}
+                                onChange={handleInputChange}
                                 onKeyDown={handleKeyDown}
+                                error={!!errorMessages[CenterAdminFormKeys.PHONE_NO]}
+                                helperText={errorMessages[CenterAdminFormKeys.PHONE_NO] || ''}
                             />
                         </div>
                         <div className={styles.right}>
@@ -178,8 +281,10 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                                 value={formValues[CenterAdminFormKeys.EMAIL_ID]}
                                 name={CenterAdminFormKeys.EMAIL_ID}
                                 placeholder={text.enterHere}
-                                onChange={handleChange(CenterAdminFormKeys.EMAIL_ID)}
+                                onChange={handleInputChange}
                                 onKeyDown={handleKeyDown}
+                                error={!!errorMessages[CenterAdminFormKeys.EMAIL_ID]}
+                                helperText={errorMessages[CenterAdminFormKeys.EMAIL_ID] || ''}
                             />
                         </div>
                     </div>
@@ -213,8 +318,8 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                                 options={filteredSpecialization}
                                 selectValue='name'
                                 value={formValues[CenterAdminFormKeys.SELECTED_SPECIALIZATION]}
-                                searchFilter={formValues[CenterAdminFormKeys.SEARCH_FILTER]}
-                                handleSearch={handleChange(CenterAdminFormKeys.SEARCH_FILTER)}
+                                searchFilter={specializationDropDownFilter}
+                                handleSearch={handleSpecializationFilterSearch}
                                 onChange={handleSpecializationSelect}
                                 searchStartIcon={SearchIcon}
                             />
@@ -232,8 +337,8 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                             options={filteredCenter}
                             selectValue='name'
                             value={formValues[CenterAdminFormKeys.SELECTED_CENTER]}
-                            searchFilter={formValues[CenterAdminFormKeys.SEARCH_FILTER]}
-                            handleSearch={handleChange(CenterAdminFormKeys.SEARCH_FILTER)}
+                            searchFilter={centerListDropDownFilter}
+                            handleSearch={handleCenterFilterSearch}
                             onChange={handleCenterSelect}
                             searchStartIcon={SearchIcon}
                         />
@@ -249,16 +354,18 @@ const AddCenterAdmin = ({ open, setOpen, formValues, setFormValues }: AddCenterA
                     <Button
                         label={text.cancel}
                         variant={ButtonVariant.NORMAL}
-                        onClick={() => setOpen(false)}
+                        onClick={handleCancel}
                         color='gray-600'
                     />
                     <Button
-                        label={text.create}
+                        label={!centerAdminId ? text.create : text.update}
                         variant={ButtonVariant.SOLID}
                         color='white'
                         StartIcon={<PlusIcon />}
                         className={styles.button}
-                        disabled={isCreateDisabled}
+                        onClick={handleAddNewAdmin}
+                        disabled={!isFormValid}
+                        loader={loadingAddData}
                     />
                 </div>
             </div>

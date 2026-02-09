@@ -1,11 +1,12 @@
 export const COLUMNS = [
-    { header: 'Name', accessor: 'name' },
-    { header: 'Role', accessor: 'role' },
-    { header: 'Phone no.', accessor: 'phoneNumber' },
+    { header: 'Name', accessor: 'fullName' },
+    { header: 'Role', accessor: 'roleName' },
+    { header: 'Phone no.', accessor: 'phone' },
+    { header: 'Email', accessor: 'email' },
     { header: 'Specialization', accessor: 'specialization' },
-    { header: 'Assigned Center', accessor: 'assignedCenter' },
-    { header: 'Status', accessor: 'active' },
-    { header: 'Action', accessor: 'action' },
+    { header: 'Assigned Center', accessor: 'centerName' },
+    { header: 'Status', accessor: 'status' },
+    { header: 'Action', accessor: 'edit' },
 ];
 
 export const CENTERADMIN_TEXT = {

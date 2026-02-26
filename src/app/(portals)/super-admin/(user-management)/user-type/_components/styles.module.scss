@@ -4,15 +4,15 @@
     @include flex-center(normal, normal, center);
 }
 
-.table-container{
+.table-container {
     height: calc(100vh - 190px);
 }
 
 .table-data {
     max-height: calc(100vh - 190px);
-    overflow-y: scroll;
+    overflow-y: scroll !important;
 }
 
-.edit-cursor{
+.edit-cursor {
     cursor: pointer;
 }

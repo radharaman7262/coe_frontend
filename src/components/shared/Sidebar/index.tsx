@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import Text from '@/components/ui/Text';
 
 import SidebarIcon from '@/public/assets/svg/sidebar-icon.svg';
@@ -19,7 +20,9 @@ interface SidebarDataType {
 const Sidebar = (props: SidebarDataType) => {
     const { sideBarData } = props;
 
-    const menuTree = buildMenuTree(sideBarData);
+    // const menuTree = buildMenuTree(sideBarData);
+
+    const menuTree = useMemo(() => buildMenuTree(sideBarData), [sideBarData]);
 
     return (
         <aside className={styles['sidebar-wrapper']}>

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import cx from 'classnames';
 
 import { Text, Button } from '@/components/index';
@@ -7,8 +8,12 @@ import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import FeaturedIcon from '@/public/assets/svg/featured-logout-icon.svg';
 
-import { MODAL_STYLING } from '@/constant/appConstants';
+import { LOADING_TIME_DURATION, MODAL_STYLING } from '@/constant/appConstants';
 
+import { clearAllCookies } from '@/utils/cookieManager';
+import { queryClient } from '@/utils/react-query-client';
+
+import { useState } from 'react';
 import { LOGOUT_TEXT as text } from './constant';
 
 import styles from './styles.module.scss';
@@ -22,14 +27,35 @@ interface LogoutModalProps {
 const LogoutModal = (props: LogoutModalProps) => {
     const { open, setOpen, className } = props;
 
-    // This will be used later //
-    // const navigate = useNavigate();
+    const router = useRouter();
 
-    // const handleLogout = () => {
-    //     setOpen(false);
-    //     clearAllCookies();
-    //     navigate(APP_ROUTES.LOGIN);
-    // };
+    const [loader, setLoader] = useState<boolean>(false);
+
+    const handleUserLogOut = async () => {
+        setLoader(true);
+        try {
+            const res = await fetch('/api/logout', {
+                method: 'POST',
+            });
+
+            if (res.ok) {
+                // Optionally redirect to login
+                queryClient.clear();
+                clearAllCookies();
+                localStorage.clear();
+                router.replace('/');
+                router.refresh();
+            } else {
+                console.error('Failed to logout');
+            }
+        } catch (error) {
+            console.error('Error logging out:', error);
+        } finally {
+            setTimeout(() => {
+                setLoader(false);
+            }, LOADING_TIME_DURATION);
+        }
+    };
 
     const handleCancel = () => {
         setOpen(false);
@@ -66,20 +92,19 @@ const LogoutModal = (props: LogoutModalProps) => {
                     <Button
                         type='button'
                         label={text.cancel}
-                        variant={ButtonVariant.NORMAL}
+                        variant={ButtonVariant.OUTLINED}
                         onClick={handleCancel}
                         loader={false}
                         disabled={false}
-                        className={styles['cancel-button']}
                         color='gray-700'
                     />
                     <Button
                         type='button'
                         label={text.logout}
-                        variant={ButtonVariant.NORMAL}
-                        loader={false}
-                        disabled={false}
-                        className={styles['logout-button']}
+                        variant={ButtonVariant.WARN}
+                        onClick={handleUserLogOut}
+                        loader={loader}
+                        disabled={loader}
                         color='white'
                     />
                 </div>

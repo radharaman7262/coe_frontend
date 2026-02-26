@@ -1,7 +1,15 @@
-import { centerAdminKeys } from '@/services/centerAdmin';
+import {
+    centerAdminKeys,
+    centerDropdownListKeys,
+    centerSpecializationKeys,
+} from '@/services/centerAdmin';
 import { useQuery } from '@tanstack/react-query';
 
-import { getCenterAdminApiCall } from './utils';
+import {
+    getCenterAdminApiCall,
+    getCenterListApiCall,
+    getCenterSpecializationDropDownListApiCall,
+} from './utils';
 
 export const useGetCenterAdminList = ({
     page,
@@ -20,4 +28,16 @@ export const useGetCenterAdminList = ({
                 limit,
                 search,
             }),
+    });
+
+export const useGetSpecializationDropDownList = () =>
+    useQuery({
+        queryKey: centerSpecializationKeys.getCenterSpecializationDropDownList(),
+        queryFn: () => getCenterSpecializationDropDownListApiCall(),
+    });
+
+export const useGetCenterDropDownList = () =>
+    useQuery({
+        queryKey: centerDropdownListKeys.getCenterListDropDownList(),
+        queryFn: () => getCenterListApiCall(),
     });

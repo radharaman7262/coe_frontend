@@ -40,6 +40,13 @@ const CENTER_STATUS = `${API_URL}/center/status`;
 const CENTER_ADMIN_LIST = `${CENTER_ADMIN_DROPDOWN_LIST}/list`;
 // const CENTER_ADMIN_STATUS = `${CENTER_STATUS}/`
 
+/** Center Admin Modal */
+const CENTER_ADMIN_SPECIALIZATION = `${ROLE_MASTER_ENDPOINT}/specialization/`;
+const CENTER_DROPDOWN_LIST_API = `${CENTER_SETUP_LIST}/list`;
+
+/** Role Menu Mapping */
+const ROLE_MENU_MAPPING = `${API_URL}/role-menu-mapping`;
+
 export {
     LOGIN_ENDPOINT,
     USER_TYPE_ENDPOINT,
@@ -57,4 +64,7 @@ export {
     CENTER_ADMIN_DROPDOWN_LIST,
     CENTER_STATUS,
     CENTER_ADMIN_LIST,
+    ROLE_MENU_MAPPING,
+    CENTER_ADMIN_SPECIALIZATION,
+    CENTER_DROPDOWN_LIST_API,
 };

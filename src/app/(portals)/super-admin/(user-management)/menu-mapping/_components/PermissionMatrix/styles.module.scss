@@ -1,0 +1,108 @@
+@use '@styles/theme' as *;
+
+.search-box {
+    width: 290px !important;
+    border-radius: 0px !important;
+    border-top: unset !important;
+    border-left: unset !important;
+}
+
+.tableContainer {
+    // width: calc(100vw - 286px);
+    margin: 0px 20px 10px;
+    overflow: scroll;
+    height: calc(100vh - 172px);
+    border-radius: 18px;
+}
+
+.expanded-table {
+    width: calc(100vw - 120px);
+    margin: 0px 20px 10px;
+    overflow: scroll;
+    height: calc(100vh - 172px);
+}
+
+.permissionTable {
+    border: 1px solid $gray-200;
+    background-color: $white;
+}
+
+.menu-container {
+    padding: 14px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $gray-200;
+    border-right: 1px solid $gray-200;
+}
+
+.permissionRowSubmenu {
+    display: table-row;
+}
+
+.sub-menu {
+    padding: 14px 12px;
+    border-bottom: 1px solid $gray-200;
+    border-right: 1px solid $gray-200;
+    border-collapse: collapse;
+}
+
+.tableHeader {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: white;
+}
+
+.theader {
+    min-width: 200px;
+    padding: 14px 12px;
+    border-bottom: 1px solid $gray-200;
+    border-right: 1px solid $gray-200;
+    border-collapse: collapse;
+}
+
+.permissionRow {
+    display: table-row;
+}
+
+.stickyParentRow {
+    position: sticky;
+    left: 0;
+    background-color: $white;
+    z-index: 1;
+}
+
+.permission-row-submenu {
+    z-index: 0;
+}
+
+.menu-container,
+.sub-menu {
+    position: sticky;
+    left: 0;
+    background-color: $white;
+    z-index: 2;
+}
+
+.tableHeader th:first-child {
+    position: sticky;
+    left: 0;
+    background-color: $white;
+    z-index: 3;
+}
+
+.permissionCell {
+    border-collapse: collapse;
+    padding: 0px 80px;
+    border-bottom: 1px solid $gray-200;
+    border-right: 1px solid $gray-200;
+}
+
+.input-className {
+    border-color: $gray-500 !important;
+}
+
+.cursor-dropdown {
+    cursor: pointer;
+}

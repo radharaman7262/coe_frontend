@@ -17,8 +17,6 @@ import { FontType, ButtonVariant } from '@/types/typographyCommon';
 import {
     EMPTY_OPTIONS,
     CENTER_ADMIN_TEXT as text,
-    CENTER_LIST,
-    SPECIALIZATION_LIST,
     MAX_LENGTHS,
     INITIAL_STATE as initialState,
 } from './constant';
@@ -28,13 +26,17 @@ import { checkAllFieldValidOrNot, validateInput } from './utils';
 import {
     AddCenterAdminProps,
     CenterAdminFormKeys,
+    centerDropDownListType,
     CenterType,
     ErrorMessagesType,
     FormValues,
+    specializationType,
     SpecializationType,
 } from './type';
 
 import { useAddCenterAdminMutation } from '../../../mutation';
+
+import { useGetCenterDropDownList, useGetSpecializationDropDownList } from '../../../queries';
 
 import styles from './styles.module.scss';
 
@@ -72,6 +74,14 @@ const AddCenterAdmin = ({
         centerAdminId,
     });
 
+    const { isLoading: specializedLoader, data } = useGetSpecializationDropDownList();
+
+    const { response: specializationList } = data || [];
+
+    const { isLoading: centerListLoader, data: centerDropdownData } = useGetCenterDropDownList();
+
+    const { response: centerDropdownResponse } = centerDropdownData || [];
+
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key !== KeyboardEvent.ENTER) return;
 
@@ -87,18 +97,18 @@ const AddCenterAdmin = ({
 
     const filteredSpecialization = useMemo(
         () =>
-            SPECIALIZATION_LIST.filter((admin) =>
-                admin?.name.toLowerCase().includes(specializationDropDownFilter.toLowerCase()),
+            specializationList?.filter((item: specializationType) =>
+                item?.name.toLowerCase().includes(specializationDropDownFilter.toLowerCase()),
             ),
-        [specializationDropDownFilter],
+        [specializationDropDownFilter, specializationList],
     );
 
     const filteredCenter = useMemo(
         () =>
-            CENTER_LIST?.filter((admin) =>
+            centerDropdownResponse?.filter((admin: centerDropDownListType) =>
                 admin?.name.toLowerCase().includes(centerListDropDownFilter.toLowerCase()),
             ),
-        [centerListDropDownFilter],
+        [centerListDropDownFilter, centerDropdownResponse],
     );
 
     const updateFormValue = <K extends CenterAdminFormKeys>(key: K, value: FormValues[K]) => {
@@ -322,6 +332,8 @@ const AddCenterAdmin = ({
                                 handleSearch={handleSpecializationFilterSearch}
                                 onChange={handleSpecializationSelect}
                                 searchStartIcon={SearchIcon}
+                                loading={specializedLoader}
+                                multipleSelection
                             />
                         </div>
                     </div>
@@ -341,6 +353,7 @@ const AddCenterAdmin = ({
                             handleSearch={handleCenterFilterSearch}
                             onChange={handleCenterSelect}
                             searchStartIcon={SearchIcon}
+                            loading={centerListLoader}
                         />
                     </div>
                     <Text

@@ -6,7 +6,7 @@ import { PageHeader, ShimmerUiContainer, Toggle } from '@/components/index';
 
 import useDebounce from '@/utils/useDebounce';
 
-import { DEBOUNCE_SEARCH_TIME, StatusNumber } from '@/constant/appConstants';
+import { DEBOUNCE_SEARCH_TIME, StatusNumber, TEN_MIN_LENGTH } from '@/constant/appConstants';
 
 import EditIcon from '@/public/assets/svg/edit-icon.svg';
 
@@ -48,7 +48,7 @@ const CenterAdminPage = () => {
 
     const { isLoading, data } = useGetCenterAdminList({
         page: currentPage,
-        limit: 10,
+        limit: TEN_MIN_LENGTH,
         search: debouncedFilters,
     });
 
@@ -129,14 +129,17 @@ const CenterAdminPage = () => {
 
     return (
         <>
-            <AddCenterAdmin
-                open={addNewCenterAdminModal}
-                setOpen={setAddNewCenterAdminModal}
-                formValues={formValues}
-                setFormValues={setFormValues}
-                centerAdminId={centerAdminId}
-                setCenterAdminId={setCenterAdminId}
-            />
+            {addNewCenterAdminModal && (
+                <AddCenterAdmin
+                    open={addNewCenterAdminModal}
+                    setOpen={setAddNewCenterAdminModal}
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    centerAdminId={centerAdminId}
+                    setCenterAdminId={setCenterAdminId}
+                />
+            )}
+
             <PageHeader
                 title={text.userManagement}
                 description={text.simplifyUser}

@@ -51,8 +51,13 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
 
     if (loading)
         return (
-            <div className={styles.layout}>
-                <ShimmerUiContainer className={styles.shimmer} />
+            <div className={styles['layout-shimmer-setup']}>
+                <ShimmerUiContainer className={styles['shimmer-sidebar']} />
+
+                <div className={styles['layout-body']}>
+                    <ShimmerUiContainer className={styles['shimmer-header']} />
+                    <ShimmerUiContainer className={styles['shimmer-body']} />
+                </div>
             </div>
         );
     if (error)

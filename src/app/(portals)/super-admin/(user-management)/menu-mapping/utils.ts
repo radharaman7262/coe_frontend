@@ -1,4 +1,5 @@
 import callApi from '@/app/api/api';
+import { ROLE_MENU_MAPPING } from '@/app/api/apiRoutes';
 
 import { HTTP_METHOD } from '@/types/common';
 
@@ -6,18 +7,33 @@ import { getCookie } from '@/utils/cookieInServer';
 
 import { JWT_TOKEN } from '@/utils/cookieManager';
 
-export const getMenuMappingTypeApiCall = async () => {
+import { MapMenuStateType } from './_components/PermissionMatrix/constant';
+
+export const getRoleMenuMapApiCall = async () => {
     const authToken = await getCookie(JWT_TOKEN);
-
-    console.warn(authToken);
-
-    const dummyAuthToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJlbWFpbCI6InN1cGVyYWRtaW5AYXVyb3NvY2lldHkub3JnIiwicm9sZUlkIjoiMSIsInVzZXJUeXBlSWQiOiIyIiwiaWF0IjoxNzY4MjYzMTQ4LCJleHAiOjE3NjgzNDk1NDh9.0ZSg9scl3smFWGn8C73upEEEl7YDHjc4Q7qVa0Ursok';
 
     const response = await callApi({
         method: HTTP_METHOD.GET,
-        url: '',
-        headers: { Authorization: `Bearer ${dummyAuthToken}` },
+        url: ROLE_MENU_MAPPING,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+
+    return response;
+};
+
+export const MapMenuApiCall = async (mappedValue: MapMenuStateType) => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const body = {
+        roleId: mappedValue?.roleId,
+        menuId: mappedValue?.menuId,
+    };
+
+    const response = await callApi({
+        url: ROLE_MENU_MAPPING,
+        method: HTTP_METHOD.POST,
+        headers: { Authorization: `Bearer ${authToken}` },
+        body,
     });
 
     return response;

@@ -1,6 +1,6 @@
 import type { ElementType } from 'react';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import cx from 'classnames';
 
@@ -29,8 +29,13 @@ const SidebarItem = ({ label, active, icon: Icon, open, showIcon, link }: Sideba
             route.replace(redirectionLink);
         }
     };
+
+    const pathname = usePathname();
+
+    const selectedItem = pathname === link ? styles['sidebar-item-selected'] : null;
+
     return (
-        <div className={cx(styles['sidebar-item'], active && styles.active)}>
+        <div className={cx(styles['sidebar-item'], active && styles.active, selectedItem)}>
             <div
                 className={styles['sidebar-text']}
                 onClick={() => {

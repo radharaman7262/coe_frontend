@@ -58,3 +58,16 @@ export type CenterAdminFormErrorType = {
 export type ErrorMessagesType = {
     [key in CenterAdminFormKeys]?: string;
 };
+
+export interface specializationType {
+    createdAt: string;
+    id: string;
+    name: string;
+    status: number;
+    updatedAt: string;
+}
+
+export interface centerDropDownListType {
+    centerId: string;
+    name: string;
+}

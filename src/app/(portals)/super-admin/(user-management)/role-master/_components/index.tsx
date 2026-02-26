@@ -115,7 +115,12 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
             {!roleMasterData?.length ? (
                 <NoDataContainer title={text.noRole} description={text.addRoletoGetStarted} />
             ) : (
-                <Table columns={ROLE_MASTER_COLUMNS} data={roleMasterList} />
+                <Table
+                    columns={ROLE_MASTER_COLUMNS}
+                    data={roleMasterList}
+                    tableClassName={styles['table-container']}
+                    baseTableClassName={styles['table-data']}
+                />
             )}
 
             <ToastContainer />

@@ -13,6 +13,7 @@ import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
 import LockIcon from '@/public/assets/svg/lock-icon.svg';
 
 import { ErrorMessagesType, SignInFormKeys, SignInFormType } from '@/types/signInFormType';
+import { MenuListType } from '@/types/menuListsType';
 
 import { KeyboardEvent } from '@/constant/enumConstant';
 
@@ -21,10 +22,10 @@ import { showToast } from '@/components/ui/Toaster/constant';
 import { storeDataInServerSideCookies } from '@/utils/storeDataInServerSideCookies';
 
 import { ServerSideRoutes } from '@/constant/serverSideRoutes';
+import { AppRoutes } from '@/constant/appRoutes';
+import { LOADING_TIME_DURATION } from '@/constant/appConstants';
 
 import { setClientSideUserDetail } from '@/utils/cookieManager';
-
-import { LOADING_TIME_DURATION } from '@/constant/appConstants';
 import { checkAllValueValidOrNot, loginApiCall, validateInput } from './utils';
 
 import { LOGIN_PAGE_DATA as staticLabel, BUTTON_TEXT as button, MAX_LENGTHS } from './constant';
@@ -109,11 +110,20 @@ const LoginForm = (props: LoginFormType) => {
                 return;
             }
 
+            const allowedRoutes = menuLists
+                .filter((item: MenuListType) => item.menuLink !== '/#')
+                ?.map((item: MenuListType) => item.menuLink)
+                .filter((link: string) => link?.startsWith(AppRoutes.LANDING_PAGE));
+
             await Promise.all([
                 storeDataInServerSideCookies(ServerSideRoutes.STORE_AUTH_TOKEN, { token }),
 
                 storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_MENU_LIST, {
                     menuList: menuLists,
+                }),
+
+                storeDataInServerSideCookies(ServerSideRoutes.STORE_ALLOWED_ROUTE, {
+                    allowedRoute: allowedRoutes,
                 }),
 
                 storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_DETAIL_ROUTE, {
@@ -123,11 +133,18 @@ const LoginForm = (props: LoginFormType) => {
 
             setClientSideUserDetail(userDetail);
 
+            const redirectRoute = allowedRoutes[0] || '/';
+
             showToast({ type: 'success', message: Message });
 
-            setTimeout(() => {
-                router.push('/super-admin/dashboard');
-            }, LOADING_TIME_DURATION);
+            if (redirectRoute) {
+                setTimeout(() => {
+                    router.push(redirectRoute);
+                }, LOADING_TIME_DURATION);
+            } else {
+                // TODo we have to implement a 404 or route path is invalid page here.
+                console.warn('No allowed route found to redirect. Skipping redirect to avoid 404.');
+            }
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
 

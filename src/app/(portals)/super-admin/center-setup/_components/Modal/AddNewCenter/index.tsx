@@ -64,7 +64,7 @@ const AddNewCentre = ({
         centerId,
     });
 
-    const { data, isLoading: loadinDropdown } = useGetCenterAdminDropDownList();
+    const { data, isLoading: loadingDropdown } = useGetCenterAdminDropDownList();
 
     const { response: adminDropDownList = [] } = data || {};
 
@@ -250,7 +250,7 @@ const AddNewCentre = ({
                             handleSearch={handleSearchFilter}
                             onChange={handleAdminSelect}
                             searchStartIcon={SearchIcon}
-                            loading={loadinDropdown}
+                            loading={loadingDropdown}
                         />
                     </div>
                     <Text

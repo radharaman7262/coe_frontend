@@ -7,4 +7,6 @@ export enum QueryKeys {
     MENU_MASTER_TYPE = 'menuMasterType',
     MENU_MAPPING = 'menuMapping',
     SUP_COMPILENCE_TRACKER = 'supCompilenceTracker',
+    CENTER_SPECIALIZATION = 'centerSpecialization',
+    CENTER_DROPDOWN_LIST = 'centerDropdownList',
 }

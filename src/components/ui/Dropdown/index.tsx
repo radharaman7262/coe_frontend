@@ -21,7 +21,7 @@ import styles from './styles.module.scss';
 const Dropdown = <T extends { selectValue: keyof T }>({
     label = 'Select',
     options,
-    multipleSelection = false,
+    multipleSelection,
     noOptionText = (
         <Text font={[FontType.text_sm_regular, FontType.text_sm_regular]}>
             Options are not available

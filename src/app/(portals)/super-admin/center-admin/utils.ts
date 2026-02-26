@@ -1,6 +1,10 @@
 import callApi from '@/app/api/api';
 
-import { CENTER_ADMIN_LIST } from '@/app/api/apiRoutes';
+import {
+    CENTER_ADMIN_LIST,
+    CENTER_ADMIN_SPECIALIZATION,
+    CENTER_DROPDOWN_LIST_API,
+} from '@/app/api/apiRoutes';
 
 import { HTTP_METHOD } from '@/types/common';
 
@@ -92,3 +96,26 @@ export const updateCenterAdminApiCall = async (
 
 //     return response;
 // };
+
+export const getCenterSpecializationDropDownListApiCall = async () => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.GET,
+        url: `${CENTER_ADMIN_SPECIALIZATION}${'3'}`,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return response;
+};
+
+export const getCenterListApiCall = async () => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.GET,
+        url: CENTER_DROPDOWN_LIST_API,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+
+    return response;
+};

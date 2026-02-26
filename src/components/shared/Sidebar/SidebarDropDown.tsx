@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { usePathname } from 'next/navigation';
+
 import { MenuItem } from './constant';
 
 import SidebarItem from './DashboardSidebardItem';
@@ -9,32 +11,34 @@ import styles from './styles.module.scss';
 export const SidebarDropdown = ({ menu }: { menu: MenuItem }) => {
     const [open, setOpen] = useState<boolean>(false);
 
-    const [hasChildrenState, setHasChildrenState] = useState<boolean | undefined>();
+    const pathname = usePathname();
+
+    const hasChildren = !!menu.children?.length;
 
     const handleMenu = () => {
-        const hasChildren = menu.children && menu.children.length > 0;
-
-        setHasChildrenState(hasChildren);
-
         if (hasChildren) {
-            setOpen(!open);
+            setOpen((prev) => !prev);
         }
     };
 
     useEffect(() => {
-        setHasChildrenState(false);
-    }, []);
+        const children = menu.children ?? [];
+
+        const isChildActive = children.some(
+            (child: { menuLink: string }) => pathname === child.menuLink,
+        );
+
+        if (isChildActive) {
+            setOpen(true);
+            // setHasChildrenState(true);
+        }
+    }, [pathname, menu.children]);
 
     const childrenLength = menu?.children?.length || 0;
 
     return (
         <div>
-            <div
-                onClick={() => handleMenu()}
-                onKeyDown={() => handleMenu()}
-                tabIndex={0}
-                role='button'
-            >
+            <div onClick={() => handleMenu()} aria-hidden='true'>
                 <SidebarItem
                     label={menu.menuName}
                     icon={menu.menuIcon}
@@ -44,8 +48,8 @@ export const SidebarDropdown = ({ menu }: { menu: MenuItem }) => {
                 />
             </div>
 
-            {hasChildrenState && open && (
-                <div className={styles.subMenu}>
+            {hasChildren && open && (
+                <div className={styles['sub-menu']}>
                     {menu.children!.map((child) => (
                         <SidebarItem
                             key={child.menuId}

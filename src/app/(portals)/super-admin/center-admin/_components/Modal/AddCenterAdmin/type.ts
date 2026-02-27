@@ -15,8 +15,8 @@ export type SpecializationType = {
 };
 
 export type CenterType = {
-    id: number;
-    name: string | null;
+    centerId: number;
+    name: string;
 };
 
 export interface FormValues {

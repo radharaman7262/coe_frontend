@@ -26,7 +26,6 @@ import { checkAllFieldValidOrNot, validateInput } from './utils';
 import {
     AddCenterAdminProps,
     CenterAdminFormKeys,
-    centerDropDownListType,
     CenterType,
     ErrorMessagesType,
     FormValues,
@@ -105,7 +104,7 @@ const AddCenterAdmin = ({
 
     const filteredCenter = useMemo(
         () =>
-            centerDropdownResponse?.filter((admin: centerDropDownListType) =>
+            centerDropdownResponse?.filter((admin: CenterType) =>
                 admin?.name.toLowerCase().includes(centerListDropDownFilter.toLowerCase()),
             ),
         [centerListDropDownFilter, centerDropdownResponse],
@@ -173,6 +172,8 @@ const AddCenterAdmin = ({
     const handleAddNewAdmin = () => {
         setLoadingAddData(true);
 
+        const centerIdString = formValues?.selectedCenter?.centerId?.toString() ?? '';
+
         const body: {
             firstName: string;
             lastName: string;
@@ -187,8 +188,7 @@ const AddCenterAdmin = ({
             phone: formValues?.phoneNo,
             email: formValues?.emailId,
             roleId: 'Center Admin',
-            centerId:
-                (formValues?.selectedCenter && formValues?.selectedCenter?.id?.toString()) || '',
+            centerId: centerIdString,
             specialization: formValues?.selectedSpecialization
                 ? [{ id: formValues.selectedSpecialization.id.toString() }]
                 : [],

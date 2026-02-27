@@ -66,7 +66,7 @@ const CenterAdminPage = () => {
             [CenterAdminFormKeys.PHONE_NO]: item?.phone,
             [CenterAdminFormKeys.EMAIL_ID]: item?.email,
             [CenterAdminFormKeys.SELECTED_CENTER]: {
-                id: Number(item?.centerId),
+                centerId: Number(item?.centerId),
                 name: item?.centerName,
             },
             [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: null,

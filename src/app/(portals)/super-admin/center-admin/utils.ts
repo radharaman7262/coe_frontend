@@ -1,6 +1,7 @@
 import callApi from '@/app/api/api';
 
 import {
+    CENTER_ADMIN_DROPDOWN_LIST,
     CENTER_ADMIN_LIST,
     CENTER_ADMIN_SPECIALIZATION,
     CENTER_DROPDOWN_LIST_API,
@@ -50,7 +51,7 @@ export const addCenterAdminApiCall = async (body: {
 
     const response = await callApi({
         method: HTTP_METHOD.POST,
-        url: '',
+        url: CENTER_ADMIN_DROPDOWN_LIST,
         headers: { Authorization: `Bearer ${authToken}` },
         body,
     });
@@ -71,7 +72,7 @@ export const updateCenterAdminApiCall = async (
     },
 ) => {
     const authToken = await getCookie(JWT_TOKEN);
-    const url = '';
+    const url = `${CENTER_ADMIN_DROPDOWN_LIST}${centerAdminId}`;
 
     const response = await callApi({
         method: HTTP_METHOD.PUT,

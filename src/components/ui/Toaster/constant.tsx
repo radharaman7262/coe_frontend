@@ -9,7 +9,7 @@ type ShowToastProps = {
     type?: 'success' | 'error';
 };
 
-export const TOASTER_TIME_DURATION = 10000;
+export const TOASTER_TIME_DURATION = 2000;
 
 const TOASTER_STATUS_MAPPING = {
     [TOASTER_STATUS.SUCCESS]: (message: string) => {

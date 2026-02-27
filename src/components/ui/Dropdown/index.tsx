@@ -49,7 +49,7 @@ const Dropdown = <T extends { selectValue: keyof T }>({
     const [isOpen, setIsOpen] = useState(false);
     const [openUpwards, setOpenUpwards] = useState(false);
 
-    const dropdownRef = useRef<HTMLDivElement>(null!);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     useClickOutside(dropdownRef, () => setIsOpen(false));
 

@@ -1,6 +1,8 @@
 'use client';
 
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
+
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@components/index';
 
@@ -10,30 +12,65 @@ import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import { useUserContext } from '@/app/(landing-page)/_contextProvider';
 
+import { JWT_TOKEN } from '@/utils/cookieManager';
+import { getCookie } from '@/utils/cookieInServer';
+
 import styles from './styles.module.scss';
 
 const BeforeLoginHeader = () => {
+    const router = useRouter();
+
+    const [hasToken, setHasToken] = useState<boolean>(false);
+
     const { setOpenLoginDrawer } = useUserContext();
 
     const handleLoggingIn = () => {
         setOpenLoginDrawer(true);
     };
 
+    const getToken = async () => {
+        const token = await getCookie(JWT_TOKEN);
+
+        if (token) {
+            setHasToken(true);
+        }
+    };
+
+    const handleGoToHome = () => {
+        router.push('/super-admin/dashboard');
+    };
+
     const containerWrapperClass = styles['container-wrapper'];
+
+    useEffect(() => {
+        getToken();
+    }, []);
 
     return (
         <div className={containerWrapperClass}>
             <RupantarIcon />
 
-            <Button
-                label='Login'
-                type='button'
-                variant={ButtonVariant.SOLID}
-                color='white'
-                onClick={handleLoggingIn}
-                font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                className={styles['btn-class']}
-            />
+            {hasToken ? (
+                <Button
+                    label='Go to Home'
+                    type='button'
+                    variant={ButtonVariant.SOLID}
+                    color='white'
+                    onClick={handleGoToHome}
+                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                    className={styles['btn-class']}
+                />
+            ) : (
+                <Button
+                    label='Login'
+                    type='button'
+                    variant={ButtonVariant.SOLID}
+                    color='white'
+                    onClick={handleLoggingIn}
+                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                    className={styles['btn-class']}
+                />
+            )}
         </div>
     );
 };

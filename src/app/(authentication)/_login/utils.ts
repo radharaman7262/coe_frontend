@@ -9,11 +9,12 @@ import callApi from '@/app/api/api';
 import { EMAIL_REGEX, PASSWORD_PATTERN } from '@/utils/regex';
 
 import { EIGHT_MIN_LENGTH, TEN_MIN_LENGTH } from '@/constant/appConstants';
+
 import { LOGIN_ENDPOINT } from '@/app/api/apiRoutes';
 
 export const ERROR_MESSAGES = {
     passwordPattern: 'Password length should be 8 to 30 digits',
-    namePattern: 'Name length should be 10 to 30 digits',
+    namePattern: 'Please enter a valid email address',
 };
 
 export const VALIDATION_RULES = {

@@ -10,7 +10,8 @@ import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
 import MailIcon from '@/public/assets/svg/mail-icon.svg';
 import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
-import LockIcon from '@/public/assets/svg/lock-icon.svg';
+import EyeOffIcon from '@/public/assets/svg/eye-off-icon.svg';
+import EyeOnIcon from '@/public/assets/svg/eye-on-icon.svg';
 
 import { ErrorMessagesType, SignInFormKeys, SignInFormType } from '@/types/signInFormType';
 import { MenuListType } from '@/types/menuListsType';
@@ -49,6 +50,7 @@ const LoginForm = (props: LoginFormType) => {
     const [errorMessages, setErrorMessages] = useState<ErrorMessagesType>({});
     const [isFormValid, setIsFormValid] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const userNameRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -168,6 +170,10 @@ const LoginForm = (props: LoginFormType) => {
         }
     };
 
+    const handleToggleIcon = () => {
+        setShowPassword((prev) => !prev);
+    };
+
     useEffect(() => {
         if (userNameRef.current) {
             userNameRef.current.focus();
@@ -228,7 +234,7 @@ const LoginForm = (props: LoginFormType) => {
                     </Text>
 
                     <Input
-                        EndAdornment={LockIcon}
+                        EndAdornment={showPassword ? EyeOnIcon : EyeOffIcon}
                         ref={passwordRef}
                         name={SignInFormKeys.PASSWORD}
                         placeholder={staticLabel.passwordPlaceholder}
@@ -237,7 +243,8 @@ const LoginForm = (props: LoginFormType) => {
                         error={!!errorMessages[SignInFormKeys.PASSWORD]}
                         helperText={errorMessages[SignInFormKeys.PASSWORD] || ''}
                         onKeyDown={handleKeyDown}
-                        type='password'
+                        type={showPassword ? 'text' : 'password'}
+                        onClickEnd={handleToggleIcon}
                     />
                 </div>
 

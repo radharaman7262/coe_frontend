@@ -1,21 +1,19 @@
 'use client';
 
 import React, { memo, useEffect, useRef, useState } from 'react';
-
 import { usePathname } from 'next/navigation';
+import { ToastContainer } from 'react-toastify';
 
 import BoldDropDown from '@public/assets/svg/bold-dropdown.svg';
 import LogoutIcon from '@/public/assets/svg/logout-icon.svg';
 
 import LogoutModal from '@/components/Modal/LogOutModal';
-
 import { BreadCrumb, Text } from '@components/index';
 
 import { LoggedUserDetailType } from '@/types/LoggedUserDetailType';
 import { FontType } from '@/types/typographyCommon';
 
 import useClickOutside from '@/hooks/useClickOutside';
-
 import { getUserDetails } from '@/utils/cookieInServer';
 
 import { pageNameMap } from './pageName';
@@ -29,7 +27,7 @@ const AfterLoginHeader = () => {
     const [open, setOpen] = useState(false);
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-    const dropdownRef = useRef<HTMLDivElement>(null!);
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
 
     useClickOutside(dropdownRef, () => setOpen(false));
 
@@ -42,9 +40,7 @@ const AfterLoginHeader = () => {
 
     const getDetails = async () => {
         const user = (await getUserDetails()) || {};
-
         const details = typeof user === 'string' ? JSON.parse(user) : {};
-
         setUserDetails(details);
     };
 
@@ -62,31 +58,37 @@ const AfterLoginHeader = () => {
                 <div className={styles['logged-user']}>
                     <hr />
 
-                    <div className={styles['user-wrapper']} onMouseEnter={() => setOpen(true)}>
-                        <div className={styles['logged-role']}>
-                            <Text
-                                font={[FontType.text_sm_bold, FontType.text_sm_bold]}
-                                color='black'
-                            >
-                                {firstName || '_'}
-                            </Text>
-                            <BoldDropDown />
-                        </div>
-
-                        <Text
-                            font={[FontType.text_sm_regular, FontType.text_sm_regular]}
-                            color='primary-cta'
+                    <div ref={dropdownRef}>
+                        <button
+                            type='button'
+                            className={styles['user-wrapper']}
+                            onMouseEnter={() => setOpen(true)}
+                            onClick={() => setOpen((prev) => !prev)}
                         >
-                            {role?.name || '_'}
-                        </Text>
+                            <div className={styles['logged-role']}>
+                                <Text
+                                    font={[FontType.text_sm_bold, FontType.text_sm_bold]}
+                                    color='black'
+                                >
+                                    {firstName || '_'}
+                                </Text>
+                                <BoldDropDown />
+                            </div>
+
+                            <Text
+                                font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                color='primary-cta'
+                            >
+                                {role?.name || '_'}
+                            </Text>
+                        </button>
 
                         {open && (
                             <div className={styles['logout-popup']}>
-                                <div
+                                <button
+                                    type='button'
                                     className={styles['logout-section']}
                                     onClick={handleLogoutClick}
-                                    ref={dropdownRef}
-                                    aria-hidden='true'
                                 >
                                     <LogoutIcon />
                                     <Text
@@ -95,13 +97,16 @@ const AfterLoginHeader = () => {
                                     >
                                         Log Out
                                     </Text>
-                                </div>
+                                </button>
                             </div>
                         )}
                     </div>
                 </div>
             </div>
+
             <LogoutModal open={isLogoutModalOpen} setOpen={setIsLogoutModalOpen} />
+
+            <ToastContainer />
         </>
     );
 };

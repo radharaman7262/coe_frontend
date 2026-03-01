@@ -20,11 +20,12 @@ import { INITIAL_STATE as initialState } from './Modal/RoleMaster/constant';
 
 import { ROLE_MASTER_COLUMNS, ROLE_MASTER_TEXT as text } from './constant';
 
-import { useChangeRoleMasterStatusMutation } from '../mutation';
+// import { useChangeRoleMasterStatusMutation } from '../mutation';
 
 import RoleMasterModal from './Modal/RoleMaster';
 
 import styles from './styles.module.scss';
+import { useUserRoleActions } from '../userRoleAction';
 
 interface roleMasterPageProps {
     roleMasterData: RoleType[];
@@ -33,12 +34,17 @@ interface roleMasterPageProps {
 const RoleMasterPage = (props: roleMasterPageProps) => {
     const { roleMasterData } = props;
 
-    const router = useRouter();
-
-    const { mutate } = useChangeRoleMasterStatusMutation({ router });
-
+    const [, setLoading] = useState(false);
     const [addRoleMasterModal, setAddRoleMasterModal] = useState<boolean>(false);
     const [roleId, setRoleId] = useState<number | null>(null);
+
+    const router = useRouter();
+
+    const { execute } = useUserRoleActions({
+        router,
+        setLoader: setLoading,
+        setShow: setAddRoleMasterModal,
+    });
 
     const [formValues, setFormValues] = useState<FormValues>(initialState);
 
@@ -52,7 +58,8 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
                         value={item?.id.toString()}
                         isToggled={item?.status === StatusNumber.ACTIVE}
                         onToggle={(_, id) => {
-                            mutate({
+                            execute({
+                                type: 'status',
                                 status:
                                     item?.status === StatusNumber.ACTIVE
                                         ? StatusNumberString.INACTIVE

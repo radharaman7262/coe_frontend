@@ -13,3 +13,8 @@ export interface LoggedRoleType {
     name: string;
     status: number;
 }
+
+export interface UserRolePayloadType {
+    name: string;
+    userTypeId: string;
+}

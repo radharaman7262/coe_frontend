@@ -16,11 +16,11 @@ import { FormValues } from './Modal/UserType/type';
 import { INITIAL_STATE as initialState } from './Modal/UserType/constant';
 import UserTypeModal from './Modal/UserType';
 
-import { useAddUserTypeMutation } from './mutation';
-
 import { COLUMNS, USERTYPE_TEXT as text } from './constant';
 
 import { userDataType, UserTypePageProps } from './type';
+
+import { useUserTypeActions } from '../useUserTypeActions';
 
 import styles from './styles.module.scss';
 
@@ -34,7 +34,7 @@ const UserTypePage = (props: UserTypePageProps) => {
     const [formValues, setFormValues] = useState<FormValues>(initialState);
     const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
-    const { mutate: addUserTypeMutation } = useAddUserTypeMutation({
+    const { execute, isLoading } = useUserTypeActions({
         router,
         setLoader: setLoading,
         setShow: setAddNewUserTypeModal,
@@ -51,7 +51,8 @@ const UserTypePage = (props: UserTypePageProps) => {
     };
 
     const handleToggleStatus = (item: userDataType) => {
-        addUserTypeMutation({
+        execute({
+            type: 'status',
             id: item?.id,
             status:
                 item?.status === StatusNumber.ACTIVE
@@ -97,10 +98,11 @@ const UserTypePage = (props: UserTypePageProps) => {
     };
 
     const handleSubmitUserType = () => {
-        addUserTypeMutation({
-            id: editingUserId ?? undefined,
+        execute({
+            type: editingUserId ? 'update' : 'create',
+            id: editingUserId as string,
             body: {
-                name: formValues.userType,
+                name: formValues.userType || '',
             },
         });
     };
@@ -115,6 +117,7 @@ const UserTypePage = (props: UserTypePageProps) => {
                     setFormValues={setFormValues}
                     onSubmit={handleSubmitUserType}
                     isEditMode={Boolean(editingUserId)}
+                    isLoading={isLoading}
                 />
             )}
 

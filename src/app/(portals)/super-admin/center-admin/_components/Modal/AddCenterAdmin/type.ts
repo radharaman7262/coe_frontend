@@ -24,7 +24,7 @@ export interface FormValues {
     lastName: string;
     phoneNo: string;
     emailId: string;
-    selectedSpecialization: SpecializationType | null;
+    selectedSpecialization: SpecializationType[] | [];
     selectedCenter: CenterType | null;
 }
 
@@ -47,7 +47,7 @@ type StringFieldMap = {
 };
 
 export type CenterAdminFormType = StringFieldMap & {
-    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: SpecializationType | null;
+    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: SpecializationType[] | null;
     [CenterAdminFormKeys.SELECTED_CENTER]: CenterType | null;
 };
 

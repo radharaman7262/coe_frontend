@@ -3,6 +3,7 @@ import callApi from '@/app/api/api';
 import { ROLE_MASTER_ENDPOINT, ROLE_MASTER_STATUS_ENDPOINT } from '@/app/api/apiRoutes';
 
 import { HTTP_METHOD } from '@/types/common';
+import { UserRolePayloadType } from '@/types/roleType';
 
 import { getCookie } from '@/utils/cookieInServer';
 
@@ -24,31 +25,29 @@ export const getRoleMasterTypeApiCall = async () => {
     return response;
 };
 
-export const addRoleMasterApiCall = async (body: { name: string; userTypeId: string }) => {
+export const addRoleMasterApiCall = async (body: UserRolePayloadType) => {
     const authToken = await getCookie(JWT_TOKEN);
+
+    const payload = { ...body };
 
     const response = await callApi({
         method: HTTP_METHOD.POST,
         url: ROLE_MASTER_ENDPOINT,
         headers: { Authorization: `Bearer ${authToken}` },
-        body,
+        body: payload,
     });
 
     return response;
 };
 
-export const updaterRoleMasterApiCall = async (body: {
-    id?: string;
-    name: string;
-    userTypeId: string;
-}) => {
-    const { id, name, userTypeId } = body;
+export const updaterRoleMasterApiCall = async (roleId: string, body: UserRolePayloadType) => {
+    const { name, userTypeId } = body;
 
     const authToken = await getCookie(JWT_TOKEN);
 
     const response = await callApi({
         method: HTTP_METHOD.PUT,
-        url: `${ROLE_MASTER_ENDPOINT}/${id}`,
+        url: `${ROLE_MASTER_ENDPOINT}/${roleId}`,
         headers: { Authorization: `Bearer ${authToken}` },
         body: {
             name,

@@ -15,8 +15,10 @@ import { MODAL_STYLING } from '@/constant/appConstants';
 
 import { KeyboardEvent } from '@/constant/enumConstant';
 
-import { INITIAL_STATE as initialState, MAX_LENGTHS, NEW_CENTRE_TEXT as title } from './constant';
+import { useGetCenterAdminDropDownList } from '../../../queries';
+import { useUserCenterSetupActions } from '../../../userCenterSetupAction';
 
+import { checkAllFieldValidOrNot, validateInput } from './utils';
 import {
     AddNewCentreProps,
     AdminType,
@@ -24,12 +26,7 @@ import {
     ErrorMessagesType,
     FormValues,
 } from './type';
-
-import { useGetCenterAdminDropDownList } from '../../../queries';
-
-import { useAddCenterSetupMutation } from '../../../mutation';
-
-import { checkAllFieldValidOrNot, validateInput } from './utils';
+import { INITIAL_STATE as initialState, MAX_LENGTHS, NEW_CENTRE_TEXT as title } from './constant';
 
 import styles from './styles.module.scss';
 
@@ -57,11 +54,10 @@ const AddNewCentre = ({
 
     const router = useRouter();
 
-    const { mutate } = useAddCenterSetupMutation({
-        setLoader: setLoadingAddData,
-        setShow: setOpen,
+    const { execute } = useUserCenterSetupActions({
         router,
-        centerId,
+        setShow: setOpen,
+        setLoader: setLoadingAddData,
     });
 
     const { data, isLoading: loadingDropdown } = useGetCenterAdminDropDownList();
@@ -144,20 +140,17 @@ const AddNewCentre = ({
 
     const handleAddNewCenter = () => {
         setLoadingAddData(true);
-        const body: {
-            name: string;
-            address: string;
-            phone: string;
-            adminId: string;
-        } = {
-            name: formValues?.centerName,
-            address: formValues?.address,
-            phone: formValues?.contactDetails,
-            adminId:
-                (formValues?.selectedAdmin && formValues?.selectedAdmin?.userId.toString()) || '',
-        };
-
-        mutate(body);
+        execute({
+            type: 'create',
+            body: {
+                name: formValues?.centerName,
+                address: formValues?.address,
+                phone: formValues?.contactDetails,
+                adminId:
+                    (formValues?.selectedAdmin && formValues?.selectedAdmin?.userId.toString()) ||
+                    '',
+            },
+        });
     };
 
     useEffect(() => {

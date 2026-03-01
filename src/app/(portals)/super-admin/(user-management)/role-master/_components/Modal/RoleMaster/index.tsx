@@ -18,8 +18,6 @@ import { FormValues, RoleFormKeys, RoleMasterProps, RoleMasterType } from './typ
 
 import { MAX_LENGTHS, ROLE_TEXT as text } from './constant';
 
-import { useAddRoleMasterMutation, useUpdateRoleMasterMutation } from '../../../mutation';
-
 import {
     checkAllFieldValidOrNot,
     RoleErrorMessagesType,
@@ -28,6 +26,8 @@ import {
 } from './utils';
 
 import { getUserType } from '../../../utils';
+
+import { useUserRoleActions } from '../../../userRoleAction';
 
 import styles from './styles.module.scss';
 
@@ -46,16 +46,10 @@ const RoleMasterModal = ({
 
     const router = useRouter();
 
-    const { mutate } = useAddRoleMasterMutation({
+    const { execute } = useUserRoleActions({
+        router,
         setLoader: setLoading,
         setShow: setOpen,
-        router,
-    });
-
-    const { mutate: updateRoleMasterMutation } = useUpdateRoleMasterMutation({
-        setLoader: setLoading,
-        setShow: setOpen,
-        router,
     });
 
     const { data } = useGetUserTypeList();
@@ -112,24 +106,23 @@ const RoleMasterModal = ({
     const handleAddNewRole = () => {
         setLoading(true);
 
-        let body: {
-            id?: string;
-            name: string;
-            userTypeId: string;
-        } = {
-            name: formValues?.roleName,
-            userTypeId: formValues?.selectedUserType?.id || '',
-        };
-
         if (roleId) {
-            body = {
-                ...body,
-                id: roleId?.toString() || '',
-            };
-
-            updateRoleMasterMutation(body);
+            execute({
+                type: 'update',
+                id: roleId.toString(),
+                body: {
+                    name: formValues.roleName,
+                    userTypeId: formValues.selectedUserType?.id as string,
+                },
+            });
         } else {
-            mutate(body);
+            execute({
+                type: 'create',
+                body: {
+                    name: formValues.roleName,
+                    userTypeId: formValues.selectedUserType?.id as string,
+                },
+            });
         }
     };
 

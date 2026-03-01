@@ -4,7 +4,7 @@ import React, { JSX, useEffect, useRef, useState } from 'react';
 
 import cx from 'classnames';
 
-import { CircularLoader, Text, ShimmerUiContainer, Input } from '@components/index';
+import { CircularLoader, Text, ShimmerUiContainer, Input, Checkbox } from '@components/index';
 
 import ArrowDown from '@public/assets/svg/chevron-down.svg';
 
@@ -13,6 +13,8 @@ import useClickOutside from '@/hooks/useClickOutside';
 import { FontType } from '@/types/typographyCommon';
 
 import { DROPDOWN_SEARCH_INPUT_PLACEHOLDER, getOptionLabel } from '@/constant/dropdownConstant';
+
+import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { DropdownProps } from './type';
 
@@ -53,7 +55,7 @@ const Dropdown = <T extends { selectValue: keyof T }>({
 
     useClickOutside(dropdownRef, () => setIsOpen(false));
 
-    // const handleCheckbox = (item: T) => () => onChange?.(item);
+    const handleCheckbox = (item: T) => () => onChange?.(item);
 
     const handleSelectOption = (item: T) => () => {
         onChange?.(item);
@@ -89,28 +91,30 @@ const Dropdown = <T extends { selectValue: keyof T }>({
         }
     }, [isOpen]);
 
-    // const renderOptions = (item: T) => {
-    //     const label = getOptionLabel(item, selectValue);
+    const renderOptions = (item: T) => {
+        const label = getOptionLabel(item, selectValue);
 
-    //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //     const arrayofDropdownlabel: any = [];
-    //     if (value && Array.isArray(value) && value?.length > 0) {
-    //         const arrayOfLabel = value.map((item) => getOptionLabel(item, selectValue));
-    //         arrayofDropdownlabel.push(...arrayOfLabel);
-    //     }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const arrayofDropdownlabel: any = [];
+        if (value && Array.isArray(value) && value?.length > 0) {
+            const arrayOfLabel = value.map((item) => getOptionLabel(item, selectValue));
+            arrayofDropdownlabel.push(...arrayOfLabel);
+        }
 
-    //     return (
-    //         <div className={styles.checkbox}>
-    //             <Checkbox
-    //                 isChecked={arrayofDropdownlabel.includes(label)}
-    //                 label={label}
-    //                 onChange={handleCheckbox(item)}
-    //             />
-    //         </div>
-    //     );
-    // };
+        return (
+            <div className={styles.checkbox}>
+                <Checkbox
+                    isChecked={arrayofDropdownlabel.includes(label)}
+                    label={label}
+                    onChange={handleCheckbox(item)}
+                    labelFont={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                />
+            </div>
+        );
+    };
 
     // It is not used might be wriiten for some functionality, delete later if not used
+
     // const renderSingleSelectOption = (item: T) => {
     //     const label = getOptionLabel(item, selectValue);
     //     return (
@@ -162,7 +166,7 @@ const Dropdown = <T extends { selectValue: keyof T }>({
                             className,
                         )}
                         onClick={() => setIsOpen(!isOpen)}
-                        onKeyDown={(e) => e.key === 'Enter' && setIsOpen(!isOpen)}
+                        onKeyDown={(e) => e.key === KeyboardEvent.ENTER && setIsOpen(!isOpen)}
                     >
                         <Text
                             font={[FontType.text_sm_regular, FontType.text_sm_regular]}
@@ -205,35 +209,45 @@ const Dropdown = <T extends { selectValue: keyof T }>({
                             ) : options?.length === 0 ? (
                                 <div className={styles.noOptionContainer}>{noOptionText}</div>
                             ) : (
-                                <ul className={styles.option}>
-                                    {options.map((item) => {
-                                        const label = getOptionLabel(item, selectValue);
+                                <div className={styles['options-container']}>
+                                    <ul
+                                        className={cx(
+                                            styles.option,
+                                            multipleSelection && styles['checkbox-gap'],
+                                        )}
+                                    >
+                                        {multipleSelection
+                                            ? options?.map((item) => renderOptions(item))
+                                            : options.map((item) => {
+                                                  const label = getOptionLabel(item, selectValue);
 
-                                        return (
-                                            <div
-                                                key={label}
-                                                role='button'
-                                                tabIndex={0}
-                                                className={cx(
-                                                    styles.optionItem,
-                                                    dropdownValue === label && styles.selected,
-                                                    optionsClassName,
-                                                )}
-                                                onClick={handleSelectOption(item)}
-                                                onKeyDown={handleSelectOption(item)}
-                                            >
-                                                <Text
-                                                    font={[
-                                                        FontType.text_sm_medium,
-                                                        FontType.text_sm_medium,
-                                                    ]}
-                                                >
-                                                    {label}
-                                                </Text>
-                                            </div>
-                                        );
-                                    })}
-                                </ul>
+                                                  return (
+                                                      <div
+                                                          key={label}
+                                                          role='button'
+                                                          tabIndex={0}
+                                                          className={cx(
+                                                              styles.optionItem,
+                                                              dropdownValue === label &&
+                                                                  styles.selected,
+                                                              optionsClassName,
+                                                          )}
+                                                          onClick={handleSelectOption(item)}
+                                                          onKeyDown={handleSelectOption(item)}
+                                                      >
+                                                          <Text
+                                                              font={[
+                                                                  FontType.text_sm_medium,
+                                                                  FontType.text_sm_medium,
+                                                              ]}
+                                                          >
+                                                              {label}
+                                                          </Text>
+                                                      </div>
+                                                  );
+                                              })}
+                                    </ul>
+                                </div>
                             )}
                         </div>
                     )}

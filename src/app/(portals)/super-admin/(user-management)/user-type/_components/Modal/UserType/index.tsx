@@ -27,6 +27,7 @@ const UserTypeModal = ({
     setFormValues,
     onSubmit,
     isEditMode,
+    isLoading,
 }: UserTypeProps) => {
     const [errors, setErrors] = React.useState<Partial<Record<UserTypeFormKeys, string>>>({});
 
@@ -115,7 +116,8 @@ const UserTypeModal = ({
                         color='white'
                         StartIcon={!isEditMode && <PlusIcon />}
                         className={styles.button}
-                        disabled={isCreateDisabled}
+                        disabled={isCreateDisabled || isLoading}
+                        loader={isLoading}
                         onClick={onSubmit}
                     />
                 </div>

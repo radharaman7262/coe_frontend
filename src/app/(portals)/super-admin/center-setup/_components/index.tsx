@@ -14,18 +14,18 @@ import { DEBOUNCE_SEARCH_TIME, StatusNumber, StatusNumberString } from '@/consta
 
 import EditIcon from '@/public/assets/svg/edit-icon.svg';
 
-import { useChangeCenterStatusMutation } from '../mutation';
-
 import { INITIAL_STATE as initialState } from './Modal/AddNewCenter/constant';
+
 import { AdminType, CenterSetupFormKeys, FormValues } from './Modal/AddNewCenter/type';
 import AddNewCentre from './Modal/AddNewCenter';
+
+import { useUserCenterSetupActions } from '../userCenterSetupAction';
+import { useGetCenterList } from '../queries';
+import { getCenterSetupListType } from '../type';
 
 import TableUi from './TableUi';
 
 import { NEW_CENTRE_TEXT as text } from './constant';
-import { useGetCenterList } from '../queries';
-
-import { getCenterSetupListType } from '../type';
 
 import styles from './styles.module.scss';
 
@@ -57,7 +57,12 @@ const CenterSetupPage = () => {
 
     const { limit, results = [], totalCount = 0 } = response || {};
 
-    const { mutate } = useChangeCenterStatusMutation({ router });
+    // const { mutate } = useChangeCenterStatusMutation({ router });
+
+    const { execute } = useUserCenterSetupActions({
+        router,
+        setShow: setAddNewCenterModal,
+    });
 
     const getCenterSetupList = (results: getCenterSetupListType[]) => {
         const data = results?.map((item) => ({
@@ -68,12 +73,20 @@ const CenterSetupPage = () => {
                         value={item?.centerId.toString()}
                         isToggled={item?.status === StatusNumber.ACTIVE}
                         onToggle={(_, id) => {
-                            mutate({
+                            // mutate({
+                            //     status:
+                            //         item?.status === StatusNumber.ACTIVE
+                            //             ? StatusNumberString.INACTIVE
+                            //             : StatusNumberString.ACTIVE,
+                            //     id: id?.toString(),
+                            // });
+                            execute({
+                                type: 'status',
+                                id: id.toString(),
                                 status:
                                     item?.status === StatusNumber.ACTIVE
                                         ? StatusNumberString.INACTIVE
                                         : StatusNumberString.ACTIVE,
-                                id: id?.toString(),
                             });
                         }}
                     />

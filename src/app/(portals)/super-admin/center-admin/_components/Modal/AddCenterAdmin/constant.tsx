@@ -23,29 +23,12 @@ export const CENTER_ADMIN_TEXT = {
     update: 'Update',
 };
 
-export const EMPTY_OPTIONS: { id: number; name: string }[] = [];
-
-// TODO: Need to be remove after API Integration //
-export const SPECIALIZATION_LIST = [
-    { id: 1, name: 'Speech Therapy' },
-    { id: 2, name: 'Occupational Therapy' },
-    { id: 3, name: 'Behavioral Therapy' },
-    { id: 4, name: 'Hearing & Communication' },
-    { id: 5, name: 'Assistive Learning' },
-];
-
-export const CENTER_LIST = [
-    { id: 1, name: 'Ghaziabad' },
-    { id: 2, name: 'Delhi' },
-    { id: 3, name: 'Noida' },
-];
-
 export const INITIAL_STATE = {
     [CenterAdminFormKeys.FIRST_NAME]: '',
     [CenterAdminFormKeys.LAST_NAME]: '',
     [CenterAdminFormKeys.PHONE_NO]: '',
     [CenterAdminFormKeys.EMAIL_ID]: '',
-    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: null,
+    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: [],
     [CenterAdminFormKeys.SELECTED_CENTER]: null,
 };
 

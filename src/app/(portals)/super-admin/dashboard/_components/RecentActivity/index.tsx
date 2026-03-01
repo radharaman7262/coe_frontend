@@ -30,10 +30,10 @@ const RecentActivity = (props: RecentActivityProps) => {
                             font={[FontType.text_xs_bold, FontType.text_xs_bold]}
                             color='text-gray-900'
                         >
-                            {item.date}
+                            {item?.date}
                         </Text>
 
-                        {item.newUser?.map((user) => (
+                        {item?.newUser?.map((user) => (
                             <div>
                                 <Text
                                     font={[FontType.text_xs_medium, FontType.text_xs_medium]}
@@ -52,7 +52,7 @@ const RecentActivity = (props: RecentActivityProps) => {
                             </div>
                         ))}
 
-                        {item.studentCaseAssigned?.map((caseItem) => (
+                        {item?.studentCaseAssigned?.map((caseItem) => (
                             <div>
                                 <Text
                                     font={[FontType.text_xs_medium, FontType.text_xs_medium]}

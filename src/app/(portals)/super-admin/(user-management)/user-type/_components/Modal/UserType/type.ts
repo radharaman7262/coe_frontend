@@ -7,6 +7,7 @@ export interface UserTypeProps {
     setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
     onSubmit: () => void;
     isEditMode: boolean;
+    isLoading: boolean;
 }
 
 export interface FormValues {

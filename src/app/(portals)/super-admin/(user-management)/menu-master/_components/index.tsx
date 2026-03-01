@@ -22,15 +22,11 @@ import { INITIAL_STATE as initialState } from './Modal/MenuMaster/constant';
 import MenuMasterModal from './Modal/MenuMaster';
 import { FormValues } from './Modal/MenuMaster/type';
 
+import { useUserMenuMasterActions } from '../userMenuAction';
+
 import TableUi from './TableUi';
 
 import { MENU_MASTER_TEXT as text } from './constant';
-
-import {
-    useAddMenuMasterMutation,
-    useChangeMenuMasterStatusMutation,
-    useUpdateMenuMasterMutation,
-} from './mutation';
 
 import styles from './styles.module.scss';
 
@@ -51,20 +47,10 @@ const MenuMasterPage = () => {
 
     const [tableFilter, setTableFilter] = useState<string>('');
 
-    const { mutate: addMenuMaster } = useAddMenuMasterMutation({
+    const { execute } = useUserMenuMasterActions({
         router,
         setLoader: setLoading,
         setShow: setAddMenuMasterModal,
-    });
-
-    const { mutate: updateMenuMaster } = useUpdateMenuMasterMutation({
-        router,
-        setLoader: setLoading,
-        setShow: setAddMenuMasterModal,
-    });
-
-    const { mutate: changeMenuMasterStatus } = useChangeMenuMasterStatusMutation({
-        setLoader: setLoading,
     });
 
     const handleEditMenuMasterType = (item: menuMasterType) => {
@@ -120,7 +106,8 @@ const MenuMasterPage = () => {
                         value={item?.id.toString()}
                         isToggled={item?.status === StatusNumber.ACTIVE}
                         onToggle={() => {
-                            changeMenuMasterStatus({
+                            execute({
+                                type: 'status',
                                 id: item?.id,
                                 status:
                                     item?.status === StatusNumber.ACTIVE
@@ -144,10 +131,11 @@ const MenuMasterPage = () => {
 
     const handleSubmitMenuMaster = () => {
         if (editingMenuId) {
-            updateMenuMaster({
+            execute({
+                type: 'update',
                 id: editingMenuId,
                 body: {
-                    name: formValues.menuName,
+                    menuName: formValues.menuName,
                     menuLink: formValues.menuURL,
                     remarks: formValues.remarks,
                     priority: formValues.priority,
@@ -156,13 +144,16 @@ const MenuMasterPage = () => {
                 },
             });
         } else {
-            addMenuMaster({
-                menuName: formValues.menuName,
-                menuLink: formValues.menuURL,
-                remarks: formValues.remarks,
-                priority: formValues.priority,
-                parentId: formValues.selectedParentMenu?.id || null,
-                isParent: formValues.selectedParentMenu ? '0' : '1',
+            execute({
+                type: 'create',
+                body: {
+                    menuName: formValues.menuName,
+                    menuLink: formValues.menuURL,
+                    remarks: formValues.remarks,
+                    priority: formValues.priority,
+                    parentId: formValues.selectedParentMenu?.id || null,
+                    isParent: formValues.selectedParentMenu ? '0' : '1',
+                },
             });
         }
     };
@@ -208,4 +199,5 @@ const MenuMasterPage = () => {
         </>
     );
 };
+
 export default MenuMasterPage;

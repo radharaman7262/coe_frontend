@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 import Modal from '@/components/shared/Modal';
 
@@ -14,12 +13,9 @@ import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
-import {
-    EMPTY_OPTIONS,
-    CENTER_ADMIN_TEXT as text,
-    MAX_LENGTHS,
-    INITIAL_STATE as initialState,
-} from './constant';
+import { useGetRoleMasterList } from '@/app/(portals)/super-admin/(user-management)/role-master/queries';
+import { RoleType } from '@/types/roleType';
+import { CENTER_ADMIN_TEXT as text, MAX_LENGTHS, INITIAL_STATE as initialState } from './constant';
 
 import { checkAllFieldValidOrNot, validateInput } from './utils';
 
@@ -64,14 +60,18 @@ const AddCenterAdmin = ({
         [CenterAdminFormKeys.PHONE_NO]: emailIdRef,
     };
 
-    const router = useRouter();
-
     const { mutate } = useAddCenterAdminMutation({
         setLoader: setLoadingAddData,
         setShow: setOpen,
-        router,
         centerAdminId,
     });
+
+    const { data: roleMasterListResponse } = useGetRoleMasterList();
+
+    const { response: roleMasterList = [] }: { response: RoleType[] } =
+        roleMasterListResponse || {};
+
+    const centerAdmin = roleMasterList?.filter((item) => item.roleName === 'Center Admin');
 
     const { isLoading: specializedLoader, data } = useGetSpecializationDropDownList();
 
@@ -145,8 +145,22 @@ const AddCenterAdmin = ({
         }
     };
 
-    const handleSpecializationSelect = (item: SpecializationType | null) => {
-        updateFormValue(CenterAdminFormKeys.SELECTED_SPECIALIZATION, item);
+    const handleSpecializationSelect = (selectedValue: SpecializationType) => {
+        const selectedSpecialization = formValues[CenterAdminFormKeys.SELECTED_SPECIALIZATION];
+
+        const foundIndex = selectedSpecialization.findIndex((item) => item.id === selectedValue.id);
+
+        if (foundIndex !== -1) {
+            updateFormValue(
+                CenterAdminFormKeys.SELECTED_SPECIALIZATION,
+                selectedSpecialization.filter((item) => item.id !== selectedValue.id),
+            );
+        } else {
+            updateFormValue(CenterAdminFormKeys.SELECTED_SPECIALIZATION, [
+                ...selectedSpecialization,
+                selectedValue,
+            ]);
+        }
     };
 
     const handleCenterSelect = (item: CenterType | null) => {
@@ -187,11 +201,11 @@ const AddCenterAdmin = ({
             lastName: formValues?.lastName,
             phone: formValues?.phoneNo,
             email: formValues?.emailId,
-            roleId: 'Center Admin',
+            roleId: centerAdmin[0].id,
             centerId: centerIdString,
-            specialization: formValues?.selectedSpecialization
-                ? [{ id: formValues.selectedSpecialization.id.toString() }]
-                : [],
+            specialization: formValues[CenterAdminFormKeys.SELECTED_SPECIALIZATION].map((item) => ({
+                id: item.id.toString(),
+            })),
         };
 
         mutate(body);
@@ -307,11 +321,11 @@ const AddCenterAdmin = ({
                             >
                                 {text.role}
                             </Text>
-                            <Dropdown<{ id: number; name: string }>
+                            <Dropdown
                                 label={text.centerAdmin}
-                                options={EMPTY_OPTIONS}
-                                selectValue='name'
-                                value={null}
+                                options={centerAdmin}
+                                selectValue='roleName'
+                                value={centerAdmin[0]}
                                 disable
                             />
                         </div>

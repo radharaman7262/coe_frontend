@@ -1,7 +1,7 @@
 import { showToast } from '@/components/ui/Toaster/constant';
 import { LOADING_TIME_DURATION } from '@/constant/appConstants';
-import { useMutation } from '@tanstack/react-query';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryKeys } from '@/utils/queryKeys';
 import { addCenterAdminApiCall, updateCenterAdminApiCall } from './utils';
 
 // export const useChangeCenterStatusMutation = ({ router }: { router: AppRouterInstance }) =>
@@ -29,15 +29,15 @@ import { addCenterAdminApiCall, updateCenterAdminApiCall } from './utils';
 export const useAddCenterAdminMutation = ({
     setLoader,
     setShow,
-    router,
     centerAdminId,
 }: {
     setLoader: (state: boolean) => void;
     setShow: (state: boolean) => void;
-    router: AppRouterInstance;
     centerAdminId: number | null;
-}) =>
-    useMutation({
+}) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
         mutationFn: (body: {
             firstName: string;
             lastName: string;
@@ -59,13 +59,16 @@ export const useAddCenterAdminMutation = ({
         },
 
         onSuccess(data) {
-            const { status, error, response } = data || {};
+            const { status, response, message } = data || {};
 
             if (!status) {
-                throw new Error(error);
+                throw new Error(message);
             }
 
-            router.refresh();
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.CENTER_ADMIN],
+            });
+
             setShow(false);
 
             showToast({
@@ -85,3 +88,4 @@ export const useAddCenterAdminMutation = ({
             }, LOADING_TIME_DURATION);
         },
     });
+};

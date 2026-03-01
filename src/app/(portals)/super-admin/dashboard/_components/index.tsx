@@ -22,6 +22,7 @@ interface SuperAdminDashboardType {
 const SuperAdminDashboardPage = (props: SuperAdminDashboardType) => {
     const { CompilenceTrackerData, StatsListData, CenterUserOverViewData, RecentActivityList } =
         props;
+
     return (
         <div className={styles['main-container']}>
             <div className={styles['left-section']}>
@@ -31,7 +32,6 @@ const SuperAdminDashboardPage = (props: SuperAdminDashboardType) => {
                     <CenterUserOverView data={CenterUserOverViewData} />
                 </div>
             </div>
-
             <div className={styles['right-section']}>
                 <RecentActivity RecentActivityList={RecentActivityList} />
             </div>

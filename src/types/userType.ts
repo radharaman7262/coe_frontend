@@ -5,3 +5,7 @@ export interface UserType {
     name: string;
     status: number;
 }
+
+export interface UserTypePayload {
+    name: string;
+}

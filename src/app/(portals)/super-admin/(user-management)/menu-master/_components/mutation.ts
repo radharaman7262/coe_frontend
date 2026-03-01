@@ -1,151 +1,31 @@
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-
 import { useMutation } from '@tanstack/react-query';
 
-import { showToast } from '@/components/ui/Toaster/constant';
+import { StatusNumberString } from '@/constant/appConstants';
 
-import { LOADING_TIME_DURATION, StatusNumberString } from '@/constant/appConstants';
+import { MenuMasterPayloadType } from '../types';
 
-import { queryClient } from '@/utils/react-query-client';
-import { menuMasterTypeKeys } from '@/services/menuMaster';
-import { updateMenuMasterBody, userAddMutationBody } from '../types';
+import { userMenuMasterService } from '../userMenu.service';
 
-import {
-    AddMenuMastereApiCall,
-    UpdateMenuMasterApiCall,
-    UpdateMenuMasterTypeStatusAPICall,
-} from '../utils';
+export type UserMenuMasterMutationPayload =
+    | { type: 'create'; body: MenuMasterPayloadType }
+    | { type: 'update'; id: string; body: MenuMasterPayloadType }
+    | { type: 'status'; id: string; status: StatusNumberString };
 
-export const useAddMenuMasterMutation = ({
-    setLoader,
-    setShow,
-    router,
-}: {
-    setLoader: (state: boolean) => void;
-    setShow: (state: boolean) => void;
-    router: AppRouterInstance;
-}) =>
+export const useUserMenuMasterMutation = () =>
     useMutation({
-        mutationFn: (body: userAddMutationBody) => AddMenuMastereApiCall(body),
+        mutationFn: async (payload: UserMenuMasterMutationPayload) => {
+            switch (payload.type) {
+                case 'create':
+                    return userMenuMasterService.create(payload.body);
 
-        onSuccess(data) {
-            const { status, error, response } = data || {};
+                case 'update':
+                    return userMenuMasterService.update(payload.id, payload.body);
 
-            if (!status) {
-                throw new Error(error);
+                case 'status':
+                    return userMenuMasterService.updateStatus(payload.id, payload.status);
+
+                default:
+                    return null;
             }
-
-            router.refresh();
-
-            setShow(false);
-
-            showToast({ type: 'success', message: response });
-        },
-
-        onMutate() {
-            setLoader(true);
-        },
-        onError(error) {
-            const errorMessage = error instanceof Error ? error.message : String(error);
-
-            showToast({ type: 'error', message: errorMessage });
-        },
-        onSettled() {
-            setTimeout(() => {
-                setLoader(false);
-            }, LOADING_TIME_DURATION);
-        },
-    });
-
-export const useUpdateMenuMasterMutation = ({
-    setLoader,
-    setShow,
-    router,
-}: {
-    setLoader: (state: boolean) => void;
-    setShow: (state: boolean) => void;
-    router: AppRouterInstance;
-}) =>
-    useMutation({
-        mutationFn: ({ id, body }: { id: string; body: updateMenuMasterBody }) =>
-            UpdateMenuMasterApiCall(id, body),
-
-        onMutate() {
-            setLoader(true);
-        },
-
-        onSuccess(data) {
-            if (!data?.status) {
-                throw new Error(data?.error);
-            }
-
-            showToast({ type: 'success', message: 'Menu Updated Successfully' });
-            setShow(false);
-            router.refresh();
-        },
-
-        onError(error) {
-            showToast({
-                type: 'error',
-                message: error instanceof Error ? error.message : String(error),
-            });
-        },
-
-        onSettled() {
-            setTimeout(() => setLoader(false), LOADING_TIME_DURATION);
-        },
-    });
-
-export const useChangeMenuMasterStatusMutation = ({
-    setLoader,
-}: {
-    setLoader: (state: boolean) => void;
-}) =>
-    useMutation({
-        mutationFn: ({
-            id,
-            status,
-        }: {
-            id: string;
-            status: StatusNumberString.INACTIVE | StatusNumberString.ACTIVE;
-        }) =>
-            UpdateMenuMasterTypeStatusAPICall({
-                id,
-                status,
-            }),
-
-        onMutate() {
-            setLoader(true);
-        },
-
-        onSuccess(data, variables) {
-            if (!data?.status) {
-                throw new Error(data?.error);
-            }
-
-            showToast({
-                type: 'success',
-                message:
-                    variables.status === '1'
-                        ? 'Status activated successfully'
-                        : 'Status deactivated successfully',
-            });
-
-            queryClient.invalidateQueries({
-                queryKey: menuMasterTypeKeys.all,
-            });
-        },
-
-        onError(error) {
-            showToast({
-                type: 'error',
-                message: error instanceof Error ? error.message : String(error),
-            });
-        },
-
-        onSettled() {
-            setTimeout(() => {
-                setLoader(false);
-            }, LOADING_TIME_DURATION);
         },
     });

@@ -57,8 +57,13 @@ const CenterAdminPage = () => {
     const { limit, results = [], totalCount = 0 } = response || {};
 
     const handleEditAdmin = (item: getCenterAdminListType) => {
+        const specialization = item?.specialization?.map((item) => ({
+            id: +item.specializationId,
+            name: item?.specializationName,
+        }));
         setAddNewCenterAdminModal(true);
         setCenterAdminId(Number(item?.id));
+
         setFormValues((prevValues) => ({
             ...prevValues,
             [CenterAdminFormKeys.FIRST_NAME]: item?.firstName,
@@ -69,7 +74,7 @@ const CenterAdminPage = () => {
                 centerId: Number(item?.centerId),
                 name: item?.centerName,
             },
-            [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: null,
+            [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: specialization,
         }));
     };
 

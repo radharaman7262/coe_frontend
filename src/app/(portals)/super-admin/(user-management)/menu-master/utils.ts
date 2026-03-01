@@ -14,7 +14,7 @@ import { getCookie } from '@/utils/cookieInServer';
 import { JWT_TOKEN } from '@/utils/cookieManager';
 import { StatusNumberString } from '@/constant/appConstants';
 
-import { updateMenuMasterBody, userAddMutationBody } from './types';
+import { MenuMasterPayloadType } from './types';
 
 export const getMenuMasterApiCall = async ({
     page,
@@ -41,7 +41,7 @@ export const getMenuMasterApiCall = async ({
     return response;
 };
 
-export const AddMenuMastereApiCall = async (body: userAddMutationBody) => {
+export const addMenuMasterApiCall = async (body: MenuMasterPayloadType) => {
     const authToken = await getCookie(JWT_TOKEN);
 
     const payLoadBody = {
@@ -63,11 +63,11 @@ export const AddMenuMastereApiCall = async (body: userAddMutationBody) => {
     return response;
 };
 
-export const UpdateMenuMasterApiCall = async (id: string, body: updateMenuMasterBody) => {
+export const updateMenuMasterApiCall = async (id: string, body: MenuMasterPayloadType) => {
     const authToken = await getCookie(JWT_TOKEN);
 
     const payLoadBody = {
-        name: body?.name,
+        name: body?.menuName,
         menuLink: body?.menuLink,
         remarks: body?.remarks,
         priority: body?.priority,
@@ -85,12 +85,12 @@ export const UpdateMenuMasterApiCall = async (id: string, body: updateMenuMaster
     return response;
 };
 
-export const UpdateMenuMasterTypeStatusAPICall = async ({
+export const updateMenuMasterTypeStatusAPICall = async ({
     id,
     status,
 }: {
     id: string;
-    status: StatusNumberString.INACTIVE | StatusNumberString.ACTIVE;
+    status: StatusNumberString;
 }) => {
     const authToken = await getCookie(JWT_TOKEN);
 

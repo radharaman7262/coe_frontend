@@ -59,6 +59,22 @@ const CENTER_DROPDOWN_LIST_API = `${CENTER_SETUP_LIST}/list`;
 /** Role Menu Mapping */
 const ROLE_MENU_MAPPING = `${API_URL}/role-menu-mapping`;
 
+/** Admin  */
+
+/** Admin Dashboard */
+const ADMIN_DASHBOARD_STATS = `${API_URL}/admin/stats`;
+const ADMIN_UPCOMNG_SESSIONS = `${API_URL}/admin/upcoming-session`;
+const ADMIN_RECENT_ACTIVITY = `${API_URL}/admin/recent-activity`;
+
+/** Admin Session Management */
+const ADMIN_SESSION_LIST = `${API_URL}/admin/dashboard/admin/session`;
+
+/** Admin Staff Management */
+const ADMIN_STAFF_MANAGEMENT_API = `${API_URL}/admin/dashboard/admin/staff`;
+
+/** Language */
+const ADMIN_LANGUAGE = `${API_URL}/admin/languages`;
+
 export {
     LOGIN_ENDPOINT,
     USER_TYPE_ENDPOINT,
@@ -83,4 +99,10 @@ export {
     UPDATE_MENU_MASTER_ENDPOINT,
     MENU_MASTER_STATUS_ENDPOINT,
     CENTER_ADMIN_STATUS,
+    ADMIN_DASHBOARD_STATS,
+    ADMIN_UPCOMNG_SESSIONS,
+    ADMIN_RECENT_ACTIVITY,
+    ADMIN_SESSION_LIST,
+    ADMIN_STAFF_MANAGEMENT_API,
+    ADMIN_LANGUAGE,
 };

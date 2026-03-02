@@ -1,0 +1,33 @@
+@use '@styles/theme' as *;
+
+.overview-wrapper {
+    @include flex-center(column, normal, normal, 16px);
+    width: 100%;
+    height: 56vh;
+    padding: 13px 15px;
+    border-radius: 12px;
+    background-color: $white;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.06),
+        0 8px 24px rgba(0, 0, 0, 0.12);
+
+    @include breakpoints('2xl') {
+        height: 71vh;
+    }
+
+    .overview-container {
+        @include flex-center(normal, space-between, center, 13px);
+
+        .btn-class {
+            padding: 6px 10px;
+            border-radius: 8px;
+            background-color: $white;
+            border: 1px solid $gray-300;
+        }
+    }
+
+    .no-data {
+        @include flex-center(normal, center, center);
+        margin-top: 50%;
+    }
+}

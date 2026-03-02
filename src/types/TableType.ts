@@ -10,14 +10,13 @@ export interface TableHeaderType<key extends string = string> {
     disable?: boolean;
     filterType?: FilterTypeEnum;
 }
+export interface SmallTableHeaderType<key extends string = string> {
+    header: string;
+    accessor: key;
+}
 
 export type TableDataType<Key extends string = string> = Record<Key, ReactNode>;
 
 export type FiltersType<T> = {
     [K in keyof T]?: string;
 };
-
-export interface SmallTableHeaderType<key extends string = string> {
-    header: string;
-    accessor: key;
-}

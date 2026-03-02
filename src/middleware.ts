@@ -44,12 +44,19 @@ export const middleware = async (request: NextRequest) => {
 // Apply to all protected routes
 export const config = {
     matcher: [
-        '/super-admin/dashboard',
-        '/super-admin/user-type',
-        '/super-admin/center-setup',
-        '/super-admin/role-master',
-        '/super-admin/center-admin',
-        '/super-admin/menu-master',
-        '/super-admin/menu-mapping',
+        /* Super Admin Route Paths */
+        '/super-admin/dashboard/:path*',
+        '/super-admin/user-type/:path*',
+        '/super-admin/center-setup/:path*',
+        '/super-admin/role-master/:path*',
+        '/super-admin/center-admin/:path*',
+        '/super-admin/menu-master/:path*',
+        '/super-admin/menu-mapping/:path*',
+
+        /* Admin Route Paths */
+        '/admin/dashboard/:path*',
+        '/admin/student-list/:path*',
+        '/admin/staff-list/:path*',
+        '/admin/sessions/:path*',
     ],
 };

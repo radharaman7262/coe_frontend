@@ -1,19 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
-import { SmallTableHeaderType } from '@/types/TableType';
+import { SmallTableHeaderType, TableDataType } from '@/types/TableType';
+import { DashboardOverviewData } from '@/app/(portals)/super-admin/dashboard/_components/CenterUserOverView/type';
 
 import { Text } from '@components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
-import { DashboardOverviewData } from '@/app/(portals)/super-admin/dashboard/_components/CenterUserOverView/type';
-
 import styles from './styles.module.scss';
 
 interface SmallTableBodyProps {
     columns: SmallTableHeaderType[];
-    data: DashboardOverviewData[];
+    data: TableDataType[] | DashboardOverviewData[];
 }
 
 const SmallTableBody = (props: SmallTableBodyProps) => {

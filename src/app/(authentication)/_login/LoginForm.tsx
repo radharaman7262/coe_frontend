@@ -107,7 +107,7 @@ const LoginForm = (props: LoginFormType) => {
 
             const { assignedMenus: menuLists } = userDetail || {};
 
-            if (!menuLists.length) {
+            if (!menuLists?.length) {
                 showToast({ type: 'error', message: 'Please mapped at least one menu.' });
                 return;
             }

@@ -1,0 +1,79 @@
+@use '@styles/theme' as *;
+
+.search-bar {
+    width: 25%;
+}
+
+.table-container {
+    height: calc(100vh - 248px);
+}
+
+.table-wrapper {
+    height: 100%;
+}
+
+.table-data {
+    height: 80%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.table-row {
+    @include flex-center(normal, normal, center, 12px);
+
+    .clear-text {
+        cursor: pointer;
+    }
+}
+
+.shimmer-data {
+    height: calc(100vh - 216px);
+    margin: 16px;
+    border: 1px solid $gray-300;
+    border-radius: 12px;
+}
+
+.toggle-data {
+    @include flex-center(normal, normal, center);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $green-500;
+}
+
+.status-1 {
+    padding: 2px 8px;
+    border-radius: 16px;
+    background-color: $green-0;
+    color: $green-500;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.status-0 {
+    color: $red-500;
+    text-align: center;
+    cursor: pointer;
+}
+
+.assigned-students {
+    padding: 2px 8px;
+    border-radius: 16px;
+    background-color: $gray-100;
+    text-align: center;
+}
+
+.edit-action {
+    color: $primary-nav-link;
+    cursor: pointer;
+}

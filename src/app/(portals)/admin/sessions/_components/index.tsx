@@ -1,0 +1,116 @@
+'use client';
+
+import React, { useMemo, useState } from 'react';
+
+import { PageHeader, ShimmerUiContainer } from '@/components/index';
+
+import { ToastContainer } from 'react-toastify';
+
+import { DEBOUNCE_SEARCH_TIME } from '@/constant/appConstants';
+
+import useDebounce from '@/utils/useDebounce';
+
+import { STAFF_LIST_TEXT as text, STATUS_LABEL_MAP as statusLabelMap } from './constant';
+
+import { useGetAdminSessionList } from '../queries';
+
+import TableUi from './TableUi';
+
+import { sessionDataType } from '../type';
+
+import styles from './styles.module.scss';
+
+const AdminSessionPage = () => {
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [tableFilter, setTableFilter] = useState<string>('');
+
+    const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
+
+    const { isLoading, data } = useGetAdminSessionList({
+        page: currentPage,
+        limit: 10,
+        search: debouncedFilters,
+    });
+
+    const { response } = data || {};
+
+    const { limit, data: sessionResponse = [], totalCount = 0 } = response || {};
+
+    const getAdminSessionList = (results: sessionDataType[] = []) =>
+        results.map((item) => {
+            const {
+                studentId,
+                studentName,
+                age,
+                gender,
+                status,
+                bookingDate,
+                startTime,
+                endTime,
+                staffName,
+                specializations = [],
+            } = item;
+
+            const genderInitial = gender?.[0] ?? '';
+            const statusLabel = statusLabelMap[status] ?? 'Unknown';
+
+            return {
+                ...item,
+
+                studentId: <div className={styles['capsule-container']}>{`STU-${studentId}`}</div>,
+
+                nameAgeGender: `${studentName} (${age} / ${genderInitial})`,
+
+                sessionStatus: (
+                    <div className={styles[`status-${status}`] || ''}>{statusLabel}</div>
+                ),
+
+                sessionSchedule: (
+                    <div>
+                        {bookingDate}
+                        <div>
+                            {startTime} - {endTime}
+                        </div>
+                    </div>
+                ),
+
+                sessionWith: (
+                    <div className={styles['table-Session-text']}>
+                        {staffName}
+                        {specializations.length > 0 && (
+                            <div>
+                                {specializations.map((spec, index) => (
+                                    <div key={index as number}>{spec}</div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ),
+            };
+        });
+
+    const finalSessionList = useMemo(() => getAdminSessionList(sessionResponse), [sessionResponse]);
+
+    return (
+        <>
+            <PageHeader title={text.staffManagement} description={text.description} />
+
+            {isLoading ? (
+                <ShimmerUiContainer className={styles['shimmer-data']} />
+            ) : (
+                <TableUi
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    data={finalSessionList}
+                    limit={limit}
+                    totalCount={totalCount}
+                    setTableFilter={setTableFilter}
+                    tableFilter={tableFilter}
+                />
+            )}
+
+            <ToastContainer />
+        </>
+    );
+};
+export default AdminSessionPage;

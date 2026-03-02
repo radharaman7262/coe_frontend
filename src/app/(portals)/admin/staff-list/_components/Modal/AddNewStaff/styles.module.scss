@@ -1,0 +1,60 @@
+@use '@styles/theme' as *;
+
+.container {
+    background-color: $white;
+    overflow: hidden;
+
+    .header {
+        @include flex-center(row, space-between, center);
+        padding: 12px 24px;
+        border-bottom: 1px solid $gray-250;
+    }
+
+    .body {
+        @include flex-center(column, normal, normal, 10px);
+        padding: 16px 24px;
+        width: 600px;
+
+        @include breakpoints('2xl') {
+            gap: 16px;
+        }
+
+        .field {
+            @include flex-center(normal, normal, normal, 16px);
+
+            > div {
+                @include flex-center(column, normal, normal, 6px);
+                width: 50%;
+            }
+        }
+    }
+
+    .left {
+        @include flex-center(column, normal, normal, 6px);
+    }
+
+    .right {
+        @include flex-center(column, normal, normal, 6px);
+    }
+
+    .left-dropdown,
+    .right-dropdown {
+        @include flex-center(column, normal, normal, 6px);
+        width: 50%;
+    }
+
+    .footer {
+        @include flex-center(normal, center, normal, 14px);
+        padding: 12px 24px;
+        border-top: 1px solid $gray-250;
+
+        .button {
+            border-radius: 8px;
+            min-width: 152px;
+        }
+    }
+
+    .dropdown {
+        @include flex-center(column, normal, normal, 6px);
+    }
+}

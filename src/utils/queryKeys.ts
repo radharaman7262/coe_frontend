@@ -9,4 +9,7 @@ export enum QueryKeys {
     SUP_COMPILENCE_TRACKER = 'supCompilenceTracker',
     CENTER_SPECIALIZATION = 'centerSpecialization',
     CENTER_DROPDOWN_LIST = 'centerDropdownList',
+    ADMIN_SESSION = 'adminSession',
+    ADMIN_STAFF_MANAGEMENT = 'adminStaffManagement',
+    LANGUAGE = 'language',
 }

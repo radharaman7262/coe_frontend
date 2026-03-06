@@ -2,8 +2,6 @@
 
 import React, { useMemo, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
-
 import { PageHeader, ShimmerUiContainer, Toggle } from '@/components/index';
 
 import { ToastContainer } from 'react-toastify';
@@ -30,8 +28,6 @@ import { NEW_CENTRE_TEXT as text } from './constant';
 import styles from './styles.module.scss';
 
 const CenterSetupPage = () => {
-    const router = useRouter();
-
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [addNewCenterModal, setAddNewCenterModal] = useState<boolean>(false);
     const [formValues, setFormValues] = useState<FormValues>(initialState);
@@ -47,7 +43,7 @@ const CenterSetupPage = () => {
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
-    const { isLoading, data } = useGetCenterList({
+    const { isLoading, data, isFetching } = useGetCenterList({
         page: currentPage,
         limit: 10,
         search: debouncedFilters,
@@ -57,10 +53,7 @@ const CenterSetupPage = () => {
 
     const { limit, results = [], totalCount = 0 } = response || {};
 
-    // const { mutate } = useChangeCenterStatusMutation({ router });
-
     const { execute } = useUserCenterSetupActions({
-        router,
         setShow: setAddNewCenterModal,
     });
 
@@ -73,13 +66,6 @@ const CenterSetupPage = () => {
                         value={item?.centerId.toString()}
                         isToggled={item?.status === StatusNumber.ACTIVE}
                         onToggle={(_, id) => {
-                            // mutate({
-                            //     status:
-                            //         item?.status === StatusNumber.ACTIVE
-                            //             ? StatusNumberString.INACTIVE
-                            //             : StatusNumberString.ACTIVE,
-                            //     id: id?.toString(),
-                            // });
                             execute({
                                 type: 'status',
                                 id: id.toString(),
@@ -139,7 +125,7 @@ const CenterSetupPage = () => {
                 onButtonClick={handleAddNewCenter}
             />
 
-            {isLoading ? (
+            {isLoading || isFetching ? (
                 <ShimmerUiContainer className={styles['shimmer-data']} />
             ) : (
                 <TableUi

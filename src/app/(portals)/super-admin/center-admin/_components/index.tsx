@@ -2,17 +2,26 @@
 
 import React, { useMemo, useState } from 'react';
 
+import cx from 'classnames';
+
 import { PageHeader, ShimmerUiContainer, Toggle } from '@/components/index';
 
 import useDebounce from '@/utils/useDebounce';
 
-import { DEBOUNCE_SEARCH_TIME, StatusNumber, TEN_MIN_LENGTH } from '@/constant/appConstants';
+import {
+    DEBOUNCE_SEARCH_TIME,
+    StatusNumber,
+    StatusNumberString,
+    TEN_MIN_LENGTH,
+} from '@/constant/appConstants';
 
 import EditIcon from '@/public/assets/svg/edit-icon.svg';
 
 import { ToastContainer } from 'react-toastify';
 
 import { INITIAL_STATE as initialState } from './Modal/AddCenterAdmin/constant';
+
+import { useUserCenterAdminAction } from '../userCenterAdminAction';
 
 import { CenterAdminFormKeys, FormValues } from './Modal/AddCenterAdmin/type';
 
@@ -46,10 +55,14 @@ const CenterAdminPage = () => {
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
-    const { isLoading, data } = useGetCenterAdminList({
+    const { isLoading, data, isFetching } = useGetCenterAdminList({
         page: currentPage,
         limit: TEN_MIN_LENGTH,
         search: debouncedFilters,
+    });
+
+    const { execute, isLoading: loaderStatus } = useUserCenterAdminAction({
+        setShow: setAddNewCenterAdminModal,
     });
 
     const { response } = data || {};
@@ -112,7 +125,17 @@ const CenterAdminPage = () => {
                     <Toggle
                         value={item?.id.toString()}
                         isToggled={item?.status === StatusNumber.ACTIVE}
-                        onToggle={() => {}}
+                        className={cx(loaderStatus && styles['pointer-event'])}
+                        onToggle={() => {
+                            execute({
+                                type: 'status',
+                                id: item.id,
+                                status:
+                                    item?.status === StatusNumber.ACTIVE
+                                        ? StatusNumberString.INACTIVE
+                                        : StatusNumberString.ACTIVE,
+                            });
+                        }}
                     />
                 </div>
             ),
@@ -152,7 +175,7 @@ const CenterAdminPage = () => {
                 onButtonClick={handleAddNewAdmin}
             />
 
-            {isLoading ? (
+            {isLoading || isFetching ? (
                 <ShimmerUiContainer className={styles['shimmer-data']} />
             ) : (
                 <TableUi

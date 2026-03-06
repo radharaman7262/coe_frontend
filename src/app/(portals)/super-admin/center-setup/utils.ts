@@ -1,6 +1,7 @@
 import callApi from '@/app/api/api';
 
 import { CENTER_ADMIN_DROPDOWN_LIST, CENTER_STATUS, CENTER_SETUP_LIST } from '@/app/api/apiRoutes';
+import { CenterSetupPayloadType } from '@/types/centerSetupType';
 
 import { HTTP_METHOD } from '@/types/common';
 
@@ -43,33 +44,24 @@ export const getCenterAdminDropDownListApiCall = async () => {
     return response;
 };
 
-export const addCenterSetupApiCall = async (body: {
-    name?: string;
-    address: string;
-    phone: string;
-    adminId: string;
-}) => {
+export const addCenterSetupApiCall = async (body: CenterSetupPayloadType) => {
+    const payload = { ...body };
+
     const authToken = await getCookie(JWT_TOKEN);
 
     const response = await callApi({
         method: HTTP_METHOD.POST,
         url: CENTER_SETUP_LIST,
         headers: { Authorization: `Bearer ${authToken}` },
-        body,
+        body: payload,
     });
 
     return response;
 };
 
-export const updateCenterSetupApiCall = async (
-    centerId: number,
-    body: {
-        name?: string;
-        address: string;
-        phone: string;
-        adminId: string;
-    },
-) => {
+export const updateCenterSetupApiCall = async (centerId: number, body: CenterSetupPayloadType) => {
+    const payload = { ...body };
+
     const authToken = await getCookie(JWT_TOKEN);
     const url = `${CENTER_SETUP_LIST}/${centerId}`;
 
@@ -77,7 +69,7 @@ export const updateCenterSetupApiCall = async (
         method: HTTP_METHOD.PUT,
         url,
         headers: { Authorization: `Bearer ${authToken}` },
-        body,
+        body: payload,
     });
 
     return response;

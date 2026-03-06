@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
-
 import { Button, Dropdown, Input, Text } from '@/components';
 
 import Modal from '@/components/shared/Modal';
@@ -52,10 +50,7 @@ const AddNewCentre = ({
         [CenterSetupFormKeys.ADDRESS]: contactRef,
     };
 
-    const router = useRouter();
-
     const { execute } = useUserCenterSetupActions({
-        router,
         setShow: setOpen,
         setLoader: setLoadingAddData,
     });
@@ -140,17 +135,27 @@ const AddNewCentre = ({
 
     const handleAddNewCenter = () => {
         setLoadingAddData(true);
-        execute({
-            type: 'create',
-            body: {
-                name: formValues?.centerName,
-                address: formValues?.address,
-                phone: formValues?.contactDetails,
-                adminId:
-                    (formValues?.selectedAdmin && formValues?.selectedAdmin?.userId.toString()) ||
-                    '',
-            },
-        });
+
+        const payload = {
+            name: formValues?.centerName,
+            address: formValues?.address,
+            phone: formValues?.contactDetails,
+            adminId:
+                (formValues?.selectedAdmin && formValues?.selectedAdmin?.userId.toString()) || '',
+        };
+
+        if (!centerId) {
+            execute({
+                type: 'create',
+                body: payload,
+            });
+        } else {
+            execute({
+                type: 'update',
+                id: centerId,
+                body: payload,
+            });
+        }
     };
 
     useEffect(() => {

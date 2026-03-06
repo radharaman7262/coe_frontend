@@ -1,4 +1,4 @@
-import { CenterAdminPayloadType } from '@/types/centerAdminType';
+import { CenterSetupPayloadType } from '@/types/centerSetupType';
 
 import {
     addCenterSetupApiCall,
@@ -7,9 +7,9 @@ import {
 } from './utils';
 
 export const userCenterSetupService = {
-    create: (body: CenterAdminPayloadType) => addCenterSetupApiCall(body),
+    create: (body: CenterSetupPayloadType) => addCenterSetupApiCall(body),
 
-    update: (id: number, body: CenterAdminPayloadType) => updateCenterSetupApiCall(id, body),
+    update: (id: number, body: CenterSetupPayloadType) => updateCenterSetupApiCall(id, body),
 
     updateStatus: (id: string, status: string) => changeCenterSetupStatusApiCall({ id, status }),
 };

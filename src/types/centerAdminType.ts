@@ -1,6 +1,9 @@
 export interface CenterAdminPayloadType {
-    name?: string;
-    address: string;
+    firstName: string;
+    lastName: string;
     phone: string;
-    adminId: string;
+    email: string;
+    roleId: string;
+    centerId: string;
+    specialization: { id: string }[];
 }

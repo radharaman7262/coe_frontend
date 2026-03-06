@@ -50,7 +50,7 @@ const CENTER_STATUS = `${API_URL}/center/status`;
 
 /** Center Admin */
 const CENTER_ADMIN_LIST = `${CENTER_ADMIN_DROPDOWN_LIST}/list`;
-// const CENTER_ADMIN_STATUS = `${CENTER_STATUS}/`
+const CENTER_ADMIN_STATUS = `${DASHBOARD_API_URL}/center-setup/status-change`;
 
 /** Center Admin Modal */
 const CENTER_ADMIN_SPECIALIZATION = `${ROLE_MASTER_ENDPOINT}/specialization/`;
@@ -82,4 +82,5 @@ export {
     CREATE_MENU_MASTER_ENDPOINT,
     UPDATE_MENU_MASTER_ENDPOINT,
     MENU_MASTER_STATUS_ENDPOINT,
+    CENTER_ADMIN_STATUS,
 };

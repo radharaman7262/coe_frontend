@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { CenterAdminPayloadType } from '@/types/centerAdminType';
+import { CenterSetupPayloadType } from '@/types/centerSetupType';
 
 import { userCenterSetupService } from './userCenterSetup.service';
 
 export type UserCenterSetupMutationPayload =
-    | { type: 'create'; body: CenterAdminPayloadType }
-    | { type: 'update'; id: number; body: CenterAdminPayloadType }
+    | { type: 'create'; body: CenterSetupPayloadType }
+    | { type: 'update'; id: number; body: CenterSetupPayloadType }
     | { type: 'status'; id: string; status: string };
 
 export const useUserCenterSetupMutation = () =>

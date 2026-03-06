@@ -1,4 +1,4 @@
-import { MOBILE_NUMBER_REGEX, NAME_REGEX } from '@/utils/regex';
+import { CENTER_NAME_REGEX, MOBILE_NUMBER_REGEX } from '@/utils/regex';
 
 import { FIFTY_MAX_LENGTH, TEN_MIN_LENGTH, THIRTY_MAX_LENGTH } from '@/constant/appConstants';
 
@@ -27,12 +27,6 @@ export const INITIAL_STATE = {
     [CenterSetupFormKeys.SELECTED_ADMIN]: null,
 };
 
-export const DROPDOWN_LIST = [
-    { id: 1, name: 'Ishan Verma' },
-    { id: 2, name: 'Diya Patel' },
-    { id: 3, name: 'Rahul Verma' },
-];
-
 export const MAX_LENGTHS: Partial<Record<CenterSetupFormKeys, number>> = {
     [CenterSetupFormKeys.CENTER_NAME]: THIRTY_MAX_LENGTH,
     [CenterSetupFormKeys.ADDRESS]: FIFTY_MAX_LENGTH,
@@ -41,13 +35,13 @@ export const MAX_LENGTHS: Partial<Record<CenterSetupFormKeys, number>> = {
 
 export const ERROR_MESSAGES = {
     centerErrorCreation: 'Center should be between 3 to 30 characters.',
-    contactErrorDetail: 'Contact should be 10 numbers.',
+    contactErrorDetail: 'Phone number should be valid.',
     addressErrorDetail: 'Address should be between 3 to 50 characters.',
 };
 
 export const VALIDATION_RULES = {
     [CenterSetupFormKeys.CENTER_NAME]: {
-        regex: NAME_REGEX,
+        regex: CENTER_NAME_REGEX,
         required: true,
         errorMessage: ERROR_MESSAGES?.centerErrorCreation,
     },
@@ -57,7 +51,7 @@ export const VALIDATION_RULES = {
         errorMessage: ERROR_MESSAGES?.contactErrorDetail,
     },
     [CenterSetupFormKeys.ADDRESS]: {
-        regex: NAME_REGEX,
+        regex: CENTER_NAME_REGEX,
         required: true,
         errorMessage: ERROR_MESSAGES?.addressErrorDetail,
     },

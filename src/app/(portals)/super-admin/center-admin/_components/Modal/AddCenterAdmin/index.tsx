@@ -12,13 +12,15 @@ import { MODAL_STYLING } from '@/constant/appConstants';
 import { KeyboardEvent } from '@/constant/enumConstant';
 
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
+import { RoleType } from '@/types/roleType';
 
 import { useGetRoleMasterList } from '@/app/(portals)/super-admin/(user-management)/role-master/queries';
-import { RoleType } from '@/types/roleType';
+
+import { useGetCenterDropDownList, useGetSpecializationDropDownList } from '../../../queries';
+import { useUserCenterAdminAction } from '../../../userCenterAdminAction';
+
 import { CENTER_ADMIN_TEXT as text, MAX_LENGTHS, INITIAL_STATE as initialState } from './constant';
-
 import { checkAllFieldValidOrNot, validateInput } from './utils';
-
 import {
     AddCenterAdminProps,
     CenterAdminFormKeys,
@@ -28,10 +30,6 @@ import {
     specializationType,
     SpecializationType,
 } from './type';
-
-import { useAddCenterAdminMutation } from '../../../mutation';
-
-import { useGetCenterDropDownList, useGetSpecializationDropDownList } from '../../../queries';
 
 import styles from './styles.module.scss';
 
@@ -60,10 +58,9 @@ const AddCenterAdmin = ({
         [CenterAdminFormKeys.PHONE_NO]: emailIdRef,
     };
 
-    const { mutate } = useAddCenterAdminMutation({
-        setLoader: setLoadingAddData,
+    const { execute } = useUserCenterAdminAction({
         setShow: setOpen,
-        centerAdminId,
+        setLoader: setLoadingAddData,
     });
 
     const { data: roleMasterListResponse } = useGetRoleMasterList();
@@ -208,7 +205,18 @@ const AddCenterAdmin = ({
             })),
         };
 
-        mutate(body);
+        if (!centerAdminId) {
+            execute({
+                type: 'create',
+                body,
+            });
+        } else {
+            execute({
+                type: 'update',
+                id: centerAdminId,
+                body,
+            });
+        }
     };
 
     const handleCancel = () => {

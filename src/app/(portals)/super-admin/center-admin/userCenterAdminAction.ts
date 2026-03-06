@@ -6,20 +6,20 @@ import { showToast } from '@/components/ui/Toaster/constant';
 
 import { QueryKeys } from '@/utils/queryKeys';
 
-import { UserCenterSetupMutationPayload, useUserCenterSetupMutation } from './mutation';
+import { UserCenterAdminMutationPayload, useUserCenterAdminMutation } from './mutation';
 
-export const useUserCenterSetupActions = ({
+export const useUserCenterAdminAction = ({
     setLoader,
     setShow,
 }: {
     setShow: (v: boolean) => void;
     setLoader?: (v: boolean) => void;
 }) => {
-    const mutation = useUserCenterSetupMutation();
+    const mutation = useUserCenterAdminMutation();
 
     const queryClient = useQueryClient();
 
-    const execute = async (payload: UserCenterSetupMutationPayload) => {
+    const execute = async (payload: UserCenterAdminMutationPayload) => {
         try {
             setLoader?.(true);
 
@@ -32,8 +32,8 @@ export const useUserCenterSetupActions = ({
             }
 
             const messageMap = {
-                create: 'Center created successfully',
-                update: 'Center Updated Successfully',
+                create: 'Center admin created successfully',
+                update: 'Center admin Updated Successfully',
                 status:
                     payload.type === 'status' && payload.status === StatusNumberString.ACTIVE
                         ? 'Activated Successfully'
@@ -46,7 +46,7 @@ export const useUserCenterSetupActions = ({
             });
 
             queryClient.invalidateQueries({
-                queryKey: [QueryKeys.CENTER_LIST],
+                queryKey: [QueryKeys.CENTER_ADMIN],
             });
 
             if (payload.type !== 'status') {

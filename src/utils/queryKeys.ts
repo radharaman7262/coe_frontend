@@ -12,4 +12,5 @@ export enum QueryKeys {
     ADMIN_SESSION = 'adminSession',
     ADMIN_STAFF_MANAGEMENT = 'adminStaffManagement',
     LANGUAGE = 'language',
+    CASE_HISTORY_SIDEBAR_MENU = 'caseHistorySidebarMenu',
 }

@@ -1,0 +1,58 @@
+import { ChildInformationFormKeys, ChildInformationFormType } from "@/types/childInformationType";
+
+export const textAreaFields = [
+    { label: 'Chief Complaints', name: 'chiefComplaints' },
+    { label: 'Predisposing Factors', name: 'predisposingFactors' },
+    { label: 'Precipitating Factors', name: 'precipitatingFactors' },
+    { label: 'Perpetuating Factors', name: 'perpetuatingFactors' },
+];
+
+export const inputFields = [
+    { label: 'Name of Child', name: ChildInformationFormKeys.CHILD_NAME, type: 'input' },
+    { label: 'Date of Birth / Age', name: ChildInformationFormKeys.DOB, type: 'date' },
+    { label: 'Gender', name: ChildInformationFormKeys.GENDER, type: 'input' },
+    { label: 'Address', name: ChildInformationFormKeys.ADDRESS, type: 'input' },
+    { label: "Father's Name", name: ChildInformationFormKeys.FATHER_NAME, type: 'input' },
+    { label: "Mother's Name", name: ChildInformationFormKeys.MOTHER_NAME, type: 'input' },
+    { label: 'Contact Number(s)', name: ChildInformationFormKeys.CONTACT_NUMBER, type: 'input' },
+    { label: 'Educational Qualification of Father', name: ChildInformationFormKeys.FATHER_EDUCATION, type: 'input' },
+    { label: 'Educational Qualification of Mother', name: ChildInformationFormKeys.MOTHER_EDUCATION, type: 'input' },
+    { label: 'Occupation of Father', name: ChildInformationFormKeys.FATHER_OCCUPATION, type: 'input' },
+    { label: 'Occupation of Mother', name: ChildInformationFormKeys.MOTHER_OCCUPATION, type: 'input' },
+    { label: 'Languages Spoken at Home', name: ChildInformationFormKeys.LANGUAGES, type: 'input' },
+    { label: 'Referred By (Doctor/Teacher/Other)', name: ChildInformationFormKeys.REFERRED_BY, type: 'input' },
+    { label: 'Date of Visit', name: ChildInformationFormKeys.VISIT_DATE, type: 'date' },
+    { label: "Informant's Name & Relationship to the child", name: ChildInformationFormKeys.INFORMANT, type: 'input' },
+    { label: 'Reliability of Informant', name: ChildInformationFormKeys.RELIABILITY, type: 'input' },
+    { label: 'Age at which problems were recognised', name: 'ageRecognised', type: 'input' },
+    { label: 'Onset', name: 'onset', type: 'input' },
+    { label: 'Course', name: 'course', type: 'input' },
+    { label: 'Progress', name: 'progress', type: 'input' },
+];
+
+export const INITIAL_STATE: ChildInformationFormType = {
+    [ChildInformationFormKeys.CHILD_NAME]: '',
+    [ChildInformationFormKeys.DOB]: '',
+    [ChildInformationFormKeys.GENDER]: '',
+    [ChildInformationFormKeys.ADDRESS]: '',
+    [ChildInformationFormKeys.FATHER_NAME]: '',
+    [ChildInformationFormKeys.MOTHER_NAME]: '',
+    [ChildInformationFormKeys.CONTACT_NUMBER]: '',
+    [ChildInformationFormKeys.FATHER_EDUCATION]: '',
+    [ChildInformationFormKeys.MOTHER_EDUCATION]: '',
+    [ChildInformationFormKeys.FATHER_OCCUPATION]: '',
+    [ChildInformationFormKeys.MOTHER_OCCUPATION]: '',
+    [ChildInformationFormKeys.LANGUAGES]: '',
+    [ChildInformationFormKeys.REFERRED_BY]: '',
+    [ChildInformationFormKeys.VISIT_DATE]: '',
+    [ChildInformationFormKeys.INFORMANT]: '',
+    [ChildInformationFormKeys.RELIABILITY]: '',
+    [ChildInformationFormKeys.CHIEF_COMPLAINTS]: '',
+    [ChildInformationFormKeys.COURSE]: '',
+    [ChildInformationFormKeys.PRECIPITATING_FACTORS]: '',
+    [ChildInformationFormKeys.PREPETUATING_FACTORS]: '',
+    [ChildInformationFormKeys.PRE_DISPOSING_FACTORS]: '',
+    [ChildInformationFormKeys.ONSET]: '',
+    [ChildInformationFormKeys.PROGRESS]: '',
+    [ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE]: '',
+};

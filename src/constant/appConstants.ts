@@ -89,3 +89,5 @@ export const generateNext30Dates = () => {
 
     return dates;
 };
+// eslint-disable-next-line max-len
+export const PYSCHCOLOGIST_TOKEN = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NCIsImVtYWlsIjoicGFyYXNAYXVyb3NvY2lldHkub3JnIiwicm9sZUlkIjoiMyIsInNwZWNpYWxpemF0aW9uSWQiOiIyIiwidXNlclR5cGVJZCI6IjQiLCJpYXQiOjE3NzM1NTY0MTUsImV4cCI6MTc3MzY0MjgxNX0.Rn8sp2RaJp6m0-DtKOAF0Eshnjzp4-EFI6Mo-f55mjc`;

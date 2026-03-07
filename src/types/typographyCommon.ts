@@ -152,6 +152,7 @@ export type ColorVariant =
     | 'blue-700'
     | 'blue-800'
     | 'blue-900'
+    | 'dark-blue'
 
     // ===== GREEN SCALE =====
     | 'green-0'

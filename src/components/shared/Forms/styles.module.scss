@@ -1,0 +1,54 @@
+@use '@styles/theme' as *;
+
+.parental-birth-history {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-wrapper {
+    padding: 0 20px;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid #e9edf2;
+}
+
+.button-wrapper {
+    display: flex;
+    gap: 36px;
+    padding: 20px 20px 0 20px;
+    justify-content: flex-end;
+    border-top: 1px solid var(--light-gray);
+
+    .button {
+        padding: 8px 42px;
+    }
+}
+
+.radioGroup {
+    //  display: flex;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+}
+
+.checkboxGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 280px);
+    gap: 32px;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #dbeafe;
+    border-radius: 14px;
+    width: 60px;
+    height: 36px;
+}

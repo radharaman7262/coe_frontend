@@ -1,0 +1,41 @@
+@use '@styles/theme' as *;
+
+.main-dashboard-layout {
+    @include flex-center(normal, normal, normal);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+
+    .header {
+        width: calc(100vw - 280px);
+        background-color: $body-gray;
+    }
+}
+
+.layout-shimmer-setup {
+    display: flex;
+    min-height: 100vh;
+}
+
+.layout-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 4px;
+}
+
+.shimmer-sidebar {
+    height: 100vh;
+    width: 290px;
+}
+
+.shimmer-header {
+    height: 70px;
+    width: 100%;
+}
+
+.shimmer-body {
+    flex: 1;
+    width: 100%;
+}

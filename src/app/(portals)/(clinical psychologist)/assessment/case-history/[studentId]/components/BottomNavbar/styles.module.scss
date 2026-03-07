@@ -1,0 +1,12 @@
+@use '@styles/theme' as *;
+
+.button-container {
+    padding: 24px;
+    background-color: var(--white);
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

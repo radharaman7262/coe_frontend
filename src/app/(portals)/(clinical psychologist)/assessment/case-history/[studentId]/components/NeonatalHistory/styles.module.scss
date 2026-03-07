@@ -1,0 +1,8 @@
+@use '@styles/theme' as *;
+
+.radioGroup {
+    //  display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 250px);
+    gap: 32px;
+}

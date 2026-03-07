@@ -1,0 +1,19 @@
+@use '@styles/theme' as *;
+
+.layout {
+    .lower-layout {
+        display: flex;
+        // gap: 60px;
+    }
+}
+
+.page {
+    background-color: #f9f9f9;
+    width: 100%;
+    position: relative;
+    // padding-left: 60px;
+
+    .content {
+        padding-left: 60px;
+    }
+}

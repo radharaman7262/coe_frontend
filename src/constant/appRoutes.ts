@@ -7,4 +7,7 @@ export enum AppRoutes {
     ROLE_MASTER = 'super-admin/role-master',
     MENU_MASTER = 'super-admin/menu-master',
     MENU_MAPPING = 'super-admin/menu-mapping',
+
+    /** Clinical  */
+    ASSESSMENT_CASE_HISTORY = 'assessment/case-history'
 }

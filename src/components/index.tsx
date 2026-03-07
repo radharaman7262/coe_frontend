@@ -22,6 +22,7 @@ export { default as SmallTableTitle } from './shared/OverViewTable/SmallTableTit
 export { default as SmallTableBody } from './shared/OverViewTable/SmallTableBody';
 export { default as OverViewTable } from './shared/OverViewTable';
 export { default as ImageContainer } from './ui/Images';
+export { default as AccordionComponent } from './ui/AccordionComponent';
 export { default as AfterLoginHeader } from './shared/AfterLoginHeader';
 export { default as NoDataContainer } from './shared/NoDataContainer';
 export { default as Sidebar } from './shared/Sidebar';

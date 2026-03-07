@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import ClientLayout from './clientLayout';
+import ClientLayout from '@/components/shared/Layout';
 
 interface PortalLayoutProps {
     children: ReactNode;

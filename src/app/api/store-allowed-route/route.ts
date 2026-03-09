@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         name: USER_ALLOWED_ROUTE,
         value: JSON.stringify(allowedRoute),
         httpOnly: false,
-        secure: true,
+        secure: false,
         sameSite: 'lax', // for local dev
         path: '/',
         maxAge: 60 * 60 * 24,

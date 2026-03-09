@@ -7,23 +7,39 @@ import {
 } from '../utils';
 
 import { StatsAdminListType } from './CardContainer/type';
+import { UpcomingSessionListType } from './UpcomingSessions/type';
 
 const FetchAdminDashboard = async () => {
     const statsPromise = await getAdminStatsApiCall();
-    const UpcomingSessionsPromise = await getUpComingSessionsApiCall();
+
+    const upcomingSessionsPromise = await getUpComingSessionsApiCall();
+
     const recentActivityPromise = await getAdminRecentActivityCall();
 
     const [statsResponse, upcomingSessionsResponse, recentActivityResponse] = await Promise.all([
         statsPromise,
-        UpcomingSessionsPromise,
+        upcomingSessionsPromise,
         recentActivityPromise,
     ]);
 
-    console.warn(upcomingSessionsResponse, recentActivityResponse, 'upcomingSessionsResponse');
+    const {
+        response: statsList = { staff: '0', sessionConducted: '0', students: '0' },
+    }: { response: StatsAdminListType } = statsResponse || {};
 
-    const { response: StatsList }: { response?: StatsAdminListType } = statsResponse || {};
+    const { response: upcomingSessions } = upcomingSessionsResponse || {};
 
-    return <AdminDashboardPage StatsListData={StatsList} />;
+    const { data: upcomingSessionsList = [] }: { data: UpcomingSessionListType[] } =
+        upcomingSessions || {};
+
+    const { response: recentActivityData = [] } = recentActivityResponse || {};
+
+    return (
+        <AdminDashboardPage
+            recentActivityData={recentActivityData}
+            statsListData={statsList}
+            upcomingSessionList={upcomingSessionsList}
+        />
+    );
 };
 
 export default FetchAdminDashboard;

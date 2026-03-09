@@ -4,18 +4,25 @@ import { Text } from '@/components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
-import { ACTIVITY_TEXT as text } from './constant';
+import ActivitySection from './components/RecentActivity/ActivitySection';
 
-import { RecentActivityDataType } from './type';
+import { DashboardActivityResponse } from './type';
+
+import { ACTIVITY_TEXT as text } from './constant';
 
 import styles from './styles.module.scss';
 
+const ACTIVITY_SECTIONS = [
+    { key: 'today', label: 'Today' },
+    { key: 'yesterday', label: 'Yesterday' },
+] as const;
+
 interface RecentActivityProps {
-    RecentActivityList: RecentActivityDataType[];
+    recentActivityData: DashboardActivityResponse[];
 }
 
 const RecentActivity = (props: RecentActivityProps) => {
-    const { RecentActivityList } = props;
+    const { recentActivityData } = props;
 
     return (
         <div className={styles['activity-container']}>
@@ -24,55 +31,16 @@ const RecentActivity = (props: RecentActivityProps) => {
             </Text>
 
             <div className={styles['content-activity-schedule']}>
-                {RecentActivityList?.map((item) => (
-                    <div className={styles['activity-gap']}>
-                        <Text
-                            font={[FontType.text_xs_bold, FontType.text_xs_bold]}
-                            color='text-gray-900'
-                        >
-                            {item.date}
-                        </Text>
-
-                        {item.newUser?.map((user) => (
-                            <div>
-                                <Text
-                                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                                    color='gray-900'
-                                >
-                                    {text.newUserAdded}&nbsp;
-                                </Text>
-                                <Text
-                                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                                    color='gray-400'
-                                >
-                                    {`${user?.name} (${user?.specialization
-                                        .map((s) => s?.name)
-                                        .join(', ')}) assigned to ${user?.center} at ${user?.time}`}
-                                </Text>
-                            </div>
+                {recentActivityData?.map((item, index: number) => (
+                    <React.Fragment key={index as number}>
+                        {ACTIVITY_SECTIONS.map(({ key, label }) => (
+                            <ActivitySection
+                                key={key}
+                                title={label}
+                                data={item[key as keyof DashboardActivityResponse]}
+                            />
                         ))}
-
-                        {item.studentCaseAssigned?.map((caseItem) => (
-                            <div>
-                                <Text
-                                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                                    color='gray-900'
-                                >
-                                    {text.studentCaseAssigned}&nbsp;
-                                </Text>
-                                <Text
-                                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                                    color='gray-400'
-                                >
-                                    {`${caseItem?.studentName} Linked to (${caseItem?.specialization
-                                        .map((s) => s.name)
-                                        .join(
-                                            ', ',
-                                        )}) ${caseItem?.user} in ${caseItem?.center} at ${caseItem?.time}`}
-                                </Text>
-                            </div>
-                        ))}
-                    </div>
+                    </React.Fragment>
                 ))}
             </div>
         </div>

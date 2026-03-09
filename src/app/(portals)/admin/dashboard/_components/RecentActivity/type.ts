@@ -1,27 +1,34 @@
-export interface studentCaseAssignedType {
+export type Specialization = {
+    SpecializationName: string;
+    Id: string;
+    userId: string;
+};
+
+export type NewUserAdded = {
+    userId: string;
+    name: string;
+    dateTime: string;
+    specialization: Specialization[];
+};
+
+export type Assigned = {
+    fromUserId: string;
+    fromUsername: string;
+    toUserId: string;
+    toUsername: string;
     studentId: string;
     studentName: string;
-    specialization: specializationDataType[];
-    center: string;
-    time: string;
-    user: string;
-}
+    dateTime: string;
+    fromUserSpecialization: Specialization[];
+    toUserSpecialization: Specialization[];
+};
 
-export interface specializationDataType {
-    id: string;
-    name: string;
-}
+export type ActivityGroup = {
+    newUserAdded: NewUserAdded[];
+    assigned: Assigned[];
+};
 
-export interface newUserDataType {
-    id: string;
-    name: string;
-    specialization: specializationDataType[];
-    center: string;
-    time: string;
-}
-
-export interface RecentActivityDataType {
-    date: string;
-    newUser: newUserDataType[];
-    studentCaseAssigned: studentCaseAssignedType[];
+export interface DashboardActivityResponse {
+    today: ActivityGroup;
+    yesterday: ActivityGroup;
 }

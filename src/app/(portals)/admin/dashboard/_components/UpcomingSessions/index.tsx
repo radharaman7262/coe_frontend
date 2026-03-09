@@ -6,59 +6,30 @@ import { FontType } from '@/types/typographyCommon';
 import { ZERO_DATA } from '@/constant/appConstants';
 import { COLUMNS } from './constant';
 
+import { UpcomingSessionListType } from './type';
+
 import styles from './styles.module.scss';
 
-const UpcomingSessions = () => {
-    console.warn('Upcoming Sessions');
+interface UpcomingSessionProps {
+    upcomingSessionList: UpcomingSessionListType[];
+}
 
-    const results = [
-        {
-            userName: 'Anjali Sharma',
-            specialization: 'Therapist',
-            studentId: '12',
-            studentName: 'Aarav Mehta',
-            sessionId: '1',
-            sessionDate: '2026-06-04',
-            sessionStartTime: '10:00',
-            sessionEndTime: '10:30',
-        },
-        {
-            userName: 'Aman Sharma',
-            specialization: 'Therapist',
-            studentId: '12',
-            studentName: 'Aarav Mehta',
-            sessionId: '1',
-            sessionDate: '2026-06-04',
-            sessionStartTime: '10:00',
-            sessionEndTime: '10:30',
-        },
-        {
-            userName: 'Nitin',
-            specialization: 'Operational Therapist',
-            studentId: '12',
-            studentName: 'Aarav Juneja',
-            sessionId: '1',
-            sessionDate: '2026-06-04',
-            sessionStartTime: '14:00',
-            sessionEndTime: '14:30',
-        },
-    ];
+const UpcomingSessions = (props: UpcomingSessionProps) => {
+    const { upcomingSessionList } = props;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const getCenterAdminList = (results: any) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const data = results?.map((item: any) => ({
+    const getCenterAdminList = (results: UpcomingSessionListType[]) => {
+        const data = results?.map((item: UpcomingSessionListType) => ({
             ...item,
             activity: `${item?.userName} ${item?.specialization} with student: ${item?.studentName}`,
-            date: `${item?.sessionDate}`,
-            time: `${item?.sessionStartTime} - ${item?.sessionEndTime}`,
+            date: `${item?.bookingDate || '-'}`,
+            time: `${item?.startTime} - ${item?.endTime}`,
         }));
 
         return data;
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const finalUpcomingSessionsList = useMemo(() => getCenterAdminList(results), []);
+    const finalUpcomingSessionsList = useMemo(() => getCenterAdminList(upcomingSessionList), []);
 
     const hasData = finalUpcomingSessionsList?.length > ZERO_DATA;
 

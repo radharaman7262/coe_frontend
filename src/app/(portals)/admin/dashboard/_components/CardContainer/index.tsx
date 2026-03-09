@@ -9,20 +9,20 @@ import { StatsAdminListType } from './type';
 import styles from './styles.module.scss';
 
 interface cardContainerType {
-    StatsListData: StatsAdminListType | undefined;
+    statsListData: StatsAdminListType | undefined;
 }
 
 const CardContainer = (props: cardContainerType) => {
-    const { StatsListData } = props;
+    const { statsListData } = props;
 
     const finalStatsData = useMemo(
         () =>
-            Object.entries(StatsListData ?? {}).map(([key, value]) => ({
+            Object.entries(statsListData ?? {}).map(([key, value]) => ({
                 title: STATS_DETAIL_TITLE[key as StatsTitleKey] ?? '_',
                 count: value ?? '_',
                 icon: STATS_ICONS[key as StatsTitleKey],
             })),
-        [StatsListData],
+        [statsListData],
     );
 
     return (

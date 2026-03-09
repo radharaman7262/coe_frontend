@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         name: JWT_TOKEN,
         value: token,
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         sameSite: 'lax', // for local dev
         path: '/',
         maxAge: 60 * 60 * 24,

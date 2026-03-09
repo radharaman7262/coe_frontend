@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         name: USER_MENU_LIST,
         value: JSON.stringify(menuList),
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         sameSite: 'lax', // for local dev
         path: '/',
         maxAge: 60 * 60 * 24,

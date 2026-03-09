@@ -4,6 +4,7 @@ import { Text } from '@/components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
+import { getRandomColor } from '@/constant/appConstants';
 import { ACTIVITY_TEXT as text } from './constant';
 
 import { RecentActivityDataType } from './type';
@@ -34,42 +35,56 @@ const RecentActivity = (props: RecentActivityProps) => {
                         </Text>
 
                         {item?.newUser?.map((user) => (
-                            <div>
-                                <Text
-                                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                                    color='gray-900'
-                                >
-                                    {text.newUserAdded}&nbsp;
-                                </Text>
-                                <Text
-                                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                                    color='gray-400'
-                                >
-                                    {`${user?.name} (${user?.specialization
-                                        .map((s) => s?.name)
-                                        .join(', ')}) assigned to ${user?.center} at ${user?.time}`}
-                                </Text>
+                            <div className={styles['instruction-aligned']}>
+                                <hr
+                                    className={styles['hr-instruction-line']}
+                                    style={{ backgroundColor: getRandomColor() }}
+                                />
+                                <div>
+                                    <Text
+                                        font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                                        color='gray-900'
+                                    >
+                                        {text.newUserAdded}&nbsp;
+                                    </Text>
+                                    <Text
+                                        font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                                        color='gray-400'
+                                    >
+                                        {`${user?.name} (${user?.specialization
+                                            .map((s) => s?.name)
+                                            .join(
+                                                ', ',
+                                            )}) assigned to ${user?.center} at ${user?.time}`}
+                                    </Text>
+                                </div>
                             </div>
                         ))}
 
                         {item?.studentCaseAssigned?.map((caseItem) => (
-                            <div>
-                                <Text
-                                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                                    color='gray-900'
-                                >
-                                    {text.studentCaseAssigned}&nbsp;
-                                </Text>
-                                <Text
-                                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
-                                    color='gray-400'
-                                >
-                                    {`${caseItem?.studentName} Linked to (${caseItem?.specialization
-                                        .map((s) => s.name)
-                                        .join(
-                                            ', ',
-                                        )}) ${caseItem?.user} in ${caseItem?.center} at ${caseItem?.time}`}
-                                </Text>
+                            <div className={styles['instruction-aligned']}>
+                                <hr
+                                    className={styles['hr-instruction-line']}
+                                    style={{ backgroundColor: getRandomColor() }}
+                                />
+                                <div>
+                                    <Text
+                                        font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                                        color='gray-900'
+                                    >
+                                        {text.studentCaseAssigned}&nbsp;
+                                    </Text>
+                                    <Text
+                                        font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                                        color='gray-400'
+                                    >
+                                        {`${caseItem?.studentName} Linked to (${caseItem?.specialization
+                                            .map((s) => s.name)
+                                            .join(
+                                                ', ',
+                                            )}) ${caseItem?.user} in ${caseItem?.center} at ${caseItem?.time}`}
+                                    </Text>
+                                </div>
                             </div>
                         ))}
                     </div>

@@ -22,6 +22,17 @@
         gap: 6px;
     }
 
+    .instruction-aligned {
+        display: flex;
+        gap: 8px;
+    }
+
+    .hr-instruction-line {
+        height: 24px;
+        width: 8px;
+        border: none;
+    }
+
     .content-activity-schedule {
         display: flex;
         flex-direction: column;

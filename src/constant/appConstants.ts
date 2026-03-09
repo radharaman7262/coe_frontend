@@ -38,3 +38,8 @@ export enum StatusNumberString {
     ACTIVE = '1',
     INACTIVE = '0',
 }
+
+export const getRandomColor = () =>
+    `#${Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, '0')}`;

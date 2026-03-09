@@ -12,14 +12,7 @@
 
     .sidebar-header {
         display: flex;
-        padding: 0px 24px;
-        align-items: center;
-        gap: 16px;
-
-        .text-group {
-            display: flex;
-            flex-direction: column;
-        }
+        justify-content: center;
     }
 
     .sub-menu {

@@ -1,4 +1,4 @@
-import { TEN_MIN_LENGTH, THIRTY_MAX_LENGTH } from '@/constant/appConstants';
+import { TEN_MIN_LENGTH, THIRTY_MAX_LENGTH, TWO_MIN_LENGTH } from '@/constant/appConstants';
 
 import { EMAIL_REGEX, MOBILE_NUMBER_REGEX, NAME_REGEX } from '@/utils/regex';
 
@@ -27,21 +27,23 @@ export const INITIAL_STATE: FormValues = {
     [AdminStaffFormKeys.EMAIL_ID]: '',
     [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]: '',
     [AdminStaffFormKeys.SELECTED_SPECIALIZATION]: [],
-    [AdminStaffFormKeys.GENDER]: [],
-    [AdminStaffFormKeys.ASSIGN_ROLE]: [],
+    [AdminStaffFormKeys.GENDER]: null,
+    [AdminStaffFormKeys.ASSIGN_ROLE]: null,
     [AdminStaffFormKeys.LANGUAGE]: [],
 };
 
 export const MAX_LENGTHS: Partial<Record<AdminStaffFormKeys, number>> = {
-    [AdminStaffFormKeys.NAME]: TEN_MIN_LENGTH,
+    [AdminStaffFormKeys.NAME]: THIRTY_MAX_LENGTH,
     [AdminStaffFormKeys.PHONE_NO]: TEN_MIN_LENGTH,
     [AdminStaffFormKeys.EMAIL_ID]: THIRTY_MAX_LENGTH,
+    [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]: TWO_MIN_LENGTH,
 };
 
 export const ERROR_MESSAGES = {
     nameErrorCreation: 'Name should be between 3 to 10 characters.',
     contactErrorDetail: 'Phone Number should be 10 numbers.',
     emailErrorDetail: 'Email should be between 3 to 50 characters.',
+    totalYearExperience: 'Total Year of experience',
 };
 
 export const VALIDATION_RULES = {
@@ -62,18 +64,27 @@ export const VALIDATION_RULES = {
     },
     [AdminStaffFormKeys.GENDER]: {
         regex: null,
-        required: false,
+        required: true,
         errorMessage: '',
     },
     [AdminStaffFormKeys.SELECTED_SPECIALIZATION]: {
         regex: null,
-        required: false,
+        required: true,
+        errorMessage: '',
+    },
+    [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]: {
+        regex: null,
+        required: true,
+        errorMessage: ERROR_MESSAGES?.totalYearExperience,
+    },
+    [AdminStaffFormKeys.LANGUAGE]: {
+        regex: null,
+        required: true,
+        errorMessage: '',
+    },
+    [AdminStaffFormKeys.ASSIGN_ROLE]: {
+        regex: null,
+        required: true,
         errorMessage: '',
     },
 };
-
-export const filterList = <T extends { name?: string; roleName?: string }>(
-    filterValue: string,
-    key: 'name' | 'roleName',
-    list: T[] = [],
-) => list.filter((item) => (item?.[key] ?? '').toLowerCase().includes(filterValue.toLowerCase()));

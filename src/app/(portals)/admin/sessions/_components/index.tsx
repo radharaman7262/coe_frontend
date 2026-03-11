@@ -34,7 +34,7 @@ const AdminSessionPage = () => {
 
     const { response } = data || {};
 
-    const { limit, data: sessionResponse = [], totalCount = 0 } = response || {};
+    const { limit, data: sessionResponse = [], total = 0 } = response || {};
 
     const getAdminSessionList = (results: sessionDataType[] = []) =>
         results.map((item) => {
@@ -79,9 +79,7 @@ const AdminSessionPage = () => {
                         {staffName}
                         {specializations.length > 0 && (
                             <div>
-                                {specializations.map((spec, index) => (
-                                    <div key={index as number}>{spec}</div>
-                                ))}
+                                <span> ({specializations.join(', ')})</span>
                             </div>
                         )}
                     </div>
@@ -103,7 +101,7 @@ const AdminSessionPage = () => {
                     setCurrentPage={setCurrentPage}
                     data={finalSessionList}
                     limit={limit}
-                    totalCount={totalCount}
+                    totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
                 />

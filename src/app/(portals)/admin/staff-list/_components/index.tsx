@@ -1,10 +1,13 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import cx from 'classnames';
 
 import { PageHeader, ShimmerUiContainer } from '@/components/index';
 
 import { ToastContainer } from 'react-toastify';
+
+import { StatusNumber } from '@/constant/appConstants';
 
 import TableUi from './TableUi';
 
@@ -14,7 +17,7 @@ import { STATUS_LABEL_MAP as statusLabelMap, STAFF_LIST_TEXT as text } from './c
 
 import AddNewStaff from './Modal/AddNewStaff';
 
-import { INITIAL_STATE } from './Modal/AddNewStaff/constant';
+import { INITIAL_STATE as initialState } from './Modal/AddNewStaff/constant';
 
 import { FormValues } from './Modal/AddNewStaff/type';
 
@@ -25,9 +28,11 @@ import styles from './styles.module.scss';
 const AdminStaffListPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
 
-    const [addNewStaffModal, setAddNewStaffModal] = useState<boolean>(true);
+    const [addNewStaffModal, setAddNewStaffModal] = useState<boolean>(false);
 
-    const [formValues, setFormValues] = useState<FormValues>(INITIAL_STATE);
+    const [formValues, setFormValues] = useState<FormValues>(initialState);
+
+    const [adminStaffId, setAdminStaffId] = useState<number | null>(null);
 
     const { isLoading, data } = useGetAdminStaffManagementList({
         page: currentPage,
@@ -38,11 +43,39 @@ const AdminStaffListPage = () => {
 
     const { limit, data: staffManagementData = [], total: totalCount } = response || {};
 
+    const handleEditModal = (item: staffListDataType) => {
+        setAddNewStaffModal(true);
+        setAdminStaffId(Number(item?.id));
+
+        // const specialization = item?.specialist?.map((item) => ({
+        //     id: +item.id,
+        //     name: item?.name,
+        // }));
+
+        // const languages = item?.language?.map((item) => ({
+        //     id: +item.id,
+        //     name: item?.name,
+        // }));
+
+        // setFormValues((prevValues) => ({
+        //     ...prevValues,
+        //     [AdminStaffFormKeys.NAME]: item?.name,
+        //     [AdminStaffFormKeys.PHONE_NO]: item?.phone,
+        //     [AdminStaffFormKeys.EMAIL_ID]: item?.email,
+        //     [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]: item?.totalYearExperience,
+        //     [AdminStaffFormKeys.SELECTED_SPECIALIZATION]: specialization,
+        //     [AdminStaffFormKeys.LANGUAGE]: languages,
+        // }));
+    };
+
     const getAdminStaffManagementList = (results: staffListDataType[] = []) =>
         results?.map((item) => {
             const { name, email, specialist, status, assignedStudents } = item;
 
-            const reverseStatus = Number(status) === 1 ? 0 : 1;
+            const reverseStatus =
+                Number(status) === StatusNumber.ACTIVE
+                    ? StatusNumber.INACTIVE
+                    : StatusNumber.ACTIVE;
             const statusLabel = statusLabelMap[status] ?? 'Unknown';
             const changeStatusLabel = statusLabelMap[reverseStatus] ?? 'Unknown';
 
@@ -63,12 +96,17 @@ const AdminStaffListPage = () => {
 
                 status: (
                     <div className={styles[`status-${status}`] || ''}>
-                        <div className={styles.dot} />
+                        {status === StatusNumber.ACTIVE && <div className={styles.dot} />}
                         {statusLabel}
                     </div>
                 ),
                 changeStatus: (
-                    <div className={styles[`status-${reverseStatus}`] || ''}>
+                    <div
+                        className={cx(
+                            styles[`status-${reverseStatus}`] || '',
+                            styles['cursor-pointer'],
+                        )}
+                    >
                         {changeStatusLabel}
                     </div>
                 ),
@@ -76,12 +114,29 @@ const AdminStaffListPage = () => {
                     <div className={styles['assigned-students']}>{assignedStudents}</div>
                 ),
 
-                action: <div className={styles['edit-action']}>Edit</div>,
+                action: (
+                    <div
+                        className={styles['edit-action']}
+                        onClick={() => {
+                            handleEditModal(item);
+                        }}
+                        aria-hidden='true'
+                    >
+                        Edit
+                    </div>
+                ),
             };
         });
 
+    const handleAddNewAdmin = () => {
+        setFormValues(initialState);
+        setAddNewStaffModal(true);
+        setAdminStaffId(null);
+    };
+
     const finalStaffManagementList = useMemo(
         () => getAdminStaffManagementList(staffManagementData),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [staffManagementData],
     );
 
@@ -93,6 +148,8 @@ const AdminStaffListPage = () => {
                     setOpen={setAddNewStaffModal}
                     formValues={formValues}
                     setFormValues={setFormValues}
+                    AdminStaffId={adminStaffId}
+                    setAdminStaffId={setAdminStaffId}
                 />
             )}
 
@@ -100,6 +157,7 @@ const AdminStaffListPage = () => {
                 title={text.staffManagement}
                 description={text.description}
                 buttonLabel={text.createStaff}
+                onButtonClick={handleAddNewAdmin}
             />
 
             {isLoading ? (

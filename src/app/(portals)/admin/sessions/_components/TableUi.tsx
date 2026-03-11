@@ -50,4 +50,5 @@ const TableUi = (props: tableUiProps) => {
         />
     );
 };
+
 export default TableUi;

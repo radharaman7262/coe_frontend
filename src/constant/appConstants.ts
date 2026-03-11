@@ -29,6 +29,8 @@ export const FIFTY_MAX_LENGTH = 50;
 
 export const THREE_MIN_LENGTH = 3;
 
+export const TWO_MIN_LENGTH = 2;
+
 export enum StatusNumber {
     ACTIVE = 1,
     INACTIVE = 0,
@@ -43,3 +45,15 @@ export const getRandomColor = () =>
     `#${Math.floor(Math.random() * 16777215)
         .toString(16)
         .padStart(6, '0')}`;
+
+export enum Gender {
+    Male = 'Male',
+    Female = 'Female',
+    Other = 'Other',
+}
+
+export const STATIC_GENDER = [
+    { id: 1, name: Gender.Male },
+    { id: 2, name: Gender.Female },
+    { id: 3, name: Gender.Other },
+];

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 
 import Modal from '@/components/shared/Modal';
 
@@ -7,7 +7,7 @@ import { Text, Input, Button, Dropdown } from '@/components/index';
 import CrossIcon from '@public/assets/svg/cross-icon.svg';
 import PlusIcon from '@/public/assets/svg/plus-icon.svg';
 
-import { MODAL_STYLING } from '@/constant/appConstants';
+import { MODAL_STYLING, STATIC_GENDER } from '@/constant/appConstants';
 
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
@@ -19,18 +19,47 @@ import { useGetLanguageList } from '@/app/(portals)/queries';
 
 import { useGetSpecializationDropDownList } from '@/app/(portals)/super-admin/center-admin/queries';
 
-import { filterList, CENTER_ADMIN_TEXT as text } from './constant';
+import { languageDataType } from '@/app/(portals)/type';
+import { INITIAL_STATE as initalState, MAX_LENGTHS, CENTER_ADMIN_TEXT as text } from './constant';
 
-import { AddAdminStaffProps, AdminStaffFormKeys } from './type';
+import {
+    AddAdminStaffProps,
+    AdminStaffFormKeys,
+    ErrorMessagesType,
+    FormValues,
+    genderType,
+    specializationType,
+} from './type';
+
+import { checkAllFieldValidOrNot, filterList, validateInput } from './utils';
+
+import { useUserAdminStaffAction } from '../../../useAdminStaffAction';
 
 import styles from './styles.module.scss';
 
-const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
+const AddNewStaff = ({
+    open,
+    setOpen,
+    formValues,
+    setFormValues,
+    AdminStaffId,
+    setAdminStaffId,
+}: AddAdminStaffProps) => {
     const [roleListDropDownFilter, setRoleListDropDownFilter] = useState<string>('');
+
+    const [loadingAddData, setLoadingAddData] = useState<boolean>(false);
 
     const [specializationDropDownFilter, setSpecializationDropDownFilter] = useState<string>('');
 
     const [languageDropDownFilter, setLanguageDropDownFilter] = useState<string>('');
+
+    const [errorMessages, setErrorMessages] = useState<ErrorMessagesType>({});
+    const [isFormValid, setIsFormValid] = useState<boolean>(false);
+
+    const { execute } = useUserAdminStaffAction({
+        setShow: setOpen,
+        setLoader: setLoadingAddData,
+    });
 
     const { isLoading: roleMasterLoader, data: roleMasterListResponse } = useGetRoleMasterList();
 
@@ -39,11 +68,12 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
 
     const { isLoading: specializedLoader, data } = useGetSpecializationDropDownList();
 
-    const { response: specializationList } = data || [];
+    const { response: specializationList = [] }: { response: specializationType[] } = data || {};
 
     const { isLoading: languageLoader, data: languageData } = useGetLanguageList();
 
-    const { data: languageResponse } = languageData?.response || [];
+    const { data: languageResponse = [] }: { data: languageDataType[] } =
+        languageData?.response || {};
 
     const filteredRole = useMemo(
         () => filterList(roleListDropDownFilter, 'roleName', roleMasterList),
@@ -73,6 +103,136 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
 
     const handleRoleFilterSearch = handleFilterSearch(setRoleListDropDownFilter);
 
+    const updateFormValue = <K extends AdminStaffFormKeys>(key: K, value: FormValues[K]) => {
+        setFormValues((prev) => ({
+            ...prev,
+            [key]: value,
+        }));
+    };
+
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+
+        const fieldKey = name as AdminStaffFormKeys;
+
+        const isNumericField =
+            [AdminStaffFormKeys.PHONE_NO].includes(fieldKey) ||
+            [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE].includes(fieldKey);
+
+        const isNumeric = !Number.isNaN(Number(value)) || value === '';
+
+        if (isNumericField && !isNumeric) return;
+
+        const maxLength = MAX_LENGTHS[fieldKey];
+
+        if (!value) {
+            setErrorMessages((prev) => ({
+                ...prev,
+                [name]: '',
+            }));
+            updateFormValue(fieldKey as AdminStaffFormKeys, value);
+            return;
+        }
+
+        if (!maxLength || value.length <= maxLength) {
+            updateFormValue(fieldKey, value);
+            validateInput(fieldKey, value, setErrorMessages);
+        }
+    };
+
+    const handleSpecializationSelect = (selectedValue: specializationType) => {
+        const selectedSpecialization = formValues[AdminStaffFormKeys.SELECTED_SPECIALIZATION];
+
+        const foundIndex = selectedSpecialization.findIndex((item) => item.id === selectedValue.id);
+
+        if (foundIndex !== -1) {
+            updateFormValue(
+                AdminStaffFormKeys.SELECTED_SPECIALIZATION,
+                selectedSpecialization.filter((item) => item.id !== selectedValue.id),
+            );
+        } else {
+            updateFormValue(AdminStaffFormKeys.SELECTED_SPECIALIZATION, [
+                ...selectedSpecialization,
+                selectedValue,
+            ]);
+        }
+    };
+
+    const handleLanguageSelect = (selectedValue: languageDataType) => {
+        const selectedLanguage = formValues[AdminStaffFormKeys.LANGUAGE];
+
+        const foundIndex = selectedLanguage.findIndex((item) => item.id === selectedValue.id);
+
+        if (foundIndex !== -1) {
+            updateFormValue(
+                AdminStaffFormKeys.LANGUAGE,
+                selectedLanguage.filter((item) => item.id !== selectedValue.id),
+            );
+        } else {
+            updateFormValue(AdminStaffFormKeys.LANGUAGE, [...selectedLanguage, selectedValue]);
+        }
+    };
+
+    const handleSelectRole = (item: RoleType | null) => {
+        updateFormValue(AdminStaffFormKeys.ASSIGN_ROLE, item);
+    };
+
+    const handleSelectGender = (item: genderType | null) => {
+        updateFormValue(AdminStaffFormKeys.GENDER, item);
+    };
+
+    const handleAddNewStaffMember = () => {
+        setLoadingAddData(true);
+
+        const body: {
+            name: string;
+            email: string;
+            phone: string;
+            gender: string;
+            roleId: string;
+            languages: number[];
+            specializations: number[];
+            totalYearExperience: string;
+        } = {
+            name: formValues?.name,
+            email: formValues?.emailId,
+            phone: formValues?.phoneNo,
+            gender: formValues?.gender?.name || '',
+            roleId: formValues?.assignRole?.id || '',
+            languages: formValues?.language?.map((item: languageDataType) => Number(item.id)) || [],
+
+            specializations:
+                formValues?.selectedSpecialization?.map((item: specializationType) =>
+                    Number(item.id),
+                ) || [],
+            totalYearExperience: formValues?.totalYearExperience,
+        };
+        if (!AdminStaffId) {
+            execute({
+                type: 'create',
+                body,
+            });
+        } else {
+            execute({
+                type: 'update',
+                id: AdminStaffId,
+                body,
+            });
+        }
+    };
+
+    const handleCancel = () => {
+        setFormValues(initalState);
+        setOpen(false);
+        setAdminStaffId(null);
+    };
+
+    useEffect(() => {
+        const isValid = checkAllFieldValidOrNot({ formValues, errorMessages });
+
+        setIsFormValid(isValid);
+    }, [errorMessages, formValues]);
+
     return (
         <Modal open={open} setOpen={setOpen} sx={MODAL_STYLING}>
             <div className={styles.container}>
@@ -80,7 +240,7 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                     <Text font={[FontType.text_xl_semibold, FontType.text_xl_semibold]}>
                         {text.addNewProfessional}
                     </Text>
-                    <CrossIcon />
+                    <CrossIcon className={styles['cursor-pointer']} onClick={handleCancel} />
                 </div>
                 <div className={styles.body}>
                     <div className={styles.field}>
@@ -96,6 +256,9 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                                 value={formValues[AdminStaffFormKeys.NAME]}
                                 name={AdminStaffFormKeys.NAME}
                                 placeholder={text.enterHere}
+                                onChange={handleInputChange}
+                                error={!!errorMessages[AdminStaffFormKeys.NAME]}
+                                helperText={errorMessages[AdminStaffFormKeys.NAME] || ''}
                             />
                         </div>
                         <div className={styles.right}>
@@ -106,7 +269,14 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                             >
                                 {text.gender}
                             </Text>
-                            <Dropdown label='Gender' options={[]} selectValue='name' value={[]} />
+                            <Dropdown
+                                label='Gender'
+                                options={STATIC_GENDER}
+                                selectValue='name'
+                                value={formValues[AdminStaffFormKeys.GENDER]}
+                                onChange={handleSelectGender}
+                                isSearchable={false}
+                            />
                         </div>
                     </div>
                     <div className={styles.field}>
@@ -122,6 +292,9 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                                 value={formValues[AdminStaffFormKeys.EMAIL_ID]}
                                 name={AdminStaffFormKeys.EMAIL_ID}
                                 placeholder={text.enterHere}
+                                onChange={handleInputChange}
+                                error={!!errorMessages[AdminStaffFormKeys.EMAIL_ID]}
+                                helperText={errorMessages[AdminStaffFormKeys.EMAIL_ID] || ''}
                             />
                         </div>
                         <div className={styles.right}>
@@ -136,6 +309,9 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                                 value={formValues[AdminStaffFormKeys.PHONE_NO]}
                                 name={AdminStaffFormKeys.PHONE_NO}
                                 placeholder={text.enterHere}
+                                onChange={handleInputChange}
+                                error={!!errorMessages[AdminStaffFormKeys.PHONE_NO]}
+                                helperText={errorMessages[AdminStaffFormKeys.PHONE_NO] || ''}
                             />
                         </div>
                     </div>
@@ -152,6 +328,11 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                                 value={formValues[AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]}
                                 name={AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE}
                                 placeholder={text.enterHere}
+                                onChange={handleInputChange}
+                                error={!!errorMessages[AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]}
+                                helperText={
+                                    errorMessages[AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE] || ''
+                                }
                             />
                         </div>
                         <div className={styles.right}>
@@ -162,15 +343,17 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                             >
                                 {text.languageKnown}
                             </Text>
-                            <Dropdown
+                            <Dropdown<languageDataType>
                                 label={text.selectLanguage}
                                 options={filteredLanguage}
                                 selectValue='name'
-                                value={[]}
+                                value={formValues[AdminStaffFormKeys.LANGUAGE]}
+                                onChange={handleLanguageSelect}
                                 loading={languageLoader}
                                 isSearchable
-                                searchFilter={specializationDropDownFilter}
+                                searchFilter={languageDropDownFilter}
                                 handleSearch={handleLanguageFilterSearch}
+                                multipleSelection
                             />
                         </div>
                     </div>
@@ -187,11 +370,12 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                                 label={text.selectRole}
                                 options={filteredRole}
                                 selectValue='roleName'
-                                value={[]}
+                                value={formValues[AdminStaffFormKeys.ASSIGN_ROLE]}
                                 loading={roleMasterLoader}
                                 isSearchable
-                                searchFilter={specializationDropDownFilter}
+                                searchFilter={roleListDropDownFilter}
                                 handleSearch={handleRoleFilterSearch}
+                                onChange={handleSelectRole}
                             />
                         </div>
                         <div className={styles.right}>
@@ -202,15 +386,17 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                             >
                                 {text.labelSpecialization}
                             </Text>
-                            <Dropdown
+                            <Dropdown<specializationType>
                                 label={text.selectSpecialization}
                                 options={filteredSpecialization}
                                 selectValue='name'
-                                value={[]}
+                                value={formValues[AdminStaffFormKeys.SELECTED_SPECIALIZATION]}
+                                onChange={handleSpecializationSelect}
                                 isSearchable
                                 searchFilter={specializationDropDownFilter}
                                 handleSearch={handleSpecializationFilterSearch}
                                 loading={specializedLoader}
+                                multipleSelection
                             />
                         </div>
                     </div>
@@ -221,6 +407,9 @@ const AddNewStaff = ({ open, setOpen, formValues }: AddAdminStaffProps) => {
                             color='white'
                             StartIcon={<PlusIcon />}
                             className={styles.button}
+                            disabled={!isFormValid}
+                            loader={loadingAddData}
+                            onClick={handleAddNewStaffMember}
                         />
                     </div>
                 </div>

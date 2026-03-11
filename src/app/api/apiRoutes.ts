@@ -71,6 +71,7 @@ const ADMIN_SESSION_LIST = `${API_URL}/admin/dashboard/admin/session`;
 
 /** Admin Staff Management */
 const ADMIN_STAFF_MANAGEMENT_API = `${API_URL}/admin/dashboard/admin/staff`;
+const ADD_NEW_STAFF_MEMBER = `${API_URL}/admin/staff`;
 
 /** Language */
 const ADMIN_LANGUAGE = `${API_URL}/admin/languages`;
@@ -110,4 +111,5 @@ export {
     ADMIN_STAFF_MANAGEMENT_API,
     ADMIN_LANGUAGE,
     GET_PSYCHOLOGIST_ENDPOINT,
+    ADD_NEW_STAFF_MEMBER,
 };

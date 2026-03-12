@@ -6,11 +6,13 @@ import { PageHeader, ShimmerUiContainer } from '@/components/index';
 
 import { ToastContainer } from 'react-toastify';
 
-import { DEBOUNCE_SEARCH_TIME } from '@/constant/appConstants';
+import { DEBOUNCE_SEARCH_TIME, StatusDataType, StatusNumber } from '@/constant/appConstants';
 
 import useDebounce from '@/utils/useDebounce';
 
 import { STAFF_LIST_TEXT as text, STATUS_LABEL_MAP as statusLabelMap } from './constant';
+
+import { staffListDataType } from '../../staff-list/type';
 
 import { useGetAdminSessionList } from '../queries';
 
@@ -21,8 +23,10 @@ import { sessionDataType } from '../type';
 import styles from './styles.module.scss';
 
 const AdminSessionPage = () => {
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [currentPage, setCurrentPage] = useState<number>(StatusNumber.ACTIVE);
     const [tableFilter, setTableFilter] = useState<string>('');
+    const [staffFilter, setStaffFilter] = useState<staffListDataType | null>(null);
+    const [statusFilter, setStatusFilter] = useState<StatusDataType | null>(null);
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
@@ -30,6 +34,8 @@ const AdminSessionPage = () => {
         page: currentPage,
         limit: 10,
         search: debouncedFilters,
+        status: statusFilter?.id || '',
+        assignedTo: staffFilter?.id || '',
     });
 
     const { response } = data || {};
@@ -104,6 +110,10 @@ const AdminSessionPage = () => {
                     totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
+                    StaffFilter={staffFilter}
+                    setStaffFilter={setStaffFilter}
+                    StatusFilter={statusFilter}
+                    setStatusFilter={setStatusFilter}
                 />
             )}
 

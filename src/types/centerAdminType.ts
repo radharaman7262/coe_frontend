@@ -5,5 +5,5 @@ export interface CenterAdminPayloadType {
     email: string;
     roleId: string;
     centerId: string;
-    specialization: { id: string }[];
+    specializationId: string;
 }

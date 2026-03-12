@@ -6,6 +6,7 @@ import { Drawer } from '@mui/material';
 import Child from './ChildInformation';
 import Parent from './ParentInformation';
 import Psychologist from './AssignPsychologist';
+import ScheduleSession from './ScheduleSession';
 
 interface Props {
     openDrawer: boolean;
@@ -16,6 +17,7 @@ enum DrawerStep {
     CHILD = 1,
     PARENT = 2,
     PSYCHOLOGIST = 3,
+    SCHEDULE_SESSION = 4,
 }
 
 const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
@@ -53,6 +55,8 @@ const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
             {step === DrawerStep.PSYCHOLOGIST && (
                 <Psychologist onContinue={handleClose} onclose={handleClose} />
             )}
+
+            {step === DrawerStep.SCHEDULE_SESSION && <ScheduleSession />}
         </Drawer>
     );
 };

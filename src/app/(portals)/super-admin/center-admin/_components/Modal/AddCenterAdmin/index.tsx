@@ -27,7 +27,6 @@ import {
     CenterType,
     ErrorMessagesType,
     FormValues,
-    specializationType,
     SpecializationType,
 } from './type';
 
@@ -93,7 +92,7 @@ const AddCenterAdmin = ({
 
     const filteredSpecialization = useMemo(
         () =>
-            specializationList?.filter((item: specializationType) =>
+            specializationList?.filter((item: SpecializationType) =>
                 item?.name.toLowerCase().includes(specializationDropDownFilter.toLowerCase()),
             ),
         [specializationDropDownFilter, specializationList],
@@ -142,22 +141,8 @@ const AddCenterAdmin = ({
         }
     };
 
-    const handleSpecializationSelect = (selectedValue: SpecializationType) => {
-        const selectedSpecialization = formValues[CenterAdminFormKeys.SELECTED_SPECIALIZATION];
-
-        const foundIndex = selectedSpecialization.findIndex((item) => item.id === selectedValue.id);
-
-        if (foundIndex !== -1) {
-            updateFormValue(
-                CenterAdminFormKeys.SELECTED_SPECIALIZATION,
-                selectedSpecialization.filter((item) => item.id !== selectedValue.id),
-            );
-        } else {
-            updateFormValue(CenterAdminFormKeys.SELECTED_SPECIALIZATION, [
-                ...selectedSpecialization,
-                selectedValue,
-            ]);
-        }
+    const handleSpecializationSelect = (item: SpecializationType | null) => {
+        updateFormValue(CenterAdminFormKeys.SELECTED_SPECIALIZATION, item);
     };
 
     const handleCenterSelect = (item: CenterType | null) => {
@@ -184,6 +169,7 @@ const AddCenterAdmin = ({
         setLoadingAddData(true);
 
         const centerIdString = formValues?.selectedCenter?.centerId?.toString() ?? '';
+        const specializationIdString = formValues?.selectedSpecialization?.id.toString() ?? '';
 
         const body: {
             firstName: string;
@@ -192,7 +178,7 @@ const AddCenterAdmin = ({
             email: string;
             roleId: string;
             centerId: string;
-            specialization: { id: string }[];
+            specializationId: string;
         } = {
             firstName: formValues?.firstName,
             lastName: formValues?.lastName,
@@ -200,9 +186,7 @@ const AddCenterAdmin = ({
             email: formValues?.emailId,
             roleId: centerAdmin[0].id,
             centerId: centerIdString,
-            specialization: formValues[CenterAdminFormKeys.SELECTED_SPECIALIZATION].map((item) => ({
-                id: item.id.toString(),
-            })),
+            specializationId: specializationIdString,
         };
 
         if (!centerAdminId) {
@@ -355,7 +339,6 @@ const AddCenterAdmin = ({
                                 onChange={handleSpecializationSelect}
                                 searchStartIcon={SearchIcon}
                                 loading={specializedLoader}
-                                multipleSelection
                             />
                         </div>
                     </div>

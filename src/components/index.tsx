@@ -26,3 +26,4 @@ export { default as AfterLoginHeader } from './shared/AfterLoginHeader';
 export { default as NoDataContainer } from './shared/NoDataContainer';
 export { default as Sidebar } from './shared/Sidebar';
 export { default as PageHeader } from './shared/PageHeader';
+export { default as ScrollLabelCalender } from './ui/ScrollabelComponentCalender';

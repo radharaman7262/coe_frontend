@@ -82,7 +82,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-
+    width: 100%;
     border-radius: 12px;
     border: 1px solid #e9ebf3;
     background-color: white;
@@ -115,4 +115,16 @@
         margin-top: 16px;
         margin-bottom: 20px;
     }
+}
+
+.roles {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.role-btn-class {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
 }

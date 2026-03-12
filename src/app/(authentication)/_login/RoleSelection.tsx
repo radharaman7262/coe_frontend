@@ -1,18 +1,105 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { Text } from '@/components/index';
+import { Button, Text } from '@/components/index';
 
 import CenterAdminIcon from '@/public/assets/svg/center-admin-icon.svg';
-import SpecialEducatorIcon from '@/public/assets/svg/special-educator-icon.svg';
 
-import { FontType } from '@/types/typographyCommon';
+import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
+
+import { LoggedRoleType } from '@/types/roleType';
+import { ButtonVariant, FontType } from '@/types/typographyCommon';
+
+import { showToast } from '@/components/ui/Toaster/constant';
+
+import { LOADING_TIME_DURATION } from '@/constant/appConstants';
+
+import { setClientSideUserDetail } from '@/utils/cookieManager';
+import { storeDataInServerSideCookies } from '@/utils/storeDataInServerSideCookies';
+
+import { ServerSideRoutes } from '@/constant/serverSideRoutes';
+import { AppRoutes } from '@/constant/appRoutes';
+
+import { MenuListType } from '@/types/menuListsType';
+
+import { SignInFormType } from '@/types/signInFormType';
+
+import { loginApiCall } from './utils';
 
 import { LOGIN_PAGE_DATA as data, SELECT_ROLE_DATA as text } from './constant';
 
 import styles from './styles.module.scss';
 
-const RoleSelection = () => {
-    const [selectedRole, setSelectedRole] = useState<string | null>(null);
+interface RoleSelectionType {
+    multiSelectionUser: LoggedRoleType[] | null;
+    selectSpecialization: LoggedRoleType | null;
+    setSelectSpecialization: React.Dispatch<React.SetStateAction<LoggedRoleType | null>>;
+    formValues: SignInFormType;
+}
+
+const RoleSelection = (props: RoleSelectionType) => {
+    const { multiSelectionUser, setSelectSpecialization, selectSpecialization, formValues } = props;
+
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const router = useRouter();
+
+    const handleLogin = async () => {
+        try {
+            setLoading(true);
+
+            const body = { ...formValues, specializationId: selectSpecialization?.id };
+
+            const loginData = await loginApiCall(body);
+
+            const { status, response, message } = loginData || {};
+
+            if (!status) {
+                throw new Error(message);
+            }
+
+            const { token, Message, data: userDetail } = response || {};
+
+            const { assignedMenus: menuLists } = userDetail || {};
+            if (!menuLists?.length) {
+                showToast({ type: 'error', message: 'Please mapped at least one menu.' });
+                return;
+            }
+            const allowedRoutes = menuLists
+                .filter((item: MenuListType) => item.menuLink !== '/#')
+                ?.map((item: MenuListType) => item.menuLink)
+                .filter((link: string) => link?.startsWith(AppRoutes.LANDING_PAGE));
+            await Promise.all([
+                storeDataInServerSideCookies(ServerSideRoutes.STORE_AUTH_TOKEN, { token }),
+                storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_MENU_LIST, {
+                    menuList: menuLists,
+                }),
+                storeDataInServerSideCookies(ServerSideRoutes.STORE_ALLOWED_ROUTE, {
+                    allowedRoute: allowedRoutes,
+                }),
+                storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_DETAIL_ROUTE, {
+                    userDetail,
+                }),
+            ]);
+            setClientSideUserDetail(userDetail);
+            const redirectRoute = allowedRoutes[0] || '/';
+            showToast({ type: 'success', message: Message });
+            if (redirectRoute) {
+                setTimeout(() => {
+                    router.push(redirectRoute);
+                }, LOADING_TIME_DURATION);
+            } else {
+                // TODo we have to implement a 404 or route path is invalid page here.
+                console.warn('No allowed route found to redirect. Skipping redirect to avoid 404.');
+            }
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+
+            showToast({ type: 'error', message: errorMessage });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <>
@@ -24,33 +111,42 @@ const RoleSelection = () => {
                     {text.wehavefound}
                 </Text>
             </div>
+            <div className={styles.roles}>
+                {multiSelectionUser &&
+                    multiSelectionUser?.map((item: LoggedRoleType) => (
+                        <div className={styles['role-part']}>
+                            <div
+                                className={`${styles['role-card']} ${
+                                    selectSpecialization?.name === item?.name ? styles.active : ''
+                                }`}
+                                onClick={() => setSelectSpecialization(item)}
+                                aria-hidden='true'
+                            >
+                                <CenterAdminIcon />
+                                <Text
+                                    font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                                    color='black'
+                                >
+                                    {item?.name}
+                                </Text>
+                            </div>
+                        </div>
+                    ))}
+            </div>
 
-            <div className={styles['role-part']}>
-                <div
-                    className={`${styles['role-card']} ${
-                        selectedRole === 'centerAdmin' ? styles.active : ''
-                    }`}
-                    onClick={() => setSelectedRole('centerAdmin')}
-                    aria-hidden='true'
-                >
-                    <CenterAdminIcon />
-                    <Text font={[FontType.text_sm_medium, FontType.text_sm_medium]} color='black'>
-                        {text.centerAdmin}
-                    </Text>
-                </div>
-
-                <div
-                    className={`${styles['role-card']} ${
-                        selectedRole === 'specialEducator' ? styles.active : ''
-                    }`}
-                    onClick={() => setSelectedRole('specialEducator')}
-                    aria-hidden='true'
-                >
-                    <SpecialEducatorIcon />
-                    <Text font={[FontType.text_sm_medium, FontType.text_sm_medium]} color='black'>
-                        {text.specialEducator}
-                    </Text>
-                </div>
+            <div>
+                <Button
+                    label='Submit'
+                    type='button'
+                    variant={ButtonVariant.SOLID}
+                    color='white'
+                    font={[FontType.text_md_semibold, FontType.text_md_semibold]}
+                    className={styles['role-btn-class']}
+                    EndIcon={!loading ? <RightIcon /> : null}
+                    onClick={handleLogin}
+                    disabled={loading || !selectSpecialization}
+                    loader={loading}
+                />
             </div>
 
             <div className={styles['role-footer']}>

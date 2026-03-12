@@ -8,7 +8,9 @@ export const checkAllFieldValidOrNot = (args: {
 }) => {
     const { formValues, errorMessages } = args;
 
-    const keys = Object.keys(formValues);
+    const keys = Object.keys(formValues).filter(
+        (item) => item !== CenterAdminFormKeys.SELECTED_CENTER,
+    );
 
     const isAllFieldsFilled = keys.every((key) => formValues[key as CenterAdminFormKeys]);
 

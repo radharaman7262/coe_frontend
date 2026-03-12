@@ -57,6 +57,21 @@ const CenterSetupPage = () => {
         setShow: setAddNewCenterModal,
     });
 
+    const handleEditModal = (item: getCenterSetupListType) => {
+        setAddNewCenterModal(true);
+        setCenterId(Number(item?.centerId));
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [CenterSetupFormKeys.CENTER_NAME]: item?.name,
+            [CenterSetupFormKeys.ADDRESS]: item?.address,
+            [CenterSetupFormKeys.CONTACT_DETAILS]: item?.phone,
+            [CenterSetupFormKeys.SELECTED_ADMIN]: {
+                fullName: item?.centerAdmin,
+                userId: Number(item?.centerId),
+            } as AdminType,
+        }));
+    };
+
     const getCenterSetupList = (results: getCenterSetupListType[]) => {
         const data = results?.map((item) => ({
             ...item,
@@ -81,21 +96,27 @@ const CenterSetupPage = () => {
             edit: (
                 <EditIcon
                     onClick={() => {
-                        setAddNewCenterModal(true);
-                        setCenterId(Number(item?.centerId));
-                        setFormValues((prevValues) => ({
-                            ...prevValues,
-                            [CenterSetupFormKeys.CENTER_NAME]: item?.name,
-                            [CenterSetupFormKeys.ADDRESS]: item?.address,
-                            [CenterSetupFormKeys.CONTACT_DETAILS]: item?.phone,
-                            [CenterSetupFormKeys.SELECTED_ADMIN]: {
-                                fullName: item?.centerAdmin,
-                                userId: Number(item?.centerId),
-                            } as AdminType,
-                        }));
+                        handleEditModal(item);
                     }}
                     className={styles['cursor-pointer']}
                 />
+            ),
+            centerAdmin: (
+                <div>
+                    {item?.centerAdmin !== null ? (
+                        item?.centerAdmin
+                    ) : (
+                        <div
+                            className={styles['assign-capsule-container']}
+                            onClick={() => {
+                                handleEditModal(item);
+                            }}
+                            aria-hidden='true'
+                        >
+                            + Assigned Admin
+                        </div>
+                    )}
+                </div>
             ),
         }));
 

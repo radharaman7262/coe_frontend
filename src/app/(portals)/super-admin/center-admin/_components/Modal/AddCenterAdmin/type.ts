@@ -24,7 +24,7 @@ export interface FormValues {
     lastName: string;
     phoneNo: string;
     emailId: string;
-    selectedSpecialization: SpecializationType[] | [];
+    selectedSpecialization: SpecializationType | null;
     selectedCenter: CenterType | null;
 }
 
@@ -47,7 +47,7 @@ type StringFieldMap = {
 };
 
 export type CenterAdminFormType = StringFieldMap & {
-    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: SpecializationType[] | null;
+    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: SpecializationType | null;
     [CenterAdminFormKeys.SELECTED_CENTER]: CenterType | null;
 };
 
@@ -58,14 +58,6 @@ export type CenterAdminFormErrorType = {
 export type ErrorMessagesType = {
     [key in CenterAdminFormKeys]?: string;
 };
-
-export interface specializationType {
-    createdAt: string;
-    id: string;
-    name: string;
-    status: number;
-    updatedAt: string;
-}
 
 export interface centerDropDownListType {
     centerId: string;

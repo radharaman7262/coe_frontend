@@ -1,0 +1,24 @@
+@use '@styles/theme' as *;
+
+.container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.scrollWrapper {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.item {
+    flex-shrink: 0;
+    cursor: pointer;
+}

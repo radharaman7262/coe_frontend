@@ -30,3 +30,8 @@ export const SELECT_ROLE_DATA = {
     centerAdmin: 'Center Admin',
     specialEducator: 'Special Educator',
 };
+
+export const INITIAL_STATE = {
+    [SignInFormKeys.NAME]: '',
+    [SignInFormKeys.PASSWORD]: '',
+};

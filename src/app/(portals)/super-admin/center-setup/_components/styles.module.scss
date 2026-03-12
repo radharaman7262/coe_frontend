@@ -39,3 +39,12 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.assign-capsule-container {
+    padding: 2px 8px;
+    border-radius: 16px;
+    background-color: $indigo-50;
+    color: $indigo-blue;
+    text-align: center;
+    cursor: pointer;
+}

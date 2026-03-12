@@ -1,4 +1,4 @@
-export interface specializationType {
+export interface specializationGetType {
     specializationId: string;
     specializationName: string;
 }
@@ -11,7 +11,7 @@ export interface getCenterAdminListType {
     email: string;
     roleId: string;
     roleName: string;
-    specialization: specializationType[];
+    specialization: specializationGetType[];
     centerId: string;
     centerName: string;
     status: number;

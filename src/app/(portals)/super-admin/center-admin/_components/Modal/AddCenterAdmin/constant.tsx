@@ -28,7 +28,7 @@ export const INITIAL_STATE = {
     [CenterAdminFormKeys.LAST_NAME]: '',
     [CenterAdminFormKeys.PHONE_NO]: '',
     [CenterAdminFormKeys.EMAIL_ID]: '',
-    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: [],
+    [CenterAdminFormKeys.SELECTED_SPECIALIZATION]: null,
     [CenterAdminFormKeys.SELECTED_CENTER]: null,
 };
 

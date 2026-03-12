@@ -16,6 +16,8 @@ export const getAdminSessionListApiCall = async ({
     page: string | number;
     limit: number;
     search?: string;
+    status: string;
+    assignedTo: string;
 }) => {
     const authToken = await getCookie(JWT_TOKEN);
 

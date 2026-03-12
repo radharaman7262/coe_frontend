@@ -83,7 +83,9 @@ const AddNewCentre = ({
     const filteredAdmins = useMemo<AdminType[]>(
         () =>
             (adminDropDownList ?? []).filter((admin: AdminType) =>
-                admin?.fullName.toLowerCase().includes(dropDownFilter?.toLowerCase()),
+                (admin?.fullName ?? '')
+                    .toLowerCase()
+                    .includes((dropDownFilter ?? '').toLowerCase()),
             ),
         [adminDropDownList, dropDownFilter],
     );

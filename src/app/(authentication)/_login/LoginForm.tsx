@@ -16,7 +16,7 @@ import EyeOnIcon from '@/public/assets/svg/eye-on-icon.svg';
 import { ErrorMessagesType, SignInFormKeys, SignInFormType } from '@/types/signInFormType';
 import { MenuListType } from '@/types/menuListsType';
 
-import { KeyboardEvent } from '@/constant/enumConstant';
+import { AuthDrawerStep, KeyboardEvent } from '@/constant/enumConstant';
 
 import { showToast } from '@/components/ui/Toaster/constant';
 
@@ -24,9 +24,10 @@ import { storeDataInServerSideCookies } from '@/utils/storeDataInServerSideCooki
 
 import { ServerSideRoutes } from '@/constant/serverSideRoutes';
 import { AppRoutes } from '@/constant/appRoutes';
-import { LOADING_TIME_DURATION } from '@/constant/appConstants';
+import { LOADING_TIME_DURATION, StatusNumber } from '@/constant/appConstants';
 
 import { setClientSideUserDetail } from '@/utils/cookieManager';
+import { LoggedRoleType } from '@/types/roleType';
 import { checkAllValueValidOrNot, loginApiCall, validateInput } from './utils';
 
 import { LOGIN_PAGE_DATA as staticLabel, BUTTON_TEXT as button, MAX_LENGTHS } from './constant';
@@ -35,17 +36,16 @@ import styles from './styles.module.scss';
 
 interface LoginFormType {
     openLoginDrawer: boolean;
+    setStep: React.Dispatch<React.SetStateAction<AuthDrawerStep>>;
+    formValues: SignInFormType;
+    setFormValues: React.Dispatch<React.SetStateAction<SignInFormType>>;
+    setMultiSelectionUser: React.Dispatch<React.SetStateAction<LoggedRoleType[] | null>>;
 }
 
 const LoginForm = (props: LoginFormType) => {
-    const { openLoginDrawer } = props;
+    const { openLoginDrawer, setStep, formValues, setFormValues, setMultiSelectionUser } = props;
 
     const router = useRouter();
-
-    const [formValues, setFormValues] = useState<SignInFormType>({
-        [SignInFormKeys.NAME]: '',
-        [SignInFormKeys.PASSWORD]: '',
-    });
 
     const [errorMessages, setErrorMessages] = useState<ErrorMessagesType>({});
     const [isFormValid, setIsFormValid] = useState<boolean>(false);
@@ -105,47 +105,46 @@ const LoginForm = (props: LoginFormType) => {
 
             const { token, Message, data: userDetail } = response || {};
 
-            const { assignedMenus: menuLists } = userDetail || {};
+            const { askSpecialization, userSpecializations } = userDetail || {};
 
-            if (!menuLists?.length) {
-                showToast({ type: 'error', message: 'Please mapped at least one menu.' });
-                return;
-            }
-
-            const allowedRoutes = menuLists
-                .filter((item: MenuListType) => item.menuLink !== '/#')
-                ?.map((item: MenuListType) => item.menuLink)
-                .filter((link: string) => link?.startsWith(AppRoutes.LANDING_PAGE));
-
-            await Promise.all([
-                storeDataInServerSideCookies(ServerSideRoutes.STORE_AUTH_TOKEN, { token }),
-
-                storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_MENU_LIST, {
-                    menuList: menuLists,
-                }),
-
-                storeDataInServerSideCookies(ServerSideRoutes.STORE_ALLOWED_ROUTE, {
-                    allowedRoute: allowedRoutes,
-                }),
-
-                storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_DETAIL_ROUTE, {
-                    userDetail,
-                }),
-            ]);
-
-            setClientSideUserDetail(userDetail);
-
-            const redirectRoute = allowedRoutes[0] || '/';
-
-            showToast({ type: 'success', message: Message });
-
-            if (redirectRoute) {
-                setTimeout(() => {
-                    router.push(redirectRoute);
-                }, LOADING_TIME_DURATION);
+            if (askSpecialization !== StatusNumber.ACTIVE) {
+                const { assignedMenus: menuLists } = userDetail || {};
+                if (!menuLists?.length) {
+                    showToast({ type: 'error', message: 'Please mapped at least one menu.' });
+                    return;
+                }
+                const allowedRoutes = menuLists
+                    .filter((item: MenuListType) => item.menuLink !== '/#')
+                    ?.map((item: MenuListType) => item.menuLink)
+                    .filter((link: string) => link?.startsWith(AppRoutes.LANDING_PAGE));
+                await Promise.all([
+                    storeDataInServerSideCookies(ServerSideRoutes.STORE_AUTH_TOKEN, { token }),
+                    storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_MENU_LIST, {
+                        menuList: menuLists,
+                    }),
+                    storeDataInServerSideCookies(ServerSideRoutes.STORE_ALLOWED_ROUTE, {
+                        allowedRoute: allowedRoutes,
+                    }),
+                    storeDataInServerSideCookies(ServerSideRoutes.STORE_USER_DETAIL_ROUTE, {
+                        userDetail,
+                    }),
+                ]);
+                setClientSideUserDetail(userDetail);
+                const redirectRoute = allowedRoutes[0] || '/';
+                showToast({ type: 'success', message: Message });
+                if (redirectRoute) {
+                    setTimeout(() => {
+                        router.push(redirectRoute);
+                    }, LOADING_TIME_DURATION);
+                } else {
+                    // TODo we have to implement a 404 or route path is invalid page here.
+                    console.warn(
+                        'No allowed route found to redirect. Skipping redirect to avoid 404.',
+                    );
+                }
             } else {
-                // TODo we have to implement a 404 or route path is invalid page here.
-                console.warn('No allowed route found to redirect. Skipping redirect to avoid 404.');
+                setMultiSelectionUser(userSpecializations);
+                setStep(AuthDrawerStep.ROLE_SELECTION);
             }
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);

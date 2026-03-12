@@ -11,3 +11,8 @@ export enum TOASTER_STATUS {
     SUCCESS = 'success',
     ERROR = 'error',
 }
+
+export enum AuthDrawerStep {
+    LOGIN = 'LOGIN',
+    ROLE_SELECTION = 'ROLE_SELECTION',
+}

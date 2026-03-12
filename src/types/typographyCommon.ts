@@ -218,6 +218,7 @@ export type ColorVariant =
     | 'gray-100'
     | 'gray-200'
     | 'gray-300'
+    | 'gray-350'
     | 'gray-400'
     | 'gray-500'
     | 'gray-600'

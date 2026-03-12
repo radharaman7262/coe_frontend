@@ -12,8 +12,11 @@ import TableUi from './TableUi';
 
 import styles from './styles.module.scss';
 
+import StudentDrawerController from './Drawer';
+
 const AdminStudentListPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [openDrawer, setOpenDrawer] = useState(false);
 
     const isLoading = false;
 
@@ -23,6 +26,7 @@ const AdminStudentListPage = () => {
                 title={text.studentList}
                 description={text.description}
                 buttonLabel={text.createStudent}
+                onButtonClick={() => setOpenDrawer(true)}
             />
 
             {isLoading ? (
@@ -36,6 +40,8 @@ const AdminStudentListPage = () => {
                     totalCount={100}
                 />
             )}
+
+            <StudentDrawerController openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
 
             <ToastContainer />
         </>

@@ -1,0 +1,33 @@
+@use '@styles/theme' as *;
+
+.toggleContainer {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    width: fit-content;
+    height: 40px;
+}
+
+.toggleButton {
+    padding: 10px 20px;
+    border: none;
+    transition: all 0.3s ease;
+    flex: 1;
+
+    &:not(:last-child) {
+        border-right: 1px solid #ccc;
+    }
+}
+
+.active {
+    background-color: #7c4dff;
+    color: white;
+}
+
+.button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}

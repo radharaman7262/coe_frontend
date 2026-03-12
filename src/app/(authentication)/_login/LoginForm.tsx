@@ -190,15 +190,10 @@ const LoginForm = (props: LoginFormType) => {
     return (
         <div className={styles['login-wrapper']}>
             <div className={styles['heading-container']}>
-                <Text font={[FontType.display_Desktop_xmd_bold, FontType.display_Desktop_xmd_bold]}>
+                <Text font={[FontType.text_xl_semibold, FontType.text_xl_semibold]}>
                     {staticLabel.heading}
                 </Text>
-                <Text
-                    font={[
-                        FontType.display_Desktop_xmd_regular,
-                        FontType.display_Desktop_xmd_regular,
-                    ]}
-                >
+                <Text font={[FontType.text_md_regular, FontType.text_md_regular]} color='text-idle'>
                     {staticLabel.dashboardLogin}
                 </Text>
             </div>

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Drawer } from '@/components';
 
-import Logo from '@/public/assets/svg/rupantar-header-large.svg';
+import MothersGraceLogo from '@/public/assets/svg/mothers-grace-logo.svg';
 import CrossIcon from '@/public/assets/svg/cross-icon.svg';
 
 import { useUserContext } from './_contextProvider';
@@ -34,7 +34,7 @@ const Home = () => {
                 <CrossIcon className={styles['cross-icon']} onClick={handleClose} />
             </div>
             <div className={styles['drawer-middle']}>
-                <Logo className={styles.logo} />
+                <MothersGraceLogo className={styles.logo} />
                 <Login openLoginDrawer={openLoginDrawer} />
             </div>
         </Drawer>

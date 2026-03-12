@@ -63,3 +63,56 @@
         }
     }
 }
+
+.text-part {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.role-part {
+    margin-top: 30px;
+    display: flex;
+    gap: 16px;
+}
+
+.role-card {
+    display: inline-flex;
+    padding: 12px 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    border-radius: 12px;
+    border: 1px solid #e9ebf3;
+    background-color: white;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border: 1px solid #de7aff;
+        background: #fbefff;
+    }
+}
+
+.active {
+    border: 1px solid #de7aff;
+    background: #fbefff;
+}
+
+.role-footer {
+    margin-bottom: 10px;
+    margin-top: 8px;
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include breakpoints('2xl') {
+        margin-top: 16px;
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,151 @@
+@use '@styles/theme' as *;
+
+.container-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .drawer-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 24px;
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .input-second-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            width: 100%;
+        }
+    }
+}
+
+.horizontal-line {
+    border: none;
+    border-top: 1px solid $gray-300;
+    width: 100%;
+}
+
+.language-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    > div {
+        width: 240px;
+    }
+}
+
+.family-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.radio-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    input {
+        cursor: pointer;
+    }
+}
+
+.siblings-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 12px;
+}
+
+.file-container {
+    display: flex;
+    padding: 12px 14px;
+    align-items: center;
+    width: 260px;
+    height: 48px;
+    gap: 8px;
+    border-radius: 8px;
+    border: 1px solid $gray-300;
+    box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+    background-color: $white;
+    cursor: pointer;
+}
+
+.fileList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.fileChip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f2f2f2;
+    padding: 6px 10px;
+    border-radius: 16px;
+    font-size: 14px;
+
+    button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 24px;
+    }
+}
+
+.drawer-header {
+    border-bottom: 1px solid $gray-350;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.drawer-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cross-icon {
+    cursor: pointer;
+}
+
+.drawer-body {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.drawer-bottom {
+    border-top: 1px solid $border-text-gray;
+    padding: 12px 24px 12px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bottom-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.buttonbase-class {
+    cursor: pointer;
+}

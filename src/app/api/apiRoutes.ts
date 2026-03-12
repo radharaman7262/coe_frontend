@@ -75,6 +75,10 @@ const ADMIN_STAFF_MANAGEMENT_API = `${API_URL}/admin/dashboard/admin/staff`;
 /** Language */
 const ADMIN_LANGUAGE = `${API_URL}/admin/languages`;
 
+/** Psychologist */
+
+const GET_PSYCHOLOGIST_ENDPOINT = `${API_URL}/admin/psychologist`;
+
 export {
     LOGIN_ENDPOINT,
     USER_TYPE_ENDPOINT,
@@ -105,4 +109,5 @@ export {
     ADMIN_SESSION_LIST,
     ADMIN_STAFF_MANAGEMENT_API,
     ADMIN_LANGUAGE,
+    GET_PSYCHOLOGIST_ENDPOINT,
 };

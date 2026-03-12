@@ -1,0 +1,65 @@
+@use '@styles/theme' as *;
+
+.container-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .drawer-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 24px;
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+    }
+
+    .input-second-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .text-container {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+    }
+}
+
+.drawer-header {
+    border-bottom: 1px solid $gray-350;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.drawer-header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.cross-icon {
+    cursor: pointer;
+}
+
+.drawer-body {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.drawer-bottom {
+    border-top: 1px solid $border-text-gray;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

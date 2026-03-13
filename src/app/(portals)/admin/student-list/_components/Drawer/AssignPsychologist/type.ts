@@ -3,7 +3,10 @@ export interface PsychologistType {
     name: string;
     email: string;
     phone: string;
-    specializations: string[];
+    specializations: {
+        id: number;
+        name: string;
+    }[];
     assignedStudentsCount: number;
     status: number;
 }

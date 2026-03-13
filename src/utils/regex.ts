@@ -11,6 +11,10 @@ export const ALPHA_NUMERIC_REGEX = /^(?=.*[a-zA-Z])[a-zA-Z ]{3,30}$/;
 
 export const MOBILE_NUMBER_REGEX = /^[6-9]\d{9}$/;
 
+export const MOBILE_INPUT_REGEX = /^\d{0,10}$/;
+
 export const NAME_REGEX = /^(?=.{3,20}$)[A-Za-z]+(?: [A-Za-z]+)*$/;
 
 export const CENTER_NAME_REGEX = /^(?=.{3,30}$)[A-Za-z]+(?: [A-Za-z]+)*$/;
+
+export const UDISE_CODE_REGEX = /^\d{11}$/;

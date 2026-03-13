@@ -48,7 +48,9 @@ const CenterUserOverView = (props: CenterOverviewProps) => {
                     </Text>
                 </div>
             ) : (
-                <SmallTableBody columns={columns} data={data} />
+                <div className={styles['overview-table']}>
+                    <SmallTableBody columns={columns} data={data} />
+                </div>
             )}
         </div>
     );

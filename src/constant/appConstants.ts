@@ -21,7 +21,11 @@ export const EIGHT_MIN_LENGTH = 8;
 
 export const TEN_MIN_LENGTH = 10;
 
+export const ELEVEN_MAX_LENGTH = 11;
+
 export const THIRTY_MAX_LENGTH = 30;
+
+export const THREE_HUNDRED_MAX_LENGTH = 300;
 
 export const DEBOUNCE_SEARCH_TIME = 1500;
 
@@ -91,3 +95,44 @@ export const generateNext30Dates = () => {
 };
 // eslint-disable-next-line max-len
 export const PYSCHCOLOGIST_TOKEN = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NCIsImVtYWlsIjoicGFyYXNAYXVyb3NvY2lldHkub3JnIiwicm9sZUlkIjoiMyIsInNwZWNpYWxpemF0aW9uSWQiOiIyIiwidXNlclR5cGVJZCI6IjQiLCJpYXQiOjE3NzM1NTY0MTUsImV4cCI6MTc3MzY0MjgxNX0.Rn8sp2RaJp6m0-DtKOAF0Eshnjzp4-EFI6Mo-f55mjc`;
+export enum SchoolType {
+    NO_SCHOOL = 'No School',
+    HOME_SCHOOL = 'Home School',
+    PLAY_SCHOOL = 'Play School',
+    GOVT_SCHOOL = 'Govt. School',
+    PVT_SCHOOL = 'Pvt. School',
+}
+
+export const STATIC_SCHOOL_TYPE = [
+    { id: 1, name: SchoolType.NO_SCHOOL },
+    { id: 2, name: SchoolType.HOME_SCHOOL },
+    { id: 3, name: SchoolType.PLAY_SCHOOL },
+    { id: 4, name: SchoolType.GOVT_SCHOOL },
+    { id: 5, name: SchoolType.PVT_SCHOOL },
+];
+
+export enum OccupationType {
+    GOVT_SERVICE = 'Government Service',
+    PRIVATE_SECTOR = 'Private Sector/Job',
+    BUSINESS = 'Business',
+    SELF_EMPLOYED = 'Self Employed',
+    AGRICULTURE = 'Agriculture/Farmer',
+}
+
+export const STATIC_OCCUPATION_TYPE = [
+    { id: 1, name: OccupationType.GOVT_SERVICE },
+    { id: 2, name: OccupationType.PRIVATE_SECTOR },
+    { id: 3, name: OccupationType.BUSINESS },
+    { id: 4, name: OccupationType.SELF_EMPLOYED },
+    { id: 5, name: OccupationType.AGRICULTURE },
+];
+
+export enum SiblingType {
+    YES = 'Yes',
+    NO = 'No',
+}
+
+export const STATIC_SIBLING_TYPE = [
+    { id: 1, name: SiblingType.YES },
+    { id: 2, name: SiblingType.NO },
+];

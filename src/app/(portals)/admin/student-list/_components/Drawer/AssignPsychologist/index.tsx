@@ -12,13 +12,21 @@ import AssignPsychologist from './AssignPsychologist';
 import { BUTTON_TEXT, DRAWER_DATA as text } from './constant';
 
 import styles from './styles.module.scss';
+import { PsychologistType } from './type';
 
 interface PsychologistPropsType {
+    selectedPsychologist: PsychologistType | null;
+    setSelectedPsychologist: (p: PsychologistType) => void;
     onContinue: () => void;
     onclose: () => void;
 }
 
-const Psychologist = ({ onContinue, onclose }: PsychologistPropsType) => (
+const Psychologist = ({
+    selectedPsychologist,
+    setSelectedPsychologist,
+    onContinue,
+    onclose,
+}: PsychologistPropsType) => (
     <>
         <div className={styles['drawer-header']}>
             <div className={styles['drawer-header-left']}>
@@ -30,7 +38,10 @@ const Psychologist = ({ onContinue, onclose }: PsychologistPropsType) => (
         </div>
 
         <div className={styles['drawer-body']}>
-            <AssignPsychologist />
+            <AssignPsychologist
+                selectedId={selectedPsychologist?.id || null}
+                onSelect={setSelectedPsychologist}
+            />
         </div>
 
         <div className={styles['drawer-bottom']}>
@@ -38,6 +49,7 @@ const Psychologist = ({ onContinue, onclose }: PsychologistPropsType) => (
                 label={BUTTON_TEXT.continue}
                 type='button'
                 variant={ButtonVariant.SOLID}
+                disabled={!selectedPsychologist}
                 color='white'
                 font={[FontType.text_md_semibold, FontType.text_md_semibold]}
                 className={styles['btn-class']}

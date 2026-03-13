@@ -1,30 +1,91 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-
 import { toast } from 'react-toastify';
 
-import { Dropdown, Input, Text } from '@/components';
+import { Dropdown, Input, Radio, Text } from '@/components';
 import ToggleButton from '@/components/ui/ToggleButton';
 
 import { FontType } from '@/types/typographyCommon';
 
 import PaperClipIcon from '@/public/assets/svg/paper-clip.svg';
 
-import { SiblingType } from './type';
+import { STATIC_OCCUPATION_TYPE, STATIC_SIBLING_TYPE } from '@/constant/appConstants';
 
-import { DUMMY_DATA, LANGUAGE_DATA, SIBLING_OPTIONS, DRAWER_DATA as text } from './constant';
+import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
+
+import { FormValues, ParentFormKeys, SiblingType, OccupationType } from './type';
+
+import { MAX_LENGTHS, MIN_LENGTHS, DRAWER_DATA as text, VALIDATION_RULES } from './constant';
+
+import { useLanguageList } from './queries';
 
 import styles from './styles.module.scss';
 
-const ParentInformationData = () => {
-    const [hassiblings, setHasSiblings] = useState<SiblingType | null>(null);
-    const [files, setFiles] = useState<File[]>([]);
+interface Props {
+    formValues: FormValues;
+    setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
+}
 
+const ParentInformationData = ({ formValues, setFormValues }: Props) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const [errors, setErrors] = useState<Partial<Record<ParentFormKeys, string>>>({});
+    const [hasSiblings, setHasSiblings] = useState<SiblingType | null>(null);
+
+    const { language: selectedLanguage, files } = formValues;
+
+    const { data: languages = [], isLoading: languageLoading } = useLanguageList();
+
+    const updateFormValue = <K extends ParentFormKeys>(key: K, value: FormValues[K]) => {
+        setFormValues((prev) => ({
+            ...prev,
+            [key]: value,
+        }));
+    };
+
+    const handleInputChange =
+        (field: ParentFormKeys) =>
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            let { value } = e.target;
+
+            value = value.replace(NO_LEADING_SPACES_REGEX, '');
+
+            const rule = VALIDATION_RULES[field];
+            if (rule?.regex && value && !rule.regex.test(value)) {
+                return;
+            }
+
+            const minLength = MIN_LENGTHS[field];
+            const maxLength = MAX_LENGTHS[field];
+
+            if (maxLength && value.length > maxLength) {
+                return;
+            }
+
+            if (rule?.required && value.length > 0 && value.length < minLength) {
+                setErrors((prev) => ({
+                    ...prev,
+                    [field]: rule.errorMessage,
+                }));
+            } else {
+                setErrors((prev) => ({
+                    ...prev,
+                    [field]: '',
+                }));
+            }
+
+            updateFormValue(field, value);
+        };
+
+    const handleFamilyTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        updateFormValue(ParentFormKeys.FAMILY_TYPE, value);
+    };
 
     const handleSiblingToggle = (value: SiblingType) => {
         setHasSiblings(value);
+        updateFormValue(ParentFormKeys.SIBLING_TYPE, value);
     };
 
     const handleFileClick = () => {
@@ -37,16 +98,19 @@ const ParentInformationData = () => {
         if (!selectedFiles) return;
 
         const fileArray = Array.from(selectedFiles);
+
         const validFiles = fileArray.filter((file) => file.type === 'application/pdf');
+
         if (validFiles.length !== fileArray.length) {
             toast.error('Only PDF files are allowed');
         }
 
-        setFiles((prev) => [...prev, ...validFiles]);
+        updateFormValue(ParentFormKeys.FILES, [...files, ...validFiles]);
     };
 
     const handleRemoveFile = (index: number) => {
-        setFiles((prev) => prev.filter((_, i) => i !== index));
+        const updatedFiles = files.filter((_, i) => i !== index);
+        updateFormValue(ParentFormKeys.FILES, updatedFiles);
     };
 
     return (
@@ -61,7 +125,14 @@ const ParentInformationData = () => {
                             {text.fathersName}
                         </Text>
 
-                        <Input name='fathersName' placeholder='Enter Fathers Name' value='' />
+                        <Input
+                            name={ParentFormKeys.FATHERS_NAME}
+                            placeholder='Enter Fathers Name'
+                            value={formValues.fathersName}
+                            onChange={handleInputChange(ParentFormKeys.FATHERS_NAME)}
+                            error={Boolean(errors[ParentFormKeys.FATHERS_NAME])}
+                            helperText={errors[ParentFormKeys.FATHERS_NAME]}
+                        />
                     </div>
 
                     <div className={styles['input-container']}>
@@ -72,7 +143,12 @@ const ParentInformationData = () => {
                             {text.fathersAge}
                         </Text>
 
-                        <Input name='fathersAge' placeholder='Enter age' value='' />
+                        <Input
+                            name={ParentFormKeys.FATHERS_AGE}
+                            placeholder='Enter age'
+                            value={formValues.fathersAge?.toString() ?? ''}
+                            onChange={handleInputChange(ParentFormKeys.FATHERS_AGE)}
+                        />
                     </div>
                 </div>
 
@@ -87,10 +163,13 @@ const ParentInformationData = () => {
 
                         <Dropdown
                             label={text.selectOccupation}
-                            options={DUMMY_DATA}
-                            selectValue='value'
-                            value={null}
+                            options={STATIC_OCCUPATION_TYPE}
+                            selectValue='name'
+                            value={formValues.fathersOccupation}
                             isSearchable={false}
+                            onChange={(value: OccupationType) =>
+                                updateFormValue(ParentFormKeys.FATHERS_OCCUPATION, value)
+                            }
                         />
                     </div>
 
@@ -102,7 +181,14 @@ const ParentInformationData = () => {
                             {text.fathersNo}
                         </Text>
 
-                        <Input name='fathersNo' placeholder='+91 Enter here' value='' />
+                        <Input
+                            name={ParentFormKeys.FATHERS_NUMBER}
+                            placeholder='+91 Enter here'
+                            value={formValues.fathersNo?.toString() ?? ''}
+                            onChange={handleInputChange(ParentFormKeys.FATHERS_NUMBER)}
+                            error={Boolean(errors[ParentFormKeys.FATHERS_NUMBER])}
+                            helperText={errors[ParentFormKeys.FATHERS_NUMBER]}
+                        />
                     </div>
                 </div>
 
@@ -117,7 +203,14 @@ const ParentInformationData = () => {
                             {text.mothersName}
                         </Text>
 
-                        <Input name='mothersName' placeholder="Enter Mother's Name" value='' />
+                        <Input
+                            name={ParentFormKeys.MOTHERS_NAME}
+                            placeholder="Enter Mother's Name"
+                            value={formValues.mothersName}
+                            onChange={handleInputChange(ParentFormKeys.MOTHERS_NAME)}
+                            error={Boolean(errors[ParentFormKeys.MOTHERS_NAME])}
+                            helperText={errors[ParentFormKeys.MOTHERS_NAME]}
+                        />
                     </div>
 
                     <div className={styles['input-container']}>
@@ -128,7 +221,12 @@ const ParentInformationData = () => {
                             {text.mothersAge}
                         </Text>
 
-                        <Input name='mothersAge' placeholder='Enter age' value='' />
+                        <Input
+                            name={ParentFormKeys.MOTHERS_AGE}
+                            placeholder='Enter age'
+                            value={formValues.mothersAge?.toString() ?? ''}
+                            onChange={handleInputChange(ParentFormKeys.MOTHERS_AGE)}
+                        />
                     </div>
                 </div>
 
@@ -143,10 +241,13 @@ const ParentInformationData = () => {
 
                         <Dropdown
                             label={text.selectOccupation}
-                            options={DUMMY_DATA}
-                            selectValue='value'
-                            value={null}
+                            options={STATIC_OCCUPATION_TYPE}
+                            selectValue='name'
+                            value={formValues.mothersOccupation}
                             isSearchable={false}
+                            onChange={(value: OccupationType) =>
+                                updateFormValue(ParentFormKeys.MOTHERS_OCCUPATION, value)
+                            }
                         />
                     </div>
 
@@ -158,7 +259,14 @@ const ParentInformationData = () => {
                             {text.phoneNo}
                         </Text>
 
-                        <Input name='mothersNo' placeholder='+91 Enter here' value='' />
+                        <Input
+                            name={ParentFormKeys.MOTHERS_NUMBER}
+                            placeholder='+91 Enter here'
+                            value={formValues.mothersNo?.toString() ?? ''}
+                            onChange={handleInputChange(ParentFormKeys.MOTHERS_NUMBER)}
+                            error={Boolean(errors[ParentFormKeys.MOTHERS_NUMBER])}
+                            helperText={errors[ParentFormKeys.MOTHERS_NUMBER]}
+                        />
                     </div>
                 </div>
 
@@ -174,10 +282,11 @@ const ParentInformationData = () => {
 
                     <Dropdown
                         label={text.selectLanguage}
-                        options={LANGUAGE_DATA}
-                        selectValue='value'
-                        value={null}
+                        options={languageLoading ? [] : languages}
+                        selectValue='name'
+                        value={selectedLanguage}
                         isSearchable={false}
+                        onChange={(value) => updateFormValue(ParentFormKeys.LANGUAGE, value)}
                     />
                 </div>
 
@@ -188,23 +297,22 @@ const ParentInformationData = () => {
                     >
                         {text.familyType}
                     </Text>
+                    <Radio
+                        name={ParentFormKeys.FAMILY_TYPE}
+                        value='Joint Family'
+                        label='Joint Family'
+                        checked={formValues.familyType === 'Joint Family'}
+                        onChange={handleFamilyTypeChange}
+                    />
 
-                    <div className={styles['radio-wrapper']}>
-                        <input type='radio' name='family' />
-                        <Text
-                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                            color='gray-700'
-                        >
-                            {text.jointFamily}
-                        </Text>
-                        <input type='radio' name='family' />
-                        <Text
-                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                            color='gray-700'
-                        >
-                            {text.nuclearFamily}
-                        </Text>
-                    </div>
+                    <Radio
+                        name={ParentFormKeys.FAMILY_TYPE}
+                        value='Nuclear Family'
+                        label='Nuclear Family'
+                        checked={formValues.familyType === 'Nuclear Family'}
+                        onChange={handleFamilyTypeChange}
+                        className={styles['radio-button']}
+                    />
                 </div>
 
                 <div className={styles['siblings-container']}>
@@ -216,9 +324,9 @@ const ParentInformationData = () => {
                     </Text>
 
                     <ToggleButton
-                        leftLabel={SIBLING_OPTIONS[0]}
-                        rightLabel={SIBLING_OPTIONS[1]}
-                        selected={hassiblings}
+                        leftLabel={STATIC_SIBLING_TYPE[0]}
+                        rightLabel={STATIC_SIBLING_TYPE[1]}
+                        selected={hasSiblings}
                         handleToggle={handleSiblingToggle}
                     />
                 </div>
@@ -248,6 +356,7 @@ const ParentInformationData = () => {
                         aria-hidden='true'
                     >
                         <PaperClipIcon />
+
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='primary-cta'
@@ -257,14 +366,11 @@ const ParentInformationData = () => {
                     </div>
 
                     <div className={styles.fileList}>
-                        {files.map((file) => (
+                        {files.map((file, index) => (
                             <div key={`${file.name}-${file.size}`} className={styles.fileChip}>
                                 <span>{file.name}</span>
 
-                                <button
-                                    type='button'
-                                    onClick={() => handleRemoveFile(files.indexOf(file))}
-                                >
+                                <button type='button' onClick={() => handleRemoveFile(index)}>
                                     ×
                                 </button>
                             </div>

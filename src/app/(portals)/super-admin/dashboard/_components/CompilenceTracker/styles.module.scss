@@ -17,6 +17,7 @@
 
     .top-container {
         @include flex-center(normal, space-between, center, 13px);
+        flex-shrink: 0;
 
         .btn-class {
             padding: 6px 10px;
@@ -28,6 +29,20 @@
 
     .tracker-list {
         @include flex-center(column, normal, normal, 12px);
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding-right: 6px;
+
+        &::-webkit-scrollbar {
+            width: 4px !important;
+            display: block !important;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $gray-200 !important;
+            border-radius: 16px !important;
+        }
 
         .no-data {
             @include flex-center(normal, center, center);

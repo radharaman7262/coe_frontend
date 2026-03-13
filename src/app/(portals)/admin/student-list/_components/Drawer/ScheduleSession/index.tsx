@@ -4,7 +4,6 @@ import { Button, Text } from '@/components';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
-import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
 import CrossIcon from '@/public/assets/svg/cross-icon.svg';
 
 import ScheduleInformationData from './ScheduleInformation';
@@ -12,8 +11,15 @@ import ScheduleInformationData from './ScheduleInformation';
 import { BUTTON_TEXT, DRAWER_DATA as text } from './constant';
 
 import styles from './styles.module.scss';
+import { PsychologistType } from '../AssignPsychologist/type';
 
-const ScheduleSession = () => (
+interface SessionPropsType {
+    selectedPsychologist: PsychologistType | null;
+    onContinue: () => void;
+    onclose: () => void;
+}
+
+const ScheduleSession = ({ selectedPsychologist, onContinue, onclose }: SessionPropsType) => (
     <>
         <div className={styles['drawer-header']}>
             <div className={styles['drawer-header-left']}>
@@ -25,19 +31,19 @@ const ScheduleSession = () => (
         </div>
 
         <div className={styles['drawer-body']}>
-            <ScheduleInformationData />
+            <ScheduleInformationData selectedPsychologist={selectedPsychologist} />
         </div>
 
         <div className={styles['drawer-bottom']}>
             <div className={styles['bottom-wrapper']}>
                 <Button
-                    label={BUTTON_TEXT.addStudent}
+                    label={BUTTON_TEXT.schedule}
                     type='button'
                     variant={ButtonVariant.SOLID}
                     color='white'
                     font={[FontType.text_md_semibold, FontType.text_md_semibold]}
                     className={styles['btn-class']}
-                    EndIcon={<RightIcon />}
+                    onClick={onContinue}
                 />
             </div>
         </div>

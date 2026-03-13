@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ScrollLabelCalender, Text, TextArea } from '@/components/index';
 import { FontType } from '@/types/typographyCommon';
@@ -10,34 +10,56 @@ import Clock from '@public/assets/svg/clock-slot.svg';
 
 import { generateNext30Dates } from '@/constant/appConstants';
 
+import { PsychologistType } from '../AssignPsychologist/type';
+
 import { DRAWER_DATA as dummyData, DUMMY_TIME_SLOT } from './constant';
 
 import styles from './styles.module.scss';
 
-const ScheduleInformationData = () => {
+const getInitials = (name: string = ''): string =>
+    name
+        .trim()
+        .split(/\s+/)
+        .map((n) => n.charAt(0))
+        .slice(0, 2)
+        .join('')
+        .toUpperCase();
+
+const ScheduleInformationData = ({
+    selectedPsychologist,
+}: {
+    selectedPsychologist: PsychologistType | null;
+}) => {
     const [dates] = useState(generateNext30Dates());
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
+    const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+
+    useEffect(() => {
+        setSelectedSlot(null);
+    }, [selectedDate]);
 
     return (
         <div className={styles['container-wrapper']}>
             <div className={styles['drawer-form']}>
                 <div className={styles.psychologistCard} aria-hidden='true'>
                     <div className={styles.leftSection}>
-                        <div className={styles.avatar}>DPD</div>
+                        <div className={styles.avatar}>
+                            {selectedPsychologist ? getInitials(selectedPsychologist?.name) : '??'}
+                        </div>
 
                         <div className={styles['left-text-section']}>
                             <Text
                                 font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
                                 color='gray-900'
                             >
-                                Dr. Aman Desai
+                                {selectedPsychologist?.name || 'No Psychologist Selected'}
                             </Text>
 
                             <Text
                                 font={[FontType.text_xs_regular, FontType.text_xs_regular]}
                                 color='gray-500'
                             >
-                                12 years exp
+                                {selectedPsychologist?.specializations?.[0]?.name || '12 years exp'}
                             </Text>
                         </div>
                     </div>
@@ -48,7 +70,7 @@ const ScheduleInformationData = () => {
                             font={[FontType.text_xs_regular, FontType.text_xs_regular]}
                             color='gray-500'
                         >
-                            03 Student Assigned
+                            {selectedPsychologist?.assignedStudentsCount || 0} Student Assigned
                         </Text>
                     </div>
                 </div>
@@ -90,16 +112,38 @@ const ScheduleInformationData = () => {
                         </Text>
                     </div>
                     <div className={styles['time-data']}>
-                        {DUMMY_TIME_SLOT?.map((item) => (
-                            <div className={styles['time-slot-component']}>
+                        {selectedDate ? (
+                            DUMMY_TIME_SLOT?.map((item) => {
+                                const isSelected = selectedSlot === item;
+                                return (
+                                    <div
+                                        key={item}
+                                        className={`${styles['time-slot-component']} ${isSelected ? styles.activeSlot : ''}`}
+                                        onClick={() => setSelectedSlot(item)}
+                                        aria-hidden='true'
+                                    >
+                                        <Text
+                                            font={[
+                                                FontType.text_sm_medium,
+                                                FontType.text_sm_medium,
+                                            ]}
+                                            color={isSelected ? 'blue-600' : 'text-idle'}
+                                        >
+                                            {item}
+                                        </Text>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <div className={styles['empty-slots']}>
                                 <Text
                                     font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                                    color='text-idle'
+                                    color='gray-400'
                                 >
-                                    {item}
+                                    {dummyData?.selectDateFirst}
                                 </Text>
                             </div>
-                        ))}
+                        )}
                     </div>
                 </div>
 
@@ -107,7 +151,6 @@ const ScheduleInformationData = () => {
                     <Text
                         font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                         color='text-idle'
-                        required
                     >
                         {dummyData?.notes}
                     </Text>

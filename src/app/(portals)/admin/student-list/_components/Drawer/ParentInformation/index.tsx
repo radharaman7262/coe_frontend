@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+
 import { Button, Text } from '@/components';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
@@ -12,15 +14,19 @@ import ParentInformationData from './ParentInformation';
 
 import { BUTTON_TEXT, DRAWER_DATA as text } from './constant';
 
+import { FormValues } from './type';
+
 import styles from './styles.module.scss';
 
 interface ParentPropsType {
+    formValues: FormValues;
+    setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
     onBack: () => void;
     onclose: () => void;
     onAddStudent: () => void;
 }
 
-const Parent = ({ onBack, onclose, onAddStudent }: ParentPropsType) => (
+const Parent = ({ formValues, setFormValues, onBack, onclose, onAddStudent }: ParentPropsType) => (
     <>
         <div className={styles['drawer-header']}>
             <div className={styles['drawer-header-left']}>
@@ -36,7 +42,7 @@ const Parent = ({ onBack, onclose, onAddStudent }: ParentPropsType) => (
         </div>
 
         <div className={styles['drawer-body']}>
-            <ParentInformationData />
+            <ParentInformationData formValues={formValues} setFormValues={setFormValues} />
         </div>
 
         <div className={styles['drawer-bottom']}>

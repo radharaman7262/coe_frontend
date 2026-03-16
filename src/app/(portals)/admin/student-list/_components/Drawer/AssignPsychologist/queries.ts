@@ -1,7 +1,7 @@
 import { psychologistTypeKeys } from '@/services/psychologist';
 import { useQuery } from '@tanstack/react-query';
 import { StaleAndCacheTime } from '@/constant/appConstants';
-import { getPsychologistApiCall } from './utils.api';
+import { getPsychologistApiCall } from '../utils.api';
 
 export const usePsychologistList = () =>
     useQuery({

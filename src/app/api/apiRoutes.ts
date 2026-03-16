@@ -111,8 +111,9 @@ const GET_GRADE_ENDPOINT = `${API_URL}/admin/dashboard/admin/grade`;
 const GET_SCHOOL_ENDPOINT = `${API_URL}/admin/schools`;
 
 /** ADD STUDENT */
-
 const ADD_STUDENT_ENDPOINT = `${API_URL}/admin/students`;
+const ASSIGN_STUDENT_SESSION = `${API_URL}/admin/assign-session`;
+const GET_STUDENT_LIST = `${API_URL}/admin/students`;
 
 /** Clinical Psychologist Dashboard */
 
@@ -187,4 +188,6 @@ export {
     CLINICAL_PSYCHOLOGIST_RECENT_ACTIVITY,
     CLINICAL_PSYCHOLOGIST_ASSESSMENT_STUDENT_LIST,
     CLINICAL_PSYCHOLOGIST_TRACK_SESSION,
+    ASSIGN_STUDENT_SESSION,
+    GET_STUDENT_LIST,
 };

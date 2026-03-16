@@ -3,7 +3,7 @@ import { StaleAndCacheTime } from '@/constant/appConstants';
 
 import { schoolTypeKeys } from '@/services/school';
 import { gradeKeys } from '@/services/grade';
-import { getGradeListApiCall, getSchoolListApiCall } from './utils.api';
+import { getGradeListApiCall, getSchoolListApiCall } from '../utils.api';
 
 export const useSchoolTypeList = (udiseCode: string) =>
     useQuery({

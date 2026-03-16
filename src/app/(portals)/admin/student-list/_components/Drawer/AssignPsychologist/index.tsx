@@ -11,8 +11,9 @@ import AssignPsychologist from './AssignPsychologist';
 
 import { BUTTON_TEXT, DRAWER_DATA as text } from './constant';
 
-import styles from './styles.module.scss';
 import { PsychologistType } from './type';
+
+import styles from './styles.module.scss';
 
 interface PsychologistPropsType {
     selectedPsychologist: PsychologistType | null;

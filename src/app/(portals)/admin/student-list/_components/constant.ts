@@ -1,12 +1,11 @@
+import { SessionStatusType } from '../../sessions/type';
+
 export const COLUMNS = [
-    { header: 'Name', accessor: 'fullName' },
-    { header: 'Role', accessor: 'roleName' },
-    { header: 'Phone no.', accessor: 'phone' },
-    { header: 'Email', accessor: 'email' },
-    { header: 'Specialization', accessor: 'specialization' },
-    { header: 'Assigned Center', accessor: 'centerName' },
-    { header: 'Status', accessor: 'status' },
-    { header: 'Action', accessor: 'edit' },
+    { header: 'Student ID', accessor: 'studentId' },
+    { header: 'Name/Age/Gender', accessor: 'nameAgeGender' },
+    { header: 'Session Schedule', accessor: 'sessionSchedule' },
+    { header: 'Assigned Psycholgist', accessor: 'assignedPsychologist' },
+    { header: 'Session Status', accessor: 'sessionStatus' },
 ];
 
 export const STUDENT_LIST_TEXT = {
@@ -16,4 +15,10 @@ export const STUDENT_LIST_TEXT = {
     clear: 'Clear',
     noDataTitle: 'No student records yet',
     noDataDescription: 'Add your first student to get started.',
+};
+
+export const STATUS_LABEL_MAP: Record<string, string> = {
+    [SessionStatusType.PENDING]: 'Pending',
+    [SessionStatusType.DONE]: 'Done',
+    [SessionStatusType.SCHEDULED]: 'Scheduled',
 };

@@ -75,26 +75,20 @@ export const STATIC_STATUS = [
     { id: SessionStatusType.SCHEDULED, name: 'Scheduled' },
 ];
 
-export const generateNext30Dates = () => {
-    const dates = [];
+export const generateNextDates = (days: number = 15): string[] => {
+    const today = new Date();
 
-    for (let i = 0; i < 30; i += 1) {
+    return Array.from({ length: days + 1 }, (_, i) => {
         const date = new Date();
-        date.setDate(date.getDate() + i);
+        date.setDate(today.getDate() + i);
 
-        dates.push({
-            id: date.toISOString(),
-            day: date.toLocaleDateString('en-US', { weekday: 'short' }),
-            date: date.getDate(),
-            month: date.toLocaleDateString('en-US', { month: 'short' }),
-            fullDate: date,
-        });
-    }
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
 
-    return dates;
+        return `${year}-${month}-${day}`;
+    });
 };
-// eslint-disable-next-line max-len
-export const PYSCHCOLOGIST_TOKEN = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NCIsImVtYWlsIjoicGFyYXNAYXVyb3NvY2lldHkub3JnIiwicm9sZUlkIjoiMyIsInNwZWNpYWxpemF0aW9uSWQiOiIyIiwidXNlclR5cGVJZCI6IjQiLCJpYXQiOjE3NzM1NTY0MTUsImV4cCI6MTc3MzY0MjgxNX0.Rn8sp2RaJp6m0-DtKOAF0Eshnjzp4-EFI6Mo-f55mjc`;
 export enum SchoolType {
     NO_SCHOOL = 'No School',
     HOME_SCHOOL = 'Home School',
@@ -136,3 +130,6 @@ export const STATIC_SIBLING_TYPE = [
     { id: 1, name: SiblingType.YES },
     { id: 2, name: SiblingType.NO },
 ];
+
+export const PYSCHCOLOGIST_TOKEN =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NCIsImVtYWlsIjoicGFyYXNAYXVyb3NvY2lldHkub3JnIiwicm9sZUlkIjoiMyIsInNwZWNpYWxpemF0aW9uSWQiOiIxIiwidXNlclR5cGVJZCI6IjQiLCJpYXQiOjE3NzM4MTM3NTYsImV4cCI6MTc3MzkwMDE1Nn0.0SkJn6YNMmMz6wnaEyiNZuZ5GHdW27C0Zdd4tAHlA4Q';

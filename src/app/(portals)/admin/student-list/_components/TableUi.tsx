@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { Table } from '@/components/index';
+import { Dropdown, Input, Table, Text } from '@/components/index';
+
+import SearchIcon from '@/public/assets/svg/search-icon.svg';
 
 import { TableDataType } from '@/types/TableType';
+
+import { StatusDataType, STATIC_STATUS as statusOptions } from '@/constant/appConstants';
+
+import { FontType } from '@/types/typographyCommon';
 
 import { COLUMNS as constantColumns, STUDENT_LIST_TEXT as dummyText } from './constant';
 
@@ -14,10 +20,24 @@ interface tableUiProps {
     data: TableDataType[];
     limit: number;
     totalCount: number;
+    setTableFilter: React.Dispatch<React.SetStateAction<string>>;
+    tableFilter: string;
+    statusFilter: StatusDataType | null;
+    setStatusFilter: React.Dispatch<React.SetStateAction<StatusDataType | null>>;
 }
 
 const TableUi = (props: tableUiProps) => {
-    const { currentPage, setCurrentPage, data, limit, totalCount } = props;
+    const {
+        currentPage,
+        setCurrentPage,
+        data,
+        limit,
+        totalCount,
+        tableFilter,
+        setTableFilter,
+        statusFilter,
+        setStatusFilter,
+    } = props;
 
     const handleNextButton = () => {
         setCurrentPage(currentPage + 1);
@@ -25,6 +45,23 @@ const TableUi = (props: tableUiProps) => {
 
     const handlePreviousButton = () => {
         setCurrentPage(currentPage - 1);
+    };
+
+    const handleSearchFilter = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        const { value } = event.target;
+
+        setTableFilter(value);
+    };
+
+    const handleStatusSelect = (item: StatusDataType) => {
+        setStatusFilter(item);
+    };
+
+    const handleClear = () => {
+        setStatusFilter(null);
+        setTableFilter('');
     };
 
     return (
@@ -42,7 +79,38 @@ const TableUi = (props: tableUiProps) => {
             baseTableClassName={styles['table-data']}
             noTitleContainer={dummyText.noDataTitle}
             noDescriptionContainer={dummyText.noDataDescription}
-        />
+        >
+            <div className={styles['table-row']}>
+                <Input
+                    name='search'
+                    value={tableFilter}
+                    placeholder='Search name'
+                    inputBaseClass={styles['search-bar']}
+                    StartAdornment={SearchIcon}
+                    onChange={handleSearchFilter}
+                />
+
+                <Dropdown
+                    label='All Status'
+                    options={statusOptions}
+                    selectValue='name'
+                    value={statusFilter}
+                    isSearchable={false}
+                    widthClassName={styles['dropdown-width']}
+                    additionalStyle={styles['dropdown-bg']}
+                    onChange={handleStatusSelect}
+                />
+
+                <Text
+                    font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                    color='red-500'
+                    className={styles['clear-text']}
+                    onClick={handleClear}
+                >
+                    Clear
+                </Text>
+            </div>
+        </Table>
     );
 };
 export default TableUi;

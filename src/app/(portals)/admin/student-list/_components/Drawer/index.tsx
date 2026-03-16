@@ -32,8 +32,7 @@ const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
     const [childData, setChildData] = useState<ChildFormValues>(CHILD_INITIAL);
     const [parentData, setParentData] = useState<ParentFormValues>(PARENT_INITIAL);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_studentId, setStudentId] = useState<string | null>(null);
+    const [studentId, setStudentId] = useState<string | null>(null);
     const [selectedPsychologist, setSelectedPsychologist] = useState<PsychologistType | null>(null);
 
     const { mutate: addStudent } = useAddStudentMutation();
@@ -44,16 +43,16 @@ const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
         formData.append('name', childData.fullName);
         formData.append('gender', childData.gender?.name ?? '');
         formData.append('dob', childData.dateoFBirth?.format('YYYY-MM-DD') ?? '');
-        formData.append('gradeId', String(childData.grade?.id || 0));
-        formData.append('schoolName', childData.schoolName);
+        formData.append('gradeId', childData.grade?.id?.toString() ?? '');
+        formData.append('schoolName', childData.schoolName ?? '');
         formData.append('difficulties', childData.difficultiesFaced);
         formData.append('fatherName', parentData.fathersName);
         formData.append('fatherAge', String(parentData.fathersAge ?? 0));
-        formData.append('fatherOccupation', parentData.fathersOccupation?.name ?? '');
+        formData.append('fatherOccupation', parentData.fathersOccupation?.id.toString() ?? '');
         formData.append('fatherPhone', parentData.fathersNo?.toString() ?? '');
         formData.append('motherName', parentData.mothersName);
         formData.append('motherAge', String(parentData.mothersAge ?? 0));
-        formData.append('motherOccupation', parentData.mothersOccupation?.name ?? '');
+        formData.append('motherOccupation', parentData.mothersOccupation?.id.toString() ?? '');
         formData.append('motherPhone', parentData.mothersNo?.toString() ?? '');
         formData.append('siblings', parentData.siblingType?.name ?? '');
         formData.append('languageId', String(parentData.language?.id || 0));
@@ -114,7 +113,6 @@ const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
                     onBack={() => setStep(DrawerStep.CHILD)}
                     onclose={handleClose}
                     onAddStudent={handleAddStudent}
-                    // onAddStudent={() => setStep(DrawerStep.PSYCHOLOGIST)}
                 />
             )}
 
@@ -129,7 +127,8 @@ const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
 
             {step === DrawerStep.SCHEDULE_SESSION && (
                 <ScheduleSession
-                    onContinue={handleClose}
+                    setOpenDrawer={setOpenDrawer}
+                    studentId={studentId || ''}
                     onclose={handleClose}
                     selectedPsychologist={selectedPsychologist}
                 />

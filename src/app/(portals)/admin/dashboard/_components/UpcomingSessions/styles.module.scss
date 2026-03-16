@@ -28,6 +28,6 @@
 
     .no-data {
         @include flex-center(normal, center, center);
-        margin-top: 50%;
+        height: 120px;
     }
 }

@@ -7,6 +7,5 @@ export const adminSessionListKeys = {
         limit: number;
         search: string;
         status: string;
-        // assignedTo: string;
     }) => [...adminSessionListKeys.all, params] as const,
 };

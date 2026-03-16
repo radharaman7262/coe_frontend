@@ -113,6 +113,11 @@ const GET_SCHOOL_ENDPOINT = `${API_URL}/admin/schools`;
 /** ADD STUDENT */
 
 const ADD_STUDENT_ENDPOINT = `${API_URL}/admin/students`;
+/** Clinical Psychologist Dashboard */
+
+const CLINICAL_PSYCHOLOGIST_DASHBOARD_STATS = `${API_URL}/clinical-psychologist/stats`;
+const CLINICAL_PSYCHOLOGIST_UPCOMNG_SESSIONS = `${API_URL}/clinical-psychologist/upcoming-session`;
+const CLINICAL_PSYCHOLOGIST_RECENT_ACTIVITY = `${API_URL}/clinical-psychologist/recent-activity`;
 
 export {
     LOGIN_ENDPOINT,
@@ -168,4 +173,7 @@ export {
     GET_GRADE_ENDPOINT,
     GET_SCHOOL_ENDPOINT,
     ADD_STUDENT_ENDPOINT,
+    CLINICAL_PSYCHOLOGIST_DASHBOARD_STATS,
+    CLINICAL_PSYCHOLOGIST_UPCOMNG_SESSIONS,
+    CLINICAL_PSYCHOLOGIST_RECENT_ACTIVITY,
 };

@@ -9,5 +9,6 @@ export enum AppRoutes {
     MENU_MAPPING = 'super-admin/menu-mapping',
 
     /** Clinical  */
-    ASSESSMENT_CASE_HISTORY = 'assessment/case-history'
+    ASSESSMENT_CASE_HISTORY = 'assessment/case-history',
+    DASHBOARD = 'clinical-psychologist/dashboard',
 }

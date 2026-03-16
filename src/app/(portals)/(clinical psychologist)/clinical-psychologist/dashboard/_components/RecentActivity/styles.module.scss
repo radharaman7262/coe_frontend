@@ -1,0 +1,30 @@
+@use '@styles/theme' as *;
+
+.activity-container {
+    display: flex;
+    flex-direction: column;
+    padding: 13px 15px;
+    gap: 13px;
+    height: 83vh;
+    border-radius: 12px;
+    background-color: $white;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.06),
+        0 8px 24px rgba(0, 0, 0, 0.12);
+
+    @include breakpoints('2xl') {
+        height: 85vh;
+    }
+
+    .activity-gap {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .content-activity-schedule {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+}

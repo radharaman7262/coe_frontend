@@ -46,7 +46,7 @@ export const useUserAdminStaffAction = ({
             });
 
             queryClient.invalidateQueries({
-                queryKey: [QueryKeys.CENTER_ADMIN],
+                queryKey: [QueryKeys.ADMIN_STAFF_MANAGEMENT],
             });
 
             if (payload.type !== 'status') {

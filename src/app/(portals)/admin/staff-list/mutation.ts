@@ -19,8 +19,8 @@ export const useUserAdminStaffMutation = () =>
                 // case 'update':
                 //     return userAdminStaffService.update(payload.id, payload.body);
 
-                // case 'status':
-                //     return userAdminStaffService.updateStatus(payload.id, payload.status);
+                case 'status':
+                    return userAdminStaffService.updateStatus(payload.id, payload.status);
 
                 default:
                     return null;

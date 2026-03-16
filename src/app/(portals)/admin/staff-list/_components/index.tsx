@@ -7,7 +7,7 @@ import { PageHeader, ShimmerUiContainer } from '@/components/index';
 
 import { ToastContainer } from 'react-toastify';
 
-import { StatusNumber } from '@/constant/appConstants';
+import { STATIC_GENDER, StatusNumber, StatusNumberString } from '@/constant/appConstants';
 
 import TableUi from './TableUi';
 
@@ -19,9 +19,11 @@ import AddNewStaff from './Modal/AddNewStaff';
 
 import { INITIAL_STATE as initialState } from './Modal/AddNewStaff/constant';
 
-import { FormValues } from './Modal/AddNewStaff/type';
+import { AdminStaffFormKeys, FormValues } from './Modal/AddNewStaff/type';
 
 import { staffListDataType } from '../type';
+
+import { useUserAdminStaffAction } from '../useAdminStaffAction';
 
 import styles from './styles.module.scss';
 
@@ -34,6 +36,10 @@ const AdminStaffListPage = () => {
 
     const [adminStaffId, setAdminStaffId] = useState<number | null>(null);
 
+    const { execute } = useUserAdminStaffAction({
+        setShow: setAddNewStaffModal,
+    });
+
     const { isLoading, data } = useGetAdminStaffManagementList({
         page: currentPage,
         limit: 10,
@@ -44,33 +50,29 @@ const AdminStaffListPage = () => {
     const { limit, data: staffManagementData = [], total: totalCount } = response || {};
 
     const handleEditModal = (item: staffListDataType) => {
+        setFormValues(initialState);
         setAddNewStaffModal(true);
         setAdminStaffId(Number(item?.id));
 
-        // const specialization = item?.specialist?.map((item) => ({
-        //     id: +item.id,
-        //     name: item?.name,
-        // }));
+        const gender = STATIC_GENDER.find((g) => g.name === item?.gender);
 
-        // const languages = item?.language?.map((item) => ({
-        //     id: +item.id,
-        //     name: item?.name,
-        // }));
-
-        // setFormValues((prevValues) => ({
-        //     ...prevValues,
-        //     [AdminStaffFormKeys.NAME]: item?.name,
-        //     [AdminStaffFormKeys.PHONE_NO]: item?.phone,
-        //     [AdminStaffFormKeys.EMAIL_ID]: item?.email,
-        //     [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]: item?.totalYearExperience,
-        //     [AdminStaffFormKeys.SELECTED_SPECIALIZATION]: specialization,
-        //     [AdminStaffFormKeys.LANGUAGE]: languages,
-        // }));
+        const genderDetail = {
+            id: Number(gender?.id) ?? null,
+            name: gender?.name ?? '',
+        };
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [AdminStaffFormKeys.NAME]: item?.name,
+            [AdminStaffFormKeys.PHONE_NO]: item?.phone,
+            [AdminStaffFormKeys.EMAIL_ID]: item?.email,
+            [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]: item?.totalYearOfExperience,
+            [AdminStaffFormKeys.GENDER]: genderDetail,
+        }));
     };
 
     const getAdminStaffManagementList = (results: staffListDataType[] = []) =>
         results?.map((item) => {
-            const { name, email, specialist, status, assignedStudents } = item;
+            const { name, email, status, assignedStudents } = item;
 
             const reverseStatus =
                 Number(status) === StatusNumber.ACTIVE
@@ -88,12 +90,6 @@ const AdminStaffListPage = () => {
                     </div>
                 ),
 
-                specialist: specialist.length > 0 && (
-                    <div>
-                        {specialist?.map((spec, index) => <div key={index as number}>{spec}</div>)}
-                    </div>
-                ),
-
                 status: (
                     <div className={styles[`status-${status}`] || ''}>
                         {status === StatusNumber.ACTIVE && <div className={styles.dot} />}
@@ -106,6 +102,17 @@ const AdminStaffListPage = () => {
                             styles[`status-${reverseStatus}`] || '',
                             styles['cursor-pointer'],
                         )}
+                        onClick={() => {
+                            execute({
+                                type: 'status',
+                                id: item?.id,
+                                status:
+                                    item?.status === StatusNumber.ACTIVE
+                                        ? StatusNumberString.INACTIVE
+                                        : StatusNumberString.ACTIVE,
+                            });
+                        }}
+                        aria-hidden='true'
                     >
                         {changeStatusLabel}
                     </div>

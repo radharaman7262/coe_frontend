@@ -33,7 +33,7 @@ export interface FormValues {
     gender: genderType | null;
     language: languageDataType[];
     assignRole: RoleType | null;
-    selectedSpecialization: specializationType[];
+    selectedSpecialization: specializationType | null;
 }
 
 export enum AdminStaffFormKeys {
@@ -60,7 +60,7 @@ type StringFieldMap = {
 };
 
 export type AdminStaffFormType = StringFieldMap & {
-    [AdminStaffFormKeys.SELECTED_SPECIALIZATION]: specializationType[] | null;
+    [AdminStaffFormKeys.SELECTED_SPECIALIZATION]: specializationType | null;
     [AdminStaffFormKeys.GENDER]: genderType | null;
     [AdminStaffFormKeys.LANGUAGE]: languageDataType[] | null;
     [AdminStaffFormKeys.ASSIGN_ROLE]: RoleType | null;

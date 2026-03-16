@@ -12,8 +12,6 @@ import useDebounce from '@/utils/useDebounce';
 
 import { STAFF_LIST_TEXT as text, STATUS_LABEL_MAP as statusLabelMap } from './constant';
 
-import { staffListDataType } from '../../staff-list/type';
-
 import { useGetAdminSessionList } from '../queries';
 
 import TableUi from './TableUi';
@@ -25,7 +23,6 @@ import styles from './styles.module.scss';
 const AdminSessionPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(StatusNumber.ACTIVE);
     const [tableFilter, setTableFilter] = useState<string>('');
-    const [staffFilter, setStaffFilter] = useState<staffListDataType | null>(null);
     const [statusFilter, setStatusFilter] = useState<StatusDataType | null>(null);
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
@@ -35,7 +32,6 @@ const AdminSessionPage = () => {
         limit: 10,
         search: debouncedFilters,
         status: statusFilter?.id || '',
-        assignedTo: staffFilter?.id || '',
     });
 
     const { response } = data || {};
@@ -110,8 +106,6 @@ const AdminSessionPage = () => {
                     totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
-                    StaffFilter={staffFilter}
-                    setStaffFilter={setStaffFilter}
                     StatusFilter={statusFilter}
                     setStatusFilter={setStatusFilter}
                 />

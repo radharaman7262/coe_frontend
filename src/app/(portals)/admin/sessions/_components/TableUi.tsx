@@ -13,8 +13,6 @@ import { StatusDataType, STATIC_STATUS as statusOptions } from '@/constant/appCo
 import { COLUMNS as constantColumns, STAFF_LIST_TEXT as dummyText } from './constant';
 
 import styles from './styles.module.scss';
-import { useGetAdminStaffManagementList } from '../../staff-list/queries';
-import { staffListDataType } from '../../staff-list/type';
 
 interface tableUiProps {
     currentPage: number;
@@ -24,8 +22,6 @@ interface tableUiProps {
     totalCount: number;
     setTableFilter: React.Dispatch<React.SetStateAction<string>>;
     tableFilter: string;
-    StaffFilter: staffListDataType | null;
-    setStaffFilter: React.Dispatch<React.SetStateAction<staffListDataType | null>>;
     StatusFilter: StatusDataType | null;
     setStatusFilter: React.Dispatch<React.SetStateAction<StatusDataType | null>>;
 }
@@ -39,8 +35,6 @@ const TableUi = (props: tableUiProps) => {
         totalCount,
         setTableFilter,
         tableFilter,
-        StaffFilter,
-        setStaffFilter,
         StatusFilter,
         setStatusFilter,
     } = props;
@@ -53,15 +47,6 @@ const TableUi = (props: tableUiProps) => {
         setCurrentPage(currentPage - 1);
     };
 
-    const { isLoading, data: staffListData } = useGetAdminStaffManagementList({
-        page: currentPage,
-        limit: 1000,
-    });
-
-    const { response } = staffListData || {};
-
-    const { data: staffManagementData = [] } = response || {};
-
     const handleSearchFilter = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
@@ -70,17 +55,12 @@ const TableUi = (props: tableUiProps) => {
         setTableFilter(value);
     };
 
-    const handleStaffSelect = (item: staffListDataType) => {
-        setStaffFilter(item);
-    };
-
     const handleStatusSelect = (item: StatusDataType) => {
         setStatusFilter(item);
     };
 
     const handleClear = () => {
         setStatusFilter(null);
-        setStaffFilter(null);
         setTableFilter('');
     };
 
@@ -108,18 +88,6 @@ const TableUi = (props: tableUiProps) => {
                     inputBaseClass={styles['search-bar']}
                     StartAdornment={SearchIcon}
                     onChange={handleSearchFilter}
-                />
-
-                <Dropdown
-                    label='All Staff'
-                    options={staffManagementData}
-                    selectValue='name'
-                    value={StaffFilter}
-                    isSearchable={false}
-                    widthClassName={styles['dropdown-width']}
-                    additionalStyle={styles['dropdown-bg']}
-                    loading={isLoading}
-                    onChange={handleStaffSelect}
                 />
 
                 <Dropdown

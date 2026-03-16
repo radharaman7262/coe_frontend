@@ -1,4 +1,4 @@
-import { addStaffApiCall } from './utils';
+import { addStaffApiCall, changeStaffStatusApiCall } from './utils';
 
 export const userAdminStaffService = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -6,5 +6,5 @@ export const userAdminStaffService = {
 
     // update: (id: number, body: CenterAdminPayloadType) => updateCenterAdminApiCall(id, body),
 
-    // updateStatus: (id: string, status: string) => changeCenterAdminStatusApiCall({ id, status }),
+    updateStatus: (id: string, status: string) => changeStaffStatusApiCall({ id, status }),
 };

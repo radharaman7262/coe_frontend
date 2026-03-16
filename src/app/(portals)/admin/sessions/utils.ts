@@ -12,12 +12,12 @@ export const getAdminSessionListApiCall = async ({
     page,
     limit,
     search,
+    status,
 }: {
     page: string | number;
     limit: number;
     search?: string;
     status: string;
-    assignedTo: string;
 }) => {
     const authToken = await getCookie(JWT_TOKEN);
 
@@ -28,6 +28,7 @@ export const getAdminSessionListApiCall = async ({
         queryParams: {
             page: page.toString(),
             limit: limit.toString(),
+            ...(status && { status }),
             ...(search && { search }),
         },
     });

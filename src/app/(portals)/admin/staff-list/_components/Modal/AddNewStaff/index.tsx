@@ -20,6 +20,7 @@ import { useGetLanguageList } from '@/app/(portals)/queries';
 import { useGetSpecializationDropDownList } from '@/app/(portals)/super-admin/center-admin/queries';
 
 import { languageDataType } from '@/app/(portals)/type';
+
 import { INITIAL_STATE as initalState, MAX_LENGTHS, CENTER_ADMIN_TEXT as text } from './constant';
 
 import {
@@ -54,6 +55,7 @@ const AddNewStaff = ({
     const [languageDropDownFilter, setLanguageDropDownFilter] = useState<string>('');
 
     const [errorMessages, setErrorMessages] = useState<ErrorMessagesType>({});
+
     const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
     const { execute } = useUserAdminStaffAction({
@@ -140,24 +142,6 @@ const AddNewStaff = ({
         }
     };
 
-    const handleSpecializationSelect = (selectedValue: specializationType) => {
-        const selectedSpecialization = formValues[AdminStaffFormKeys.SELECTED_SPECIALIZATION];
-
-        const foundIndex = selectedSpecialization.findIndex((item) => item.id === selectedValue.id);
-
-        if (foundIndex !== -1) {
-            updateFormValue(
-                AdminStaffFormKeys.SELECTED_SPECIALIZATION,
-                selectedSpecialization.filter((item) => item.id !== selectedValue.id),
-            );
-        } else {
-            updateFormValue(AdminStaffFormKeys.SELECTED_SPECIALIZATION, [
-                ...selectedSpecialization,
-                selectedValue,
-            ]);
-        }
-    };
-
     const handleLanguageSelect = (selectedValue: languageDataType) => {
         const selectedLanguage = formValues[AdminStaffFormKeys.LANGUAGE];
 
@@ -181,8 +165,13 @@ const AddNewStaff = ({
         updateFormValue(AdminStaffFormKeys.GENDER, item);
     };
 
+    const handleSpecializationSelect = (item: specializationType | null) => {
+        updateFormValue(AdminStaffFormKeys.SELECTED_SPECIALIZATION, item);
+    };
+
     const handleAddNewStaffMember = () => {
         setLoadingAddData(true);
+        const specializationId = Number(formValues?.selectedSpecialization?.id);
 
         const body: {
             name: string;
@@ -200,11 +189,7 @@ const AddNewStaff = ({
             gender: formValues?.gender?.name || '',
             roleId: formValues?.assignRole?.id || '',
             languages: formValues?.language?.map((item: languageDataType) => Number(item.id)) || [],
-
-            specializations:
-                formValues?.selectedSpecialization?.map((item: specializationType) =>
-                    Number(item.id),
-                ) || [],
+            specializations: specializationId ? [specializationId] : [],
             totalYearExperience: formValues?.totalYearExperience,
         };
         if (!AdminStaffId) {
@@ -396,7 +381,6 @@ const AddNewStaff = ({
                                 searchFilter={specializationDropDownFilter}
                                 handleSearch={handleSpecializationFilterSearch}
                                 loading={specializedLoader}
-                                multipleSelection
                             />
                         </div>
                     </div>

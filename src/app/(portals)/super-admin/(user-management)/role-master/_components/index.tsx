@@ -20,8 +20,6 @@ import { INITIAL_STATE as initialState } from './Modal/RoleMaster/constant';
 
 import { ROLE_MASTER_COLUMNS, ROLE_MASTER_TEXT as text } from './constant';
 
-// import { useChangeRoleMasterStatusMutation } from '../mutation';
-
 import RoleMasterModal from './Modal/RoleMaster';
 
 import styles from './styles.module.scss';
@@ -55,7 +53,7 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
             status: (
                 <div className={styles['toggle-data']}>
                     <Toggle
-                        value={item?.id.toString()}
+                        value={item?.id || ''}
                         isToggled={item?.status === StatusNumber.ACTIVE}
                         onToggle={(_, id) => {
                             execute({
@@ -75,13 +73,13 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
                     onClick={() => {
                         setAddRoleMasterModal(true);
                         setRoleId(Number(item?.id));
-                        setFormValues((prevValues) => ({
+                        setFormValues((prevValues: FormValues) => ({
                             ...prevValues,
                             [RoleFormKeys.ROLE_NAME]: item?.roleName,
                             [RoleFormKeys.SELECTED_USER_TYPE]: {
-                                id: item?.userTypeId,
-                                name: item.userTypeName,
-                                status: StatusNumber.ACTIVE,
+                                id: item.userTypeId || '',
+                                name: item.userTypeName || '',
+                                status: item?.status || 0,
                             },
                         }));
                     }}

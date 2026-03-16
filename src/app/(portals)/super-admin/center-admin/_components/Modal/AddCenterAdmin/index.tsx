@@ -184,7 +184,7 @@ const AddCenterAdmin = ({
             lastName: formValues?.lastName,
             phone: formValues?.phoneNo,
             email: formValues?.emailId,
-            roleId: centerAdmin[0].id,
+            roleId: centerAdmin[0].id || '',
             centerId: centerIdString,
             specializationId: specializationIdString,
         };

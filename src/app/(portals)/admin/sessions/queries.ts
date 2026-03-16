@@ -9,13 +9,11 @@ export const useGetAdminSessionList = ({
     limit,
     search,
     status,
-    assignedTo,
 }: {
     page: string | number;
     limit: number;
     search: string;
     status: string;
-    assignedTo: string;
 }) =>
     useQuery({
         queryKey: adminSessionListKeys.getAdminSessionList({
@@ -23,7 +21,6 @@ export const useGetAdminSessionList = ({
             limit,
             search,
             status,
-            assignedTo,
         }),
         queryFn: () =>
             getAdminSessionListApiCall({
@@ -31,6 +28,5 @@ export const useGetAdminSessionList = ({
                 limit,
                 search,
                 status,
-                assignedTo,
             }),
     });

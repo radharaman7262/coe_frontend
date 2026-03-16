@@ -1,10 +1,10 @@
 export interface RoleType {
-    id: string;
-    createdAt: string;
+    id?: string;
+    createdAt?: string;
     roleName: string;
-    status: number;
-    userTypeId: string;
-    userTypeName: string;
+    status?: number;
+    userTypeId?: string;
+    userTypeName?: string;
 }
 export interface LoggedRoleType {
     id: string;

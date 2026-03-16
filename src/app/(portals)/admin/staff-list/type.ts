@@ -7,8 +7,22 @@ export interface staffListDataType {
     phone: string;
     assignedStudents: number;
     status: number;
-    totalYearExperience: string;
+    totalYearOfExperience: string;
     language: string[];
+    gender: string;
+}
+
+export interface GetStaffListDataType {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    specialist: { specializationId: number; specialization: string }[] | [];
+    phone: string;
+    assignedStudents: number;
+    status: number;
+    totalYearOfExperience: string;
+    languages: { languageId: number; language: string }[] | [];
 }
 
 export enum StaffStatusType {

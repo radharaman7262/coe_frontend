@@ -45,3 +45,17 @@ export const addStaffApiCall = async (body: staffListPayloadDataType) => {
 
     return response;
 };
+
+export const changeStaffStatusApiCall = async (body: { id: string; status?: string }) => {
+    const { id, status } = body;
+
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.POST,
+        url: `${ADD_NEW_STAFF_MEMBER}/status/${id}/${status}`,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+
+    return response;
+};

@@ -66,7 +66,7 @@ export const PLAY_HISTORY_SCHEMA: FormSchemaField<PlayHistoryFormKeys>[] = [
         label: 'Special Likes & Dislikes',
         type: 'text',
         placeholder: 'Type here',
-        required: false,
+        required: true,
         options: [],
     },
 ];

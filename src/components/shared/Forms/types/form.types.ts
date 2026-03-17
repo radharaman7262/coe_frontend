@@ -3,6 +3,7 @@ export type FieldType = 'text' | 'number' | 'radio' | 'checkbox' | 'select';
 export interface OptionType {
     label: string;
     value: string;
+    key?:string;
 }
 
 export type FormSchemaField<T extends string> =

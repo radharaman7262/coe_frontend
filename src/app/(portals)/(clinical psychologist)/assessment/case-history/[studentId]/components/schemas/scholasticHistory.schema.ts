@@ -28,7 +28,7 @@ export const SCHOLASTIC_HISTORY_SCHEMA: FormSchemaField<ScholasticHistoryFormKey
         label: 'Schooling details (Changes in school, duration with reason)',
         type: 'text',
         placeholder: 'Enter here',
-        required: false,
+        required: true,
         options: [],
     },
 
@@ -62,7 +62,7 @@ export const SCHOLASTIC_HISTORY_SCHEMA: FormSchemaField<ScholasticHistoryFormKey
         name: ScholasticHistoryFormKeys.REASONS_FOR_IRREGULARITY,
         label: 'Reasons for Irregularity / Discontinuity',
         type: 'checkbox',
-        required: false,
+        required: true,
         options: [
             { label: 'School refusal', value: 'School refusal' },
             { label: 'Fearful', value: 'Fearful' },

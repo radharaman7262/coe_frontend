@@ -1,39 +1,75 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
+import { useParams, useSearchParams } from 'next/navigation';
+
+import { ShimmerUiContainer } from '@/components/index';
 
 import DynamicForm from '@/components/shared/Forms/engine/DynamicForm';
 import { useFormState } from '@/components/shared/Forms/hooks/useFormState';
 import { calculateCompletion } from '@/components/shared/Forms/utils/calculateCompletion';
 
-import { postNatalSchema } from '../schemas/postnatal.schema';
+import { mapApiToFormValues } from '@/utils/mapApiToFormValues';
+import { QueryKeys } from '@/utils/queryKeys';
+
+import { useAppMutation } from '@/hooks/useAppMutation';
+
+import { useGetCaseHistoryFormDetails } from '../../../queries';
 
 import { NEO_NATAL_HISTORY_SCHEMA } from '../schemas/neonatalHistory.schema';
 
-import { useSubmitNeoNatalHistory } from './mutation';
+import { submitNeoNatalHistory } from './utils.api';
 
 import styles from './styles.module.scss';
 
 const NeonatalHistory = () => {
-    const { values, setValue } = useFormState();
+    const { values, setValue, setValues } = useFormState();
 
     const [loader, setLoader] = useState(false);
 
-    const { mutate } = useSubmitNeoNatalHistory({ setLoader });
+    const { studentId } = useParams();
 
-    const percentage = useMemo(() => calculateCompletion(postNatalSchema, values), [values]);
+    const searchParams = useSearchParams();
 
-    // console.log(values, 'percent');
+    const formId = searchParams.get('formId');
+
+    const { data, isLoading, isFetching } = useGetCaseHistoryFormDetails({
+        studentId: studentId as string,
+        formId: formId ?? '',
+    });
+
+    const { response } = data || {};
+
+    const { mutate } = useAppMutation({
+        mutationFn: submitNeoNatalHistory,
+        setLoader,
+        invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
+    });
+
+    const percentage = useMemo(
+        () => calculateCompletion(NEO_NATAL_HISTORY_SCHEMA, values),
+        [values],
+    );
 
     const handleSubmit = () => {
         mutate({
             ...values,
-            studentId: 23,
+            studentId: studentId as string,
             percentage: percentage?.toString(),
         });
     };
 
-    return (
+    useEffect(() => {
+        if (response?.length) {
+            const mappedValues = mapApiToFormValues(NEO_NATAL_HISTORY_SCHEMA, response[0]);
+            setValues(mappedValues);
+        }
+    }, [response, setValues]);
+
+    return isLoading || isFetching ? (
+        <ShimmerUiContainer className={styles['accordion-shimmer']} />
+    ) : (
         <DynamicForm
             values={values}
             setValue={setValue}

@@ -89,6 +89,7 @@ export const generateNextDates = (days: number = 15): string[] => {
         return `${year}-${month}-${day}`;
     });
 };
+
 export enum SchoolType {
     NO_SCHOOL = 'No School',
     HOME_SCHOOL = 'Home School',
@@ -130,6 +131,3 @@ export const STATIC_SIBLING_TYPE = [
     { id: 1, name: SiblingType.YES },
     { id: 2, name: SiblingType.NO },
 ];
-
-export const PYSCHCOLOGIST_TOKEN =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NCIsImVtYWlsIjoicGFyYXNAYXVyb3NvY2lldHkub3JnIiwicm9sZUlkIjoiMyIsInNwZWNpYWxpemF0aW9uSWQiOiIxIiwidXNlclR5cGVJZCI6IjQiLCJpYXQiOjE3NzM4MTM3NTYsImV4cCI6MTc3MzkwMDE1Nn0.0SkJn6YNMmMz6wnaEyiNZuZ5GHdW27C0Zdd4tAHlA4Q';

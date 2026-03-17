@@ -9,7 +9,7 @@ export const DEVELOPMENTAL_SELF_SKILLS_SCHEMA: FormSchemaField<DevelopmentalSelf
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 18 months',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -18,7 +18,7 @@ export const DEVELOPMENTAL_SELF_SKILLS_SCHEMA: FormSchemaField<DevelopmentalSelf
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 3 years',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -27,7 +27,7 @@ export const DEVELOPMENTAL_SELF_SKILLS_SCHEMA: FormSchemaField<DevelopmentalSelf
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at < 4 years',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -36,7 +36,7 @@ export const DEVELOPMENTAL_SELF_SKILLS_SCHEMA: FormSchemaField<DevelopmentalSelf
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at < 5 years',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -45,7 +45,7 @@ export const DEVELOPMENTAL_SELF_SKILLS_SCHEMA: FormSchemaField<DevelopmentalSelf
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 5 years',
-        required: false,
+        required: true,
         options: [],
     },
 ];

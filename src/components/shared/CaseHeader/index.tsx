@@ -4,9 +4,9 @@ import React from 'react';
 
 import ArrowIcon from '@public/assets/svg/arrow-icon.svg';
 
-import { FontType } from '@/types/typographyCommon';
+import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
-import { Text } from '@/components/index';
+import { Button, Text } from '@/components/index';
 
 import styles from './styles.module.scss';
 
@@ -21,34 +21,35 @@ const CaseHeader = (props: CaseHeaderProps) => {
 
     return (
         <div className={styles.header}>
-            <ArrowIcon />
-            <div className={styles.profile}>
-                <Text
-                    tagType='div'
-                    font={[FontType.text_lg_bold, FontType.text_lg_bold]}
-                    color='white'
-                    className={styles.avatar}
-                >
-                    {name?.charAt(0)}
-                </Text>
+            <div className={styles.detail}>
+                <ArrowIcon />
+                <div className={styles.profile}>
+                    <Text
+                        tagType='div'
+                        font={[FontType.text_lg_bold, FontType.text_lg_bold]}
+                        color='white'
+                        className={styles.avatar}
+                    >
+                        {name?.charAt(0)}
+                    </Text>
 
-                <div className={styles.info}>
-                    <Text
-                        tagType='p'
-                        font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
-                        className={styles.name}
-                    >
-                        {name}
-                    </Text>
-                    <Text
-                        tagType='p'
-                        font={[FontType.text_sm_regular, FontType.text_sm_regular]}
-                        className={styles.meta}
-                    >
-                        {age}y / {gender}
-                    </Text>
+                    <div className={styles.info}>
+                        <Text
+                            tagType='p'
+                            font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
+                        >
+                            {name}
+                        </Text>
+                        <Text
+                            tagType='p'
+                            font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                        >
+                            {age}y / {gender}
+                        </Text>
+                    </div>
                 </div>
             </div>
+            <Button label='Assign' variant={ButtonVariant.SOLID} color='white' onClick={() => {}} />
         </div>
     );
 };

@@ -1,33 +1,71 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
+import { useParams, useSearchParams } from 'next/navigation';
+
+import { ShimmerUiContainer } from '@/components/index';
 
 import DynamicForm from '@/components/shared/Forms/engine/DynamicForm';
 import { useFormState } from '@/components/shared/Forms/hooks/useFormState';
 import { calculateCompletion } from '@/components/shared/Forms/utils/calculateCompletion';
 
+import { mapApiToFormValues } from '@/utils/mapApiToFormValues';
+import { QueryKeys } from '@/utils/queryKeys';
+import { useAppMutation } from '@/hooks/useAppMutation';
+
+import { useGetCaseHistoryFormDetails } from '../../../queries';
+
 import { FAMILY_HISTORY_SCHEMA } from '../schemas/familyHistory.schema';
 
-import { useSubmitFamilyHistory } from './mutation';
+import { submitFamilyHistory } from './utils.api';
+
+import styles from '../../styles.module.scss';
 
 const FamilyHistory = () => {
-    const { values, setValue } = useFormState();
+    const { values, setValue, setValues } = useFormState();
 
     const [loader, setLoader] = useState(false);
 
-    const { mutate } = useSubmitFamilyHistory({ setLoader });
+    const { studentId } = useParams();
+
+    const searchParams = useSearchParams();
+
+    const formId = searchParams.get('formId');
+
+    const { data, isLoading, isFetching } = useGetCaseHistoryFormDetails({
+        studentId: studentId as string,
+        formId: formId ?? '',
+    });
+
+    const { response } = data || {};
+
+    const { mutate } = useAppMutation({
+        mutationFn: submitFamilyHistory,
+        setLoader,
+        invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
+    });
 
     const percentage = useMemo(() => calculateCompletion(FAMILY_HISTORY_SCHEMA, values), [values]);
 
     const handleSubmit = () => {
         mutate({
             ...values,
-            studentId: 23,
+            studentId: studentId as string,
             percentage: percentage?.toString(),
         });
     };
 
-    return (
+    useEffect(() => {
+        if (response?.length) {
+            const mappedValues = mapApiToFormValues(FAMILY_HISTORY_SCHEMA, response[0]);
+            setValues(mappedValues);
+        }
+    }, [response, setValues]);
+
+    return isLoading || isFetching ? (
+        <ShimmerUiContainer className={styles['accordion-shimmer']} />
+    ) : (
         <DynamicForm
             values={values}
             setValue={setValue}

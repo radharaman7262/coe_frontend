@@ -14,5 +14,6 @@ export const useFormState = () => {
     return {
         values,
         setValue,
+        setValues
     };
 };

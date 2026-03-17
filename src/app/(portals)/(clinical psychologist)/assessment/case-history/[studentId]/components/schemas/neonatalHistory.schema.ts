@@ -86,15 +86,16 @@ export const NEO_NATAL_HISTORY_SCHEMA: FormSchemaField<NeonatalHistoryFormKeys>[
     {
         name: NeonatalHistoryFormKeys.NICU_DURATION,
         label: 'NICU Duration',
-        type: 'select',
+        type: 'radio',
         placeholder: 'Select duration',
-        required: false,
-        options: [
-            { label: '1-3 Days', value: '1-3 Days' },
-            { label: '4-7 Days', value: '4-7 Days' },
-            { label: '1-2 Weeks', value: '1-2 Weeks' },
-            { label: 'More than 2 Weeks', value: 'More than 2 Weeks' },
-        ],
+        required: true,
+        // options: [
+        //     { label: '1-3 Days', value: '1-3 Days' },
+        //     { label: '4-7 Days', value: '4-7 Days' },
+        //     { label: '1-2 Weeks', value: '1-2 Weeks' },
+        //     { label: 'More than 2 Weeks', value: 'More than 2 Weeks' },
+        // ],
+        options:[],
     },
 
     {

@@ -30,7 +30,7 @@ export const FAMILY_HISTORY_SCHEMA: FormSchemaField<FamilyHistoryFormKeys>[] = [
         label: 'History of illness / LD / ID / Chronic medical illness in the family',
         type: 'text',
         placeholder: 'Enter details',
-        required: false,
+        required: true,
         options: [],
     },
 
@@ -39,7 +39,7 @@ export const FAMILY_HISTORY_SCHEMA: FormSchemaField<FamilyHistoryFormKeys>[] = [
         label: 'Number of siblings',
         type: 'text',
         placeholder: 'Enter number',
-        required: false,
+        required: true,
         options: [],
     },
 
@@ -48,7 +48,7 @@ export const FAMILY_HISTORY_SCHEMA: FormSchemaField<FamilyHistoryFormKeys>[] = [
         label: 'Primary caregiver(s)',
         type: 'text',
         placeholder: 'Enter caregiver name',
-        required: false,
+        required: true,
         options: [],
     },
 
@@ -57,7 +57,7 @@ export const FAMILY_HISTORY_SCHEMA: FormSchemaField<FamilyHistoryFormKeys>[] = [
         label: 'Any family history of speech, hearing, or developmental delay?',
         type: 'text',
         placeholder: 'Enter details',
-        required: false,
+        required: true,
         options: [],
     },
 
@@ -77,7 +77,7 @@ export const FAMILY_HISTORY_SCHEMA: FormSchemaField<FamilyHistoryFormKeys>[] = [
         label: 'Family Genogram',
         type: 'text',
         placeholder: 'Enter details',
-        required: false,
+        required: true,
         options: [],
     },
 ];

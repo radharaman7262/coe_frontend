@@ -1,52 +1,33 @@
+@use '@styles/theme' as *;
+
 .header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  padding: 16px 24px;
-
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
+    @include flex-center(row, space-between, center, 16px);
+    padding: 16px 24px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.backButton {
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  cursor: pointer;
+.detail {
+    @include flex-center(row, normal, center, 16px);
 }
 
 .profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    @include flex-center(row, normal, center, 12px);
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+    width: 36px;
+    height: 36px;
 
-  border-radius: 50%;
-  background: #22c55e;
+    border-radius: 50%;
+    background: #22c55e;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 20px;
 }
 
 .info {
-  display: flex;
-  flex-direction: column;
-}
-
-.name {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.meta {
-  font-size: 12px;
-  color: #6b7280;
+    @include flex-center(column);
 }

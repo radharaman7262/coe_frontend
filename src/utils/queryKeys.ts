@@ -21,4 +21,5 @@ export enum QueryKeys {
     GET_PSYCHOLOGIST_DATES = 'geTpsyChologistDates',
     CREATE_STUDENT_SCHEDULE = 'createStudentSchedule',
     GET_STUDENT_LIST = 'getStudentList',
+    CASE_HISTORY_FORM_DETAIL_KEYS = 'caseHistoryFormDetailKeys'
 }

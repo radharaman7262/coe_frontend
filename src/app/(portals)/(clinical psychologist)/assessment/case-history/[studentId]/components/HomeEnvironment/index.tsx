@@ -21,8 +21,6 @@ const PrenatalBirthHistory = () => {
 
     const percentage = useMemo(() => calculateCompletion(postNatalSchema, values), [values]);
 
-    // console.log(values, 'percent');
-
     const handleSubmit = () => {
         mutate({
             ...values,

@@ -9,7 +9,7 @@ export const DEVELOPMENT_LANGUAGE_SCHEMA: FormSchemaField<DevelopmentalLanguageF
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 6 months',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -18,7 +18,7 @@ export const DEVELOPMENT_LANGUAGE_SCHEMA: FormSchemaField<DevelopmentalLanguageF
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 9 months',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -27,7 +27,7 @@ export const DEVELOPMENT_LANGUAGE_SCHEMA: FormSchemaField<DevelopmentalLanguageF
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 2 years',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -36,7 +36,7 @@ export const DEVELOPMENT_LANGUAGE_SCHEMA: FormSchemaField<DevelopmentalLanguageF
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 3 years',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -45,7 +45,7 @@ export const DEVELOPMENT_LANGUAGE_SCHEMA: FormSchemaField<DevelopmentalLanguageF
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 4 years',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -54,7 +54,7 @@ export const DEVELOPMENT_LANGUAGE_SCHEMA: FormSchemaField<DevelopmentalLanguageF
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 5 years',
-        required: false,
+        required: true,
         options: [],
     },
 ];

@@ -9,7 +9,7 @@ export const SOCIAL_DEVELOPMENT_SCHEMA: FormSchemaField<DevelopmentalSocialFormK
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 2 months',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -18,7 +18,7 @@ export const SOCIAL_DEVELOPMENT_SCHEMA: FormSchemaField<DevelopmentalSocialFormK
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 3 months',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -27,7 +27,7 @@ export const SOCIAL_DEVELOPMENT_SCHEMA: FormSchemaField<DevelopmentalSocialFormK
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 2–2.5 years',
-        required: false,
+        required: true,
         options: [],
     },
     {
@@ -36,7 +36,7 @@ export const SOCIAL_DEVELOPMENT_SCHEMA: FormSchemaField<DevelopmentalSocialFormK
         type: 'text',
         placeholder: 'e.g. 2 months / 2 years',
         // helperText: 'Expected at 3–4 years',
-        required: false,
+        required: true,
         options: [],
     },
 ];

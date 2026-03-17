@@ -4,13 +4,13 @@ import { SUBMIT_LANGUAGE_DEVELOPMENT_ENDPOINT } from '@/app/api/apiRoutes';
 
 import { HTTP_METHOD } from '@/types/common';
 
-import { PYSCHCOLOGIST_TOKEN } from '@/constant/appConstants';
+import { getCookie } from '@/utils/cookieInServer';
+import { JWT_TOKEN } from '@/utils/cookieManager';
 
 export const submitLanguageDevelopment = async (payload: Record<string, string | number>) => {
     const body = { ...payload };
 
-    // const authToken = await getCookie(JWT_TOKEN);
-    const authToken = PYSCHCOLOGIST_TOKEN;
+    const authToken = await getCookie(JWT_TOKEN);
 
     const response = await callApi({
         method: HTTP_METHOD.POST,

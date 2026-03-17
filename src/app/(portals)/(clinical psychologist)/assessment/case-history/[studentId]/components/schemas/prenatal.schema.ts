@@ -31,10 +31,14 @@ export const prenatalSchema: FormSchemaField<PersonalBirthHistoryFormKeys>[] = [
         type: 'checkbox',
         required: true,
         options: [
-            { label: 'Gestational Diabetes', value: 'Gestational Diabetes' },
-            { label: 'Hypertension', value: 'Hypertension' },
-            { label: 'Jaundice', value: 'Jaundice' },
-            { label: 'Hyperthyroidism', value: 'Hyperthyroidism' },
+            {
+                label: 'Gestational Diabetes',
+                value: 'Gestational Diabetes',
+                key: 'gestationalDiabetes',
+            },
+            { label: 'Hypertension', value: 'Hypertension', key: 'hypertension' },
+            { label: 'Jaundice', value: 'Jaundice', key: 'jaundice' },
+            { label: 'Hyperthyroidism', value: 'Hyperthyroidism', key: 'hyperthyroidism' },
         ],
     },
 
@@ -49,6 +53,14 @@ export const prenatalSchema: FormSchemaField<PersonalBirthHistoryFormKeys>[] = [
         ],
     },
 
+    {
+        name: PersonalBirthHistoryFormKeys.CHIEF_COMPLAINTS,
+        label: 'Chief Complaints',
+        type: 'text',
+        placeholder: 'Enter here',
+        required: true,
+        options: [],
+    },
     {
         name: PersonalBirthHistoryFormKeys.INFECTION_FEVER_RASH_STD,
         label: 'Infection / Fever / Rash / STD',

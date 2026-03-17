@@ -8,17 +8,20 @@ export const USER_DETAIL = 'x_det';
 export const CLIENT_USER_DETAIL = 'c_x_det';
 export const USER_MENU_LIST = 'x_m_li';
 export const USER_ALLOWED_ROUTE = 'x_a_rou';
+export const FORM_ID = 'formId';
 
 export const USER_EMAIL = 'x-m';
 
 const clearJwtToken = () => Cookies.remove(JWT_TOKEN);
 const clearUserDetail = () => Cookies.remove(USER_DETAIL);
 const clearClientUserDetail = () => Cookies.remove(CLIENT_USER_DETAIL);
+const clearFormId = () => Cookies.remove(FORM_ID);
 
 const clearAllCookies = () => {
     clearJwtToken();
     clearUserDetail();
     clearClientUserDetail();
+    clearFormId();
 };
 
 const setClientSideUserDetail = (contentValue: string) => {
@@ -32,6 +35,17 @@ const setClientSideUserDetail = (contentValue: string) => {
     ).toString();
 
     Cookies.set(CLIENT_USER_DETAIL, encryptedToken, {
+        expires: 1,
+        path: '/',
+    });
+};
+
+const setFormId = (formId: string) => {
+    if (!formId) {
+        return;
+    }
+
+    Cookies.set(FORM_ID, formId, {
         expires: 1,
         path: '/',
     });
@@ -52,4 +66,17 @@ const getClientUserDetails = () => {
     return null;
 };
 
-export { clearAllCookies, clearJwtToken, setClientSideUserDetail, getClientUserDetails };
+const getFormId = () => {
+    const formId = Cookies.get(FORM_ID);
+
+    return formId;
+};
+
+export {
+    clearAllCookies,
+    clearJwtToken,
+    setClientSideUserDetail,
+    getClientUserDetails,
+    setFormId,
+    getFormId,
+};

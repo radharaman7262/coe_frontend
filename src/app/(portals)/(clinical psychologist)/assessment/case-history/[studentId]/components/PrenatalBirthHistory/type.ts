@@ -7,6 +7,7 @@ export enum PersonalBirthHistoryFormKeys {
   HISTORY_OF_PSYCHOLOGICAL_STRESS = 'historyOfPsychologicalStress',
   MOTHER_AGE_AT_BIRTH = 'motherAgeAtBirth',
   FETAL_GROWTH_RELATED_ISSUES = 'fetalGrowthRelatedIssues',
+  CHIEF_COMPLAINTS = 'chiefComplaints',
 
   // pregnancy health
   PREGNANCY_HEALTH = 'pregnancyHealth',

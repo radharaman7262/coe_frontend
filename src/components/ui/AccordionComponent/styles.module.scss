@@ -60,3 +60,8 @@
     max-height: 1000px;
     padding: 20px 0;
 }
+
+.accordion{
+    height: calc(100vh - 150px);
+    overflow-y: scroll;
+}

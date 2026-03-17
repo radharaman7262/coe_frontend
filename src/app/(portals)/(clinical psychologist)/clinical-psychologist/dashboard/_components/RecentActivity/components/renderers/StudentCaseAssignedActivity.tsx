@@ -22,7 +22,7 @@ const StudentCaseAssignedActivity = (props: StudentCaseAssignedActivityProps) =>
             </Text>
 
             <Text font={[FontType.text_xs_medium, FontType.text_xs_medium]} color='gray-400'>
-                {`${item?.fromUsername} assigned (${getSpecializations(
+                {`${item?.fromUsername} linked to (${getSpecializations(
                     item?.fromUserSpecialization,
                 )}) ${item?.studentName} to ${item?.toUsername} (${getSpecializations(
                     item?.toUserSpecialization,

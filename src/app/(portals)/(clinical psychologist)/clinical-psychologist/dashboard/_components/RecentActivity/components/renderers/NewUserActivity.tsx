@@ -27,7 +27,7 @@ const NewUserActivity = (props: NewUserActivityProps) => {
             <Text font={[FontType.text_xs_medium, FontType.text_xs_medium]} color='gray-400'>
                 {`${item?.name} (${getSpecializations(
                     item?.specialization,
-                )}) at ${formatDate(item?.dateTime)}`}
+                )}) added to ${item?.center}- ${item?.state} at ${formatDate(item?.dateTime)}`}
             </Text>
         </div>
     );

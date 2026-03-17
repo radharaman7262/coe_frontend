@@ -38,6 +38,16 @@ export const middleware = async (request: NextRequest) => {
         return NextResponse.redirect(new URL(fallbackUrl, request.url));
     }
 
+    // const isAllowed = allowedRoutes.some((route) => pathname.startsWith(route));
+
+    // // Temporary dev access
+    // const isDevAssessmentRoute = pathname.startsWith('/clinical-psychologist/assessment');
+
+    // if (!isAllowed && !isDevAssessmentRoute) {
+    //     const fallbackUrl = allowedRoutes[0] || '/';
+    //     return NextResponse.redirect(new URL(fallbackUrl, request.url));
+    // }
+
     return NextResponse.next();
 };
 
@@ -59,7 +69,9 @@ export const config = {
         '/admin/staff-list/:path*',
         '/admin/sessions/:path*',
 
-        // /* Psychologist Route Paths */
-        // '/clinical-psychologist/dashboard/:path*',
+        /* Psychologist Route Paths */
+        '/clinical-psychologist/dashboard/:path*',
+        '/clinical-psychologist/assessment/:path*',
+        '/clinical-psychologist/trackSession/:path*',
     ],
 };

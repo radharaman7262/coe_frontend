@@ -11,4 +11,6 @@ export enum AppRoutes {
     /** Clinical  */
     ASSESSMENT_CASE_HISTORY = 'assessment/case-history',
     DASHBOARD = 'clinical-psychologist/dashboard',
+    ASSESSMENT_STUDENT_LIST = 'clinical-psychologist/assessment',
+    TRACK_SESSION = 'clinical-psychologist/trackSession',
 }

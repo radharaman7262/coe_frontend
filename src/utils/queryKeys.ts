@@ -16,4 +16,6 @@ export enum QueryKeys {
     SCHOOL = 'school',
     GRADE = 'grade',
     PSYCHOLOGIST = 'psychologist',
+    CLINICAL_PSYCHOLOGIST_ASSESSMENT = 'clinicalPsychologistAssessment',
+    TRACK_SESSION = 'trackSession',
 }

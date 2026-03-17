@@ -11,4 +11,7 @@ export const pageNameMap: Record<string, string> = {
     '/admin/student-list': 'Student List',
     '/admin/staff-list': 'Staff List',
     '/admin/sessions': 'Sessions',
+    '/clinical-psychologist/dashboard': 'Dashboard',
+    '/clinical-psychologist/assessment': 'Student List',
+    '/clinical-psychologist/trackSession': 'Sessions',
 };

@@ -62,7 +62,6 @@ const AfterLoginHeader = () => {
                         <button
                             type='button'
                             className={styles['user-wrapper']}
-                            onMouseEnter={() => setOpen(true)}
                             onClick={() => setOpen((prev) => !prev)}
                         >
                             <div className={styles['logged-role']}>

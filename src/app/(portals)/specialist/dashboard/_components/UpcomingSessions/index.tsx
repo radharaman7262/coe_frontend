@@ -28,10 +28,9 @@ const UpcomingSessions = (props: UpcomingSessionProps) => {
         return data;
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const finalUpcomingSessionsList = useMemo(
         () => getSpecialEducatorList(upcomingSessionList),
-        [],
+        [upcomingSessionList],
     );
 
     const hasData = finalUpcomingSessionsList?.length > ZERO_DATA;

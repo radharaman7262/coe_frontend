@@ -1,5 +1,4 @@
 import { SessionStatusType } from '@/app/(portals)/admin/sessions/type';
-import { StudentStatusType } from '@/app/(portals)/specialist/dashboard/_components/MyStudents/type';
 
 export enum StaleAndCacheTime {
     STALE_TIME = 30 * 60 * 1000,
@@ -72,6 +71,13 @@ export interface StatusDataType {
 
 export const STATIC_STATUS = [
     { id: SessionStatusType.PENDING, name: 'Pending' },
+    { id: SessionStatusType.DONE, name: 'Done' },
+    { id: SessionStatusType.SCHEDULED, name: 'Scheduled' },
+];
+
+export const STUDENT_STATUS = [
+    { id: SessionStatusType.PENDING, name: 'Pending' },
+    { id: SessionStatusType.DONE, name: 'Done' },
     { id: SessionStatusType.SCHEDULED, name: 'Scheduled' },
 ];
 

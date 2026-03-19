@@ -2,15 +2,20 @@
 
 import React, { useEffect, useState } from 'react';
 
+import { useParams, useRouter } from 'next/navigation';
+
+import { AppRoutes } from '@/constant/appRoutes';
+
 import { Input, Button, Text, TextArea, BasicDatePicker } from '@/components/index';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 import { ChildInformationFormKeys, ChildInformationFormType } from '@/types/childInformationType';
 
+import { useChildInformationSubmit } from '../mutation';
+
 import { INITIAL_STATE, inputFields, textAreaFields } from './constant';
 
 import styles from './styles.module.scss';
-import { useChildInformationSubmit } from '../mutation';
 
 interface ChildInformationFormProps {
     studentDetail: {
@@ -52,6 +57,10 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
     const [loader, setLoader] = useState(false);
 
     const { mutate } = useChildInformationSubmit({ setLoader });
+
+    const { id } = useParams();
+
+    const router = useRouter();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -152,7 +161,17 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                 formData[ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE],
         };
 
-        mutate(payload);
+        mutate(payload, {
+            onSuccess: (data) => {
+                const { status, error } = data || {};
+
+                if (!status) {
+                    throw new Error(error);
+                }
+
+                router.replace(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
+            },
+        });
     };
 
     return (
@@ -181,7 +200,11 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                                     <TextArea
                                         label={field.label}
                                         name={field.name}
-                                        disable={Boolean(studentDetail?.[field.name as keyof typeof studentDetail])}
+                                        disable={Boolean(
+                                            studentDetail?.[
+                                                field.name as keyof typeof studentDetail
+                                            ],
+                                        )}
                                         value={
                                             formData[field.name as keyof ChildInformationFormType]
                                         }

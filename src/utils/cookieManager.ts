@@ -9,6 +9,7 @@ export const CLIENT_USER_DETAIL = 'c_x_det';
 export const USER_MENU_LIST = 'x_m_li';
 export const USER_ALLOWED_ROUTE = 'x_a_rou';
 export const FORM_ID = 'formId';
+export const STUDENT_DETAIL = 'studentDetail';
 
 export const USER_EMAIL = 'x-m';
 
@@ -35,6 +36,18 @@ const setClientSideUserDetail = (contentValue: string) => {
     ).toString();
 
     Cookies.set(CLIENT_USER_DETAIL, encryptedToken, {
+        expires: 1,
+        path: '/',
+    });
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const setStudentDetail = (contentValue: any) => {
+    if (!contentValue) {
+        return;
+    }
+
+    Cookies.set(STUDENT_DETAIL, contentValue, {
         expires: 1,
         path: '/',
     });
@@ -72,6 +85,12 @@ const getFormId = () => {
     return formId;
 };
 
+const getStudentDetail = () => {
+    const formId = Cookies.get(STUDENT_DETAIL);
+
+    return formId;
+};
+
 export {
     clearAllCookies,
     clearJwtToken,
@@ -79,4 +98,6 @@ export {
     getClientUserDetails,
     setFormId,
     getFormId,
+    setStudentDetail,
+    getStudentDetail,
 };

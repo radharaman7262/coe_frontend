@@ -5,3 +5,8 @@ export interface UserDataType {
     specializations: string[];
     studentsAssigned: number;
 }
+
+export interface SelectedAssignment {
+  toId: number;
+  toSpecializationId: string;
+};

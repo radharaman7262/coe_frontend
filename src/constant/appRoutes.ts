@@ -13,6 +13,7 @@ export enum AppRoutes {
     DASHBOARD = 'clinical-psychologist/dashboard',
     ASSESSMENT_STUDENT_LIST = 'clinical-psychologist/assessment',
     TRACK_SESSION = 'clinical-psychologist/trackSession',
+    PROFILE = 'profile',
 
     /** Specialist */
 
@@ -33,6 +34,4 @@ export enum AppRoutes {
     SPEECH_THERAPIST_INTERVENTION = 'speech-therapist/intervention',
 
     /** ASSESSMENT */
-
-    ASSESSMENT = 'assessment/23',
 }

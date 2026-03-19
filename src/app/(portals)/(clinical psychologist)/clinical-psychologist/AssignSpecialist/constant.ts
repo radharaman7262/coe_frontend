@@ -6,5 +6,5 @@ export const DRAWER_DATA = {
 };
 
 export const BUTTON_TEXT = {
-    continue: 'Continue',
+    continue: 'Assign',
 };

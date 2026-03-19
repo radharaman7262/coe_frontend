@@ -5,6 +5,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button, PageHeader, ShimmerUiContainer, Text } from '@/components/index';
+import { setStudentDetail } from '@/utils/cookieManager';
 
 import { ToastContainer } from 'react-toastify';
 
@@ -142,6 +143,7 @@ const ClinicalPsychologistAssessmentPage = () => {
                                 setOpenMenuIndex((prev) =>
                                     prev === +item.studentId ? null : +item.studentId,
                                 );
+                                setStudentDetail(JSON.stringify(item));
                             }}
                         >
                             <ThreeDotIcon />

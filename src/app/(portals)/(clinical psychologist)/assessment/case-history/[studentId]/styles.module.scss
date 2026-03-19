@@ -3,22 +3,26 @@
 .layout {
     .lower-layout {
         display: flex;
-        // gap: 60px;
     }
 }
 
 .page {
     background-color: #f9f9f9;
     width: 100%;
-    position: relative;
-    // padding-left: 60px;
 
     .content {
         padding-left: 60px;
+        height: calc(100vh - 120px);
+        overflow-y: scroll;
     }
 }
 
 .accordion-shimmer {
     height: 350px;
     width: 100%;
+}
+
+.header {
+    @include flex-center(column, normal, normal, 4px);
+    margin: 20px 0;
 }

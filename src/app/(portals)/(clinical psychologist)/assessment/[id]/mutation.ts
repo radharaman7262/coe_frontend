@@ -8,14 +8,7 @@ import { submitChildInformation } from '../../utils.api';
 
 export const useChildInformationSubmit = ({ setLoader }: { setLoader: (state: boolean) => void }) =>
     useMutation({
-        mutationFn: (body:Record<string,string>) => submitChildInformation(body),
-        onSuccess: (data) => {
-            const { isSuccess, error } = data || {};
-
-            if (!isSuccess) {
-                throw new Error(error);
-            }
-        },
+        mutationFn: (body: Record<string, string>) => submitChildInformation(body),
         onMutate() {
             setLoader(true);
         },

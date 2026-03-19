@@ -1,7 +1,12 @@
 'use client';
 
-import { Checkbox, ShimmerUiContainer, Text } from '@/components';
+import { Dispatch, SetStateAction } from 'react';
+
+import { Checkbox, ShimmerUiContainer, Text } from '@/components/index';
+
 import { FontType } from '@/types/typographyCommon';
+
+import { getClientUserDetails } from '@/utils/cookieManager';
 
 import AssignedIcon from '@/public/assets/svg/assigned-icon.svg';
 import TickIcon from '@/public/assets/svg/tick-icon.svg';
@@ -10,7 +15,7 @@ import { DRAWER_DATA as text } from './constant';
 
 import { useGetAssignSpecialist } from './queries';
 
-import { UserDataType } from './type';
+import { SelectedAssignment, UserDataType } from './type';
 
 import styles from './styles.module.scss';
 
@@ -25,13 +30,37 @@ const getInitials = (name: string = ''): string =>
         .join('')
         .toUpperCase();
 
-const AssignSpecialist = () => {
+interface AssignSpecialistProps {
+    setSelectedAssignments: Dispatch<SetStateAction<SelectedAssignment[]>>;
+    selectedAssignments: SelectedAssignment[];
+}
+
+const AssignSpecialist = (props: AssignSpecialistProps) => {
+    const { setSelectedAssignments, selectedAssignments } = props;
+
     const { data: response = {}, isLoading } = useGetAssignSpecialist({
         role: '',
         search: '',
     });
 
+    const detail = getClientUserDetails();
+
+    const { id } = detail || {};
+
     const { data = [] } = response?.response || {};
+
+    const handleCheckBox = (userId: number, checked: boolean) => {
+        if (checked) {
+            setSelectedAssignments((prev) => {
+                // prevent duplicate
+                if (prev.some((item) => +item.toSpecializationId === userId)) return prev;
+
+                return [...prev, { toId: id, toSpecializationId: userId.toString() }];
+            });
+        } else {
+            setSelectedAssignments((prev) => prev.filter((item) => +item.toSpecializationId !== userId));
+        }
+    };
 
     return (
         <>
@@ -74,7 +103,12 @@ const AssignSpecialist = () => {
                             aria-hidden='true'
                         >
                             <div className={styles['select-specialist']}>
-                                <Checkbox isChecked onChange={() => {}} />
+                                <Checkbox
+                                    isChecked={selectedAssignments.some(
+                                        (selected) => selected.toSpecializationId === item.userId,
+                                    )}
+                                    onChange={(e) => handleCheckBox(Number(item.userId), e)}
+                                />
                                 <div className={styles.leftSection}>
                                     <div className={styles.avatar}>{getInitials(item?.name)}</div>
 
@@ -109,7 +143,7 @@ const AssignSpecialist = () => {
                                     font={[FontType.text_xs_regular, FontType.text_xs_regular]}
                                     color='gray-500'
                                 >
-                                    0 Student Assigned
+                                    {item?.studentsAssigned} Student Assigned
                                 </Text>
                             </div>
                         </div>

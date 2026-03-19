@@ -11,7 +11,7 @@ const ClientLayout = (props: ClientLayoutProps) => {
 
     return (
         <div>
-            <CaseHeader age={20} name='Paras' gender='Male' />
+            <CaseHeader />
             {children}
         </div>
     );

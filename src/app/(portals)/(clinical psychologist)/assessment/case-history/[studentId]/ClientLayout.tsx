@@ -31,7 +31,7 @@ const ClientLayout = (props: ClientLayoutProps) => {
 
     return (
         <div className={styles.layout}>
-            <CaseHeader age={20} name='Paras' gender='Male' />
+            <CaseHeader />
             <div className={styles['lower-layout']}>
                 <CaseHistorySidebar totalProgress={overallPercentage} menuList={tree} />
                 {children}

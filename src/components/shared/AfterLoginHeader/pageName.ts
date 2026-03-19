@@ -14,4 +14,13 @@ export const pageNameMap: Record<string, string> = {
     '/clinical-psychologist/dashboard': 'Dashboard',
     '/clinical-psychologist/assessment': 'Student List',
     '/clinical-psychologist/trackSession': 'Sessions',
+    '/specialist/dashboard': 'Dashboard',
+    '/specialist/assessment': 'Student List',
+    '/specialist/intervention': 'Intervention',
+    '/occupational-therapist/dashboard': 'Dashboard',
+    '/occupational-therapist/intervention': 'Intervention',
+    '/occupational-therapist/assessment': 'Student List',
+    '/speech-therapist/dashboard': 'Dashboard',
+    '/speech-therapist/assessment': 'Student List',
+    '/speech-therapist/intervention': 'Intervention',
 };

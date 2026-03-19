@@ -23,4 +23,7 @@ export enum QueryKeys {
     GET_STUDENT_LIST = 'getStudentList',
     CASE_HISTORY_FORM_DETAIL_KEYS = 'caseHistoryFormDetailKeys',
     ASSIGN_SPECIALIST = 'assignSpecialist',
+    MY_STUDENT = 'myStudent',
+    SPECIAL_EDUCATOR_ASSESSMENT = 'specialEducatorAssessment',
+    SPECIAL_EDUCATOR_INTERVENTION = 'specialEducatorIntervention',
 }

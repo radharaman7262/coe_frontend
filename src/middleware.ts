@@ -73,5 +73,20 @@ export const config = {
         '/clinical-psychologist/dashboard/:path*',
         '/clinical-psychologist/assessment/:path*',
         '/clinical-psychologist/trackSession/:path*',
+
+        /* Specialist Route Paths */
+        '/specialist/dashboard/:path*',
+        '/specialist/assessment/:path*',
+        '/specialist/intervention/:path*',
+
+        /* Occupational Therapist Paths */
+        '/occupational-therapist/dashboard/:path*',
+        '/occupational-therapist/assessment/:path*',
+        '/occupational-therapist/intervention/:path*',
+
+        /* Speech Therapist Paths */
+        '/speech-therapist/dashboard/:path*',
+        '/speech-therapist/assessment/:path*',
+        '/speech-therapist/intervention/:path*',
     ],
 };

@@ -1,0 +1,17 @@
+@use '@styles/theme' as *;
+
+.main-container {
+    @include flex-center(normal, normal, normal, 16px);
+    padding: 16px;
+
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        width: 76%;
+        gap: 16px;
+    }
+
+    .right-section {
+        width: 24%;
+    }
+}

@@ -16,4 +16,5 @@ export const ICON_MAP: Record<string, JSX.Element> = {
     Sessions: SessionIcon,
     Assessments: ListIcon,
     'Track Sessions': SessionIcon,
+    Intervention: SessionIcon,
 };

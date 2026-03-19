@@ -13,4 +13,22 @@ export enum AppRoutes {
     DASHBOARD = 'clinical-psychologist/dashboard',
     ASSESSMENT_STUDENT_LIST = 'clinical-psychologist/assessment',
     TRACK_SESSION = 'clinical-psychologist/trackSession',
+
+    /** Specialist */
+
+    SPECIALIST_DASHBOARD = 'specialist/dashboard',
+    SPECIALIST_ASSESSMENT = 'specialist/assessment',
+    SPECIALIST_INTERVENTION = 'specialist/intervention',
+
+    /** Occupational Therapist */
+
+    OCCUPATIONAL_THERAPIST_DASHBOARD = 'occupational-therapist/dashboard',
+    OCCUPATIONAL_THERAPIST_ASSESSMENT = 'occupational-therapist/assessment',
+    OCCUPATIONAL_THERAPIST_INTERVENTION = 'occupational-therapist/intervention',
+
+    /** Speech Therapist */
+
+    SPEECH_THERAPIST_DASHBOARD = 'speech-therapist/dashboard',
+    SPEECH_THERAPIST_ASSESSMENT = 'speech-therapist/assessment',
+    SPEECH_THERAPIST_INTERVENTION = 'speech-therapist/intervention',
 }

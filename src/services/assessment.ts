@@ -9,3 +9,13 @@ export const clinicalPsychologistAssessmentListKeys = {
         status: string;
     }) => [...clinicalPsychologistAssessmentListKeys.all, params] as const,
 };
+
+export const specialEducatorAssessmentListKeys = {
+    all: [QueryKeys.SPECIAL_EDUCATOR_ASSESSMENT],
+    getSpecialEducatorAssessmentList: (params: {
+        page: string | number;
+        limit: string | number;
+        search: string;
+        status: string;
+    }) => [...specialEducatorAssessmentListKeys.all, params] as const,
+};

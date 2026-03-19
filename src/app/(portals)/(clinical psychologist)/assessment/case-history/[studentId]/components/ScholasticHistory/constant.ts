@@ -9,3 +9,12 @@ export const INITIAL_STATE: ScholasticHistoryHistoryFormType = {
     [ScholasticHistoryFormKeys.SCHOOLING_DETAILS]: '',
     [ScholasticHistoryFormKeys.TYPE_OF_SCHOOL]: '',
 };
+
+export const OPTIONS = [
+    { label: 'School refusal', value: 'School refusal', key: 'SchoolRefusal' },
+    { label: 'Fearful', value: 'Fearful', key: 'Fearful' },
+    { label: 'Financial problems', value: 'Financial problems', key: 'FinancialProblems' },
+    { label: 'Poor progress', value: 'Poor progress', key: 'PoorProgress' },
+    { label: 'Behavioral problems', value: 'Behavioral problems', key: 'BehavioralProblems' },
+    { label: 'Others', value: 'Others', key: 'Others' },
+];

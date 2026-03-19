@@ -1,5 +1,6 @@
 import { FormSchemaField } from '@/components/shared/Forms/types/form.types';
 import { ScholasticHistoryFormKeys } from '../ScholasticHistory/type';
+import { OPTIONS } from '../ScholasticHistory/constant';
 
 export const SCHOLASTIC_HISTORY_SCHEMA: FormSchemaField<ScholasticHistoryFormKeys>[] = [
     {
@@ -57,19 +58,11 @@ export const SCHOLASTIC_HISTORY_SCHEMA: FormSchemaField<ScholasticHistoryFormKey
             { label: 'Not Known', value: 'Not Known' },
         ],
     },
-
     {
         name: ScholasticHistoryFormKeys.REASONS_FOR_IRREGULARITY,
         label: 'Reasons for Irregularity / Discontinuity',
         type: 'checkbox',
         required: true,
-        options: [
-            { label: 'School refusal', value: 'School refusal' },
-            { label: 'Fearful', value: 'Fearful' },
-            { label: 'Financial problems', value: 'Financial problems' },
-            { label: 'Poor progress', value: 'Poor progress' },
-            { label: 'Behavioral problems', value: 'Behavioral problems' },
-            { label: 'Others', value: 'Others' },
-        ],
+        options: OPTIONS,
     },
 ];

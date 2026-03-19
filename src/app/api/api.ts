@@ -26,7 +26,8 @@ type callApiArgs = {
                   | FileList
                   | FileList[]
                   | Dayjs
-                  | Record<string, string | number>[];
+                  | Record<string, string | number>[]
+                  | Record<string, string | boolean | number>;
           }
         | FormData;
     queryParams?: QueryParamType;

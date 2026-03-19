@@ -5,3 +5,5 @@ export interface languageDataType {
     status: number;
     updatedAt: string;
 }
+
+export type MedicalFormsType = Record<string, string | number | Record<string, string>>;

@@ -1,20 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-
-import { useParams, useSearchParams } from 'next/navigation';
-
-import { ShimmerUiContainer } from '@/components/index';
-
-import DynamicForm from '@/components/shared/Forms/engine/DynamicForm';
-import { useFormState } from '@/components/shared/Forms/hooks/useFormState';
-import { calculateCompletion } from '@/components/shared/Forms/utils/calculateCompletion';
-
-import { mapApiToFormValues } from '@/utils/mapApiToFormValues';
-
+import { useState } from 'react';
 import { QueryKeys } from '@/utils/queryKeys';
 
 import { useAppMutation } from '@/hooks/useAppMutation';
+import { useAutoForm } from '@/hooks/useAutoForm';
+
+import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
 
 import { submitPostNatalHistory } from './utils.api';
 
@@ -25,58 +17,26 @@ import { postNatalSchema } from '../schemas/postnatal.schema';
 import styles from './styles.module.scss';
 
 const PostNatalHistory = () => {
-    const { values, setValue, setValues } = useFormState();
-
     const [loader, setLoader] = useState(false);
 
-    const { mutate } = useAppMutation({
+    const mutation = useAppMutation({
         mutationFn: submitPostNatalHistory,
         setLoader,
         invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
     });
 
-    const { studentId } = useParams();
-
-    const searchParams = useSearchParams();
-
-    const formId = searchParams.get('formId');
-
-    const { data, isLoading, isFetching } = useGetCaseHistoryFormDetails({
-        studentId: studentId as string,
-        formId: formId ?? '',
+    const formHook = useAutoForm({
+        schema: postNatalSchema,
+        queryHook: useGetCaseHistoryFormDetails,
+        mutation,
     });
 
-    const { response } = data || {};
-
-    const percentage = useMemo(() => calculateCompletion(postNatalSchema, values), [values]);
-
-    const handleSubmit = () => {
-        mutate({
-            ...values,
-            studentId: studentId as string,
-            percentage: percentage?.toString(),
-        });
-    };
-
-    useEffect(() => {
-        if (response?.length) {
-            const mappedValues = mapApiToFormValues(postNatalSchema, response[0]);
-
-            setValues(mappedValues);
-        }
-    }, [response, setValues]);
-
-    return isLoading || isFetching ? (
-        <ShimmerUiContainer className={styles['accordion-shimmer']} />
-    ) : (
-        <DynamicForm
-            values={values}
-            setValue={setValue}
-            percentage={percentage}
-            schema={postNatalSchema}
-            onSubmit={handleSubmit}
-            loader={loader}
+    return (
+        <AutoForm
             className={styles.radioGroup}
+            schema={postNatalSchema}
+            formHook={formHook}
+            btnLoader={loader}
         />
     );
 };

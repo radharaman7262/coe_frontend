@@ -13,7 +13,9 @@ export const mapApiToFormValues = <T extends string>(
         if (field.type === 'checkbox') {
             // convert object → array
             if (typeof apiValue === 'object' && apiValue !== null) {
-                values[field.name] = Object.keys(apiValue).filter((key) => apiValue[key]);
+                values[field.name] = Object.keys(apiValue)
+                    .map((key) => apiValue[key])
+                    .filter((item) => item !== '');
             } else {
                 values[field.name] = apiValue || [];
             }

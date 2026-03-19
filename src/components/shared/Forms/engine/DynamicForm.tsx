@@ -25,15 +25,25 @@ const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicF
 
     return (
         <FormLayout percentage={percentage} onSubmit={handleSubmit} loader={loader}>
-            {schema?.map((field) => (
-                <FormField
-                    key={field.name}
-                    field={field}
-                    value={values[field.name]}
-                    onChange={setValue}
-                    className={className}
-                />
-            ))}
+            {schema?.map((field) => {
+                if (field.showWhen) {
+                    const dependentValue = values[field.showWhen.field];
+
+                    if (dependentValue !== field.showWhen.value) {
+                        return null;
+                    }
+                }
+
+                return (
+                    <FormField
+                        key={field.name}
+                        field={field}
+                        value={values[field.name]}
+                        onChange={setValue}
+                        className={className}
+                    />
+                );
+            })}
         </FormLayout>
     );
 };

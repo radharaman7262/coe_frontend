@@ -7,7 +7,7 @@ import { FontType } from '@/types/typographyCommon';
 import styles from '../styles.module.scss';
 import { FormSchemaField } from '../types/form.types';
 
-export type FieldValue = string;
+export type FieldValue = string | string[];
 
 export interface FormFieldProps<T extends string> {
     field: FormSchemaField<T>;
@@ -25,7 +25,7 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
             case 'number':
                 return (
                     <Input
-                        value={value || ''}
+                        value={(value as string) || ''}
                         placeholder={field.placeholder}
                         name={field.name}
                         onChange={(e) => onChange(field.name, e.target.value)}
@@ -48,21 +48,37 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
                     </div>
                 );
 
-            case 'checkbox':
+            case 'checkbox': {
+                const selectedValues = (value as string[]) || [];
+
+                const handleCheckboxChange = (optionValue: string) => {
+                    let updatedValues: string[];
+
+                    if (selectedValues.includes(optionValue)) {
+                        // remove
+                        updatedValues = selectedValues.filter((v) => v !== optionValue);
+                    } else {
+                        // add
+                        updatedValues = [...selectedValues, optionValue];
+                    }
+
+                    onChange(field.name, updatedValues);
+                };
                 return (
                     <div className={styles.checkboxGroup}>
                         {field.options?.map((option) => (
                             <Checkbox
                                 key={option.value}
                                 label={option.value}
-                                isChecked={value?.includes(option.value)}
+                                isChecked={value?.includes(option?.value as string)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
                                 // inputClassName={styles["input-className"]}
-                                onChange={() => {}}
+                                onChange={() => handleCheckboxChange(option.value)}
                             />
                         ))}
                     </div>
                 );
+            }
 
             default:
                 return null;

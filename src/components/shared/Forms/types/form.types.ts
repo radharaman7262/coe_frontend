@@ -3,8 +3,13 @@ export type FieldType = 'text' | 'number' | 'radio' | 'checkbox' | 'select';
 export interface OptionType {
     label: string;
     value: string;
-    key?:string;
+    key?: string;
 }
+
+export type ShowWhenCondition<T> = {
+    field: T;
+    value: string | number | boolean;
+};
 
 export type FormSchemaField<T extends string> =
     | {
@@ -14,6 +19,7 @@ export type FormSchemaField<T extends string> =
           placeholder?: string;
           options: OptionType[];
           required?: boolean;
+          showWhen?: ShowWhenCondition<T>;
       }
     | {
           name: T;
@@ -21,4 +27,5 @@ export type FormSchemaField<T extends string> =
           type: 'radio' | 'checkbox' | 'select';
           options: OptionType[];
           required?: boolean;
+          showWhen?: ShowWhenCondition<T>;
       };

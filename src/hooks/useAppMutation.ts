@@ -12,12 +12,10 @@ export const useAppMutation = <TBody = any, TResponse = any>({
     mutationFn,
     setLoader,
     invalidateKeys = [],
-    successMessage,
 }: {
     mutationFn: (body: TBody) => Promise<TResponse>;
     setLoader?: React.Dispatch<React.SetStateAction<boolean>>;
     invalidateKeys?: unknown[][];
-    successMessage?: string;
 }) => {
     const queryClient = useQueryClient();
 
@@ -29,9 +27,9 @@ export const useAppMutation = <TBody = any, TResponse = any>({
         },
 
         onSuccess(data: any) {
-            const { isSuccess, error } = data || {};
+            const { status, error } = data || {};
 
-            if (!isSuccess) {
+            if (!status) {
                 throw new Error(error);
             }
 
@@ -40,9 +38,7 @@ export const useAppMutation = <TBody = any, TResponse = any>({
                 queryClient.invalidateQueries({ queryKey: key });
             });
 
-            if (successMessage) {
-                showToast({ type: 'success', message: successMessage });
-            }
+            showToast({ type: 'success', message: 'Data submitted successfully' });
         },
 
         onError(error) {

@@ -1,23 +1,10 @@
-import callApi from '@/app/api/api';
+import { MedicalFormsType } from '@/app/(portals)/type';
+import { submitMedicalForms } from '@/app/(portals)/utils';
 
 import { SUBMIT_DIAGNOSIS_ENDPOINT } from '@/app/api/apiRoutes';
 
-import { HTTP_METHOD } from '@/types/common';
-
-import { getCookie } from '@/utils/cookieInServer';
-import { JWT_TOKEN } from '@/utils/cookieManager';
-
-export const submitDiagnosis = async (payload: Record<string, string | number>) => {
-    const body = { ...payload };
-
-    const authToken = await getCookie(JWT_TOKEN);
-
-    const response = await callApi({
-        method: HTTP_METHOD.POST,
-        url: `${SUBMIT_DIAGNOSIS_ENDPOINT}`,
-        headers: { Authorization: `Bearer ${authToken}` },
-        body,
+export const submitDiagnosis = async (payload: MedicalFormsType) =>
+    submitMedicalForms({
+        url: SUBMIT_DIAGNOSIS_ENDPOINT,
+        body: payload,
     });
-
-    return response;
-};

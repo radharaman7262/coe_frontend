@@ -55,12 +55,16 @@ export const MEDICAL_HISTORY_SCHEMA: FormSchemaField<MedicalHistoryFormKeys>[] =
         type: 'checkbox',
         required: true,
         options: [
-            { label: 'Autism', value: 'Autism' },
-            { label: 'ADHD', value: 'ADHD' },
-            { label: 'Intellectual Disability', value: 'Intellectual Disability' },
-            { label: 'Cerebral Palsy', value: 'Cerebral Palsy' },
-            { label: 'Hearing Loss', value: 'Hearing Loss' },
-            { label: 'Others', value: 'Others' },
+            { label: 'Autism', value: 'Autism', key: 'Autism' },
+            { label: 'ADHD', value: 'ADHD', key: 'ADHD' },
+            {
+                label: 'Intellectual Disability',
+                value: 'Intellectual Disability',
+                key: 'IntellectualDisability',
+            },
+            { label: 'Cerebral Palsy', value: 'Cerebral Palsy', key: 'CerebralPalsy' },
+            { label: 'Hearing Loss', value: 'Hearing Loss', key: 'HearingLoss' },
+            { label: 'Others', value: 'Others', key: 'Others' },
         ],
     },
 ];

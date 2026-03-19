@@ -1,8 +1,7 @@
 @use '@styles/theme' as *;
 
 .parental-birth-history {
-    display: flex;
-    flex-direction: column;
+    @include flex-center(column);
 }
 
 .form-wrapper {
@@ -43,12 +42,8 @@
 }
 
 .right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+    @include flex-center(row, center, center);
     background-color: #dbeafe;
     border-radius: 14px;
-    width: 60px;
-    height: 36px;
+    padding: 10px;
 }

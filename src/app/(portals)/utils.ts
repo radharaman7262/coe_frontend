@@ -7,6 +7,8 @@ import { ADMIN_LANGUAGE, FORM_LIST_API_URL } from '../api/apiRoutes';
 
 import callApi from '../api/api';
 
+import { MedicalFormsType } from './type';
+
 export const getLangugaeApiCall = async () => {
     const authToken = await getCookie(JWT_TOKEN);
 
@@ -27,4 +29,30 @@ export const getCaseHistorySidebarApiCall = async (id: string) => {
         headers: { Authorization: `Bearer ${authToken}` },
     });
     return response;
+};
+
+type ApiClientProps = {
+    url: string;
+    method?: HTTP_METHOD;
+    body: MedicalFormsType;
+    headers?: Record<string, string>;
+};
+
+export const submitMedicalForms = async ({
+    url,
+    method = HTTP_METHOD.POST,
+    body,
+    headers = {},
+}: ApiClientProps) => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    return callApi({
+        method,
+        url,
+        body,
+        headers: {
+            Authorization: `Bearer ${authToken}`,
+            ...headers,
+        },
+    });
 };

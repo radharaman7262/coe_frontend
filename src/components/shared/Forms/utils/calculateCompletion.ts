@@ -5,18 +5,30 @@ export const calculateCompletion = <T extends string>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     values: Record<T, any>,
 ): number => {
-    const requiredFields = schema.filter((field) => field.required);
+    let totalFields = 0;
+    let filledFields = 0;
 
-    const filledFields = requiredFields.filter((field) => {
-        const key = field.name as T;
-        const value = values[key];
+    schema.forEach((field) => {
+        // 🔥 Check if field should be considered
+        const isVisible = field.showWhen
+            ? values[field.showWhen.field] === field.showWhen.value
+            : true;
 
-        if (Array.isArray(value)) {
-            return value.length > 0;
-        }
+        if (!isVisible) return;
 
-        return value !== '' && value !== undefined && value !== null;
+        totalFields += 1;
+
+        const value = values[field.name];
+
+        const isFilled =
+            field.type === 'checkbox'
+                ? Array.isArray(value) && value.length > 0
+                : value !== undefined && value !== null && value !== '';
+
+        if (isFilled) filledFields += 1;
     });
 
-    return Math.round((filledFields.length / requiredFields.length) * 100);
+    if (totalFields === 0) return 0;
+
+    return Math.round((filledFields / totalFields) * 100);
 };

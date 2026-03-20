@@ -10,6 +10,8 @@ import CaseHistorySidebar from '@/components/shared/CaseHistorySidebar';
 
 import { useGetCaseHistorySidebarList } from '@/app/(portals)/queries';
 
+import { ShimmerUiContainer } from '@/components';
+
 import styles from './styles.module.scss';
 
 interface ClientLayoutProps {
@@ -23,7 +25,7 @@ const ClientLayout = (props: ClientLayoutProps) => {
 
     const { studentId } = searchParams;
 
-    const { data } = useGetCaseHistorySidebarList(studentId as string);
+    const { data, isLoading } = useGetCaseHistorySidebarList(studentId as string);
 
     const { response } = data || {};
 
@@ -31,10 +33,23 @@ const ClientLayout = (props: ClientLayoutProps) => {
 
     return (
         <div className={styles.layout}>
-            <CaseHeader />
+            {isLoading ? (
+                <ShimmerUiContainer className={styles['header-shimmer']} />
+            ) : (
+                <CaseHeader />
+            )}
+
             <div className={styles['lower-layout']}>
-                <CaseHistorySidebar totalProgress={overallPercentage} menuList={tree} />
-                {children}
+                {isLoading ? (
+                    <ShimmerUiContainer className={styles['sidebar-shimmer']} />
+                ) : (
+                    <CaseHistorySidebar totalProgress={overallPercentage} menuList={tree} />
+                )}
+                {isLoading ? (
+                    <ShimmerUiContainer className={styles['content-shimmer']} />
+                ) : (
+                    children
+                )}
             </div>
         </div>
     );

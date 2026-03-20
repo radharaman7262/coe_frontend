@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 export enum ChildInformationFormKeys {
     CHILD_NAME = 'childName',
     DOB = 'dob',
@@ -25,8 +27,18 @@ export enum ChildInformationFormKeys {
     CHIEF_COMPLAINTS = 'chiefComplaints',
 }
 
-export type ChildInformationFormType = {
-    [key in ChildInformationFormKeys]: string;
+type StringOnlyAdminStaffFormKeys = Exclude<
+    ChildInformationFormKeys,
+    ChildInformationFormKeys.DOB | ChildInformationFormKeys.VISIT_DATE
+>;
+
+type StringFieldMap = {
+    [key in StringOnlyAdminStaffFormKeys]: string;
+};
+
+export type ChildInformationFormType = StringFieldMap & {
+    [ChildInformationFormKeys.VISIT_DATE]: Dayjs | null;
+    [ChildInformationFormKeys.DOB]: Dayjs | null;
 };
 
 export type ChildInformationErrorMessagesType = {

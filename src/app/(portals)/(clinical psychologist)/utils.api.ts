@@ -9,6 +9,7 @@ import { HTTP_METHOD } from '@/types/common';
 
 import { getCookie } from '@/utils/cookieInServer';
 import { JWT_TOKEN } from '@/utils/cookieManager';
+import { ChildInformationFormType } from '@/types/childInformationType';
 
 export const getStudentDetail = async (id: string) => {
     const authToken = await getCookie(JWT_TOKEN);
@@ -22,7 +23,7 @@ export const getStudentDetail = async (id: string) => {
     return response;
 };
 
-export const submitChildInformation = async (body: Record<string, string>) => {
+export const submitChildInformation = async (body: ChildInformationFormType) => {
     const authToken = await getCookie(JWT_TOKEN);
 
     const response = await callApi({

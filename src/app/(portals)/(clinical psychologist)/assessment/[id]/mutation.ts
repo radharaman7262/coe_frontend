@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from '@tanstack/react-query';
 
 import { showToast } from '@/components/ui/Toaster/constant';
@@ -8,7 +9,14 @@ import { submitChildInformation } from '../../utils.api';
 
 export const useChildInformationSubmit = ({ setLoader }: { setLoader: (state: boolean) => void }) =>
     useMutation({
-        mutationFn: (body: Record<string, string>) => submitChildInformation(body),
+        mutationFn: (body: any) => submitChildInformation(body),
+        onSuccess: (data) => {
+            const { isSuccess, error } = data || {};
+
+            if (!isSuccess) {
+                throw new Error(error);
+            }
+        },
         onMutate() {
             setLoader(true);
         },

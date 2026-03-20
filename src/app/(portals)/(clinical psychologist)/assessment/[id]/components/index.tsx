@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import { AppRoutes } from '@/constant/appRoutes';
+import dayjs, { Dayjs } from 'dayjs';
 
 import { Input, Button, Text, TextArea, BasicDatePicker } from '@/components/index';
 
@@ -75,7 +76,7 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
         setFormData((prevValues) => ({
             ...prevValues,
             [ChildInformationFormKeys.CHILD_NAME]: studentDetail.studentName || '',
-            [ChildInformationFormKeys.DOB]: studentDetail.dob || '',
+            [ChildInformationFormKeys.DOB]: dayjs(studentDetail.dob),
             [ChildInformationFormKeys.GENDER]: studentDetail.gender || '',
             [ChildInformationFormKeys.ADDRESS]: '',
             [ChildInformationFormKeys.FATHER_NAME]: studentDetail.fatherName || '',
@@ -87,7 +88,7 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
             [ChildInformationFormKeys.MOTHER_OCCUPATION]: studentDetail.motherOccupation || '',
             [ChildInformationFormKeys.LANGUAGES]: '',
             [ChildInformationFormKeys.REFERRED_BY]: studentDetail.referredBy || '',
-            [ChildInformationFormKeys.VISIT_DATE]: studentDetail.dateOfVisit || '',
+            [ChildInformationFormKeys.VISIT_DATE]: dayjs(studentDetail.dateOfVisit) || '',
             [ChildInformationFormKeys.INFORMANT]: studentDetail.informantNameRelationship || '',
             [ChildInformationFormKeys.RELIABILITY]: studentDetail.reliabilityOfInformant || '',
             [ChildInformationFormKeys.PRECIPITATING_FACTORS]:
@@ -121,12 +122,24 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                         label={label}
                         name={name}
                         disable={isDisabled}
-                        value={formData[field.name as keyof ChildInformationFormType]}
+                        value={formData[field.name as keyof ChildInformationFormType] as string}
                         onChange={handleChange}
                     />
                 )}
 
-                {type === 'date' && <BasicDatePicker label={label} name={name} value={null} />}
+                {type === 'date' && (
+                    <BasicDatePicker
+                        label={label}
+                        name={name}
+                        value={formData[field.name as keyof ChildInformationFormType] as Dayjs}
+                        onChange={(date) => {
+                            setFormData((prev) => ({
+                                ...prev,
+                                [name]: date,
+                            }));
+                        }}
+                    />
+                )}
             </div>
         );
     };
@@ -139,6 +152,11 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
             [name]: value,
         }));
     };
+
+    const isFormValid = () =>
+        Object.values(formData).every(
+            (value) => value !== '' && value !== null && value !== undefined,
+        );
 
     const handleSubmit = () => {
         const payload = {
@@ -159,6 +177,7 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                 formData[ChildInformationFormKeys.PREPETUATING_FACTORS],
             [ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE]:
                 formData[ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE],
+            // [ChildInformationFormKeys.LANGUAGES]: formData[ChildInformationFormKeys.LANGUAGES],
         };
 
         mutate(payload, {
@@ -176,42 +195,49 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
 
     return (
         <div className={styles['child-information-container']}>
-            <div className={styles['child-information']}>
-                <Text
-                    tagType='h2'
-                    font={[FontType.text_xxl_semibold, FontType.text_xxl_semibold]}
-                    className={styles.heading}
-                >
-                    Child Information
-                </Text>
-                <div className={styles.container}>
-                    <div className={styles.form}>
-                        <div className={styles.formGrid}>{inputFields.map(renderField)}</div>
-                        <div>
-                            {textAreaFields.map((field) => (
-                                <div key={field.name} className={styles['input-container']}>
-                                    <Text
-                                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                                        color='text-idle'
-                                    >
-                                        {field.label}
-                                    </Text>
+            <div className={styles['form-scroll']}>
+                <div className={styles['child-information']}>
+                    <Text
+                        tagType='h2'
+                        font={[FontType.text_xxl_semibold, FontType.text_xxl_semibold]}
+                        className={styles.heading}
+                    >
+                        Child Information
+                    </Text>
+                    <div className={styles.container}>
+                        <div className={styles.form}>
+                            <div className={styles.formGrid}>{inputFields.map(renderField)}</div>
+                            <div>
+                                {textAreaFields.map((field) => (
+                                    <div key={field.name} className={styles['input-container']}>
+                                        <Text
+                                            font={[
+                                                FontType.text_sm_medium,
+                                                FontType.text_sm_medium,
+                                            ]}
+                                            color='text-idle'
+                                        >
+                                            {field.label}
+                                        </Text>
 
-                                    <TextArea
-                                        label={field.label}
-                                        name={field.name}
-                                        disable={Boolean(
-                                            studentDetail?.[
-                                                field.name as keyof typeof studentDetail
-                                            ],
-                                        )}
-                                        value={
-                                            formData[field.name as keyof ChildInformationFormType]
-                                        }
-                                        onChange={handleTextAreaChange}
-                                    />
-                                </div>
-                            ))}
+                                        <TextArea
+                                            label={field.label}
+                                            name={field.name}
+                                            disable={Boolean(
+                                                studentDetail?.[
+                                                    field.name as keyof typeof studentDetail
+                                                ],
+                                            )}
+                                            value={
+                                                formData[
+                                                    field.name as keyof ChildInformationFormType
+                                                ] as string
+                                            }
+                                            onChange={handleTextAreaChange}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -220,7 +246,7 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                 <Button
                     color='white'
                     label='Start Case Study →'
-                    disabled={loader}
+                    disabled={loader || isFormValid()}
                     loader={loader}
                     variant={ButtonVariant.SOLID}
                     onClick={handleSubmit}

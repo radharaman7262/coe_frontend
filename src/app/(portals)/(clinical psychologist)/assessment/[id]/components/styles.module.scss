@@ -1,6 +1,15 @@
 .child-information-container {
     width: 100%;
     background-color: #f9f9f9;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
 }
 
 .child-information {
@@ -74,6 +83,8 @@
     // margin-top: 40px;
     background-color: white;
     padding: 24px;
+    position: sticky;
+    bottom: 0;
 }
 
 .submitBtn {

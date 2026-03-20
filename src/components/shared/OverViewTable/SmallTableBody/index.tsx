@@ -3,6 +3,9 @@ import React from 'react';
 
 import { SmallTableHeaderType, TableDataType } from '@/types/TableType';
 import { DashboardOverviewData } from '@/app/(portals)/super-admin/dashboard/_components/CenterUserOverView/type';
+import { goalTrackerType, sessionLogType } from '@/app/(portals)/profile/[id]/_components/type';
+
+import cx from 'classnames';
 
 import { Text } from '@components/index';
 
@@ -12,20 +15,24 @@ import styles from './styles.module.scss';
 
 interface SmallTableBodyProps {
     columns: SmallTableHeaderType[];
-    data: TableDataType[] | DashboardOverviewData[];
+    data: TableDataType[] | DashboardOverviewData[] | goalTrackerType[] | sessionLogType[];
+    smallTableClass?: string;
+    headerClassName?: string;
+    headerBaseClass?: string;
 }
 
 const SmallTableBody = (props: SmallTableBodyProps) => {
-    const { columns, data } = props;
+    const { columns, data, headerClassName, headerBaseClass, smallTableClass } = props;
 
     return (
-        <div className={styles.table}>
-            {/* Columns */}
-            <div className={styles.rowHeader}>
+        <div className={cx(styles.table, smallTableClass)}>
+            <div className={cx(styles.rowHeader, headerClassName)}>
                 {columns.map((col, index) => (
                     <div
                         key={String(col.accessor)}
-                        className={index !== 0 ? styles['box-position-width'] : ''}
+                        className={cx(headerBaseClass, {
+                            [styles['box-position-width']]: index !== 0,
+                        })}
                     >
                         <Text
                             color='text-idle'
@@ -37,9 +44,8 @@ const SmallTableBody = (props: SmallTableBodyProps) => {
                 ))}
             </div>
 
-            {/* Rows */}
             {data.map((row: any) => (
-                <div key={row.id} className={styles.row}>
+                <div key={row.id} className={cx(styles.row, headerClassName)}>
                     {columns.map((col, index) => (
                         <div
                             key={String(col.accessor)}
@@ -60,7 +66,7 @@ const SmallTableBody = (props: SmallTableBodyProps) => {
                                         : [FontType.text_xs_regular, FontType.text_xs_regular]
                                 }
                             >
-                                {String(row[col.accessor])}
+                                {row[col.accessor] || 'N/A'}
                             </Text>
                         </div>
                     ))}

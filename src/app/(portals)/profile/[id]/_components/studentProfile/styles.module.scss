@@ -1,0 +1,58 @@
+@use '@styles/theme' as *;
+
+.student-wrapper {
+    background-color: $white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid $gray-300;
+    box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+    display: flex;
+    align-items: start;
+
+    .student-name {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .student-detail {
+        display: flex;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .student-specific-detail {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .big-hr {
+        height: 58px;
+        background-attachment: $gray-200;
+        margin-left: 240px;
+        margin-right: 20px;
+    }
+
+    .hr {
+        height: 36px;
+        background-color: $gray-200;
+    }
+
+    .detail-history-all {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .assigned-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 42px;
+    }
+
+    .assigned-educators {
+        padding: 8px 6px;
+        border-radius: 8px;
+        border: 1px solid #dbdbdb;
+    }
+}

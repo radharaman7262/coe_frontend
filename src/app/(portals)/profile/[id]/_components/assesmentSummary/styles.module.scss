@@ -1,0 +1,49 @@
+@use '@styles/theme' as *;
+
+.assesment-summary-container {
+    width: 50%;
+}
+
+.assesment-table-wrap {
+    background-color: $white;
+    border: 1px solid $gray-300;
+    border-radius: 8px;
+    height: 300px;
+    overflow-y: scroll;
+    box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+}
+
+.assessment-type {
+    display: flex;
+    gap: 8px;
+}
+
+.assessment-text-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.no-data {
+    @include flex-center(normal, center, center);
+    height: 120px;
+}
+
+.action-icon {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+}
+
+.header-className {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.headerBaseClass {
+    width: 100%;
+    word-wrap: unset;
+}
+
+.small-table-class {
+    padding: 20px;
+}

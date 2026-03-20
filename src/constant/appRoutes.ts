@@ -34,4 +34,8 @@ export enum AppRoutes {
     SPEECH_THERAPIST_INTERVENTION = 'speech-therapist/intervention',
 
     /** ASSESSMENT */
+    
+      /** Profile  */
+
+    //   PROFILE = 'profile'
 }

@@ -6,6 +6,7 @@ export const COLUMNS = [
     { header: 'Session with', accessor: 'sessionWith' },
     { header: 'Session Schedule', accessor: 'sessionSchedule' },
     { header: 'Session Status', accessor: 'sessionStatus' },
+    { header: 'Action', accessor: 'action' }, 
 ];
 
 export const TRACK_SESSION_TEXT = {

@@ -4,11 +4,16 @@ import React, { useMemo, useState } from 'react';
 
 import { PageHeader, ShimmerUiContainer } from '@/components/index';
 
+import { useRouter } from 'next/navigation';
+
 import { ToastContainer } from 'react-toastify';
 
 import { DEBOUNCE_SEARCH_TIME, StatusDataType, StatusNumber } from '@/constant/appConstants';
+import { AppRoutes } from '@/constant/appRoutes';
 
 import useDebounce from '@/utils/useDebounce';
+
+import ChevronRight from '@public/assets/svg/chevron-right.svg';
 
 import { TRACK_SESSION_TEXT as text, STATUS_LABEL_MAP as statusLabelMap } from './constant';
 
@@ -27,6 +32,8 @@ const TrackSessionPage = () => {
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
+    const router = useRouter();
+
     const { isLoading, data } = useGetTrackSessionList({
         page: currentPage,
         limit: 10,
@@ -37,6 +44,12 @@ const TrackSessionPage = () => {
     const { response } = data || {};
 
     const { limit, data: trackSessionResponse = [], total = 0 } = response || {};
+
+    const handleRedirection = (studentId?: string) => {
+        if (!studentId) return;
+
+        router.push(`/${AppRoutes.PROFILE}/${studentId}`);
+    };
 
     const getTrackSessionList = (results: TrackSessionType[] = []) =>
         results.map((item) => {
@@ -78,11 +91,24 @@ const TrackSessionPage = () => {
                 sessionStatus: (
                     <div className={styles[`status-${slotStatus}`] || ''}>{statusLabel}</div>
                 ),
+
+                action: (
+                    <div
+                        className={styles['action-btn']}
+                        role='button'
+                        tabIndex={0}
+                        onKeyDown={() => handleRedirection(studentId)}
+                        onClick={() => handleRedirection(studentId)}
+                    >
+                        <ChevronRight />
+                    </div>
+                ),
             };
         });
 
     const finalTrackSessionList = useMemo(
         () => getTrackSessionList(trackSessionResponse),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [trackSessionResponse],
     );
 

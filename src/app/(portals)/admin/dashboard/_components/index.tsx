@@ -6,9 +6,9 @@ import { UpcomingSessionListType } from './UpcomingSessions/type';
 import CardContainer from './CardContainer';
 import RecentActivity from './RecentActivity';
 import UpcomingSessions from './UpcomingSessions';
+import { DashboardActivityResponse } from './RecentActivity/type';
 
 import styles from './styles.module.scss';
-import { DashboardActivityResponse } from './RecentActivity/type';
 
 interface adminDashboardType {
     statsListData: StatsAdminListType;

@@ -1,0 +1,21 @@
+@use '@styles/theme' as *;
+
+.profile-page-wrapper {
+    background-color: $body-gray;
+
+    .profile-component {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px 40px;
+        height: calc(100vh - 60px);
+        overflow: scroll;
+    }
+
+    .assessment-remark {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: 20px;
+    }
+}

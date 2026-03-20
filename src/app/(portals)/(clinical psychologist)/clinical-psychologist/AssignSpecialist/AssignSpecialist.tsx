@@ -2,11 +2,9 @@
 
 import { Dispatch, SetStateAction } from 'react';
 
-import { Checkbox, ShimmerUiContainer, Text } from '@/components/index';
+import { Checkbox, ShimmerUiContainer, Text, Toaster } from '@/components/index';
 
 import { FontType } from '@/types/typographyCommon';
-
-import { getClientUserDetails } from '@/utils/cookieManager';
 
 import AssignedIcon from '@/public/assets/svg/assigned-icon.svg';
 import TickIcon from '@/public/assets/svg/tick-icon.svg';
@@ -43,22 +41,23 @@ const AssignSpecialist = (props: AssignSpecialistProps) => {
         search: '',
     });
 
-    const detail = getClientUserDetails();
-
-    const { id } = detail || {};
-
     const { data = [] } = response?.response || {};
 
-    const handleCheckBox = (userId: number, checked: boolean) => {
+    const handleCheckBox = (userId: string, specializationId: number, checked: boolean) => {
         if (checked) {
             setSelectedAssignments((prev) => {
                 // prevent duplicate
-                if (prev.some((item) => +item.toSpecializationId === userId)) return prev;
+                if (prev.some((item) => +item.toSpecializationId === specializationId)) return prev;
 
-                return [...prev, { toId: id, toSpecializationId: userId.toString() }];
+                return [
+                    ...prev,
+                    { toId: +userId, toSpecializationId: specializationId.toString() },
+                ];
             });
         } else {
-            setSelectedAssignments((prev) => prev.filter((item) => +item.toSpecializationId !== userId));
+            setSelectedAssignments((prev) =>
+                prev.filter((item) => +item.toSpecializationId !== specializationId),
+            );
         }
     };
 
@@ -105,9 +104,15 @@ const AssignSpecialist = (props: AssignSpecialistProps) => {
                             <div className={styles['select-specialist']}>
                                 <Checkbox
                                     isChecked={selectedAssignments.some(
-                                        (selected) => selected.toSpecializationId === item.userId,
+                                        (selected) => selected.toId === +item.userId,
                                     )}
-                                    onChange={(e) => handleCheckBox(Number(item.userId), e)}
+                                    onChange={(e) =>
+                                        handleCheckBox(
+                                            item.userId,
+                                            Number(item.specializations[0].specializationId),
+                                            e,
+                                        )
+                                    }
                                 />
                                 <div className={styles.leftSection}>
                                     <div className={styles.avatar}>{getInitials(item?.name)}</div>
@@ -149,6 +154,7 @@ const AssignSpecialist = (props: AssignSpecialistProps) => {
                         </div>
                     ))}
             </div>
+            <Toaster />
         </>
     );
 };

@@ -21,7 +21,9 @@ import styles from './styles.module.scss';
 const CaseHeader = () => {
     const [open, setOpen] = useState(false);
 
-    const pathName = usePathname();
+    const pathname = usePathname();
+
+    const basePath = pathname?.split('/')?.slice(0, -1)?.join('/') || '/';
 
     const detail = getStudentDetail();
 
@@ -69,7 +71,7 @@ const CaseHeader = () => {
                         </div>
                     </div>
                 </div>
-                {pathName === AppRoutes.ASSESSMENT_CASE_HISTORY && (
+                {basePath === `/${AppRoutes.ASSESSMENT_CASE_HISTORY}` && (
                     <Button
                         label='Assign'
                         variant={ButtonVariant.SOLID}

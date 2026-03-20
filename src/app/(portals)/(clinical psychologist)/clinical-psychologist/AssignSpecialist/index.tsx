@@ -5,6 +5,10 @@ import { useParams } from 'next/navigation';
 
 import { Button, Drawer, Text } from '@/components/index';
 
+import { showToast } from '@/components/ui/Toaster/constant';
+
+import { LOADING_TIME_DURATION } from '@/constant/appConstants';
+
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
@@ -40,7 +44,31 @@ const AssignSpecialistDrawer = (props: AssignSpecialistDrawerProps) => {
             assignments: selectedAssignments,
         };
 
-        mutate(payload);
+        mutate(payload, {
+            onSuccess(data) {
+                const { status, response } = data || {};
+
+                const { message } = response || {};
+
+                if (!status) {
+                    throw new Error(message);
+                }
+
+                setTimeout(() => {
+                    showToast({
+                        type: 'success',
+                        message,
+                    });
+                    setSelectedAssignments([]);
+                    handleClose();
+                }, LOADING_TIME_DURATION);
+            },
+            onError(error) {
+                const errorMessage = error instanceof Error ? error.message : String(error);
+
+                showToast({ type: 'error', message: errorMessage });
+            },
+        });
     };
 
     return (

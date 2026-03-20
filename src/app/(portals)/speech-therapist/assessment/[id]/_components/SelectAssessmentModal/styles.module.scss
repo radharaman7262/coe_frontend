@@ -1,0 +1,112 @@
+@use '@styles/theme' as *;
+
+.container {
+    // width: 100%;
+    // max-width: 1016px;
+    background: $white;
+    border-radius: 16px;
+    padding: 36px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 36px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 76px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow:
+        0 1px 3px 0 rgba(10, 13, 18, 0.1),
+        0 1px 2px 0 rgba(10, 13, 18, 0.06),
+        0 0 0 4px #f4ebff;
+    border-radius: 12px;
+    background: #f8f9fc;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        border-color: #7b61ff;
+        background: #f5f3ff;
+    }
+
+    &:has(.checkbox-input:checked) {
+        border-color: #7b61ff;
+        background: #f5f3ff;
+    }
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ede9fe;
+}
+
+.customCheckbox {
+    width: 18px;
+    height: 18px;
+}
+
+.customCheckIcon {
+    left: 2px;
+    top: 2px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.grid::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 10px;
+}
+
+.grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

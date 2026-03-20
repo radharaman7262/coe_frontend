@@ -140,6 +140,10 @@ const SPECIAL_EDUCATOR_MY_STUDENTS = `${API_URL}/ot/students`;
 const SPECIAL_EDUCATOR_ASSESSMENT_STUDENT_LIST = `${API_URL}/ot/students-assessment-list`;
 const SPECIAL_EDUCATOR_INTERVENTION = `${API_URL}/ot/students-goal-list`;
 
+const GET_SPECIAL_EDUCATOR_STUDENTS_DETAIL = `${API_URL}/special-educator/sec-student`;
+
+const SUBMIT_SPECIAL_EDUCATOR_STUDENTS_DETAIL = `${API_URL}/special-educator/sec-student-information`;
+
 /** Speech Therapist */
 const OT_API_URL = `${API_URL}/ot`;
 const SPEECH_THERAPIST_DASHBOARD_STATS = `${OT_API_URL}/stats`;
@@ -170,11 +174,24 @@ const ACTIVITY_OF_DAILY_LIVING_ENDPOINT = `${OT_API_URL}/activities-of-daily-liv
 const ASSISTIVE_DEVICE_ENDPOINT = `${OT_API_URL}/assistive-devices`;
 const SCHOOL_READINESS_ENDPOINT = `${OT_API_URL}/classroom-behaviour`;
 
+const GET_SPEECH_THERAPIST_STUDENTS_DETAIL_API_URL = `${API_URL}/special-educator/speech-student`;
+
+const SUBMIT_SPEECH_THERAPIST_STUDENT_DETAILS = `${API_URL}/special-educator/speech-student-information`;
+
+const GET_SELECT_ASSESSMENT_API = `${API_URL}/clinical-psychologist/form-list/therapist`;
+
+const POST_SELECT_ASSESSMENT_API = `${API_URL}/clinical-psychologist/form-select/therapist`;
+
 /** Occupational Therapist */
 
 const OCCUPATIONAL_THERAPIST_DASHBOARD_STATS = `${API_URL}/ot/stats`;
 const OCCUPATIONAL_THERAPIST_UPCOMING_SESSIONS = `${API_URL}/ot/upcoming-session`;
 const OCCUPATIONAL_THERAPIST_MY_STUDENTS = `${API_URL}/ot/students`;
+
+const GET_OCCUPATIONAL_THERAPIST_STUDENT_DETAILS_API_URL = `${API_URL}/special-educator/ot-student`;
+
+const SUBMIT_OT_STUDENT_INFORMATION = `${API_URL}/special-educator/ot-student-information`;
+
 /* Student Profile */
 
 const STUDENT_PERSONAL_DETAIL = `${API_URL}/students/`;
@@ -286,4 +303,12 @@ export {
     ACTIVITY_OF_DAILY_LIVING_ENDPOINT,
     ASSISTIVE_DEVICE_ENDPOINT,
     SCHOOL_READINESS_ENDPOINT,
+    GET_OCCUPATIONAL_THERAPIST_STUDENT_DETAILS_API_URL,
+    SUBMIT_OT_STUDENT_INFORMATION,
+    GET_SPECIAL_EDUCATOR_STUDENTS_DETAIL,
+    SUBMIT_SPECIAL_EDUCATOR_STUDENTS_DETAIL,
+    GET_SPEECH_THERAPIST_STUDENTS_DETAIL_API_URL,
+    SUBMIT_SPEECH_THERAPIST_STUDENT_DETAILS,
+    GET_SELECT_ASSESSMENT_API,
+    POST_SELECT_ASSESSMENT_API,
 };

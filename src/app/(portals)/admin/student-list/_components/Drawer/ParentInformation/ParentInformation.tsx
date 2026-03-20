@@ -51,6 +51,30 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
 
             value = value.replace(NO_LEADING_SPACES_REGEX, '');
 
+            if (field === ParentFormKeys.FATHERS_AGE || field === ParentFormKeys.MOTHERS_AGE) {
+                // allow only numbers
+                if (!/^\d*$/.test(value)) return;
+
+                // max 2 digits only
+                if (value.length > 2) return;
+
+                // must be exactly 2 digits
+                if (value.length !== 2) {
+                    setErrors((prev) => ({
+                        ...prev,
+                        [field]: 'Please enter valid age',
+                    }));
+                } else {
+                    setErrors((prev) => ({
+                        ...prev,
+                        [field]: '',
+                    }));
+                }
+
+                updateFormValue(field, value === '' ? null : Number(value));
+                return;
+            }
+
             const rule = VALIDATION_RULES[field];
             if (rule?.regex && value && !rule.regex.test(value)) {
                 return;
@@ -148,6 +172,8 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                             placeholder='Enter age'
                             value={formValues.fathersAge?.toString() ?? ''}
                             onChange={handleInputChange(ParentFormKeys.FATHERS_AGE)}
+                            error={Boolean(errors[ParentFormKeys.FATHERS_AGE])}
+                            helperText={errors[ParentFormKeys.FATHERS_AGE]}
                         />
                     </div>
                 </div>
@@ -226,6 +252,8 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                             placeholder='Enter age'
                             value={formValues.mothersAge?.toString() ?? ''}
                             onChange={handleInputChange(ParentFormKeys.MOTHERS_AGE)}
+                            error={Boolean(errors[ParentFormKeys.MOTHERS_AGE])}
+                            helperText={errors[ParentFormKeys.MOTHERS_AGE]}
                         />
                     </div>
                 </div>

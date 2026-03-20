@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Button, Text } from '@/components';
 
@@ -26,42 +26,64 @@ interface ParentPropsType {
     onAddStudent: () => void;
 }
 
-const Parent = ({ formValues, setFormValues, onBack, onclose, onAddStudent }: ParentPropsType) => (
-    <>
-        <div className={styles['drawer-header']}>
-            <div className={styles['drawer-header-left']}>
-                <Text font={[FontType.text_xl_bold, FontType.text_xl_bold]} color='gray-900'>
-                    {text.parentInformation}
-                </Text>
+const Parent = ({ formValues, setFormValues, onBack, onclose, onAddStudent }: ParentPropsType) => {
+    const isFormValid = useMemo(
+        () =>
+            !!formValues.fathersName?.trim() &&
+            !!formValues.fathersAge &&
+            !!formValues.fathersOccupation &&
+            !!formValues.fathersNo &&
+            !!formValues.mothersName?.trim() &&
+            !!formValues.mothersAge &&
+            !!formValues.mothersOccupation &&
+            !!formValues.mothersNo &&
+            !!formValues.language &&
+            !!formValues.familyType &&
+            !!formValues.siblingType,
+        [formValues],
+    );
 
-                <Text font={[FontType.text_sm_medium, FontType.text_sm_medium]} color='text-idle'>
-                    {text.step2of2}
-                </Text>
+    return (
+        <>
+            <div className={styles['drawer-header']}>
+                <div className={styles['drawer-header-left']}>
+                    <Text font={[FontType.text_xl_bold, FontType.text_xl_bold]} color='gray-900'>
+                        {text.parentInformation}
+                    </Text>
+
+                    <Text
+                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                        color='text-idle'
+                    >
+                        {text.step2of2}
+                    </Text>
+                </div>
+                <CrossIcon className={styles['cross-icon']} onClick={onclose} />
             </div>
-            <CrossIcon className={styles['cross-icon']} onClick={onclose} />
-        </div>
 
-        <div className={styles['drawer-body']}>
-            <ParentInformationData formValues={formValues} setFormValues={setFormValues} />
-        </div>
-
-        <div className={styles['drawer-bottom']}>
-            <div className={styles['bottom-wrapper']}>
-                <ButtonBaseIcon onClick={onBack} className={styles['buttonbase-class']} />
-
-                <Button
-                    label={BUTTON_TEXT.addStudent}
-                    type='button'
-                    variant={ButtonVariant.SOLID}
-                    color='white'
-                    font={[FontType.text_md_semibold, FontType.text_md_semibold]}
-                    className={styles['btn-class']}
-                    EndIcon={<RightIcon />}
-                    onClick={onAddStudent}
-                />
+            <div className={styles['drawer-body']}>
+                <ParentInformationData formValues={formValues} setFormValues={setFormValues} />
             </div>
-        </div>
-    </>
-);
+
+            <div className={styles['drawer-bottom']}>
+                <div className={styles['bottom-wrapper']}>
+                    <ButtonBaseIcon onClick={onBack} className={styles['buttonbase-class']} />
+
+                    <Button
+                        label={BUTTON_TEXT.addStudent}
+                        type='button'
+                        variant={ButtonVariant.SOLID}
+                        color='white'
+                        font={[FontType.text_md_semibold, FontType.text_md_semibold]}
+                        className={styles['btn-class']}
+                        EndIcon={<RightIcon />}
+                        onClick={onAddStudent}
+                        disabled={!isFormValid}
+                    />
+                </div>
+            </div>
+        </>
+    );
+};
 
 export default Parent;

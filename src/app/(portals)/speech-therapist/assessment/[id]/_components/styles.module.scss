@@ -1,0 +1,139 @@
+.containerMain {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f5f6f8;
+}
+
+.scrollArea {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    padding-bottom: 100px;
+}
+
+.wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.heading {
+    margin-bottom: 16px;
+}
+
+.card {
+    background: #fff;
+    padding: 28px 28px 56px 28px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.diagnosis {
+    display: flex;
+    flex-direction: column;
+}
+
+.diagnosis > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.full {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    align-items: center;
+}
+
+.informant {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    align-items: flex-start;
+}
+
+.otherInput {
+    margin-top: 24px;
+
+    input {
+        width: 100%;
+    }
+}
+
+.container-wrapper {
+    width: 582px;
+}
+
+.divider {
+    height: 1px;
+    background: #e5e7eb;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: Inter, sans-serif;
+        font-weight: 400;
+    }
+
+    input {
+        accent-color: #7b61ff;
+    }
+}
+
+.primaryGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 40px;
+}
+
+.diagnosisGrid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 30px 40px;
+}
+
+.diagnosisGrid label:nth-child(3) {
+    grid-column: 1;
+}
+
+.buttonWrapper {
+    background: #fff;
+    padding: 16px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

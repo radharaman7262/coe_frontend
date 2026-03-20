@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Button, Text } from '@/components';
 
@@ -24,38 +24,54 @@ interface ChildPropsType {
     onclose: () => void;
 }
 
-const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsType) => (
-    <>
-        <div className={styles['drawer-header']}>
-            <div className={styles['drawer-header-left']}>
-                <Text font={[FontType.text_xl_bold, FontType.text_xl_bold]} color='gray-900'>
-                    {text.childInformation}
-                </Text>
+const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsType) => {
+    const isFormValid = useMemo(
+        () =>
+            !!formValues.fullName?.trim() &&
+            !!formValues.gender &&
+            !!formValues.schoolType &&
+            !!formValues.difficultiesFaced?.trim(),
+        [formValues],
+    );
 
-                <Text font={[FontType.text_sm_medium, FontType.text_sm_medium]} color='text-idle'>
-                    {text.step1of2}
-                </Text>
+    return (
+        <>
+            <div className={styles['drawer-header']}>
+                <div className={styles['drawer-header-left']}>
+                    <Text font={[FontType.text_xl_bold, FontType.text_xl_bold]} color='gray-900'>
+                        {text.childInformation}
+                    </Text>
+
+                    <Text
+                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                        color='text-idle'
+                    >
+                        {text.step1of2}
+                    </Text>
+                </div>
+
+                <CrossIcon className={styles['cross-icon']} onClick={onclose} />
             </div>
-            <CrossIcon className={styles['cross-icon']} onClick={onclose} />
-        </div>
 
-        <div className={styles['drawer-body']}>
-            <ChildInformationData formValues={formValues} setFormValues={setFormValues} />
-        </div>
+            <div className={styles['drawer-body']}>
+                <ChildInformationData formValues={formValues} setFormValues={setFormValues} />
+            </div>
 
-        <div className={styles['drawer-bottom']}>
-            <Button
-                label={BUTTON_TEXT.continue}
-                type='button'
-                variant={ButtonVariant.SOLID}
-                color='white'
-                font={[FontType.text_md_semibold, FontType.text_md_semibold]}
-                className={styles['btn-class']}
-                EndIcon={<RightIcon />}
-                onClick={onContinue}
-            />
-        </div>
-    </>
-);
+            <div className={styles['drawer-bottom']}>
+                <Button
+                    label={BUTTON_TEXT.continue}
+                    type='button'
+                    variant={ButtonVariant.SOLID}
+                    color='white'
+                    font={[FontType.text_md_semibold, FontType.text_md_semibold]}
+                    className={styles['btn-class']}
+                    EndIcon={<RightIcon />}
+                    onClick={onContinue}
+                    disabled={!isFormValid}
+                />
+            </div>
+        </>
+    );
+};
 
 export default Child;

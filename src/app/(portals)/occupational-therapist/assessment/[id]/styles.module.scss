@@ -1,0 +1,12 @@
+@use '@styles/theme' as *;
+
+.page-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-part {
+    flex: 1;
+    overflow: hidden;
+}

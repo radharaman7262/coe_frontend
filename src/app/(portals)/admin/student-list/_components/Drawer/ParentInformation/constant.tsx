@@ -45,11 +45,11 @@ export const INITIAL_STATE: FormValues = {
 
 export const MAX_LENGTHS: Record<ParentFormKeys, number> = {
     [ParentFormKeys.FATHERS_NAME]: THIRTY_MAX_LENGTH,
-    [ParentFormKeys.FATHERS_AGE]: 0,
+    [ParentFormKeys.FATHERS_AGE]: 2,
     [ParentFormKeys.FATHERS_OCCUPATION]: 0,
     [ParentFormKeys.FATHERS_NUMBER]: TEN_MIN_LENGTH,
     [ParentFormKeys.MOTHERS_NAME]: THIRTY_MAX_LENGTH,
-    [ParentFormKeys.MOTHERS_AGE]: 0,
+    [ParentFormKeys.MOTHERS_AGE]: 2,
     [ParentFormKeys.MOTHERS_OCCUPATION]: 0,
     [ParentFormKeys.MOTHERS_NUMBER]: TEN_MIN_LENGTH,
     [ParentFormKeys.SIBLING_TYPE]: 0,
@@ -60,11 +60,11 @@ export const MAX_LENGTHS: Record<ParentFormKeys, number> = {
 
 export const MIN_LENGTHS: Record<ParentFormKeys, number> = {
     [ParentFormKeys.FATHERS_NAME]: THREE_MIN_LENGTH,
-    [ParentFormKeys.FATHERS_AGE]: 0,
+    [ParentFormKeys.FATHERS_AGE]: 2,
     [ParentFormKeys.FATHERS_OCCUPATION]: 0,
     [ParentFormKeys.FATHERS_NUMBER]: TEN_MIN_LENGTH,
     [ParentFormKeys.MOTHERS_NAME]: THREE_MIN_LENGTH,
-    [ParentFormKeys.MOTHERS_AGE]: 0,
+    [ParentFormKeys.MOTHERS_AGE]: 2,
     [ParentFormKeys.MOTHERS_OCCUPATION]: 0,
     [ParentFormKeys.MOTHERS_NUMBER]: TEN_MIN_LENGTH,
     [ParentFormKeys.SIBLING_TYPE]: 0,
@@ -109,5 +109,15 @@ export const VALIDATION_RULES: Partial<
         regex: MOBILE_INPUT_REGEX,
         required: true,
         errorMessage: ERROR_MESSAGES.mothersNo,
+    },
+    [ParentFormKeys.FATHERS_AGE]: {
+        regex: /^\d{0,2}$/,
+        required: true,
+        errorMessage: 'Please enter valid age',
+    },
+    [ParentFormKeys.MOTHERS_AGE]: {
+        regex: /^\d{0,2}$/,
+        required: true,
+        errorMessage: 'Please enter valid age',
     },
 };

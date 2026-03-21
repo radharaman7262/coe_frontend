@@ -1,0 +1,76 @@
+@use '@styles/theme' as *;
+
+.container {
+    background-color: $white;
+
+    .header {
+        @include flex-center(column, normal, flex-start);
+        padding: 12px 30px;
+        border-bottom: 1px solid $gray-250;
+    }
+
+    .modal-title {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .content-structure {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 20px 0px;
+        padding: 0px 30px;
+    }
+
+    .support-content {
+        display: flex;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .support-box {
+        width: 50%;
+    }
+
+    .accuracy-duration-box {
+        width: 25%;
+    }
+
+    .subgoal-design {
+        width: 130px;
+        min-width: 130px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1.5px solid $gray-300;
+        background: #faf5ff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .subgoal-hover {
+        border: 1px solid #8280ff;
+    }
+
+    .cross-icon {
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .add-more-scroll {
+        display: flex;
+        align-items: center;
+        overflow-y: scroll;
+        gap: 8px;
+    }
+
+    .btn-container {
+        padding: 12px 16px;
+        border-top: 1px solid $gray-250;
+        display: flex;
+        justify-content: end;
+    }
+}

@@ -146,9 +146,6 @@ const SUBMIT_SPECIAL_EDUCATOR_STUDENTS_DETAIL = `${API_URL}/special-educator/sec
 
 /** Speech Therapist */
 const OT_API_URL = `${API_URL}/ot`;
-const SPEECH_THERAPIST_DASHBOARD_STATS = `${OT_API_URL}/stats`;
-const SPEECH_THERAPIST_UPCOMING_SESSIONS = `${OT_API_URL}/upcoming-session`;
-const SPEECH_THERAPIST_MY_STUDENTS = `${OT_API_URL}/students`;
 const CHIEF_COMPLAINTS_OBSERVATIONS_ENDPOINT = `${OT_API_URL}/chief-complaints-observations`;
 const COMPLIANT_DETAIL_ANALYSIS_ENDPOINT = `${OT_API_URL}/chief-complaint-detail-analysis`;
 const GROSS_MOTOR_SKILLS_ENDPOINT = `${OT_API_URL}/gross-motor-skills`;
@@ -181,6 +178,10 @@ const SUBMIT_SPEECH_THERAPIST_STUDENT_DETAILS = `${API_URL}/special-educator/spe
 const GET_SELECT_ASSESSMENT_API = `${API_URL}/clinical-psychologist/form-list/therapist`;
 
 const POST_SELECT_ASSESSMENT_API = `${API_URL}/clinical-psychologist/form-select/therapist`;
+const SPEECH_THERAPIST_DASHBOARD_STATS = `${API_URL}/ot/stats`;
+const SPEECH_THERAPIST_UPCOMING_SESSIONS = `${API_URL}/ot/upcoming-session`;
+const SPEECH_THERAPIST_MY_STUDENTS = `${API_URL}/ot/students`;
+const SPEECH_THERAPIST_ASSIGN_BOOKING = `${API_URL}/speech-therapist/assign-session`;
 
 /** Occupational Therapist */
 
@@ -193,12 +194,17 @@ const GET_OCCUPATIONAL_THERAPIST_STUDENT_DETAILS_API_URL = `${API_URL}/special-e
 const SUBMIT_OT_STUDENT_INFORMATION = `${API_URL}/special-educator/ot-student-information`;
 
 /* Student Profile */
+const OCCUPATIONAL_THERAPIST_GET_DURATION = `${API_URL}/ot/get-duration-data`;
+const OCCUPATIONAL_THERAPIST_LEVEL_OF_SUPPORT = `${API_URL}/ot/get-level-data`;
 
+/* Student Profile */
 const STUDENT_PERSONAL_DETAIL = `${API_URL}/students/`;
 const STUDENT_ASSESMENT_DETAIL = `${STUDENT_PERSONAL_DETAIL}assessmentData/`;
 const STUDENT_REMARK_DETAIL = `${STUDENT_PERSONAL_DETAIL}remarks/`;
 const STUDENT_GOAL_SUBGOAL = `${STUDENT_PERSONAL_DETAIL}goals/`;
 const STUDENT_SESSION_LOG = `${STUDENT_PERSONAL_DETAIL}sessions/`;
+const CREATE_GOAL = `${API_URL}/ot/create-goal`;
+const GET_BOOKING_SLOT_TIME = `${API_URL}/speech-therapist/available-slot`;
 
 export {
     LOGIN_ENDPOINT,
@@ -311,4 +317,9 @@ export {
     SUBMIT_SPEECH_THERAPIST_STUDENT_DETAILS,
     GET_SELECT_ASSESSMENT_API,
     POST_SELECT_ASSESSMENT_API,
+    OCCUPATIONAL_THERAPIST_GET_DURATION,
+    OCCUPATIONAL_THERAPIST_LEVEL_OF_SUPPORT,
+    CREATE_GOAL,
+    GET_BOOKING_SLOT_TIME,
+    SPEECH_THERAPIST_ASSIGN_BOOKING,
 };

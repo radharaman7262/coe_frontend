@@ -20,7 +20,13 @@ import { PROFILE_HEADER_TEXT, QUICK_ACTIONS } from './constant';
 
 import styles from './styles.module.scss';
 
-const ProfileHeader = () => {
+interface profileHeaderType {
+    portal: string;
+}
+
+const ProfileHeader = (props: profileHeaderType) => {
+    const { portal } = props;
+
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
 
@@ -58,39 +64,41 @@ const ProfileHeader = () => {
                     {PROFILE_HEADER_TEXT.BACK}
                 </Text>
             </div>
-            <div className={styles['dropdown-wrapper']}>
-                <div
-                    className={styles['dropdown-container']}
-                    ref={dropdownRef}
-                    onClick={handleQuickAction}
-                    aria-hidden='true'
-                >
-                    <Text
-                        font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
-                        color='text-idle'
+            {portal !== 'clinicalChecking' ? (
+                <div className={styles['dropdown-wrapper']}>
+                    <div
+                        className={styles['dropdown-container']}
+                        ref={dropdownRef}
+                        onClick={handleQuickAction}
+                        aria-hidden='true'
                     >
-                        {PROFILE_HEADER_TEXT.QUICK_ACTIONS}
-                    </Text>
+                        <Text
+                            font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
+                            color='text-idle'
+                        >
+                            {PROFILE_HEADER_TEXT.QUICK_ACTIONS}
+                        </Text>
 
-                    <DownIcon />
-                </div>
-
-                {open && (
-                    <div className={styles['dropdown-menu']}>
-                        {QUICK_ACTIONS.map((item) => (
-                            <div key={item.id} className={styles['dropdown-item']}>
-                                {renderIcon(item.icon)}
-                                <Text
-                                    font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                                    color='text-idle'
-                                >
-                                    {item.label}
-                                </Text>
-                            </div>
-                        ))}
+                        <DownIcon />
                     </div>
-                )}
-            </div>
+
+                    {open && (
+                        <div className={styles['dropdown-menu']}>
+                            {QUICK_ACTIONS.map((item) => (
+                                <div key={item.id} className={styles['dropdown-item']}>
+                                    {renderIcon(item.icon)}
+                                    <Text
+                                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                                        color='text-idle'
+                                    >
+                                        {item.label}
+                                    </Text>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            ) : null}
         </div>
     );
 };

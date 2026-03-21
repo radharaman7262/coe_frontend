@@ -12,12 +12,10 @@ export const getSpecialEducatorInterventionListApiCall = async ({
     page,
     limit,
     search,
-    // status,
 }: {
     page: string | number;
     limit: string | number;
     search?: string;
-    // status: string;
 }) => {
     const authToken = await getCookie(JWT_TOKEN);
 

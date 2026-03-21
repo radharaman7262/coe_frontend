@@ -20,7 +20,7 @@ import {
 
 import { STUDENT_PROFILE_DATA } from './constant';
 
-const FetchProfilePage = async ({ id }: { id: string }) => {
+const FetchProfilePage = async ({ id, portal }: { id: string; portal: string }) => {
     const studentProfilePromise = await getStudentDetailApiCall(id);
     const studentAssesmentPromise = await getAssesmentsDetailApiCall(id);
     const studentRemarkPromise = await getRemarkDetailApiCall(id);
@@ -64,6 +64,8 @@ const FetchProfilePage = async ({ id }: { id: string }) => {
             studentRemarkList={studentRemarkList}
             studentGoalSubGoalList={studentGoalSubGoalList}
             studentSessionList={studentSessionList}
+            portal={portal}
+            id={id}
         />
     );
 };

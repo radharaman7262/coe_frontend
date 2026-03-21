@@ -35,6 +35,8 @@ export const FIFTY_MAX_LENGTH = 50;
 
 export const THREE_MIN_LENGTH = 3;
 
+export const FOUR_MIN_LENGTH = 4;
+
 export const TWO_MIN_LENGTH = 2;
 
 export enum StatusNumber {

@@ -8,6 +8,7 @@ export const useGetLanguageList = () =>
         queryKey: languageTypeKeys.getLanguageTypeList(),
         queryFn: () => getLangugaeApiCall(),
     });
+
 export const useGetCaseHistorySidebarList = (id: string) =>
     useQuery({
         queryKey: caseHistorySidebarKeys.getCaseHistorySidebarList(),

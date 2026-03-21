@@ -26,4 +26,7 @@ export enum QueryKeys {
     MY_STUDENT = 'myStudent',
     SPECIAL_EDUCATOR_ASSESSMENT = 'specialEducatorAssessment',
     SPECIAL_EDUCATOR_INTERVENTION = 'specialEducatorIntervention',
+    THERPIST_DURATION = 'therpistDuration',
+    LEVEL_OF_SUPPORT = 'levelOfSupport',
+    GET_BOOKING_SLOT = 'booking_slot',
 }

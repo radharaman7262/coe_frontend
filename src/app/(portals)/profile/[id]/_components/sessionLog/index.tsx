@@ -1,12 +1,16 @@
-import React, { useMemo } from 'react';
+'use client';
 
-import { SmallTableBody, Text } from '@/components/index';
-import { FontType } from '@/types/typographyCommon';
+import React, { useMemo, useState } from 'react';
+
+import { Button, SmallTableBody, Text } from '@/components/index';
+import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import { ZERO_DATA } from '@/constant/appConstants';
 
 import ViewMove from '@public/assets/svg/chevron-right.svg';
+import Calender from '@public/assets/svg/white-color.svg';
 
+import BookASessionModal from '@/app/(portals)/(modals)/BookSessionModal';
 import { COLUMNS } from './constant';
 
 import { sessionLogType } from '../type';
@@ -15,10 +19,18 @@ import styles from './styles.module.scss';
 
 interface sessionlogTableType {
     studentSessionList: sessionLogType[];
+    giveAccessToUser: boolean;
+    studentId: number;
 }
 
 const SessionLogTable = (props: sessionlogTableType) => {
-    const { studentSessionList } = props;
+    const { studentSessionList, giveAccessToUser, studentId } = props;
+
+    const [bookSessionModal, setBookSessionModal] = useState<boolean>(false);
+
+    const handleBookASession = () => {
+        setBookSessionModal(true);
+    };
 
     const getSessionLogList = (results: sessionLogType[]) => {
         const data = results?.map((item: sessionLogType) => ({
@@ -47,11 +59,30 @@ const SessionLogTable = (props: sessionlogTableType) => {
     const hasData = studentSessionList?.length > ZERO_DATA;
 
     return (
-        <div>
-            <div>
-                <Text font={[FontType.text_md_bold, FontType.text_md_bold]} color='black'>
-                    Session Log
-                </Text>
+        <>
+            {bookSessionModal && studentId && (
+                <BookASessionModal
+                    open={bookSessionModal}
+                    setGoalModal={setBookSessionModal}
+                    studentId={studentId}
+                />
+            )}
+            <div className={styles['title-header']}>
+                <div>
+                    <Text font={[FontType.text_md_bold, FontType.text_md_bold]} color='black'>
+                        Session Log
+                    </Text>
+                </div>
+                {giveAccessToUser && (
+                    <Button
+                        color='white'
+                        type='button'
+                        label='Book a Session'
+                        variant={ButtonVariant.SOLID}
+                        StartIcon={<Calender />}
+                        onClick={handleBookASession}
+                    />
+                )}
             </div>
 
             <div className={styles['assesment-table-wrap']}>
@@ -74,7 +105,7 @@ const SessionLogTable = (props: sessionlogTableType) => {
                     />
                 )}
             </div>
-        </div>
+        </>
     );
 };
 

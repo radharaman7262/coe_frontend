@@ -4,6 +4,8 @@ import ProfileHeader from './profileHeader';
 import StudentProfile from './studentProfile';
 import AssesmentSummary from './assesmentSummary';
 import RemarkAndNotes from './remarkAndNotes';
+import GoalsSubgoals from './goalsSubgoals';
+import SessionLogTable from './sessionLog';
 
 import {
     goalTrackerType,
@@ -14,8 +16,6 @@ import {
 } from './type';
 
 import styles from './styles.module.scss';
-import GoalsSubgoals from './goalsSubgoals';
-import SessionLogTable from './sessionLog';
 
 interface StudentPageComponentType {
     studentProfileList: studentPersonalType;
@@ -23,15 +23,26 @@ interface StudentPageComponentType {
     studentRemarkList: studentRemarkType[];
     studentGoalSubGoalList: goalTrackerType[];
     studentSessionList: sessionLogType[];
+    portal: string;
+    id: string;
 }
 
 const StudentComponentPage = (props: StudentPageComponentType) => {
-    const { studentProfileList, studentAssesmentList, studentRemarkList, studentGoalSubGoalList , studentSessionList } =
-        props;
+    const {
+        studentProfileList,
+        studentAssesmentList,
+        studentRemarkList,
+        studentGoalSubGoalList,
+        studentSessionList,
+        portal,
+        id,
+    } = props;
+
+    const giveAccessToUser = portal !== 'clinicalChecking';
 
     return (
         <div className={styles['profile-page-wrapper']}>
-            <ProfileHeader />
+            <ProfileHeader portal={portal} />
 
             <div className={styles['profile-component']}>
                 <StudentProfile studentProfileList={studentProfileList} />
@@ -41,9 +52,17 @@ const StudentComponentPage = (props: StudentPageComponentType) => {
                     <RemarkAndNotes studentRemarkList={studentRemarkList} />
                 </div>
 
-                <GoalsSubgoals studentGoalSubGoalList={studentGoalSubGoalList} />
+                <GoalsSubgoals
+                    studentGoalSubGoalList={studentGoalSubGoalList}
+                    giveAccessToUser={giveAccessToUser}
+                    studentId={Number(id)}
+                />
 
-                <SessionLogTable studentSessionList={studentSessionList} />
+                <SessionLogTable
+                    studentSessionList={studentSessionList}
+                    giveAccessToUser={giveAccessToUser}
+                    studentId={Number(id)}
+                />
             </div>
         </div>
     );

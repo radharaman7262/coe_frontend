@@ -1,5 +1,12 @@
 @use '@styles/theme' as *;
 
+.title-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
 .assesment-table-wrap {
     background-color: $white;
     border: 1px solid $gray-300;

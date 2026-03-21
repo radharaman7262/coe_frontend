@@ -6,6 +6,5 @@ export const specialEducatorInterventionListKeys = {
         page: string | number;
         limit: string | number;
         search: string;
-        // status: string;
     }) => [...specialEducatorInterventionListKeys.all, params] as const,
 };

@@ -1,5 +1,6 @@
 import React from 'react';
-import SpecialEducatorAssessmentPage from '../../specialist/assessment/_components';
+
+import SpecialEducatorAssessmentPage from '../../specialist/(specialist)/assessment/_components';
 
 const OccupationalTherapistAssessment = () => <SpecialEducatorAssessmentPage />;
 

@@ -51,7 +51,7 @@
 
 .body {
     max-height: 0;
-    overflow: hidden;
+    overflow-y: scroll;
     transition: all 0.25s ease;
     // padding: 0 20px;
 }

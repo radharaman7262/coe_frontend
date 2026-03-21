@@ -9,16 +9,38 @@ export const calculateCompletion = <T extends string>(
     let filledFields = 0;
 
     schema.forEach((field) => {
-        // 🔥 Check if field should be considered
         const isVisible = field.showWhen
             ? values[field.showWhen.field] === field.showWhen.value
             : true;
 
         if (!isVisible) return;
 
-        totalFields += 1;
-
         const value = values[field.name];
+
+        // 🔥 TABLE FIELD
+        if (field.type === 'table') {
+            const tableValue = (value as Record<string, Record<string, string | string[]>>) || {};
+
+            field.rows.forEach((section) => {
+                section.items.forEach((item) => {
+                    totalFields += 1;
+
+                    const row = tableValue[item.key] || {};
+
+                    // 🔥 define what "filled" means
+                    const isRowFilled = Object.values(row).some((v) =>
+                        Array.isArray(v) ? v.length > 0 : v !== undefined && v !== null && v !== '',
+                    );
+
+                    if (isRowFilled) filledFields += 1;
+                });
+            });
+
+            return;
+        }
+
+        // 🔥 NORMAL FIELD
+        totalFields += 1;
 
         const isFilled =
             field.type === 'checkbox'

@@ -10,7 +10,7 @@ export const isString = (item: any): item is string => typeof item === 'string';
  * @param {string} [selectValue] - select value is the value which you want to select and show in the dropdown.
  */
 
-export const getOptionLabel = <T>(option: T, selectValue: keyof T) => {
+export const getOptionLabel = <T>(option: T | string, selectValue: keyof T) => {
     if (isString(option)) {
         return option;
         // eslint-disable-next-line no-else-return

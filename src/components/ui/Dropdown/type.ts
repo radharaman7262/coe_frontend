@@ -8,7 +8,7 @@ export type DropdownProps<T> = {
     /**
      * value.
      */
-    value: T | T[] | null;
+    value: T | T[] | null | string;
     /**
      * selectValue props which we want to show as label.
      */

@@ -4,20 +4,26 @@ import { Input, Radio, Checkbox, Text } from '@/components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
-import styles from '../styles.module.scss';
 import { FormSchemaField } from '../types/form.types';
 
-export type FieldValue = string | string[];
+import styles from '../styles.module.scss';
+import TableField from './TableField';
 
-export interface FormFieldProps<T extends string> {
+export type TableValue = Record<string, Record<string, string | string[]>>;
+
+export type FieldValue = string | string[] | TableValue;
+
+export interface FormFieldProps<T extends string, TValue = FieldValue> {
     field: FormSchemaField<T>;
-    value: FieldValue;
-    onChange: (key: T, value: FieldValue) => void;
+    value: TValue;
+    onChange: (key: T, value: TValue) => void;
     className?: string;
+    formGridClassName?: string;
+    tableRowClassName?: string;
 }
 
 const FormField = <T extends string>(props: FormFieldProps<T>) => {
-    const { field, value, onChange, className } = props;
+    const { field, value, onChange, className, formGridClassName, tableRowClassName } = props;
 
     const renderField = () => {
         switch (field.type) {
@@ -70,7 +76,11 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
                             <Checkbox
                                 key={option.value}
                                 label={option.value}
-                                isChecked={value?.includes(option?.value as string)}
+                                isChecked={
+                                    Array.isArray(value)
+                                        ? value?.includes(option?.value as string)
+                                        : false
+                                }
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
                                 // inputClassName={styles["input-className"]}
                                 onChange={() => handleCheckboxChange(option.value)}
@@ -80,13 +90,23 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
                 );
             }
 
+            case 'table':
+                return (
+                    <TableField
+                        tableRowClassName={tableRowClassName}
+                        field={field}
+                        value={value}
+                        onChange={onChange}
+                    />
+                );
+
             default:
                 return null;
         }
     };
 
     return (
-        <div className={styles.formRow}>
+        <div className={cx(styles.formRow, formGridClassName)}>
             <Text
                 font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                 color='text-idle'

@@ -1,4 +1,4 @@
-export type FieldType = 'text' | 'number' | 'radio' | 'checkbox' | 'select';
+export type FieldType = 'text' | 'number' | 'radio' | 'checkbox' | 'select' | 'table';
 
 export interface OptionType {
     label: string;
@@ -11,21 +11,52 @@ export type ShowWhenCondition<T> = {
     value: string | number | boolean;
 };
 
-export type FormSchemaField<T extends string> =
-    | {
-          name: T;
-          label: string;
-          type: FieldType;
-          placeholder?: string;
-          options: OptionType[];
-          required?: boolean;
-          showWhen?: ShowWhenCondition<T>;
-      }
-    | {
-          name: T;
-          label: string;
-          type: 'radio' | 'checkbox' | 'select';
-          options: OptionType[];
-          required?: boolean;
-          showWhen?: ShowWhenCondition<T>;
-      };
+export type TableColumn = {
+    key: string;
+    label: string;
+    type?: 'text' | 'select' | 'radio' | 'checkbox';
+    options?: OptionType[];
+};
+
+export interface TableDropdownOptionType {
+    label: string;
+    value: string;
+}
+
+export type TableRowItem = {
+    key: string;
+    label: string;
+    options?: TableDropdownOptionType[];
+};
+
+export type TableSection = {
+    section: string;
+    sectionKey?: string;
+    items: TableRowItem[];
+};
+
+type BaseField<T extends string> = {
+    name: T;
+    label: string;
+    required?: boolean;
+    showWhen?: ShowWhenCondition<T>;
+};
+
+export type SimpleField<T extends string> = BaseField<T> & {
+    type: 'text' | 'number';
+    placeholder?: string;
+    options?: OptionType[];
+};
+
+export type OptionField<T extends string> = BaseField<T> & {
+    type: 'radio' | 'checkbox' | 'select';
+    options: OptionType[];
+};
+
+export type TableField<T extends string> = BaseField<T> & {
+    type: 'table';
+    columns: TableColumn[];
+    rows: TableSection[];
+};
+
+export type FormSchemaField<T extends string> = SimpleField<T> | OptionField<T> | TableField<T>;

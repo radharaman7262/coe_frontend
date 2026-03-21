@@ -20,8 +20,7 @@
         "check-lint": "eslint . --ext ts --ext tsx --ext js",
         "test-all": "yarn check-lint && yarn check-types && yarn build",
         "prepare": "husky install",
-        "pre-commit": "lint-staged",
-        "lint:styles": "stylelint \"**/*.{css,scss}\" --quiet",
+        "pre-commit": "lint-staged", 
         "lint": "eslint . --ext ts --ext tsx --ext js",
         "lint:styles:fix": "stylelint \"**/*.{css,scss}\" --fix"
     },

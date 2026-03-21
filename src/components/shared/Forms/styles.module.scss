@@ -47,3 +47,139 @@
     border-radius: 14px;
     padding: 10px;
 }
+
+.groupContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.groupSection {
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+
+.groupRow {
+    display: grid;
+    grid-template-columns: 200px 120px 1fr;
+    gap: 12px;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.label-container {
+    display: grid;
+    grid-template-columns: 222px 120px 1fr;
+}
+
+.tableContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* HEADER */
+.tableHeader {
+    display: grid;
+    grid-template-columns: 200px 120px 1fr;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.label-container {
+    display: grid;
+    grid-template-columns: 216px 125px 1fr;
+}
+
+/* SECTION (Shoulder, Elbow etc.) */
+.section {
+    margin-top: 12px;
+}
+
+.sectionTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827; // gray-900
+    margin-bottom: 8px;
+}
+
+/* ROW */
+.tableRow {
+    display: grid;
+    grid-template-columns: 200px 120px 1fr;
+    gap: 12px;
+    align-items: center;
+
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+/* FIRST COLUMN (Label) */
+.label {
+    font-size: 14px;
+    color: #374151; // gray-700
+}
+
+/* SELECT (Grade) */
+.select {
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    outline: none;
+    cursor: pointer;
+
+    &:focus {
+        border-color: #6366f1; // primary
+    }
+}
+
+/* INPUT (Comment) */
+.input {
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+        border-color: #6366f1;
+    }
+}
+
+.tableContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tableHeader {
+    display: grid;
+    grid-template-columns: 200px 120px 1fr;
+    gap: 12px;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.tableSection {
+    margin-top: 8px;
+}
+
+.sectionTitle {
+    margin-bottom: 8px;
+}
+
+.tableRow {
+    display: grid;
+    grid-template-columns: 200px 120px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.label {
+    color: #374151;
+}

@@ -1,7 +1,8 @@
 'use client';
 
 import { FormSchemaField } from '../types/form.types';
-import FormField from './FormField';
+
+import FormField, { TableValue } from './FormField';
 
 import FormLayout from './FormLayout';
 
@@ -9,15 +10,27 @@ import FormLayout from './FormLayout';
 export interface DynamicFormProps<T extends string, V extends Record<T, any>> {
     schema: FormSchemaField<T>[];
     values: V;
-    setValue: (key: T, value: string | number | boolean | string[]) => void;
+    setValue: (key: T, value: string | number | boolean | string[] | TableValue) => void;
     onSubmit: () => void;
     loader: boolean;
     percentage: number;
     className?: string;
+    formGridClassName?: string;
+    tableRowClassName?: string;
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicFormProps<T, V>) => {
-    const { schema, onSubmit, loader, percentage, values, setValue, className } = props;
+    const {
+        schema,
+        onSubmit,
+        loader,
+        percentage,
+        values,
+        setValue,
+        className,
+        formGridClassName,
+        tableRowClassName,
+    } = props;
 
     const handleSubmit = () => {
         onSubmit();
@@ -41,6 +54,8 @@ const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicF
                         value={values[field.name]}
                         onChange={setValue}
                         className={className}
+                        formGridClassName={formGridClassName}
+                        tableRowClassName={tableRowClassName}
                     />
                 );
             })}

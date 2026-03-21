@@ -11,6 +11,7 @@ import { mapApiToFormValues } from '@/utils/mapApiToFormValues';
 import { mapCheckboxArrayToObject } from '@/utils/mapCheckboxArrayToObject';
 
 import { UseMutationResult, UseQueryResult } from '@tanstack/react-query';
+import { mapTableToApi } from '@/utils/mapTableToApiPayload';
 
 export interface FormProps<T extends string> {
     schema: FormSchemaField<T>[];
@@ -56,11 +57,25 @@ export const useAutoForm = <T extends string>(props: FormProps<T>) => {
 
     // 🚀 SUBMIT
     const handleSubmit = () => {
-        const finalValues = { ...values };
+        let finalValues = { ...values };
 
         // handle checkbox array → object
         Object.keys(checkboxConfig).forEach((key) => {
             finalValues[key] = mapCheckboxArrayToObject(values[key] || [], checkboxConfig[key]);
+        });
+
+        schema.forEach((field) => {
+            if (field.type === 'table') {
+                const tablePayload = mapTableToApi(values[field.name], [field]);
+                // merge into root
+                finalValues = {
+                    ...finalValues,
+                    ...tablePayload,
+                };
+
+                // remove flat table value
+                delete finalValues[field.name];
+            }
         });
 
         mutation.mutate({

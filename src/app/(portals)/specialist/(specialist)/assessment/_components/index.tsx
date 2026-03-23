@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Button, PageHeader, ShimmerUiContainer, Text } from '@/components/index';
 
@@ -13,6 +14,7 @@ import { DEBOUNCE_SEARCH_TIME, StatusDataType, StatusNumber } from '@/constant/a
 import useDebounce from '@/utils/useDebounce';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
+import { AppRoutes } from '@/constant/appRoutes';
 import { ASSESSMENT_TEXT as text } from './constant';
 
 import { useGetSpecialEducatorAssessmentList } from '../queries';
@@ -29,6 +31,8 @@ const SpecialEducatorAssessmentPage = () => {
     const [statusFilter, setStatusFilter] = useState<StatusDataType | null>(null);
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
+
+    const router = useRouter();
 
     const { isLoading, data } = useGetSpecialEducatorAssessmentList({
         page: currentPage,
@@ -142,6 +146,11 @@ const SpecialEducatorAssessmentPage = () => {
                                     ? styles['btn-primary']
                                     : styles['btn-outline']
                             }
+                            onClick={()=>{
+                                if(sessionStatus !== "Pending"){
+                                    router.push(`/${AppRoutes.OCCUPATIONAL_THERAPIST_ASSESSMENT}/${item.studentId}`)
+                                }
+                            }}
                         />
                     ) : null,
 
@@ -151,6 +160,7 @@ const SpecialEducatorAssessmentPage = () => {
 
     const finalAssessmentList = useMemo(
         () => getSpecialEducatorAssessmentList(assessmentResponse),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [assessmentResponse],
     );
 

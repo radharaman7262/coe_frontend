@@ -51,7 +51,7 @@ const CaseHeader = () => {
                             color='white'
                             className={styles.avatar}
                         >
-                            {studentName?.charAt(0)}
+                            {studentName?.charAt(0) ?? 'U'}
                         </Text>
 
                         <div className={styles.info}>

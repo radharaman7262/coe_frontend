@@ -7,9 +7,6 @@ import { Checkbox, ShimmerUiContainer, Text, Toaster } from '@/components/index'
 import { FontType } from '@/types/typographyCommon';
 
 import AssignedIcon from '@/public/assets/svg/assigned-icon.svg';
-import TickIcon from '@/public/assets/svg/tick-icon.svg';
-
-import { DRAWER_DATA as text } from './constant';
 
 import { useGetAssignSpecialist } from './queries';
 
@@ -63,30 +60,6 @@ const AssignSpecialist = (props: AssignSpecialistProps) => {
 
     return (
         <>
-            <div className={styles.studentContainer}>
-                <div className={styles.leftPart}>
-                    <div className={styles.iconwrapper}>
-                        <TickIcon />
-                    </div>
-
-                    <div className={styles.textPart}>
-                        <Text
-                            font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
-                            color='gray-900'
-                        >
-                            {text.studentSuccessfullyAdded}
-                        </Text>
-
-                        <Text
-                            font={[FontType.text_sm_regular, FontType.text_sm_regular]}
-                            color='gray-900'
-                        >
-                            {text.studentAdded}
-                        </Text>
-                    </div>
-                </div>
-            </div>
-
             <div className={styles.psychologistContainer}>
                 {isLoading &&
                     SKELETON_KEYS.map((id) => (
@@ -135,7 +108,7 @@ const AssignSpecialist = (props: AssignSpecialistProps) => {
                                             ]}
                                             color='gray-500'
                                         >
-                                            Psychologist
+                                            {item?.specializations[0]?.specialization}
                                         </Text>
                                     </div>
                                 </div>

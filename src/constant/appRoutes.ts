@@ -13,6 +13,7 @@ export enum AppRoutes {
     DASHBOARD = 'clinical-psychologist/dashboard',
     ASSESSMENT_STUDENT_LIST = 'clinical-psychologist/assessment',
     TRACK_SESSION = 'clinical-psychologist/trackSession',
+    ASSESSMENT = 'assessment',
     PROFILE = 'profile',
 
     /** Specialist */
@@ -24,6 +25,7 @@ export enum AppRoutes {
     /** Occupational Therapist */
 
     OCCUPATIONAL_THERAPIST_DASHBOARD = 'occupational-therapist/dashboard',
+    OCCUPATIONAL_THERAPIST_ASSESSMENT_CHILD_INFO = 'occupational-therapist/assessment/child-info',
     OCCUPATIONAL_THERAPIST_ASSESSMENT = 'occupational-therapist/assessment',
     OCCUPATIONAL_THERAPIST_INTERVENTION = 'occupational-therapist/intervention',
 
@@ -38,6 +40,4 @@ export enum AppRoutes {
     /** Profile  */
 
     //   PROFILE = 'profile'
-
-    ASSESSMENT = 'assessment',
 }

@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { useParams, useRouter } from 'next/navigation';
 
-import { Input, Button, Text, TextArea, BasicDatePicker } from '@/components';
+import { Input, Button, Text, TextArea, BasicDatePicker, Toaster } from '@/components';
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import { OTFormKeys, OTFormType } from '@/types/OTchildInformationType';
 import { AppRoutes } from '@/constant/appRoutes';
+import { showToast } from '@/components/ui/Toaster/constant';
+import { LOADING_TIME_DURATION } from '@/constant/appConstants';
 import { INITIAL_STATE, inputFields, InputFieldType, textAreaFields } from './constant';
 
 import { useChildInformationSubmit } from '../mutation';
@@ -142,142 +144,159 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
                 modeOfAssessment: formData.modeOfAssessment,
             },
             {
-                onSuccess: () => {
-                    router.replace(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
+                onSuccess: (data) => {
+                    const { response } = data || {};
+                    const { success, message } = response || {};
+
+                    if (!success) {
+                        throw new Error(message);
+                    }
+                    showToast({
+                        type: 'success',
+                        message,
+                    });
+                    setTimeout(() => {
+                        router.replace(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
+                    }, LOADING_TIME_DURATION);
                 },
             },
         );
     };
 
     return (
-        <div className={styles.containerMain}>
-            <div className={styles.scrollArea}>
-                <div className={styles.wrapper}>
-                    <Text
-                        font={[FontType.text_xxl_semibold, FontType.text_xxl_semibold]}
-                        tagType='h2'
-                        className={styles.heading}
-                    >
-                        Child Information
-                    </Text>
+        <>
+            <div className={styles.containerMain}>
+                <div className={styles.scrollArea}>
+                    <div className={styles.wrapper}>
+                        <Text
+                            font={[FontType.text_xxl_semibold, FontType.text_xxl_semibold]}
+                            tagType='h2'
+                            className={styles.heading}
+                        >
+                            Child Information
+                        </Text>
 
-                    <div className={styles.card}>
-                        <div className={styles.form}>
-                            <div className={styles.grid}>
-                                {inputFields
-                                    .filter(
-                                        (f) =>
-                                            f.type !== 'radio' &&
-                                            f.name !== OTFormKeys.REFERRAL_SOURCE,
-                                    )
-                                    .map(renderField)}
-                            </div>
+                        <div className={styles.card}>
+                            <div className={styles.form}>
+                                <div className={styles.grid}>
+                                    {inputFields
+                                        .filter(
+                                            (f) =>
+                                                f.type !== 'radio' &&
+                                                f.name !== OTFormKeys.REFERRAL_SOURCE,
+                                        )
+                                        .map(renderField)}
+                                </div>
 
-                            <div className={styles.diagnosis}>
-                                {textAreaFields.map((field) => (
-                                    <div key={field.name}>
-                                        <Text
-                                            font={[
-                                                FontType.text_sm_medium,
-                                                FontType.text_sm_medium,
-                                            ]}
-                                            color='text-idle'
-                                        >
-                                            {field.label}
-                                        </Text>
-                                        <TextArea
-                                            name={field.name}
-                                            disable={Boolean(
-                                                studentDetail?.[
-                                                    field.name as keyof typeof studentDetail
-                                                ],
-                                            )}
-                                            value={
-                                                formData[field.name as keyof OTFormType] as string
-                                            }
-                                            onChange={handleTextAreaChange}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className={styles.divider} />
-
-                            <div className={styles.full}>
-                                <Text
-                                    font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                                    color='text-idle'
-                                >
-                                    {referralField?.label}
-                                </Text>
-                                {referralField && (
-                                    <Input
-                                        placeholder='Enter here'
-                                        name={referralField?.name}
-                                        value={formData.referralSource}
-                                        onChange={handleChange}
-                                    />
-                                )}
-                            </div>
-
-                            <div className={styles.divider} />
-
-                            <div className={styles.informant}>
-                                <Text
-                                    font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                                    color='text-idle'
-                                >
-                                    {informantField?.label}
-                                </Text>
-
-                                <div>
-                                    {informantField && renderRadioField(informantField)}
-
-                                    {formData.informant === 'Other' && (
-                                        <div className={styles.otherInput}>
-                                            <Input
-                                                placeholder='Enter here'
-                                                name='informantOther'
-                                                value={formData.informantOther || ''}
-                                                onChange={(e) =>
-                                                    setFormData((prev) => ({
-                                                        ...prev,
-                                                        informantOther: e.target.value,
-                                                    }))
+                                <div className={styles.diagnosis}>
+                                    {textAreaFields.map((field) => (
+                                        <div key={field.name}>
+                                            <Text
+                                                font={[
+                                                    FontType.text_sm_medium,
+                                                    FontType.text_sm_medium,
+                                                ]}
+                                                color='text-idle'
+                                            >
+                                                {field.label}
+                                            </Text>
+                                            <TextArea
+                                                name={field.name}
+                                                disable={Boolean(
+                                                    studentDetail?.[
+                                                        field.name as keyof typeof studentDetail
+                                                    ],
+                                                )}
+                                                value={
+                                                    formData[
+                                                        field.name as keyof OTFormType
+                                                    ] as string
                                                 }
+                                                onChange={handleTextAreaChange}
                                             />
                                         </div>
+                                    ))}
+                                </div>
+
+                                <div className={styles.divider} />
+
+                                <div className={styles.full}>
+                                    <Text
+                                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                                        color='text-idle'
+                                    >
+                                        {referralField?.label}
+                                    </Text>
+                                    {referralField && (
+                                        <Input
+                                            placeholder='Enter here'
+                                            name={referralField?.name}
+                                            value={formData.referralSource}
+                                            onChange={handleChange}
+                                        />
                                     )}
                                 </div>
-                            </div>
 
-                            <div className={styles.divider} />
+                                <div className={styles.divider} />
 
-                            <div className={styles.informant}>
-                                <Text
-                                    font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                                    color='text-idle'
-                                >
-                                    {modeField?.label}
-                                </Text>
-                                {modeField && renderRadioField(modeField)}
+                                <div className={styles.informant}>
+                                    <Text
+                                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                                        color='text-idle'
+                                    >
+                                        {informantField?.label}
+                                    </Text>
+
+                                    <div>
+                                        {informantField && renderRadioField(informantField)}
+
+                                        {formData.informant === 'Other' && (
+                                            <div className={styles.otherInput}>
+                                                <Input
+                                                    placeholder='Enter here'
+                                                    name='informantOther'
+                                                    value={formData.informantOther || ''}
+                                                    onChange={(e) =>
+                                                        setFormData((prev) => ({
+                                                            ...prev,
+                                                            informantOther: e.target.value,
+                                                        }))
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={styles.divider} />
+
+                                <div className={styles.informant}>
+                                    <Text
+                                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                                        color='text-idle'
+                                    >
+                                        {modeField?.label}
+                                    </Text>
+                                    {modeField && renderRadioField(modeField)}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className={styles.buttonWrapper}>
-                <Button
-                    label='Start Assessment →'
-                    color='white'
-                    variant={ButtonVariant.SOLID}
-                    disabled={loader || !isFormValid()}
-                    loader={loader}
-                    onClick={handleSubmit}
-                />
+                <div className={styles.buttonWrapper}>
+                    <Button
+                        label='Start Assessment →'
+                        color='white'
+                        variant={ButtonVariant.SOLID}
+                        disabled={loader || !isFormValid()}
+                        loader={loader}
+                        onClick={handleSubmit}
+                    />
+                </div>
             </div>
-        </div>
+            <Toaster />
+        </>
     );
 };
 

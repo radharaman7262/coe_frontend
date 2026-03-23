@@ -5,7 +5,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button, PageHeader, ShimmerUiContainer, Text } from '@/components/index';
-import { setStudentDetail } from '@/utils/cookieManager';
+import { getStudentDetail, setStudentDetail } from '@/utils/cookieManager';
 
 import { ToastContainer } from 'react-toastify';
 
@@ -19,6 +19,7 @@ import useClickOutside from '@/hooks/useClickOutside';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
+import { AppRoutes } from '@/constant/appRoutes';
 import { ASSESSMENT_TEXT as text, STATUS_LABEL_MAP as statusLabelMap } from './constant';
 
 import { useGetClinicalPsychologistAssessmentList } from '../queries';
@@ -159,7 +160,13 @@ const ClinicalPsychologistAssessmentPage = () => {
     );
 
     const handleClick = () => {
-        router.push('/assessment/23');
+        const details = getStudentDetail();
+
+        const userDetails = details ? JSON.parse(details) : {};
+
+        const { studentId } = userDetails || {};
+
+        router.push(`/${AppRoutes.ASSESSMENT}/${studentId}`);
     };
 
     return (

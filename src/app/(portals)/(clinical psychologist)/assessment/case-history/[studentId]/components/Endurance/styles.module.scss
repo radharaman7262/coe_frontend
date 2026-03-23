@@ -4,3 +4,7 @@
     //  display: flex;
     display: block;
 }
+
+.table-row {
+    grid-template-columns: 20% 80%;
+}

@@ -170,6 +170,7 @@ const SUBMIT_PLAY_SKILLS_ENDPOINT = `${OT_API_URL}/play-skills`;
 const ACTIVITY_OF_DAILY_LIVING_ENDPOINT = `${OT_API_URL}/activities-of-daily-living`;
 const ASSISTIVE_DEVICE_ENDPOINT = `${OT_API_URL}/assistive-devices`;
 const SCHOOL_READINESS_ENDPOINT = `${OT_API_URL}/classroom-behaviour`;
+const SENSORY_PROCESS_ENDPOINT = `${OT_API_URL}/sensory-processing`;
 
 const GET_SPEECH_THERAPIST_STUDENTS_DETAIL_API_URL = `${API_URL}/special-educator/speech-student`;
 
@@ -322,4 +323,5 @@ export {
     CREATE_GOAL,
     GET_BOOKING_SLOT_TIME,
     SPEECH_THERAPIST_ASSIGN_BOOKING,
+    SENSORY_PROCESS_ENDPOINT,
 };

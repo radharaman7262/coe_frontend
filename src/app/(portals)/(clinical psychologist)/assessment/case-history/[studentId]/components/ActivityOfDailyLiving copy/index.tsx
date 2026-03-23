@@ -11,39 +11,31 @@ import { useAutoForm } from '@/hooks/useAutoForm';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
-import { submitEndurance } from './utils.api';
+import { submitActivityOfDailyLiving } from './utils.api';
 
-import { ENDURANCE_SCHEMA } from '../schemas/enudrance.schema';
+import { ADL_SCHEMA } from '../schemas/activityOfDailyLiving.schema';
 
-import styles from './styles.module.scss';
+import { OPTIONS } from './constant';
 
-const Endurance = () => {
+const ActivityOfDailyLiving = () => {
     const [loader, setLoader] = useState(false);
 
     const mutation = useAppMutation({
-        mutationFn: submitEndurance,
+        mutationFn: submitActivityOfDailyLiving,
         setLoader,
         invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
     });
 
     const formHook = useAutoForm({
-        schema: ENDURANCE_SCHEMA,
+        schema: ADL_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
-        // checkboxConfig: {
-        //     selectedOptions: OPTIONS,
-        // },
+        checkboxConfig: {
+            general: OPTIONS,
+        },
     });
 
-    return (
-        <AutoForm
-            formGridClassName={styles['muscle-tone-form']}
-            tableRowClassName={styles['table-row']}
-            schema={ENDURANCE_SCHEMA}
-            formHook={formHook}
-            btnLoader={loader}
-        />
-    );
+    return <AutoForm schema={ADL_SCHEMA} formHook={formHook} btnLoader={loader} />;
 };
 
-export default Endurance;
+export default ActivityOfDailyLiving;

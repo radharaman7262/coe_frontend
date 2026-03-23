@@ -30,9 +30,6 @@ const ROM = () => {
         schema: ROM_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
-        // checkboxConfig: {
-        //     selectedOptions: OPTIONS,
-        // },
     });
 
     return (

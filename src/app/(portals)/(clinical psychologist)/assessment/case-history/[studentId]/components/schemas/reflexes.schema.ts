@@ -29,6 +29,7 @@ export const REFLEXES_SCHEMA: FormSchemaField<ReflexesFormKeys>[] = [
             // 🔹 Primitive Reflexes
             {
                 section: 'Primitive Reflexes',
+                sectionKey: 'primitive',
                 items: [
                     { key: 'moro', label: 'Moro Reflex' },
                     { key: 'rooting', label: 'Rooting Reflex' },
@@ -45,6 +46,7 @@ export const REFLEXES_SCHEMA: FormSchemaField<ReflexesFormKeys>[] = [
             // 🔹 Postural & Righting Reactions
             {
                 section: 'Postural & Righting Reactions',
+                sectionKey: 'postural',
                 items: [
                     { key: 'neckRighting', label: 'Neck Righting' },
                     { key: 'bodyRighting', label: 'Body Righting' },
@@ -56,6 +58,7 @@ export const REFLEXES_SCHEMA: FormSchemaField<ReflexesFormKeys>[] = [
             // 🔹 Deep Tendon Reflexes
             {
                 section: 'Deep Tendon Reflexes & Pathological Reflexes',
+                sectionKey: 'deepTendon',
                 items: [
                     { key: 'biceps', label: 'Biceps Reflex' },
                     { key: 'triceps', label: 'Triceps Reflex' },

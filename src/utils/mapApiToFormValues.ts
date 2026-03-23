@@ -26,7 +26,9 @@ export const mapApiToFormValues = <T extends string>(
 
             const tableResult: Record<string, any> = {};
 
-            const columnKeys = field.columns.map((col) => col.key).filter((key) => key !== 'label');
+            const columnKeys = field.columns
+                .map((col) => col.key)
+                .filter((key) => key !== 'label' && key !== 'joint' && key !== 'motion');
 
             Object.entries(keyMap).forEach(([rowKey, { section, key }]) => {
                 const data = apiData?.[section]?.[key];

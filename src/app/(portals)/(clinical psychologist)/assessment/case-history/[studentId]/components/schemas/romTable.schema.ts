@@ -12,7 +12,7 @@ export const ROM_SCHEMA: FormSchemaField<ROMFormKeys>[] = [
             { key: 'joint', label: 'Joint' },
             { key: 'motion', label: 'Motion' },
             {
-                key: 'grade',
+                key: 'wnl',
                 label: 'WNL/NA',
                 type: 'select',
                 options: [
@@ -27,11 +27,26 @@ export const ROM_SCHEMA: FormSchemaField<ROMFormKeys>[] = [
             },
         ],
 
+        // {
+        //         key: 'observed',
+        //         label: 'Observed (Yes/No)',
+        //         type: 'select',
+        //         options: [
+        //             { label: 'Yes', value: 'yes' },
+        //             { label: 'No', value: 'no' },
+        //         ],
+        //     },
+        //     {
+        //         key: 'comments',
+        //         label: 'Comments',
+        //         type: 'text',
+        //     },
+
         rows: [
             // 🔴 UPPER EXTREMITY
             {
                 section: 'Upper Extremity',
-                sectionKey: 'upperExtremity',
+                sectionKey: 'upperExtermity',
                 items: [
                     {
                         key: 'shoulderFlexion',
@@ -89,7 +104,7 @@ export const ROM_SCHEMA: FormSchemaField<ROMFormKeys>[] = [
             // 🔴 LOWER EXTREMITY
             {
                 section: 'Lower Extremity',
-                sectionKey: 'lowerExtremity',
+                sectionKey: 'lowerExterMity',
                 items: [
                     {
                         key: 'hipFlexion',

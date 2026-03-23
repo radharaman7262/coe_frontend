@@ -1,9 +1,5 @@
 export enum EnduranceFormKeys {
-    UPPER_LIMB = 'upperLimbEndurance',
-    LOWER_LIMB = 'lowerLimbEndurance',
-    SITTING = 'sittingEndurance',
-    STANDING = 'standingEndurance',
-    ACTIVITY_SPECIFIC = 'activitySpecificEndurance',
+    ENDURANCE = 'endurance',
 }
 
 export type EnduranceFormType = {

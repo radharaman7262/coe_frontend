@@ -10,6 +10,7 @@ export const USER_MENU_LIST = 'x_m_li';
 export const USER_ALLOWED_ROUTE = 'x_a_rou';
 export const FORM_ID = 'formId';
 export const STUDENT_DETAIL = 'studentDetail';
+const PARENT_ID = 'parnetFormId';
 
 export const USER_EMAIL = 'x-m';
 
@@ -63,6 +64,16 @@ const setFormId = (formId: string) => {
         path: '/',
     });
 };
+const setParentId = (id: string) => {
+    if (!id) {
+        return;
+    }
+
+    Cookies.set(PARENT_ID, id, {
+        expires: 1,
+        path: '/',
+    });
+};
 
 const getClientUserDetails = () => {
     const encrypted = Cookies.get(CLIENT_USER_DETAIL);
@@ -84,12 +95,19 @@ const getFormId = () => {
 
     return formId;
 };
+const getParentId = () => {
+    const parentId = Cookies.get(PARENT_ID);
+
+    return parentId;
+};
 
 const getStudentDetail = () => {
     const formId = Cookies.get(STUDENT_DETAIL);
 
     return formId;
 };
+
+const removeParentId = () => Cookies.remove(PARENT_ID)
 
 export {
     clearAllCookies,
@@ -100,4 +118,7 @@ export {
     getFormId,
     setStudentDetail,
     getStudentDetail,
+    getParentId,
+    setParentId,
+    removeParentId
 };

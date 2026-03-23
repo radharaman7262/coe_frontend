@@ -56,7 +56,6 @@ export const useAutoForm = <T extends string>(props: FormProps<T>) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response]);
 
-    // 🚀 SUBMIT
     const handleSubmit = () => {
         let finalValues = { ...values };
 

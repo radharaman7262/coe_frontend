@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { Dropdown, Input, Text } from '@components/index';
+import { Checkbox, Dropdown, Input, Text } from '@components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
@@ -16,11 +16,11 @@ interface TableFieldProps<T extends string> {
     value: FieldValue;
     onChange: (key: T, value: FieldValue) => void;
     tableRowClassName?: string;
-    dropdownClassName?:string;
+    dropdownClassName?: string;
 }
 
 const TableField = <T extends string>(props: TableFieldProps<T>) => {
-    const { field, value, onChange, tableRowClassName , dropdownClassName } = props;
+    const { field, value, onChange, tableRowClassName, dropdownClassName } = props;
 
     const tableValue = (value as Record<string, Record<string, string | string[]>>) || {};
 
@@ -85,6 +85,51 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
                                                 handleChange(item.key, col.key, e.target.value)
                                             }
                                         />
+                                    );
+                                }
+                                if (col.type === 'checkbox') {
+                                    const selectedValues = (value as string[]) || [];
+
+                                    const handleCheckboxChange = (optionValue: string) => {
+                                        let updatedValues: string[];
+
+                                        if (selectedValues.includes(optionValue)) {
+                                            // remove
+                                            updatedValues = selectedValues.filter(
+                                                (v) => v !== optionValue,
+                                            );
+                                        } else {
+                                            // add
+                                            updatedValues = [...selectedValues, optionValue];
+                                        }
+
+                                        onChange(field.name, updatedValues);
+                                    };
+
+                                    return (
+                                        <div className={styles['checkbox-container']}>
+                                            {item.options?.map((optionItem) => (
+                                                <Checkbox
+                                                    key={col.key}
+                                                    isChecked={
+                                                        Array.isArray(value)
+                                                            ? value?.includes(
+                                                                  optionItem?.value as string,
+                                                              )
+                                                            : false
+                                                    }
+                                                    labelFont={[
+                                                        FontType.text_sm_regular,
+                                                        FontType.text_sm_regular,
+                                                    ]}
+                                                    label={optionItem.label}
+                                                    labelColor='gray-900'
+                                                    onChange={() =>
+                                                        handleCheckboxChange(optionItem.value)
+                                                    }
+                                                />
+                                            ))}
+                                        </div>
                                     );
                                 }
 

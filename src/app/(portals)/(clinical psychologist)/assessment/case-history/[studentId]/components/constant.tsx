@@ -47,6 +47,13 @@ import Writing from './Writing';
 import FunctionalReading from './FunctionalReading';
 import ReadingSkills from './ReadingSkills';
 import MathematicalSkills from './MathematicalSkills';
+import BehavioralObservation from './BehavioralObservation';
+import DiagnosticFormulation from './DiagnosticFormulation';
+import ProvisionalDiagnosis from './ProvisionalDiagnosis';
+import FormalAndInformalTools from './FormalAndInformalTools';
+import DiagnosticImpression from './DiagnosticImpression';
+import Recommendation from './Recommendation';
+import MedicalDevelopmentalHistory from './MedicalDevelopmentalHistory';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '15': <PrenatalBirthHistory />,
@@ -96,4 +103,11 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '155': <FunctionalReading />,
     '156': <ReadingSkills />,
     '157': <MathematicalSkills />,
+    '158': <BehavioralObservation />,
+    '164': <DiagnosticFormulation />,
+    '166': <ProvisionalDiagnosis />,
+    '174': <FormalAndInformalTools />,
+    '175': <DiagnosticImpression />,
+    '176': <Recommendation />,
+    '168': <MedicalDevelopmentalHistory />,
 };

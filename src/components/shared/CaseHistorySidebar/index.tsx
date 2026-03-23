@@ -70,7 +70,7 @@ const CaseHistorySidebar = (props: CaseHistorySidebarProps) => {
 
                     <div className={styles.sectionList}>
                         {item.children.map((section, index) => (
-                            <CaseHistoryItem key={section.id} index={index} section={section} />
+                            <CaseHistoryItem parentId = {+item.id} key={section.id} index={index} section={section} />
                         ))}
                     </div>
                 </div>

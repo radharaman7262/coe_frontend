@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { languageTypeKeys } from '@/services/language';
-import { caseHistorySidebarKeys } from '@/services/caseHistorySidebarKeys';
+import { caseHistorySidebarKeys, caseHistorySpeechAssessmentKeys } from '@/services/caseHistorySidebarKeys';
 import { getCaseHistorySidebarApiCall, getLangugaeApiCall } from './utils';
+import { getSpeechTherapistSpeechLanguageAssessment } from './(clinical psychologist)/assessment/case-history/utils.api';
 
 export const useGetLanguageList = () =>
     useQuery({
@@ -13,4 +14,10 @@ export const useGetCaseHistorySidebarList = (id: string) =>
     useQuery({
         queryKey: caseHistorySidebarKeys.getCaseHistorySidebarList(),
         queryFn: () => getCaseHistorySidebarApiCall(id),
+    });
+
+export const useGetSpeechAssessmentSidebarList = (id: string) =>
+    useQuery({
+        queryKey: caseHistorySpeechAssessmentKeys.getCaseHistorySpeechAssessmentList(),
+        queryFn: () => getSpeechTherapistSpeechLanguageAssessment(id),
     });

@@ -11,31 +11,37 @@ import { useAutoForm } from '@/hooks/useAutoForm';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
-import { COGNITIVE_PERCEPTUAL_SCHEMA } from '../schemas/cognitiveAndPerceptual.schema';
+import { MEDICAL_DEVELOPMENTAL_HISTORY_SCHEMA } from '../schemas/medicalDevelopmental.schema';
 
-import { submitCognitiveAndPerceptualSkills } from './utils.api';
+import { submitMedicalDevelopmentalHistory } from './utils.api';
 
 import { OPTIONS } from './constant';
 
-const BehavioralSchema = () => {
+const MedicalDevelopmentalHistory = () => {
     const [loader, setLoader] = useState(false);
 
     const mutation = useAppMutation({
-        mutationFn: submitCognitiveAndPerceptualSkills,
+        mutationFn: submitMedicalDevelopmentalHistory,
         setLoader,
         invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
     });
 
     const formHook = useAutoForm({
-        schema: COGNITIVE_PERCEPTUAL_SCHEMA,
+        schema: MEDICAL_DEVELOPMENTAL_HISTORY_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
         checkboxConfig: {
-            selectedOptions: OPTIONS,
+            comorbidities: OPTIONS,
         },
     });
 
-    return <AutoForm schema={COGNITIVE_PERCEPTUAL_SCHEMA} formHook={formHook} btnLoader={loader} />;
+    return (
+        <AutoForm
+            schema={MEDICAL_DEVELOPMENTAL_HISTORY_SCHEMA}
+            formHook={formHook}
+            btnLoader={loader}
+        />
+    );
 };
 
-export default BehavioralSchema;
+export default MedicalDevelopmentalHistory;

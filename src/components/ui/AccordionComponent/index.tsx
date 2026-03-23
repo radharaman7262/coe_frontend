@@ -31,7 +31,9 @@ const AccordionComponent = ({ items, allowMultiple = false }: Props) => {
                 prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
             );
         } else {
-            router.replace(`${pathName}?id=${searchParams.get('id')}&formId=${id}`);
+            router.replace(
+                `${pathName}?id=${searchParams.get('id')}&sectionId=${searchParams.get('sectionId')}&formId=${id}`,
+            );
             setOpenItems((prev) => (prev.includes(id) ? [] : [id]));
         }
     };

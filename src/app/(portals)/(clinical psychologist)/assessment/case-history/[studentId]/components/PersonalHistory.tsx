@@ -10,15 +10,18 @@ import { COMPONENT_MAP } from './constant';
 interface PersonalHistoryProps {
     menuList: CaseHistoryResponse;
     menuId: string;
+    sectionId: string;
 }
 
 const PersonalHistory = (props: PersonalHistoryProps) => {
-    const { menuList, menuId } = props;
+    const { menuList, menuId, sectionId } = props;
 
-    const data = menuList?.[0]?.children?.find((item) => item.id === menuId);
+    const menu = menuList?.find((item) => item.id === sectionId);
+
+    const subMenu = menu?.children.find((item) => item.id === menuId);
 
     const menuData =
-        data?.children.map((item) => ({
+        subMenu?.children.map((item) => ({
             ...item,
             content: COMPONENT_MAP[item?.id as string],
             rightContent: (
@@ -27,6 +30,8 @@ const PersonalHistory = (props: PersonalHistoryProps) => {
                 </Text>
             ),
         })) || [];
+
+    //     console.log(menuData,'menuData')
 
     return <AccordionComponent items={menuData} />;
 };

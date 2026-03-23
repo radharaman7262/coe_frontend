@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 import { useParams } from 'next/navigation';
 
@@ -8,7 +8,9 @@ import CaseHeader from '@/components/shared/CaseHeader';
 
 import CaseHistorySidebar from '@/components/shared/CaseHistorySidebar';
 
-import { useGetCaseHistorySidebarList } from '@/app/(portals)/queries';
+import { useGetCaseHistorySidebarList, useGetSpeechAssessmentSidebarList } from '@/app/(portals)/queries';
+
+import { getClientUserDetails } from '@/utils/cookieManager';
 
 import { ShimmerUiContainer } from '@/components';
 
@@ -19,13 +21,31 @@ interface ClientLayoutProps {
 }
 
 const ClientLayout = (props: ClientLayoutProps) => {
+    const [specialization, setSpecialization] = useState<string>('');
     const { children } = props;
 
     const searchParams = useParams();
 
     const { studentId } = searchParams;
 
-    const { data, isLoading } = useGetCaseHistorySidebarList(studentId as string);
+    useEffect(() => {
+        const user = getClientUserDetails();
+
+        if (user) {
+            setSpecialization(user?.userSpecializations?.name || '');
+        }
+    }, []);
+
+    const isSpeechTherapist = specialization === 'Speech Therapist';
+
+    const { data: normaldata, isLoading: normalLoading } = useGetCaseHistorySidebarList(studentId as string);
+
+    const { data: speechtherapistdata, isLoading: speechLoading } = useGetSpeechAssessmentSidebarList(
+        studentId as string,
+    );
+
+    const data = isSpeechTherapist ? speechtherapistdata : normaldata;
+    const isLoading = isSpeechTherapist ? speechLoading : normalLoading;
 
     const { response } = data || {};
 

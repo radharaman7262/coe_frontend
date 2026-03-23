@@ -16,10 +16,11 @@ import styles from './styles.module.scss';
 type Props = {
     section: CaseHistoryItemType;
     index: number;
+    parentId:number;
 };
 
 const CaseHistoryItem = (props: Props) => {
-    const { section, index } = props;
+    const { section, index , parentId } = props;
 
     const router = useRouter();
 
@@ -29,7 +30,7 @@ const CaseHistoryItem = (props: Props) => {
     const id = searchParams.get('id');
 
     const handleClick = () => {
-        router.push(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${studentId}?id=${section.id}`);
+        router.push(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${studentId}?id=${section.id}&sectionId=${parentId}`);
     };
 
     return (

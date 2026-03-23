@@ -2,40 +2,41 @@
 
 import { useState } from 'react';
 
+import { useAppMutation } from '@/hooks/useAppMutation';
+
 import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
+
+import { useAutoForm } from '@/hooks/useAutoForm';
 
 import { QueryKeys } from '@/utils/queryKeys';
 
-import { useAppMutation } from '@/hooks/useAppMutation';
-import { useAutoForm } from '@/hooks/useAutoForm';
+import { RECOMMENDATION_SCHEMA } from '../schemas/recommendation.schema';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
-import { COGNITIVE_PERCEPTUAL_SCHEMA } from '../schemas/cognitiveAndPerceptual.schema';
-
-import { submitCognitiveAndPerceptualSkills } from './utils.api';
+import { submitRecommendation } from './utils.api';
 
 import { OPTIONS } from './constant';
 
-const BehavioralSchema = () => {
+const Recommendation = () => {
     const [loader, setLoader] = useState(false);
 
     const mutation = useAppMutation({
-        mutationFn: submitCognitiveAndPerceptualSkills,
+        mutationFn: submitRecommendation,
         setLoader,
         invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
     });
 
     const formHook = useAutoForm({
-        schema: COGNITIVE_PERCEPTUAL_SCHEMA,
+        schema: RECOMMENDATION_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
         checkboxConfig: {
-            selectedOptions: OPTIONS,
+            therapies: OPTIONS,
         },
     });
 
-    return <AutoForm schema={COGNITIVE_PERCEPTUAL_SCHEMA} formHook={formHook} btnLoader={loader} />;
+    return <AutoForm btnLoader={loader} schema={RECOMMENDATION_SCHEMA} formHook={formHook} />;
 };
 
-export default BehavioralSchema;
+export default Recommendation;

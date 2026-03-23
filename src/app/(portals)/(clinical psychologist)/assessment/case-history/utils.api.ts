@@ -1,6 +1,6 @@
 import callApi from '@/app/api/api';
 
-import { GET_CLINICAL_PSYCHOLOGIST_FORM_DETAILS, MAP_STUDENT_ENDPOINT } from '@/app/api/apiRoutes';
+import { GET_CLINICAL_PSYCHOLOGIST_FORM_DETAILS, MAP_STUDENT_ENDPOINT, SPEECH_THERAPIST_SPEECH_LANGUAGE_ASSESSMENT } from '@/app/api/apiRoutes';
 
 import { HTTP_METHOD } from '@/types/common';
 
@@ -34,3 +34,16 @@ export const mapStudentToSpecialist = async (body: any) => {
 
     return response;
 };
+
+export const getSpeechTherapistSpeechLanguageAssessment = async (id: string) => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.GET,
+        url: `${SPEECH_THERAPIST_SPEECH_LANGUAGE_ASSESSMENT}/${id}`,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+
+    return response;
+};
+

@@ -13,6 +13,7 @@ export enum QueryKeys {
     ADMIN_STAFF_MANAGEMENT = 'adminStaffManagement',
     LANGUAGE = 'language',
     CASE_HISTORY_SIDEBAR_MENU = 'caseHistorySidebarMenu',
+    CASE_HISTORY_SPEECH_ASSESSMENT = 'caseHistorySpeechAssessment',
     SCHOOL = 'school',
     GRADE = 'grade',
     PSYCHOLOGIST = 'psychologist',

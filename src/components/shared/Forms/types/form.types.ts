@@ -14,7 +14,7 @@ export type ShowWhenCondition<T> = {
 export type TableColumn = {
     key: string;
     label: string;
-    type?: 'text' | 'select' | 'radio' | 'checkbox';
+    type?: 'text' | 'select' | 'radio' | 'checkbox' | 'textArea';
     options?: OptionType[];
 };
 

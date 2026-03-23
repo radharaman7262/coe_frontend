@@ -6,26 +6,44 @@ import { FontType } from '@/types/typographyCommon';
 
 import { getCaseHistorySidebarApiCall } from '@/app/(portals)/utils';
 
+import { cookies } from 'next/headers';
+import { USER_DETAIL } from '@/utils/cookieManager';
 import PersonalHistory from './components/PersonalHistory';
 
 // import BottomNavbar from './components/BottomNavbar';
 
 import styles from './styles.module.scss';
 
+import { getSpeechTherapistSpeechLanguageAssessment } from '../utils.api';
+// import { TREE } from '@/constant/appConstants';
+
 const page = async ({
     params,
     searchParams,
 }: {
     params: Promise<{ studentId: string }>;
-    searchParams: Promise<{ id: string }>;
+    searchParams: Promise<{ id: string , sectionId:string }>;
 }) => {
     const { studentId } = await params;
 
-    const { id } = await searchParams;
+    const { id , sectionId } = await searchParams;
 
-    const caseHistorySidebarResponse = await getCaseHistorySidebarApiCall(studentId);
+    const cookieStore = cookies();
+    const userCookie = (await cookieStore).get(USER_DETAIL);
 
-    const { response } = caseHistorySidebarResponse || {};
+    const parsedUser = userCookie?.value ? JSON.parse(decodeURIComponent(userCookie.value)) : null;
+
+    const specializationName = parsedUser?.userSpecializations?.name;
+
+    let apiResponse;
+
+    if(specializationName === 'Speech Therapist') {
+        apiResponse = await getSpeechTherapistSpeechLanguageAssessment(studentId);
+    } else {
+        apiResponse = await getCaseHistorySidebarApiCall(studentId);
+    }
+
+    const { response } = apiResponse || {};
 
     const { tree } = response || {};
 
@@ -40,7 +58,7 @@ const page = async ({
                         Case History
                     </Text>
                 </div>
-                <PersonalHistory menuId={id} menuList={tree} />
+                <PersonalHistory sectionId={sectionId} menuId={id} menuList={tree} />
             </div>
             {/* <BottomNavbar /> */}
         </div>

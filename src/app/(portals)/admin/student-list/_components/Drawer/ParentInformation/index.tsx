@@ -24,9 +24,17 @@ interface ParentPropsType {
     onBack: () => void;
     onclose: () => void;
     onAddStudent: () => void;
+    errorMessage?: string;
 }
 
-const Parent = ({ formValues, setFormValues, onBack, onclose, onAddStudent }: ParentPropsType) => {
+const Parent = ({
+    formValues,
+    setFormValues,
+    onBack,
+    onclose,
+    onAddStudent,
+    errorMessage,
+}: ParentPropsType) => {
     const isFormValid = useMemo(
         () =>
             !!formValues.fathersName?.trim() &&
@@ -39,7 +47,8 @@ const Parent = ({ formValues, setFormValues, onBack, onclose, onAddStudent }: Pa
             !!formValues.mothersNo &&
             !!formValues.language &&
             !!formValues.familyType &&
-            !!formValues.siblingType,
+            !!formValues.siblingType &&
+            formValues.files.length > 0,
         [formValues],
     );
 
@@ -65,10 +74,11 @@ const Parent = ({ formValues, setFormValues, onBack, onclose, onAddStudent }: Pa
                 <ParentInformationData formValues={formValues} setFormValues={setFormValues} />
             </div>
 
+            {errorMessage && <div className={styles['error-message']}>{errorMessage}</div>}
+
             <div className={styles['drawer-bottom']}>
                 <div className={styles['bottom-wrapper']}>
                     <ButtonBaseIcon onClick={onBack} className={styles['buttonbase-class']} />
-
                     <Button
                         label={BUTTON_TEXT.addStudent}
                         type='button'

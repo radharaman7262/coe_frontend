@@ -19,7 +19,7 @@ interface PsychologistPropsType {
     selectedPsychologist: PsychologistType | null;
     setSelectedPsychologist: (p: PsychologistType) => void;
     onContinue: () => void;
-    onclose: () => void;
+    onclose: (fromPsychologist?: boolean) => void;
 }
 
 const Psychologist = ({
@@ -35,7 +35,7 @@ const Psychologist = ({
                     {text.assignPsychologist}
                 </Text>
             </div>
-            <CrossIcon className={styles['cross-icon']} onClick={onclose} />
+            <CrossIcon className={styles['cross-icon']} onClick={() => onclose(true)} />
         </div>
 
         <div className={styles['drawer-body']}>

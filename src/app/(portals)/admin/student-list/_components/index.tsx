@@ -29,6 +29,15 @@ const AdminStudentListPage = () => {
     const [tableFilter, setTableFilter] = useState<string>('');
     const [statusFilter, setStatusFilter] = useState<StatusDataType | null>(null);
 
+    const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
+    const [initialStep, setInitialStep] = useState<number>(1);
+
+    const handleAssignClick = (id: string) => {
+        setSelectedStudentId(id);
+        setInitialStep(3);
+        setOpenDrawer(true);
+    };
+
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
     const { isLoading, data } = useGetStudentList({
@@ -44,10 +53,20 @@ const AdminStudentListPage = () => {
 
     const getAdminStudentList = (results: studentDataType[] = []) =>
         results.map((item) => {
-            const { studentId, name, age, gender, sessionSchedule, sessionStatus } = item;
+            const {
+                studentId,
+                name,
+                age,
+                gender,
+                sessionSchedule,
+                sessionStatus,
+                assignedPsychologist,
+            } = item;
 
             const genderInitial = gender?.[0] ?? '';
             const statusLabel = statusLabelMap[sessionStatus] ?? 'Unknown';
+
+            const isAssigned = !!assignedPsychologist;
 
             return {
                 ...item,
@@ -56,13 +75,28 @@ const AdminStudentListPage = () => {
 
                 nameAgeGender: `${name} (${age} / ${genderInitial})`,
 
-                sessionSchedule: sessionSchedule && (
+                sessionSchedule: sessionSchedule ? (
                     <div>
                         {sessionSchedule.date}
                         <div>
                             {sessionSchedule.startTime} - {sessionSchedule.endTime}
                         </div>
                     </div>
+                ) : (
+                    '--'
+                ),
+
+                assignedPsychologist: isAssigned ? (
+                    <span className={styles['assigned-name']}>{assignedPsychologist}</span>
+                ) : (
+                    <span
+                        className={styles['assign-btn']}
+                        onClick={() => handleAssignClick(studentId)}
+                        role='button'
+                        aria-hidden='true'
+                    >
+                        + Assign Psychologist
+                    </span>
                 ),
 
                 sessionStatus: (
@@ -71,7 +105,11 @@ const AdminStudentListPage = () => {
             };
         });
 
-    const finalStudentList = useMemo(() => getAdminStudentList(studentResponse), [studentResponse]);
+    const finalStudentList = useMemo(
+        () => getAdminStudentList(studentResponse),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [studentResponse],
+    );
 
     return (
         <>
@@ -98,9 +136,15 @@ const AdminStudentListPage = () => {
                 />
             )}
             {openDrawer && (
-                <StudentDrawerController openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+                <StudentDrawerController
+                    openDrawer={openDrawer}
+                    setOpenDrawer={setOpenDrawer}
+                    initialStep={initialStep}
+                    studentIdFromTable={selectedStudentId}
+                />
             )}
-            <ToastContainer />
+
+            <ToastContainer position='top-right' autoClose={3000} pauseOnHover />
         </>
     );
 };

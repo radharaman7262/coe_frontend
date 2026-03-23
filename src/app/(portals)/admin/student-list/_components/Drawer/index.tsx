@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Drawer } from '@mui/material';
 
 import Child from './ChildInformation';
@@ -18,6 +18,8 @@ import { PsychologistType } from './AssignPsychologist/type';
 interface Props {
     openDrawer: boolean;
     setOpenDrawer: (val: boolean) => void;
+    initialStep?: number;
+    studentIdFromTable?: string | null;
 }
 
 enum DrawerStep {
@@ -27,12 +29,21 @@ enum DrawerStep {
     SCHEDULE_SESSION = 4,
 }
 
-const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
-    const [step, setStep] = useState<DrawerStep>(DrawerStep.CHILD);
+const StudentDrawerController = ({
+    openDrawer,
+    setOpenDrawer,
+    initialStep,
+    studentIdFromTable,
+}: Props) => {
+    const [step, setStep] = useState<DrawerStep>(
+        initialStep ? (initialStep as DrawerStep) : DrawerStep.CHILD,
+    );
     const [childData, setChildData] = useState<ChildFormValues>(CHILD_INITIAL);
     const [parentData, setParentData] = useState<ParentFormValues>(PARENT_INITIAL);
 
-    const [studentId, setStudentId] = useState<string | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string>('');
+
+    const [studentId, setStudentId] = useState<string | null>(studentIdFromTable || null);
     const [selectedPsychologist, setSelectedPsychologist] = useState<PsychologistType | null>(null);
 
     const { mutate: addStudent } = useAddStudentMutation();
@@ -70,20 +81,43 @@ const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
                 if (result?.status) {
                     setStudentId(result?.response?.studentId);
                     setStep(DrawerStep.PSYCHOLOGIST);
+                    setErrorMessage('');
+                } else {
+                    setErrorMessage(result?.message || 'something went wrong');
                 }
             },
             onError: (error: ApiError) => {
-                console.error('Failed to add student:', error);
+                const errorMessage =
+                    error?.response?.data?.message || error?.message || 'Something went wrong';
+
+                setErrorMessage(errorMessage);
             },
         });
     };
 
-    const handleClose = () => {
+    const handleClose = (fromPsychologist?: boolean) => {
         setOpenDrawer(false);
+
+        if (fromPsychologist && studentId) {
+            return;
+        }
+
         setStep(DrawerStep.CHILD);
         setStudentId(null);
         setSelectedPsychologist(null);
     };
+
+    useEffect(() => {
+        if (openDrawer) {
+            if (initialStep) {
+                setStep(initialStep as DrawerStep);
+            }
+
+            if (studentIdFromTable) {
+                setStudentId(studentIdFromTable);
+            }
+        }
+    }, [openDrawer, initialStep, studentIdFromTable]);
 
     return (
         <Drawer
@@ -113,6 +147,7 @@ const StudentDrawerController = ({ openDrawer, setOpenDrawer }: Props) => {
                     onBack={() => setStep(DrawerStep.CHILD)}
                     onclose={handleClose}
                     onAddStudent={handleAddStudent}
+                    errorMessage={errorMessage}
                 />
             )}
 

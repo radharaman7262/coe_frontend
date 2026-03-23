@@ -52,13 +52,10 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
             value = value.replace(NO_LEADING_SPACES_REGEX, '');
 
             if (field === ParentFormKeys.FATHERS_AGE || field === ParentFormKeys.MOTHERS_AGE) {
-                // allow only numbers
                 if (!/^\d*$/.test(value)) return;
 
-                // max 2 digits only
                 if (value.length > 2) return;
 
-                // must be exactly 2 digits
                 if (value.length !== 2) {
                     setErrors((prev) => ({
                         ...prev,

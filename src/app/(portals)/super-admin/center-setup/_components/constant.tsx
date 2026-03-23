@@ -2,9 +2,9 @@ export const COLUMNS = [
     { header: 'Center Detail', accessor: 'name' },
     { header: 'Full Address', accessor: 'address' },
     { header: 'Center Admin', accessor: 'centerAdmin' },
-    { header: 'Email', accessor: 'email' },
+    // { header: 'Email', accessor: 'email' },
     { header: 'Status', accessor: 'status' },
-    { header: 'Edit', accessor: 'edit' },
+    { header: 'Action', accessor: 'action' },
 ];
 
 export const NEW_CENTRE_TEXT = {

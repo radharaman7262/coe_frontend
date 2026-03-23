@@ -17,8 +17,13 @@ export const useUserRoleActions = ({
     const execute = async (payload: UserRoleMutationPayload) => {
         try {
             setLoader(true);
+            const response = await mutation.mutateAsync(payload);
 
-            await mutation.mutateAsync(payload);
+            const { status, message } = response || {};
+
+            if (!status) {
+                throw new Error(message);
+            }
 
             const messageMap = {
                 create: 'User Type Added Successfully',
@@ -40,11 +45,13 @@ export const useUserRoleActions = ({
 
             router.refresh();
         } catch (error) {
+            setShow(false);
             showToast({
                 type: 'error',
                 message: error instanceof Error ? error.message : String(error),
             });
         } finally {
+            setShow(false);
             setLoader(false);
         }
     };

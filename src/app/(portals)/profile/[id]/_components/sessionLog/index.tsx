@@ -65,6 +65,7 @@ const SessionLogTable = (props: sessionlogTableType) => {
                     open={bookSessionModal}
                     setGoalModal={setBookSessionModal}
                     studentId={studentId}
+                    sessionTypeId={2}
                 />
             )}
             <div className={styles['title-header']}>

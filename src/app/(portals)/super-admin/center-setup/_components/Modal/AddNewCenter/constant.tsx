@@ -1,4 +1,4 @@
-import { CENTER_NAME_REGEX, MOBILE_NUMBER_REGEX } from '@/utils/regex';
+import { ADDRESS_CODE_REGEX, CENTER_NAME_REGEX, MOBILE_NUMBER_REGEX } from '@/utils/regex';
 
 import { FIFTY_MAX_LENGTH, TEN_MIN_LENGTH, THIRTY_MAX_LENGTH } from '@/constant/appConstants';
 
@@ -51,7 +51,7 @@ export const VALIDATION_RULES = {
         errorMessage: ERROR_MESSAGES?.contactErrorDetail,
     },
     [CenterSetupFormKeys.ADDRESS]: {
-        regex: CENTER_NAME_REGEX,
+        regex: ADDRESS_CODE_REGEX,
         required: true,
         errorMessage: ERROR_MESSAGES?.addressErrorDetail,
     },

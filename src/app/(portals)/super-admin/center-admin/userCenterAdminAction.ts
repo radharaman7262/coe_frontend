@@ -59,6 +59,7 @@ export const useUserCenterAdminAction = ({
             });
         } finally {
             setLoader?.(false);
+            setShow(false);
         }
     };
 

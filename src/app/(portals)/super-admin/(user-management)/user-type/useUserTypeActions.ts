@@ -45,6 +45,7 @@ export const useUserTypeActions = ({
                 message: error instanceof Error ? error.message : String(error),
             });
         } finally {
+            setShow(false);
             setLoader(false);
         }
     };

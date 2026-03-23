@@ -258,6 +258,7 @@ const SpecialEducatorInterventionPage = () => {
                     setGoalModal={setBookASessionModal}
                     studentId={studentId}
                     setStudentId={setStudentId}
+                    sessionTypeId={2}
                 />
             )}
 

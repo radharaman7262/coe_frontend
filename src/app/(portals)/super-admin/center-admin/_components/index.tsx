@@ -93,7 +93,12 @@ const CenterAdminPage = () => {
     const getCenterAdminList = (results: getCenterAdminListType[]) => {
         const data = results?.map((item) => ({
             ...item,
-            fullName: `${item?.firstName} ${item?.lastName}`,
+            fullName: (
+                <div>
+                    <div>{`${item?.firstName || ''} ${item?.lastName || ''}`.trim()}</div>
+                    <div>{item?.email}</div>
+                </div>
+            ),
             roleName: <div className={styles['capsule-container']}>{item?.roleName}</div>,
             specialization: (
                 <div>

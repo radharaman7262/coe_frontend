@@ -1,9 +1,4 @@
-import {
-    FIFTY_MAX_LENGTH,
-    TEN_MIN_LENGTH,
-    THIRTY_MAX_LENGTH,
-    THREE_MIN_LENGTH,
-} from '@/constant/appConstants';
+import { FIFTY_MAX_LENGTH, THIRTY_MAX_LENGTH, THREE_MIN_LENGTH } from '@/constant/appConstants';
 import { USER_TYPE_REGEX } from '@/utils/regex';
 import { FormValues, MenuMasterFormKeys } from './type';
 
@@ -19,6 +14,7 @@ export const MENU_MASTER_TEXT = {
     isParent: 'Is Parent?',
     cancel: 'Cancel',
     addMenu: 'Add Menu',
+    editMenu: 'Edit Menu',
     chooseParentMenu: 'Choose parent Menu',
     selectParentMenu: 'Select Parent Menu',
 };
@@ -37,7 +33,7 @@ export const MAX_LENGTHS: Record<MenuMasterFormKeys, number> = {
     [MenuMasterFormKeys.MENU_NAME]: THIRTY_MAX_LENGTH,
     [MenuMasterFormKeys.MENU_URL]: FIFTY_MAX_LENGTH,
     [MenuMasterFormKeys.REMARKS]: FIFTY_MAX_LENGTH,
-    [MenuMasterFormKeys.PRIORITY]: TEN_MIN_LENGTH,
+    [MenuMasterFormKeys.PRIORITY]: THREE_MIN_LENGTH,
     [MenuMasterFormKeys.SELECTED_PARENT_MENU]: 0,
     [MenuMasterFormKeys.SEARCH_FILTER]: 0,
     [MenuMasterFormKeys.IS_PARENT]: 0,

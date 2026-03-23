@@ -27,10 +27,11 @@ interface boolkSessionModaltype {
     setGoalModal: React.Dispatch<React.SetStateAction<boolean>>;
     studentId: number;
     setStudentId?: React.Dispatch<React.SetStateAction<number | null>>;
+    sessionTypeId: number;
 }
 
 const BookASessionModal = (props: boolkSessionModaltype) => {
-    const { open, setGoalModal, studentId, setStudentId } = props;
+    const { open, setGoalModal, studentId, setStudentId, sessionTypeId } = props;
 
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [selectedSlots, setSelectedSlots] = useState<number[]>([]);
@@ -125,7 +126,7 @@ const BookASessionModal = (props: boolkSessionModaltype) => {
             goal: '',
             subGoal: '',
             toSpecializationId: Number(userSpecializations?.id),
-            sessionType: 2,
+            sessionType: sessionTypeId,
             userId: Number(id),
         };
 

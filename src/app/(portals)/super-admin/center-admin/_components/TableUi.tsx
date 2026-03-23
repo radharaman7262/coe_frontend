@@ -34,12 +34,16 @@ const TableUi = (props: tableUiProps) => {
         setCurrentPage(currentPage - 1);
     };
 
-    const handleSearchFilter = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        const { value } = event.target;
+    const handleClickOnCount = (page: number) => {
+        setCurrentPage(page);
+    };
 
-        setTableFilter(value);
+    const handleSearchFilter = ({
+        target: { value },
+    }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const formattedValue = value.replace(/^\s+/, '');
+
+        setTableFilter(formattedValue);
     };
 
     const handleClear = () => {
@@ -51,6 +55,7 @@ const TableUi = (props: tableUiProps) => {
             columns={constantColumns}
             data={data}
             currentPage={currentPage}
+            handleClickOnCount={handleClickOnCount}
             handleNextButton={handleNextButton}
             handlePreviousButton={handlePreviousButton}
             totalCount={totalCount}

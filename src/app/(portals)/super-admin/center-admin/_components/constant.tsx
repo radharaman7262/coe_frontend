@@ -2,7 +2,6 @@ export const COLUMNS = [
     { header: 'Name', accessor: 'fullName' },
     { header: 'Role', accessor: 'roleName' },
     { header: 'Phone no.', accessor: 'phone' },
-    { header: 'Email', accessor: 'email' },
     { header: 'Specialization', accessor: 'specialization' },
     { header: 'Assigned Center', accessor: 'centerName' },
     { header: 'Status', accessor: 'status' },

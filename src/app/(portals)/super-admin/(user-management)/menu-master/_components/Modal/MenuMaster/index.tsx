@@ -72,6 +72,10 @@ const MenuMasterModal = ({
 
             value = value.replace(NO_LEADING_SPACES_REGEX, '');
 
+            if (field === MenuMasterFormKeys.PRIORITY) {
+                value = value.replace(/[^0-9]/g, '');
+            }
+
             const rule = VALIDATION_RULES[field];
             if (rule?.regex && value && !rule.regex.test(value)) {
                 return;
@@ -254,10 +258,10 @@ const MenuMasterModal = ({
                         className={styles.button}
                     />
                     <Button
-                        label={text.addMenu}
+                        label={!isEditMode ? text.addMenu : text.editMenu}
                         variant={ButtonVariant.SOLID}
                         color='white'
-                        StartIcon={!isEditMode && <PlusIcon />}
+                        StartIcon={<PlusIcon />}
                         className={styles.button}
                         disabled={isCreateDisabled}
                         onClick={onSubmit}

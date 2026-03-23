@@ -93,7 +93,7 @@ const CenterSetupPage = () => {
                     />
                 </div>
             ),
-            edit: (
+            action: (
                 <EditIcon
                     onClick={() => {
                         handleEditModal(item);
@@ -103,8 +103,11 @@ const CenterSetupPage = () => {
             ),
             centerAdmin: (
                 <div>
-                    {item?.centerAdmin !== null ? (
-                        item?.centerAdmin
+                    {item?.centerAdmin ? (
+                        <div>
+                            <div>{item.centerAdmin}</div>
+                            <div>{item.email}</div>
+                        </div>
                     ) : (
                         <div
                             className={styles['assign-capsule-container']}
@@ -113,7 +116,7 @@ const CenterSetupPage = () => {
                             }}
                             aria-hidden='true'
                         >
-                            + Assigned Admin
+                            + Assign Admin
                         </div>
                     )}
                 </div>

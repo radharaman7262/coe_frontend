@@ -18,3 +18,5 @@ export const NAME_REGEX = /^(?=.{3,20}$)[A-Za-z]+(?: [A-Za-z]+)*$/;
 export const CENTER_NAME_REGEX = /^(?=.{3,30}$)[A-Za-z]+(?: [A-Za-z]+)*$/;
 
 export const UDISE_CODE_REGEX = /^\d{11}$/;
+
+export const ADDRESS_CODE_REGEX = /^[a-zA-Z0-9\s,./#'()-]{5,}$/;

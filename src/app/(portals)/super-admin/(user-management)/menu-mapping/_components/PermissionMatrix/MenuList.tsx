@@ -38,12 +38,13 @@ const MenuList = (props: MenuDataType) => {
         }));
     };
 
-    const handleSearchState = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        setSearchState(value);
+    const handleSearchState = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+        const formattedValue = value.replace(/^\s+/, '');
 
-        const filteredItems = menuList.filter((item) =>
-            item.name.toLowerCase().includes(value.toLowerCase()),
+        setSearchState(formattedValue);
+
+        const filteredItems = menuList.filter(({ name }) =>
+            (name ?? '').toLowerCase().includes(formattedValue.toLowerCase()),
         );
 
         setMenuListState(filteredItems);
@@ -101,18 +102,31 @@ const MenuList = (props: MenuDataType) => {
                     </Text>
 
                     <Text tagType='tbody'>
-                        {topLevelMenus.map((menu) => (
-                            <ListItem
-                                key={menu.id}
-                                menu={menu}
-                                subMenus={menuListState.filter((sub) => sub.parentId === menu.id)}
-                                roles={roles}
-                                isExpanded={expandedMenus[menu.id] || false}
-                                toggleSubMenus={() => toggleSubMenus(menu.id)}
-                                handleCheckBox={handleCheckBox}
-                            />
-                        ))}
+                        {topLevelMenus.length > 0 &&
+                            topLevelMenus.map((menu) => (
+                                <ListItem
+                                    key={menu.id}
+                                    menu={menu}
+                                    subMenus={menuListState.filter(
+                                        (sub) => sub.parentId === menu.id,
+                                    )}
+                                    roles={roles}
+                                    isExpanded={expandedMenus[menu.id] || false}
+                                    toggleSubMenus={() => toggleSubMenus(menu.id)}
+                                    handleCheckBox={handleCheckBox}
+                                />
+                            ))}
                     </Text>
+                    {topLevelMenus.length === 0 && (
+                        <div className={styles['no-data']}>
+                            <Text
+                                font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
+                                color='black'
+                            >
+                                No data Found
+                            </Text>
+                        </div>
+                    )}
                 </Text>
             </div>
             <Toaster />

@@ -15,6 +15,9 @@ import useDebounce from '@/utils/useDebounce';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 import { AppRoutes } from '@/constant/appRoutes';
+
+import BookASessionModal from '@/app/(portals)/(modals)/BookSessionModal';
+
 import { ASSESSMENT_TEXT as text } from './constant';
 
 import { useGetSpecialEducatorAssessmentList } from '../queries';
@@ -30,6 +33,9 @@ const SpecialEducatorAssessmentPage = () => {
     const [tableFilter, setTableFilter] = useState<string>('');
     const [statusFilter, setStatusFilter] = useState<StatusDataType | null>(null);
 
+    const [bookASessionModal, setBookASessionModal] = useState<boolean>(false);
+    const [studentId, setStudentId] = useState<number | null>(null);
+
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
     const router = useRouter();
@@ -44,6 +50,15 @@ const SpecialEducatorAssessmentPage = () => {
     const { response } = data || {};
 
     const { limit, data: assessmentResponse = [], total = 0 } = response || {};
+
+    const handleClickRedirection = (item: AssessmentStudentType) => {
+        if (item?.sessionStatus !== 'Pending') {
+            router.push(`/${AppRoutes.OCCUPATIONAL_THERAPIST_ASSESSMENT}/${item.studentId}`);
+        } else {
+            setBookASessionModal(true);
+            setStudentId(Number(item.studentId));
+        }
+    };
 
     const getSpecialEducatorAssessmentList = (results: AssessmentStudentType[] = []) =>
         results.map((item) => {
@@ -146,10 +161,8 @@ const SpecialEducatorAssessmentPage = () => {
                                     ? styles['btn-primary']
                                     : styles['btn-outline']
                             }
-                            onClick={()=>{
-                                if(sessionStatus !== "Pending"){
-                                    router.push(`/${AppRoutes.OCCUPATIONAL_THERAPIST_ASSESSMENT}/${item.studentId}`)
-                                }
+                            onClick={() => {
+                                handleClickRedirection(item);
                             }}
                         />
                     ) : null,
@@ -167,6 +180,16 @@ const SpecialEducatorAssessmentPage = () => {
     return (
         <>
             <PageHeader title={text.assessment} description={text.description} />
+
+            {bookASessionModal && studentId && (
+                <BookASessionModal
+                    open={bookASessionModal}
+                    setGoalModal={setBookASessionModal}
+                    studentId={studentId}
+                    setStudentId={setStudentId}
+                    sessionTypeId={StatusNumber.ACTIVE}
+                />
+            )}
 
             {isLoading ? (
                 <ShimmerUiContainer className={styles['shimmer-data']} />

@@ -53,12 +53,12 @@ const TableUi = ({
         setCurrentPage(page);
     };
 
-    const handleSearchFilter = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        const { value } = event.target;
+    const handleSearchFilter = ({
+        target: { value },
+    }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const formattedValue = value.replace(/^\s+/, '');
 
-        setTableFilter(value);
+        setTableFilter(formattedValue);
     };
 
     const handleClear = () => {

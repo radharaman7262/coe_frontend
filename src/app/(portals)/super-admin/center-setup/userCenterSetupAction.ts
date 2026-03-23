@@ -53,11 +53,13 @@ export const useUserCenterSetupActions = ({
                 setShow(false);
             }
         } catch (error) {
+            setShow(false);
             showToast({
                 type: 'error',
                 message: error instanceof Error ? error.message : String(error),
             });
         } finally {
+            setShow(false);
             setLoader?.(false);
         }
     };

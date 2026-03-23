@@ -139,7 +139,7 @@ const MenuMasterPage = () => {
                     menuLink: formValues.menuURL,
                     remarks: formValues.remarks,
                     priority: formValues.priority,
-                    parentId: formValues.selectedParentMenu?.id || null,
+                    parentId: formValues.selectedParentMenu?.id || '0',
                     isParent: formValues.selectedParentMenu ? '0' : '1',
                 },
             });
@@ -151,7 +151,7 @@ const MenuMasterPage = () => {
                     menuLink: formValues.menuURL,
                     remarks: formValues.remarks,
                     priority: formValues.priority,
-                    parentId: formValues.selectedParentMenu?.id || null,
+                    parentId: formValues.selectedParentMenu?.id || '0',
                     isParent: formValues.selectedParentMenu ? '0' : '1',
                 },
             });

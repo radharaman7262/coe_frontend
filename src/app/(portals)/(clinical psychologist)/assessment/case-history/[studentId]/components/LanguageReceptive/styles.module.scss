@@ -1,0 +1,15 @@
+@use '@styles/theme' as *;
+
+.muscle-tone-form {
+    //  display: flex;
+    display: block;
+}
+
+.table-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown {
+    width: 40%;
+}

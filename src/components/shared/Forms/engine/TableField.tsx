@@ -16,10 +16,11 @@ interface TableFieldProps<T extends string> {
     value: FieldValue;
     onChange: (key: T, value: FieldValue) => void;
     tableRowClassName?: string;
+    dropdownClassName?:string;
 }
 
 const TableField = <T extends string>(props: TableFieldProps<T>) => {
-    const { field, value, onChange, tableRowClassName } = props;
+    const { field, value, onChange, tableRowClassName , dropdownClassName } = props;
 
     const tableValue = (value as Record<string, Record<string, string | string[]>>) || {};
 
@@ -37,26 +38,6 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
         <div className={styles.tableContainer}>
             {field.rows?.map((section) => (
                 <div key={section.section} className={styles.tableSection}>
-                    {/* <div className={styles['label-container']}>
-                        <Text
-                            font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
-                            className={styles.sectionTitle}
-                        >
-                            {section.section}
-                        </Text>
-                        <Text
-                            font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
-                            className={styles.sectionTitle}
-                        >
-                            Grade
-                        </Text>
-                        <Text
-                            font={[FontType.text_sm_semibold, FontType.text_sm_semibold]}
-                            className={styles.sectionTitle}
-                        >
-                            Comment
-                        </Text>
-                    </div> */}
                     <div className={styles['label-container']}>
                         {field.columns.map((col) => (
                             <Text
@@ -85,6 +66,7 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
                                             isSearchable={false}
                                             selectValue='label'
                                             value={(cellValue as string) || null}
+                                            widthClassName={cx(dropdownClassName)}
                                             onChange={(val) =>
                                                 handleChange(item.key, col.key, val.value)
                                             }

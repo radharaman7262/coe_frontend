@@ -19,10 +19,11 @@ export interface AutoFormProps<T extends string> {
     className?: string;
     formGridClassName?: string;
     tableRowClassName?: string;
+    dropdownClassName?: string;
 }
 
 export const AutoForm = <T extends string>(props: AutoFormProps<T>) => {
-    const { schema, formHook, className, btnLoader, formGridClassName, tableRowClassName } = props;
+    const { schema, formHook, className, btnLoader, formGridClassName, tableRowClassName , dropdownClassName } = props;
 
     const { values, setValue, handleSubmit, isLoading, isFetching, percentage } = formHook;
 
@@ -42,6 +43,7 @@ export const AutoForm = <T extends string>(props: AutoFormProps<T>) => {
                 className={className}
                 formGridClassName={formGridClassName}
                 tableRowClassName={tableRowClassName}
+                dropdownClassName={dropdownClassName}
             />
             <Toaster />
         </>

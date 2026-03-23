@@ -9,7 +9,12 @@ import ThreeDotIcon from '@/public/assets/svg/trhee-dot.svg';
 
 import { ToastContainer } from 'react-toastify';
 
-import { DEBOUNCE_SEARCH_TIME, StatusDataType, StatusNumber } from '@/constant/appConstants';
+import {
+    DEBOUNCE_SEARCH_TIME,
+    SpecializationEnum,
+    StatusDataType,
+    StatusNumber,
+} from '@/constant/appConstants';
 
 import useDebounce from '@/utils/useDebounce';
 
@@ -17,6 +22,8 @@ import { ButtonVariant, FontType } from '@/types/typographyCommon';
 import { AppRoutes } from '@/constant/appRoutes';
 
 import BookASessionModal from '@/app/(portals)/(modals)/BookSessionModal';
+
+import { getClientUserDetails } from '@/utils/cookieManager';
 
 import { ASSESSMENT_TEXT as text } from './constant';
 
@@ -40,6 +47,12 @@ const SpecialEducatorAssessmentPage = () => {
 
     const router = useRouter();
 
+    const userDetail = getClientUserDetails();
+
+    const { userSpecializations } = userDetail || {};
+
+    const { name } = userSpecializations || {};
+
     const { isLoading, data } = useGetSpecialEducatorAssessmentList({
         page: currentPage,
         limit: 10,
@@ -53,7 +66,11 @@ const SpecialEducatorAssessmentPage = () => {
 
     const handleClickRedirection = (item: AssessmentStudentType) => {
         if (item?.sessionStatus !== 'Pending') {
-            router.push(`/${AppRoutes.OCCUPATIONAL_THERAPIST_ASSESSMENT}/${item.studentId}`);
+            if (name === SpecializationEnum.SPECIAL_EDUCATOR) {
+                router.push(`/${AppRoutes.SPECIALIST_ASSESSMENT}/${item.studentId}`);
+            } else {
+                router.push(`/${AppRoutes.OCCUPATIONAL_THERAPIST_ASSESSMENT}/${item.studentId}`);
+            }
         } else {
             setBookASessionModal(true);
             setStudentId(Number(item.studentId));

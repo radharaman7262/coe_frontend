@@ -17,6 +17,7 @@ export interface DynamicFormProps<T extends string, V extends Record<T, any>> {
     className?: string;
     formGridClassName?: string;
     tableRowClassName?: string;
+    dropdownClassName?: string;
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicFormProps<T, V>) => {
@@ -30,6 +31,7 @@ const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicF
         className,
         formGridClassName,
         tableRowClassName,
+        dropdownClassName,
     } = props;
 
     const handleSubmit = () => {
@@ -37,7 +39,7 @@ const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicF
     };
 
     return (
-        <FormLayout percentage={percentage} onSubmit={handleSubmit} loader={loader}>
+        <FormLayout percentage={percentage ?? 0} onSubmit={handleSubmit} loader={loader}>
             {schema?.map((field) => {
                 if (field.showWhen) {
                     const dependentValue = values[field.showWhen.field];
@@ -56,6 +58,7 @@ const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicF
                         className={className}
                         formGridClassName={formGridClassName}
                         tableRowClassName={tableRowClassName}
+                        dropdownClassName={dropdownClassName}
                     />
                 );
             })}

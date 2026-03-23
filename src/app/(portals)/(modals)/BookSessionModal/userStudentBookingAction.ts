@@ -42,7 +42,10 @@ export const useUserTherpistScheduleAction = ({
             });
 
             queryClient.invalidateQueries({
-                queryKey: [QueryKeys.SPECIAL_EDUCATOR_INTERVENTION],
+                queryKey: [
+                    QueryKeys.SPECIAL_EDUCATOR_INTERVENTION,
+                    QueryKeys.SPECIAL_EDUCATOR_ASSESSMENT,
+                ],
             });
         } catch (error) {
             showToast({

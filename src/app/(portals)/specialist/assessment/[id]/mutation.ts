@@ -10,13 +10,6 @@ import { submitSpecialEducatorChildInformation } from '../../utils.api';
 export const useChildInformationSubmit = ({ setLoader }: { setLoader: (state: boolean) => void }) =>
     useMutation({
         mutationFn: (body: any) => submitSpecialEducatorChildInformation(body),
-        onSuccess: (data) => {
-            const { isSuccess, error } = data || {};
-
-            if (!isSuccess) {
-                throw new Error(error);
-            }
-        },
         onMutate() {
             setLoader(true);
         },

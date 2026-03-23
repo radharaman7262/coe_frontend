@@ -40,6 +40,13 @@ import ActivityOfDailyLiving from './ActivityOfDailyLiving';
 import AssisstiveDevice from './AssisstiveDevice';
 import SchoolReadiness from './SchoolReadiness';
 import SensoryProcessing from './SensoryProcessing';
+import LanguageReceptive from './LanguageReceptive';
+import LanguageExpressive from './LanguageExpressive';
+import VisualPerception from './VisualPerception';
+import Writing from './Writing';
+import FunctionalReading from './FunctionalReading';
+import ReadingSkills from './ReadingSkills';
+import MathematicalSkills from './MathematicalSkills';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '15': <PrenatalBirthHistory />,
@@ -82,4 +89,11 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '148': <ActivityOfDailyLiving />,
     '149': <AssisstiveDevice />,
     '150': <SchoolReadiness />,
+    '151': <LanguageReceptive />,
+    '152': <LanguageExpressive />,
+    '153': <VisualPerception />,
+    '154': <Writing />,
+    '155': <FunctionalReading />,
+    '156': <ReadingSkills />,
+    '157': <MathematicalSkills />,
 };

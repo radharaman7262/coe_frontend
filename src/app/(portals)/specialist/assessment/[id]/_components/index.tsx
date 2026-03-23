@@ -129,10 +129,12 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
 
         mutate(payload, {
             onSuccess: (data) => {
-                const { status, error } = data || {};
+                const { response } = data || {};
 
-                if (!status) {
-                    throw new Error(error);
+                const { success, message } = response || {};
+
+                if (!success) {
+                    throw new Error(message);
                 }
 
                 router.replace(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
@@ -170,11 +172,11 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
                                         <TextArea
                                             label={field.label}
                                             name={field.name}
-                                            disable={Boolean(
-                                                studentDetail?.[
-                                                    field.name as keyof typeof studentDetail
-                                                ],
-                                            )}
+                                            // disable={Boolean(
+                                            //     studentDetail?.[
+                                            //         field.name as keyof typeof studentDetail
+                                            //     ],
+                                            // )}
                                             value={
                                                 formData[
                                                     field.name as keyof SpecialEducatorStudentFormType

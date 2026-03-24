@@ -211,7 +211,9 @@ const ClinicalPsychologistAssessmentPage = () => {
                         onClick={handleClick}
                         font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                     />
-                    <Button
+                    {/* In Future We will work on this */}
+
+                    {/* <Button
                         label='Re Schedule'
                         variant={ButtonVariant.NORMAL}
                         color='black'
@@ -219,7 +221,7 @@ const ClinicalPsychologistAssessmentPage = () => {
                         className={styles['action-item']}
                         onClick={handleClick}
                         font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                    />
+                    /> */}
                 </div>
             )}
             <ToastContainer />

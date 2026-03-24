@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { Input, Table } from '@/components/index';
+import { Input, Table, Text } from '@/components/index';
 
 import { TableDataType } from '@/types/TableType';
 
 import SearchIcon from '@/public/assets/svg/search-icon.svg';
+
+import { FontType } from '@/types/typographyCommon';
 
 import { COLUMNS as constantColumns, ASSESSMENT_TEXT as dummyText } from './constant';
 
@@ -40,6 +42,10 @@ const TableUi = (props: tableUiProps) => {
         setTableFilter(value);
     };
 
+    const handleClear = () => {
+        setTableFilter('');
+    };
+
     return (
         <Table
             columns={constantColumns}
@@ -65,6 +71,15 @@ const TableUi = (props: tableUiProps) => {
                     StartAdornment={SearchIcon}
                     onChange={handleSearchFilter}
                 />
+
+                <Text
+                    font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                    color='red-500'
+                    className={styles['clear-text']}
+                    onClick={handleClear}
+                >
+                    Clear
+                </Text>
             </div>
         </Table>
     );

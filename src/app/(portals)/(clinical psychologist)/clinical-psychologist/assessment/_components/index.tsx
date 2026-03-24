@@ -61,11 +61,13 @@ const ClinicalPsychologistAssessmentPage = () => {
                 studentId,
                 studentName,
                 gender,
+                age,
                 startTime,
                 endTime,
                 bookingDate,
                 status,
                 fatherName,
+                transferredEducators = [],
             } = item;
 
             const genderInitial = gender?.[0] ?? '';
@@ -98,7 +100,7 @@ const ClinicalPsychologistAssessmentPage = () => {
                                 font={[FontType.text_xs_regular, FontType.text_xs_regular]}
                                 color='gray-500'
                             >
-                                {`(_ | ${genderInitial})`}
+                                {`(${age} | ${genderInitial})`}
                             </Text>
                         </div>
 
@@ -132,7 +134,15 @@ const ClinicalPsychologistAssessmentPage = () => {
                     </div>
                 ),
 
-                assignedTherapist: <div className={styles['table-Session-text']}>Not Assigned</div>,
+                assignedTherapist: (
+                    <div className={styles['table-Session-text']}>
+                        {transferredEducators?.length > 0
+                            ? transferredEducators?.map((educator: string) => (
+                                  <div key={educator}>{educator}</div>
+                              ))
+                            : 'Not Assigned'}
+                    </div>
+                ),
 
                 edit: (
                     <div className={styles['action-wrapper']}>

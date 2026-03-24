@@ -4,6 +4,7 @@ export interface AssessmentStudentType {
     studentId: string;
     studentName: string;
     gender: string;
+    age: string;
     gradeId: string;
     fatherName: string;
     startTime: string;

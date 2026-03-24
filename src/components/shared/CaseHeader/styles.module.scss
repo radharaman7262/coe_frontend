@@ -10,6 +10,10 @@
     z-index: 10;
 }
 
+.icon {
+    cursor: pointer;
+}
+
 .detail {
     @include flex-center(row, normal, center, 16px);
 }

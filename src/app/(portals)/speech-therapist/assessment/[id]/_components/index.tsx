@@ -31,6 +31,11 @@ interface ChildInformationFormProps {
         dob: string;
         age: number;
         diagnosis: string;
+        primaryConcern: string;
+        languageAtHome: string;
+        speechDiagnosis?: {
+            name: string;
+        };
     };
 }
 
@@ -56,6 +61,15 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
             age: studentDetail.age ? dayjs(studentDetail.age) : null,
             dob: studentDetail.dob ? dayjs(studentDetail.dob) : null,
             diagnosis: studentDetail.diagnosis || '',
+            primaryConcern: studentDetail.primaryConcern || '',
+            languageAtHome: studentDetail.languageAtHome || '',
+
+            diagnosisAny: studentDetail.speechDiagnosis?.name || '',
+
+            diagnosisOther:
+                studentDetail.speechDiagnosis?.name === 'Other'
+                    ? studentDetail.diagnosis || ''
+                    : '',
         }));
     }, [studentDetail]);
 

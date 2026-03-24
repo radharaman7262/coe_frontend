@@ -18,7 +18,11 @@ import { getStudentDetail } from '@/utils/cookieManager';
 
 import styles from './styles.module.scss';
 
-const CaseHeader = () => {
+interface CaseHeaderProps {
+    onBackClick?: () => void;
+}
+
+const CaseHeader = ({ onBackClick }: CaseHeaderProps) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
@@ -43,7 +47,9 @@ const CaseHeader = () => {
         <>
             <div className={styles.header}>
                 <div className={styles.detail}>
-                    <ArrowIcon />
+                    <div className={styles.icon}>
+                        <ArrowIcon onClick={onBackClick} />
+                    </div>
                     <div className={styles.profile}>
                         <Text
                             tagType='div'

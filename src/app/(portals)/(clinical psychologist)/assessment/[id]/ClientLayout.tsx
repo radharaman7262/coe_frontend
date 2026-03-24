@@ -1,7 +1,12 @@
+'use client';
+
 import React, { ReactNode } from 'react';
+
+import { useRouter } from 'next/navigation';
 
 import CaseHeader from '@/components/shared/CaseHeader';
 
+import { AppRoutes } from '@/constant/appRoutes';
 import styles from './styles.module.scss';
 
 interface ClientLayoutProps {
@@ -11,9 +16,15 @@ interface ClientLayoutProps {
 const ClientLayout = (props: ClientLayoutProps) => {
     const { children } = props;
 
+    const router = useRouter();
+
+    const handleBack = () => {
+        router.push(`/${AppRoutes.ASSESSMENT_STUDENT_LIST}`);
+    };
+
     return (
         <div className={styles['page-container']}>
-            <CaseHeader />
+            <CaseHeader onBackClick={handleBack} />
             <div className={styles['content-part']}>{children}</div>
         </div>
     );

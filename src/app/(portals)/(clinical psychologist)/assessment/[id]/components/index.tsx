@@ -20,7 +20,7 @@ import styles from './styles.module.scss';
 
 interface ChildInformationFormProps {
     studentDetail: {
-        id: number;
+        id: string;
         referredBy: string;
         dateOfVisit: string;
         informantNameRelationship: string;
@@ -33,6 +33,13 @@ interface ChildInformationFormProps {
         predisposingFactors: string;
         precipitatingFactors: string;
         perpetuatingFactors: string;
+
+        address: string | null;
+        contact: string | null;
+        fatherQualification: string | null;
+        motherQualification: string | null;
+        languageSpoken: string | null;
+
         studentId: string;
         studentName: string;
         gender: string;
@@ -41,13 +48,6 @@ interface ChildInformationFormProps {
         motherName: string;
         fatherOccupation: string;
         motherOccupation: string;
-        schoolName: string;
-        createdBy: string;
-        createdByName: string;
-        updatedBy: string;
-        updatedByName: string;
-        createdAt: string;
-        updatedAt: string;
     };
 }
 
@@ -73,36 +73,56 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
     };
 
     useEffect(() => {
-        setFormData((prevValues) => ({
-            ...prevValues,
+        if (!studentDetail) return;
+
+        setFormData((prev) => ({
+            ...prev,
+
             [ChildInformationFormKeys.CHILD_NAME]: studentDetail.studentName || '',
-            [ChildInformationFormKeys.DOB]: dayjs(studentDetail.dob),
+            [ChildInformationFormKeys.DOB]: studentDetail.dob ? dayjs(studentDetail.dob) : null,
             [ChildInformationFormKeys.GENDER]: studentDetail.gender || '',
-            [ChildInformationFormKeys.ADDRESS]: '',
+
+            [ChildInformationFormKeys.ADDRESS]: studentDetail.address || '',
+            [ChildInformationFormKeys.CONTACT_NUMBER]: studentDetail.contact || '',
+
             [ChildInformationFormKeys.FATHER_NAME]: studentDetail.fatherName || '',
             [ChildInformationFormKeys.MOTHER_NAME]: studentDetail.motherName || '',
-            [ChildInformationFormKeys.CONTACT_NUMBER]: '',
-            [ChildInformationFormKeys.FATHER_EDUCATION]: '',
-            [ChildInformationFormKeys.MOTHER_EDUCATION]: '',
+
+            [ChildInformationFormKeys.FATHER_EDUCATION]: studentDetail.fatherQualification || '',
+            [ChildInformationFormKeys.MOTHER_EDUCATION]: studentDetail.motherQualification || '',
+
             [ChildInformationFormKeys.FATHER_OCCUPATION]: studentDetail.fatherOccupation || '',
             [ChildInformationFormKeys.MOTHER_OCCUPATION]: studentDetail.motherOccupation || '',
-            [ChildInformationFormKeys.LANGUAGES]: '',
+
+            [ChildInformationFormKeys.LANGUAGES]: studentDetail.languageSpoken || '',
+
             [ChildInformationFormKeys.REFERRED_BY]: studentDetail.referredBy || '',
-            [ChildInformationFormKeys.VISIT_DATE]: dayjs(studentDetail.dateOfVisit) || '',
+
+            [ChildInformationFormKeys.VISIT_DATE]: studentDetail.dateOfVisit
+                ? dayjs(studentDetail.dateOfVisit)
+                : null,
+
             [ChildInformationFormKeys.INFORMANT]: studentDetail.informantNameRelationship || '',
+
             [ChildInformationFormKeys.RELIABILITY]: studentDetail.reliabilityOfInformant || '',
-            [ChildInformationFormKeys.PRECIPITATING_FACTORS]:
-                studentDetail.precipitatingFactors || '',
-            [ChildInformationFormKeys.PREPETUATING_FACTORS]:
-                studentDetail.perpetuatingFactors || '',
-            [ChildInformationFormKeys.PRE_DISPOSING_FACTORS]:
-                studentDetail.predisposingFactors || '',
-            [ChildInformationFormKeys.PROGRESS]: studentDetail.progress || '',
-            [ChildInformationFormKeys.ONSET]: studentDetail.onset || '',
+
+            [ChildInformationFormKeys.CHIEF_COMPLAINTS]: studentDetail.chiefComplaints || '',
+
             [ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE]:
                 studentDetail.ageWhenProblemRecognized || '',
-            [ChildInformationFormKeys.CHIEF_COMPLAINTS]: studentDetail.chiefComplaints || '',
+
+            [ChildInformationFormKeys.ONSET]: studentDetail.onset || '',
             [ChildInformationFormKeys.COURSE]: studentDetail.course || '',
+            [ChildInformationFormKeys.PROGRESS]: studentDetail.progress || '',
+
+            [ChildInformationFormKeys.PRE_DISPOSING_FACTORS]:
+                studentDetail.predisposingFactors || '',
+
+            [ChildInformationFormKeys.PRECIPITATING_FACTORS]:
+                studentDetail.precipitatingFactors || '',
+
+            [ChildInformationFormKeys.PREPETUATING_FACTORS]:
+                studentDetail.perpetuatingFactors || '',
         }));
     }, [studentDetail]);
 

@@ -29,6 +29,7 @@ interface ChildInformationFormProps {
         gender: string;
         dob: string;
         age: number;
+        areaOfConcern: string;
     };
 }
 
@@ -61,6 +62,7 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
             [SpecialEducatorStudentFormKeys.GENDER]: studentDetail.gender || '',
             [SpecialEducatorStudentFormKeys.NAME]: studentDetail.name || '',
             [SpecialEducatorStudentFormKeys.AGE]: dayjs(studentDetail.age),
+            [SpecialEducatorStudentFormKeys.AREA_OF_CONCERN]: studentDetail.areaOfConcern || '',
         }));
     }, [studentDetail]);
 

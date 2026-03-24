@@ -119,19 +119,26 @@ const SpecialEducatorInterventionPage = () => {
                 startTime,
                 endTime,
                 bookingDate,
+                activeGoals,
                 isGoalSet,
                 studentId,
             } = item;
 
             const genderInitial = gender?.[0] ?? '';
 
-            const formattedDate = bookingDate
-                ? new Date(bookingDate).toLocaleDateString('en-GB', {
-                      day: '2-digit',
-                      month: 'short',
-                      year: 'numeric',
-                  })
-                : '-';
+            const formatDate = (bookingDate: string) => {
+                if (!bookingDate) return '';
+
+                const d = new Date(bookingDate);
+
+                if (Number.isNaN(d.getTime())) return '';
+
+                return d.toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                });
+            };
 
             return {
                 ...item,
@@ -158,7 +165,7 @@ const SpecialEducatorInterventionPage = () => {
                         font={[FontType.text_xs_regular, FontType.text_xs_regular]}
                         color='gray-500'
                     >
-                        {`${isGoalSet} Active Goals`}
+                        {`${activeGoals} Active Goals`}
                     </Text>
                 ),
 
@@ -168,13 +175,13 @@ const SpecialEducatorInterventionPage = () => {
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-gray-900'
                         >
-                            {formattedDate}
+                            {formatDate(bookingDate)}
                         </Text>
                         <Text
                             font={[FontType.text_sm_regular, FontType.text_sm_regular]}
                             color='gray-500'
                         >
-                            {`${startTime} - ${endTime}`}
+                            {`${startTime || '_'} - ${endTime || '_ '}`}
                         </Text>
                     </div>
                 ),
@@ -206,13 +213,13 @@ const SpecialEducatorInterventionPage = () => {
                     ) : null,
 
                 edit: (
-                    <div ref={dropdownRef}>
+                    <div>
                         <div className={styles.cursor}>
                             <ThreeDotIcon onClick={() => handleThreeDot(studentId)} />
                         </div>
 
                         {openMenuId === studentId && (
-                            <div className={styles['dropdown-menu']}>
+                            <div className={styles['dropdown-menu']} ref={dropdownRef}>
                                 {PROFILE_ACTIONS.map((profileItem) => (
                                     <div
                                         key={profileItem.id}

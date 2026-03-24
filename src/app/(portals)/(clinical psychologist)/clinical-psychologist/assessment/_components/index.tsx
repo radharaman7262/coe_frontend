@@ -145,7 +145,7 @@ const ClinicalPsychologistAssessmentPage = () => {
                     </div>
                 ),
 
-                edit: (
+                action: (
                     <div className={styles['action-wrapper']}>
                         <button
                             type='button'

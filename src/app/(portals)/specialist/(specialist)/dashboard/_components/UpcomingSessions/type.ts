@@ -1,11 +1,12 @@
 export interface UpcomingSessionListType {
-    userName: string;
+    bookingDate: string;
+    bookingTitle: string;
+    dob: string;
+    educatorName: string;
+    endTime: string;
+    gender: string;
+    gradeId: string | null;
+    startTime: string;
     studentId: string;
     studentName: string;
-    gender: string;
-    startTime: string;
-    endTime: string;
-    bookingDate: string | null;
-    userId: string;
-    specialization: string;
 }

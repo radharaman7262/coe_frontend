@@ -14,15 +14,12 @@ export type NewUserAdded = {
 };
 
 export type StudentCaseAssigned = {
-    fromUserId: string;
-    fromUsername: string;
-    toUserId: string;
-    toUsername: string;
+    dateTime: string;
+    specialization: Specialization[];
     studentId: string;
     studentName: string;
-    dateTime: string;
-    fromUserSpecialization: Specialization[];
-    toUserSpecialization: Specialization[];
+    userId: string;
+    userName: string;
 };
 
 export type ActivityGroup = {

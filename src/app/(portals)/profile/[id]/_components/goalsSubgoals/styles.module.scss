@@ -37,12 +37,12 @@
 }
 
 .header-className {
-    grid-template-columns: 1fr 1fr 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 2fr 1fr !important;
 }
 
 .headerBaseClass {
-    width: 100px;
-    word-wrap: break-word;
+    width: 100px !important;
+    word-wrap: break-word !important;
 }
 
 .small-table-class {

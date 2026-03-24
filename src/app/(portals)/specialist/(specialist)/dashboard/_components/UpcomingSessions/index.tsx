@@ -20,7 +20,7 @@ const UpcomingSessions = (props: UpcomingSessionProps) => {
     const getSpecialEducatorList = (results: UpcomingSessionListType[]) => {
         const data = results?.map((item: UpcomingSessionListType) => ({
             ...item,
-            activity: `${item?.userName} ${item?.specialization} with student: ${item?.studentName}`,
+            activity: `${item?.educatorName || '_'} with student: ${item?.studentName || '_'}`,
             date: `${item?.bookingDate || '-'}`,
             time: `${item?.startTime} - ${item?.endTime}`,
         }));

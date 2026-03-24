@@ -4,13 +4,12 @@ import { StatsSpecialEducatorListType } from './CardContainer/type';
 
 import CardContainer from './CardContainer';
 
-import styles from './styles.module.scss';
-// import { DashboardActivityResponse } from './RecentActivity/type';
-// import RecentActivity from './RecentActivity';
 import { UpcomingSessionListType } from './UpcomingSessions/type';
 import UpcomingSessions from './UpcomingSessions';
 import { StudentType } from './MyStudents/type';
 import MyStudents from './MyStudents';
+
+import styles from './styles.module.scss';
 
 interface specialEducatorDashboardType {
     statsListData: StatsSpecialEducatorListType;

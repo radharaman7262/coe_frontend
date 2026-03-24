@@ -11,4 +11,5 @@ export interface InterventionType {
     sessionStatus: string;
     startTime: string;
     endTime: string;
+    activeGoals: string;
 }

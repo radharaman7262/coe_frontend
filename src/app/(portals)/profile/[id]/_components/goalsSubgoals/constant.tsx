@@ -1,10 +1,3 @@
-// export const COLUMNS = [
-//     { header: 'Date', accessor: 'date' },
-//     { header: 'Goal(s) Focused', accessor: 'assessmentDate' },
-//     { header: 'Subgoals Covered', accessor: 'view' },
-//     { header: 'Actions', accessor: 'report' },
-// ];
-
 export const COLUMNS = [
     { header: 'Goal Title', accessor: 'goalTitle' },
     { header: 'Sub Goal', accessor: 'subGoal' },

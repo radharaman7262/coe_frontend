@@ -6,7 +6,7 @@ export const COLUMNS = [
     { header: 'Session Date & Time', accessor: 'sessionDate' },
     { header: 'Assigned Therapist', accessor: 'assignedTherapist' },
     { header: 'Session Status', accessor: 'sessionStatus' },
-    { header: '', accessor: 'edit' },
+    { header: 'Action', accessor: 'action' },
 ];
 
 export const ASSESSMENT_TEXT = {

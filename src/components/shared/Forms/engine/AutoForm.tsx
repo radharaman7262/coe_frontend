@@ -5,6 +5,8 @@ import DynamicForm from './DynamicForm';
 
 import { FormSchemaField } from '../types/form.types';
 
+import styles from '../styles.module.scss';
+
 export interface AutoFormProps<T extends string> {
     schema: FormSchemaField<T>[];
     formHook: {
@@ -23,12 +25,20 @@ export interface AutoFormProps<T extends string> {
 }
 
 export const AutoForm = <T extends string>(props: AutoFormProps<T>) => {
-    const { schema, formHook, className, btnLoader, formGridClassName, tableRowClassName , dropdownClassName } = props;
+    const {
+        schema,
+        formHook,
+        className,
+        btnLoader,
+        formGridClassName,
+        tableRowClassName,
+        dropdownClassName,
+    } = props;
 
     const { values, setValue, handleSubmit, isLoading, isFetching, percentage } = formHook;
 
     if (isLoading || isFetching) {
-        return <ShimmerUiContainer />;
+        return <ShimmerUiContainer className={styles.shimmer} />;
     }
 
     return (

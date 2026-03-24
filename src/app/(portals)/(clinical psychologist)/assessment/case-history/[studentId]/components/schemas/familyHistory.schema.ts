@@ -37,7 +37,7 @@ export const FAMILY_HISTORY_SCHEMA: FormSchemaField<FamilyHistoryFormKeys>[] = [
     {
         name: FamilyHistoryFormKeys.NUMBER_OF_SIBLINGS,
         label: 'Number of siblings',
-        type: 'text',
+        type: 'number',
         placeholder: 'Enter number',
         required: true,
         options: [],

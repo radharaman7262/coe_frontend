@@ -2,6 +2,8 @@ import { FormSchemaField } from '@/components/shared/Forms/types/form.types';
 
 import { MedicalHistoryFormKeys } from '../MedicalHistory/type';
 
+import { DIAGNOSIS_DISABILITY_OPTIONS } from '../MedicalHistory/constant';
+
 export const MEDICAL_HISTORY_SCHEMA: FormSchemaField<MedicalHistoryFormKeys>[] = [
     {
         name: MedicalHistoryFormKeys.CURRENT_OR_PAST_MEDICAL_CONDITIONS,
@@ -54,17 +56,6 @@ export const MEDICAL_HISTORY_SCHEMA: FormSchemaField<MedicalHistoryFormKeys>[] =
         label: 'Any diagnosed disability',
         type: 'checkbox',
         required: true,
-        options: [
-            { label: 'Autism', value: 'Autism', key: 'Autism' },
-            { label: 'ADHD', value: 'ADHD', key: 'ADHD' },
-            {
-                label: 'Intellectual Disability',
-                value: 'Intellectual Disability',
-                key: 'IntellectualDisability',
-            },
-            { label: 'Cerebral Palsy', value: 'Cerebral Palsy', key: 'CerebralPalsy' },
-            { label: 'Hearing Loss', value: 'Hearing Loss', key: 'HearingLoss' },
-            { label: 'Others', value: 'Others', key: 'Others' },
-        ],
+        options: DIAGNOSIS_DISABILITY_OPTIONS,
     },
 ];

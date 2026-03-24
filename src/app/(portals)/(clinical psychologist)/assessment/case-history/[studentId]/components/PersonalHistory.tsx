@@ -31,9 +31,7 @@ const PersonalHistory = (props: PersonalHistoryProps) => {
             ),
         })) || [];
 
-    //     console.log(menuData,'menuData')
-
-    return <AccordionComponent items={menuData} />;
+    return <AccordionComponent menuList={menuList} items={menuData} />;
 };
 
 export default PersonalHistory;

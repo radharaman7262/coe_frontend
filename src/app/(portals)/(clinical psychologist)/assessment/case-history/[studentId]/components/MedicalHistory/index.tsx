@@ -15,6 +15,8 @@ import { MEDICAL_HISTORY_SCHEMA } from '../schemas/medicalhistory.schema';
 
 import { submitMedicalHistory } from './utils.api';
 
+import { DIAGNOSIS_DISABILITY_OPTIONS } from './constant';
+
 import styles from '../../styles.module.scss';
 
 const MedicalHistory = () => {
@@ -30,6 +32,9 @@ const MedicalHistory = () => {
         schema: MEDICAL_HISTORY_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
+        checkboxConfig: {
+            diagnosedDisabilities: DIAGNOSIS_DISABILITY_OPTIONS,
+        },
     });
 
     return (

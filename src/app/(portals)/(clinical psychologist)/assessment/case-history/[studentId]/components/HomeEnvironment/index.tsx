@@ -1,44 +1,36 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
-import DynamicForm from '@/components/shared/Forms/engine/DynamicForm';
-import { useFormState } from '@/components/shared/Forms/hooks/useFormState';
-import { calculateCompletion } from '@/components/shared/Forms/utils/calculateCompletion';
+import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
 
-import { postNatalSchema } from '../schemas/postnatal.schema';
+import { QueryKeys } from '@/utils/queryKeys';
 
-import { FAMILY_HISTORY_SCHEMA } from '../schemas/familyHistory.schema';
+import { useAppMutation } from '@/hooks/useAppMutation';
+import { useAutoForm } from '@/hooks/useAutoForm';
 
-import { useSubmitFamilyHistory } from './mutation';
+import { useGetCaseHistoryFormDetails } from '../../../queries';
 
-const PrenatalBirthHistory = () => {
-    const { values, setValue } = useFormState();
+import { submitHomeEnvironment } from './utils.api';
 
+import { ENDURANCE_SCHEMA } from '../schemas/enudrance.schema';
+
+const HomeEnvironment = () => {
     const [loader, setLoader] = useState(false);
 
-    const { mutate } = useSubmitFamilyHistory({ setLoader });
+    const mutation = useAppMutation({
+        mutationFn: submitHomeEnvironment,
+        setLoader,
+        invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
+    });
 
-    const percentage = useMemo(() => calculateCompletion(postNatalSchema, values), [values]);
+    const formHook = useAutoForm({
+        schema: ENDURANCE_SCHEMA,
+        queryHook: useGetCaseHistoryFormDetails,
+        mutation,
+    });
 
-    const handleSubmit = () => {
-        mutate({
-            ...values,
-            studentId: 23,
-            percentage: percentage?.toString(),
-        });
-    };
-
-    return (
-        <DynamicForm
-            values={values}
-            setValue={setValue}
-            percentage={percentage}
-            schema={FAMILY_HISTORY_SCHEMA}
-            onSubmit={handleSubmit}
-            loader={loader}
-        />
-    );
+    return <AutoForm schema={ENDURANCE_SCHEMA} formHook={formHook} btnLoader={loader} />;
 };
 
-export default PrenatalBirthHistory;
+export default HomeEnvironment;

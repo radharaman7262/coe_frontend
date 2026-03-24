@@ -43,7 +43,7 @@ const FormLayout = (props: FormLayoutProps) => {
                     className={styles.button}
                     onClick={onSubmit}
                     loader={loader}
-                    disabled={loader}
+                    disabled={loader || percentage === 0}
                 />
             </div>
         </div>

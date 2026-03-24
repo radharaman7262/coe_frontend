@@ -22,3 +22,13 @@ export const STATUS_LABEL_MAP: Record<string, string> = {
     [AssessmentStatusType.DONE]: 'Done',
     [AssessmentStatusType.SCHEDULED]: 'Scheduled',
 };
+
+export const ACTIONS_ASSESMENTS = [
+    {
+        id: 1,
+        label: 'Start Case Study',
+        action: 'viewCaseStudy',
+    },
+];
+
+export type ActionType = 'reSchedule';

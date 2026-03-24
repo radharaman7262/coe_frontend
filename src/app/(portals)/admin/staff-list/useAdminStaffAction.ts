@@ -51,6 +51,10 @@ export const useUserAdminStaffAction = ({
                 queryKey: [QueryKeys.ADMIN_STAFF_MANAGEMENT],
             });
 
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.PSYCHOLOGIST],
+            });
+
             if (payload.type !== 'status') {
                 setShow(false);
             }

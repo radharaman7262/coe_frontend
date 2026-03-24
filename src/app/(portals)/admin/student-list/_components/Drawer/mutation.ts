@@ -11,6 +11,9 @@ export const useAddStudentMutation = () => {
         mutationFn: addStudentApiCall,
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_STUDENT_LIST] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.PSYCHOLOGIST] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_BOOKING_SLOT] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.GET_PSYCHOLOGIST_DATES] });
         },
     });
 };

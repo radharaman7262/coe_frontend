@@ -33,7 +33,6 @@ export const useAppMutation = <TBody = any, TResponse = any>({
                 throw new Error(error);
             }
 
-            // invalidate queries
             invalidateKeys.forEach((key) => {
                 queryClient.invalidateQueries({ queryKey: key });
             });

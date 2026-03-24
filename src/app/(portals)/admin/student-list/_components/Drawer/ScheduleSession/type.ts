@@ -6,3 +6,16 @@ export type SchedulePayload = {
     notes: string;
     toSpecializationId: number;
 };
+
+interface Slot {
+    slotId: string;
+    startTime: string;
+    endTime: string;
+}
+
+export interface Schedule {
+    date: string;
+    bookedSlots: number;
+    availableSlotsCount: number;
+    slots: Slot[];
+}

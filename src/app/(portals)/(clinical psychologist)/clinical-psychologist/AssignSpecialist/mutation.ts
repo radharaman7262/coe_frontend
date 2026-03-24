@@ -2,6 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { mapStudentToSpecialist } from '@/app/(portals)/(clinical psychologist)/assessment/case-history/utils.api';
 
+import { QueryKeys } from '@/utils/queryKeys';
+
 import { SelectedAssignment } from './type';
 
 export const useMapStudentToSpecialist = () => {
@@ -12,6 +14,9 @@ export const useMapStudentToSpecialist = () => {
             mapStudentToSpecialist(body),
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ['student-list'] });
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.CLINICAL_PSYCHOLOGIST_ASSESSMENT],
+            });
         },
     });
 };

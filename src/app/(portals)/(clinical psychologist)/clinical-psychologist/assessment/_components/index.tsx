@@ -214,7 +214,6 @@ const ClinicalPsychologistAssessmentPage = () => {
                         onClick={handleClick}
                         font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                     />
-                    {/* In Future We will work on this */}
 
                     {/* <Button
                         label='Re Schedule'

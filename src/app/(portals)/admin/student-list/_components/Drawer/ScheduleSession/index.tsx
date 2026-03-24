@@ -20,7 +20,7 @@ import { useGetPsychologistDatesList } from './queries';
 
 import { useUserStudentScheduleAction } from './userStudentScheduleAction';
 
-import { SchedulePayload } from './type';
+import { Schedule, SchedulePayload } from './type';
 
 import styles from './styles.module.scss';
 
@@ -57,6 +57,10 @@ const ScheduleSession = ({
 
     const { response } = data || {};
 
+    const filteredResponse = response?.filter(
+        (item: Schedule) => Array.isArray(item.slots) && item.slots.length > 0,
+    );
+
     const handleSchedule = () => {
         setLoadingAddData(true);
 
@@ -90,7 +94,7 @@ const ScheduleSession = ({
                 {!isLoading && (
                     <ScheduleInformationData
                         selectedPsychologist={selectedPsychologist}
-                        data={response}
+                        data={filteredResponse}
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}
                         selectedSlot={selectedSlot}

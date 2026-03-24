@@ -45,9 +45,10 @@ export const useUserCenterSetupActions = ({
                 message: messageMap[payload.type],
             });
 
-            queryClient.invalidateQueries({
-                queryKey: [QueryKeys.CENTER_LIST, QueryKeys.CENTER_ADMIN],
-            });
+            await Promise.all([
+                queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_ADMIN] }),
+                queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_LIST] }),
+            ]);
 
             if (payload.type !== 'status') {
                 setShow(false);

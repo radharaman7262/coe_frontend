@@ -43,7 +43,6 @@ const AssignSpecialist = (props: AssignSpecialistProps) => {
     const handleCheckBox = (userId: string, specializationId: number, checked: boolean) => {
         if (checked) {
             setSelectedAssignments((prev) => {
-                // prevent duplicate
                 if (prev.some((item) => +item.toSpecializationId === specializationId)) return prev;
 
                 return [
@@ -68,12 +67,7 @@ const AssignSpecialist = (props: AssignSpecialistProps) => {
 
                 {!isLoading &&
                     data?.map((item: UserDataType, index: number) => (
-                        <div
-                            key={index as number}
-                            className={styles.activeCard}
-                            // onClick={}
-                            aria-hidden='true'
-                        >
+                        <div key={index as number} className={styles.activeCard} aria-hidden='true'>
                             <div className={styles['select-specialist']}>
                                 <Checkbox
                                     isChecked={selectedAssignments.some(

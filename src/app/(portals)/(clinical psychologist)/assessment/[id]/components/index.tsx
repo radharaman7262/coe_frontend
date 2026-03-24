@@ -197,7 +197,14 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                 formData[ChildInformationFormKeys.PREPETUATING_FACTORS],
             [ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE]:
                 formData[ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE],
-            // [ChildInformationFormKeys.LANGUAGES]: formData[ChildInformationFormKeys.LANGUAGES],
+            [ChildInformationFormKeys.LANGUAGES]: formData[ChildInformationFormKeys.LANGUAGES],
+            [ChildInformationFormKeys.CONTACT_NUMBER]:
+                formData[ChildInformationFormKeys.CONTACT_NUMBER],
+            [ChildInformationFormKeys.FATHER_EDUCATION]:
+                formData[ChildInformationFormKeys.FATHER_EDUCATION],
+            [ChildInformationFormKeys.MOTHER_EDUCATION]:
+                formData[ChildInformationFormKeys.MOTHER_EDUCATION],
+            [ChildInformationFormKeys.COURSE]: formData[ChildInformationFormKeys.COURSE],
         };
 
         mutate(payload, {

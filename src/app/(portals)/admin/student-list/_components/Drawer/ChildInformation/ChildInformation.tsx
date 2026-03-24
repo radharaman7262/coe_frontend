@@ -27,6 +27,10 @@ interface Props {
 const ChildInformationData = ({ formValues, setFormValues }: Props) => {
     const [errors, setErrors] = React.useState<Partial<Record<ChildFormKeys, string>>>({});
     const [udiseError, setUdiseError] = React.useState('');
+    const [udiseApiMessage, setUdiseApiMessage] = React.useState('');
+    const [isUdiseSuccess, setIsUdiseSuccess] = React.useState<boolean | null>(null);
+
+    const prevSchoolTypeRef = React.useRef(formValues.schoolType);
 
     const { data: grades = [], isLoading: gradeLoading } = useGradeList();
 
@@ -40,13 +44,31 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
     };
 
     useEffect(() => {
-        if (school?.schoolName) {
-            setFormValues((prev) => ({
-                ...prev,
-                [ChildFormKeys.SCHOOL_NAME]: school.schoolName,
-            }));
+        const status = school?.data?.status;
+        const response = school?.data?.response;
+
+        if (formValues.udiseCode?.length === 11) {
+            if (status === 1 && response?.length > 0) {
+                setUdiseApiMessage('School found successfully');
+                setIsUdiseSuccess(true);
+
+                const schoolName = response?.[0]?.schoolName || '';
+
+                setFormValues((prev) => ({
+                    ...prev,
+                    [ChildFormKeys.SCHOOL_NAME]: schoolName,
+                }));
+            } else if (status === 0) {
+                setUdiseApiMessage('Invalid UDISE code');
+                setIsUdiseSuccess(false);
+
+                setFormValues((prev) => ({
+                    ...prev,
+                    schoolName: '',
+                }));
+            }
         }
-    }, [school, setFormValues]);
+    }, [school, formValues.udiseCode, setFormValues]);
 
     const handleChange =
         (field: ChildFormKeys) =>
@@ -90,6 +112,14 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
 
             if (value.length > 0 && value.length < 11) {
                 setUdiseError('Please enter 11 digit UDISE code');
+
+                setUdiseApiMessage('');
+                setIsUdiseSuccess(null);
+
+                setFormValues((prev) => ({
+                    ...prev,
+                    schoolName: '',
+                }));
             } else {
                 setUdiseError('');
             }
@@ -99,6 +129,7 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
     const schoolTypeName = formValues.schoolType?.name;
 
     const disableSchoolFields =
+        !formValues.schoolType ||
         schoolTypeName === 'No School' ||
         schoolTypeName === 'Home School' ||
         schoolTypeName === 'Play School';
@@ -107,6 +138,42 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
         disableSchoolFields ||
         schoolTypeName === 'Govt. School' ||
         schoolTypeName === 'Pvt. School';
+
+    useEffect(() => {
+        const prev = prevSchoolTypeRef.current;
+        const current = formValues.schoolType;
+
+        if (prev && current && prev.name !== current.name) {
+            setFormValues((prevState) => ({
+                ...prevState,
+                udiseCode: '',
+                schoolName: '',
+                grade: null,
+            }));
+
+            setUdiseError('');
+            setUdiseApiMessage('');
+            setIsUdiseSuccess(null);
+        }
+
+        prevSchoolTypeRef.current = current;
+    }, [formValues.schoolType, setFormValues]);
+
+    const getUdiseHelperText = (isUdiseSuccess: boolean | null) => {
+        if (udiseError) {
+            return udiseError;
+        }
+
+        if (isUdiseSuccess === true) {
+            return <span className={styles.successText}>{udiseApiMessage}</span>;
+        }
+
+        if (isUdiseSuccess === false) {
+            return <span className={styles.errorText}>{udiseApiMessage}</span>;
+        }
+
+        return '';
+    };
 
     return (
         <div className={styles['container-wrapper']}>
@@ -197,8 +264,8 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
                             value={formValues.udiseCode}
                             onChange={handleUdiseChange}
                             disable={disableSchoolFields}
-                            error={Boolean(udiseError)}
-                            helperText={udiseError}
+                            error={Boolean(udiseError) || isUdiseSuccess === false}
+                            helperText={getUdiseHelperText(isUdiseSuccess)}
                         />
                     </div>
                 </div>

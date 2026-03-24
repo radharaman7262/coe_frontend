@@ -111,13 +111,18 @@ const AdminStudentListPage = () => {
         [studentResponse],
     );
 
+    const handleOpenDrawer = () => {
+        setInitialStep(1);
+        setOpenDrawer(true);
+    };
+
     return (
         <>
             <PageHeader
                 title={text.studentList}
                 description={text.description}
                 buttonLabel={text.createStudent}
-                onButtonClick={() => setOpenDrawer(true)}
+                onButtonClick={handleOpenDrawer}
             />
 
             {isLoading ? (

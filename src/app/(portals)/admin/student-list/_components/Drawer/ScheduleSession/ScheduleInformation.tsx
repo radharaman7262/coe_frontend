@@ -8,7 +8,7 @@ import { ScrollLabelCalender, Text, TextArea } from '@/components/index';
 import { FontType } from '@/types/typographyCommon';
 
 import AssignedIcon from '@/public/assets/svg/assigned-icon.svg';
-import Clock from '@public/assets/svg/clock-slot.svg';
+import Clock from '@public/assets/svg/clock-slot-iconss.svg';
 
 import { PsychologistType } from '../AssignPsychologist/type';
 
@@ -144,13 +144,19 @@ const ScheduleInformationData = ({
                                 aria-pressed={isSelected}
                                 aria-hidden='true'
                             >
-                                <Text font={[FontType.text_xs_regular, FontType.text_xs_regular]}>
+                                <Text
+                                    font={[FontType.text_xs_regular, FontType.text_xs_regular]}
+                                    color='text-idle'
+                                >
                                     {item.day}
                                 </Text>
-                                <Text font={[FontType.text_xs_regular, FontType.text_xs_regular]}>
+                                <Text font={[FontType.text_md_bold, FontType.text_md_bold]}>
                                     {item?.date}
                                 </Text>
-                                <Text font={[FontType.text_xs_regular, FontType.text_xs_regular]}>
+                                <Text
+                                    font={[FontType.text_xs_regular, FontType.text_xs_regular]}
+                                    color='text-idle'
+                                >
                                     {item?.month}
                                 </Text>
 
@@ -158,6 +164,7 @@ const ScheduleInformationData = ({
                                     <Clock />
                                     <Text
                                         font={[FontType.text_xs_regular, FontType.text_xs_regular]}
+                                        color='primary-nav-link'
                                     >
                                         {item?.slotsCount}
                                     </Text>

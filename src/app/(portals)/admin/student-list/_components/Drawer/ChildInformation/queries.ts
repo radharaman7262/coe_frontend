@@ -13,7 +13,7 @@ export const useSchoolTypeList = (udiseCode: string) =>
 
         enabled: udiseCode.length === 11,
 
-        select: (data) => data?.response?.data?.response?.[0] || null,
+        select: (data) => data?.response || null,
 
         staleTime: StaleAndCacheTime.STALE_TIME,
 

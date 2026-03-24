@@ -116,17 +116,21 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = e.target.files;
 
-        if (!selectedFiles) return;
+        if (!selectedFiles || selectedFiles.length === 0) return;
 
-        const fileArray = Array.from(selectedFiles);
-
-        const validFiles = fileArray.filter((file) => file.type === 'application/pdf');
-
-        if (validFiles.length !== fileArray.length) {
-            toast.error('Only PDF files are allowed');
+        if (selectedFiles.length > 1) {
+            toast.error('Only one PDF file is allowed');
+            return;
         }
 
-        updateFormValue(ParentFormKeys.FILES, [...files, ...validFiles]);
+        const file = selectedFiles[0];
+
+        if (file.type !== 'application/pdf') {
+            toast.error('Only PDF file is allowed');
+            return;
+        }
+
+        updateFormValue(ParentFormKeys.FILES, [file]);
     };
 
     const handleRemoveFile = (index: number) => {
@@ -369,7 +373,6 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                     <input
                         ref={fileInputRef}
                         type='file'
-                        multiple
                         accept='.pdf,application/pdf'
                         onChange={handleFileChange}
                         style={{ display: 'none' }}

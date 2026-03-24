@@ -108,6 +108,7 @@ const ScheduleSession = ({
                         type='button'
                         variant={ButtonVariant.SOLID}
                         color='white'
+                        disabled={!selectedDate || !selectedSlot}
                         font={[FontType.text_md_semibold, FontType.text_md_semibold]}
                         className={styles['btn-class']}
                         loader={loadingAddData}

@@ -13,7 +13,7 @@ import { useGetCaseHistoryFormDetails } from '../../../queries';
 
 import { submitWriting } from './utils.api';
 
-import { VISUAL_PERCEPTION_SCHEMA } from '../schemas/visualPerception.schema';
+import { WRITING_SCHEMA } from '../schemas/writing.schema';
 
 import styles from './styles.module.scss';
 
@@ -27,7 +27,7 @@ const Writing = () => {
     });
 
     const formHook = useAutoForm({
-        schema: VISUAL_PERCEPTION_SCHEMA,
+        schema: WRITING_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
         // checkboxConfig: {
@@ -40,7 +40,7 @@ const Writing = () => {
             formGridClassName={styles['muscle-tone-form']}
             tableRowClassName={styles['table-row']}
             dropdownClassName={styles.dropdown}
-            schema={VISUAL_PERCEPTION_SCHEMA}
+            schema={WRITING_SCHEMA}
             formHook={formHook}
             btnLoader={loader}
         />

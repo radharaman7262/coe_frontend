@@ -11,9 +11,9 @@ import { useAutoForm } from '@/hooks/useAutoForm';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
-import { submitReadingSkills } from './utils.api';
+import { READING_SKILLS_SCHEMA } from '../schemas/readingSkills.schema';
 
-import { VISUAL_PERCEPTION_SCHEMA } from '../schemas/visualPerception.schema';
+import { submitReadingSkills } from './utils.api';
 
 import styles from './styles.module.scss';
 
@@ -27,7 +27,7 @@ const ReadingSkills = () => {
     });
 
     const formHook = useAutoForm({
-        schema: VISUAL_PERCEPTION_SCHEMA,
+        schema: READING_SKILLS_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
         // checkboxConfig: {
@@ -40,7 +40,7 @@ const ReadingSkills = () => {
             formGridClassName={styles['muscle-tone-form']}
             tableRowClassName={styles['table-row']}
             dropdownClassName={styles.dropdown}
-            schema={VISUAL_PERCEPTION_SCHEMA}
+            schema={READING_SKILLS_SCHEMA}
             formHook={formHook}
             btnLoader={loader}
         />

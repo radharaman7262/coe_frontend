@@ -17,3 +17,10 @@ export enum SessionStatusType {
     DONE = '1',
     SCHEDULED = '2',
 }
+
+export enum MyStudentStatusType {
+    ALL = '',
+    PENDING = '0',
+    DONE = '1',
+    SCHEDULED = '2',
+}

@@ -159,3 +159,14 @@
 .dropdown-bg {
     background-color: $white;
 }
+
+.assign-btn {
+    color: $blue-500;
+    background-color: #eef4ff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.assign-btn:hover {
+    text-decoration: underline;
+}

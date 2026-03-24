@@ -38,13 +38,21 @@ const Parent = ({
     const isFormValid = useMemo(
         () =>
             !!formValues.fathersName?.trim() &&
+            formValues.fathersName.trim().length >= 3 &&
+            formValues.fathersName.trim().length <= 30 &&
             !!formValues.fathersAge &&
-            !!formValues.fathersOccupation &&
+            String(formValues.fathersAge).length === 2 &&
             !!formValues.fathersNo &&
+            String(formValues.fathersNo).length === 10 &&
+            !!formValues.fathersOccupation &&
             !!formValues.mothersName?.trim() &&
+            formValues.mothersName.trim().length >= 3 &&
+            formValues.mothersName.trim().length <= 30 &&
             !!formValues.mothersAge &&
-            !!formValues.mothersOccupation &&
+            String(formValues.mothersAge).length === 2 &&
             !!formValues.mothersNo &&
+            String(formValues.mothersNo).length === 10 &&
+            !!formValues.mothersOccupation &&
             !!formValues.language &&
             !!formValues.familyType &&
             !!formValues.siblingType &&

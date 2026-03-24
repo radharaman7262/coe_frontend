@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Button, Text } from '@/components';
 
@@ -25,13 +25,17 @@ interface ChildPropsType {
 }
 
 const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsType) => {
+    const [isUdiseValid, setUdiseValid] = useState(false);
+
     const isFormValid = useMemo(
         () =>
             !!formValues.fullName?.trim() &&
-            !!formValues.gender &&
-            !!formValues.schoolType &&
-            !!formValues.difficultiesFaced?.trim(),
-        [formValues],
+            formValues.fullName.trim().length >= 3 &&
+            formValues.fullName.trim().length <= 30 &&
+            !!formValues.difficultiesFaced?.trim() &&
+            formValues.difficultiesFaced.trim().length >= 10 &&
+            isUdiseValid,
+        [formValues, isUdiseValid],
     );
 
     return (
@@ -54,7 +58,11 @@ const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsTyp
             </div>
 
             <div className={styles['drawer-body']}>
-                <ChildInformationData formValues={formValues} setFormValues={setFormValues} />
+                <ChildInformationData
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    setUdiseValid={setUdiseValid}
+                />
             </div>
 
             <div className={styles['drawer-bottom']}>

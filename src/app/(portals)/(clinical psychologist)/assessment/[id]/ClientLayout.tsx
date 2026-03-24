@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 
 import CaseHeader from '@/components/shared/CaseHeader';
 
-import { AppRoutes } from '@/constant/appRoutes';
 import styles from './styles.module.scss';
 
 interface ClientLayoutProps {
@@ -19,7 +18,7 @@ const ClientLayout = (props: ClientLayoutProps) => {
     const router = useRouter();
 
     const handleBack = () => {
-        router.push(`/${AppRoutes.ASSESSMENT_STUDENT_LIST}`);
+        router.back();
     };
 
     return (

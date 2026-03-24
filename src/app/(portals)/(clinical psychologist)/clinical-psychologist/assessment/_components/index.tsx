@@ -136,12 +136,15 @@ const ClinicalPsychologistAssessmentPage = () => {
 
                 assignedTherapist: (
                     <div className={styles['table-Session-text']}>
-                        {transferredEducators?.length
-                            ? transferredEducators?.map((educator: string, index: number) => (
-                                  // eslint-disable-next-line react/jsx-indent
-                                  <div key={index as number}>{educator}</div>
-                              ))
-                            : 'Not Assigned'}
+                        {transferredEducators?.length > 0 ? (
+                            transferredEducators.map((educator: string) => (
+                                <div key={educator}>{educator}</div>
+                            ))
+                        ) : (
+                            <span className={styles['assign-btn']} role='button' aria-hidden='true'>
+                                + Assign Therapist
+                            </span>
+                        )}
                     </div>
                 ),
 

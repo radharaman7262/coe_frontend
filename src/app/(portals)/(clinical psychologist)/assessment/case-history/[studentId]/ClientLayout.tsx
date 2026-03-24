@@ -2,13 +2,16 @@
 
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import CaseHeader from '@/components/shared/CaseHeader';
 
 import CaseHistorySidebar from '@/components/shared/CaseHistorySidebar';
 
-import { useGetCaseHistorySidebarList, useGetSpeechAssessmentSidebarList } from '@/app/(portals)/queries';
+import {
+    useGetCaseHistorySidebarList,
+    useGetSpeechAssessmentSidebarList,
+} from '@/app/(portals)/queries';
 
 import { getClientUserDetails } from '@/utils/cookieManager';
 
@@ -24,6 +27,12 @@ const ClientLayout = (props: ClientLayoutProps) => {
     const [specialization, setSpecialization] = useState<string>('');
     const { children } = props;
 
+    const router = useRouter();
+
+    const handleBack = () => {
+        router.back();
+    };
+
     const searchParams = useParams();
 
     const { studentId } = searchParams;
@@ -38,11 +47,12 @@ const ClientLayout = (props: ClientLayoutProps) => {
 
     const isSpeechTherapist = specialization === 'Speech Therapist';
 
-    const { data: normaldata, isLoading: normalLoading } = useGetCaseHistorySidebarList(studentId as string);
-
-    const { data: speechtherapistdata, isLoading: speechLoading } = useGetSpeechAssessmentSidebarList(
+    const { data: normaldata, isLoading: normalLoading } = useGetCaseHistorySidebarList(
         studentId as string,
     );
+
+    const { data: speechtherapistdata, isLoading: speechLoading } =
+        useGetSpeechAssessmentSidebarList(studentId as string);
 
     const data = isSpeechTherapist ? speechtherapistdata : normaldata;
     const isLoading = isSpeechTherapist ? speechLoading : normalLoading;
@@ -56,7 +66,7 @@ const ClientLayout = (props: ClientLayoutProps) => {
             {isLoading ? (
                 <ShimmerUiContainer className={styles['header-shimmer']} />
             ) : (
-                <CaseHeader />
+                <CaseHeader onBackClick={handleBack} />
             )}
 
             <div className={styles['lower-layout']}>

@@ -23,4 +23,5 @@ export const pageNameMap: Record<string, string> = {
     '/speech-therapist/dashboard': 'Dashboard',
     '/speech-therapist/assessment': 'Student List',
     '/speech-therapist/intervention': 'Intervention',
+    '/occupational-therapist/assessment/child-info': 'Student List',
 };

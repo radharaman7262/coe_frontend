@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { Button, Drawer, Text } from '@/components/index';
 
@@ -14,6 +14,7 @@ import { ButtonVariant, FontType } from '@/types/typographyCommon';
 import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
 import CrossIcon from '@/public/assets/svg/cross-icon.svg';
 
+import { AppRoutes } from '@/constant/appRoutes';
 import AssignPsychologist from './AssignSpecialist';
 
 import { BUTTON_TEXT, DRAWER_DATA as text } from './constant';
@@ -31,6 +32,8 @@ interface AssignSpecialistDrawerProps {
 
 const AssignSpecialistDrawer = (props: AssignSpecialistDrawerProps) => {
     const { handleClose, open } = props;
+
+    const router = useRouter();
 
     const [selectedAssignments, setSelectedAssignments] = useState<SelectedAssignment[]>([]);
 
@@ -61,6 +64,8 @@ const AssignSpecialistDrawer = (props: AssignSpecialistDrawerProps) => {
                     });
                     setSelectedAssignments([]);
                     handleClose();
+
+                    router.push(`/${AppRoutes.ASSESSMENT_STUDENT_LIST}`);
                 }, LOADING_TIME_DURATION);
             },
             onError(error) {
@@ -92,7 +97,7 @@ const AssignSpecialistDrawer = (props: AssignSpecialistDrawerProps) => {
                             {text.assignPsychologist}
                         </Text>
                     </div>
-                    <CrossIcon className={styles['cross-icon']} onClick={onclose} />
+                    <CrossIcon className={styles['cross-icon']} onClick={handleClose} />
                 </div>
 
                 <div className={styles['drawer-body']}>

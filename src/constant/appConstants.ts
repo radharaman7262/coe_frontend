@@ -1,4 +1,5 @@
 import { SessionStatusType } from '@/app/(portals)/admin/sessions/type';
+import { StudentStatusType } from '@/app/(portals)/specialist/(specialist)/dashboard/_components/MyStudents/type';
 
 export enum StaleAndCacheTime {
     STALE_TIME = 30 * 60 * 1000,
@@ -78,9 +79,10 @@ export const STATIC_STATUS = [
 ];
 
 export const STUDENT_STATUS = [
-    { id: SessionStatusType.PENDING, name: 'Pending' },
-    { id: SessionStatusType.DONE, name: 'Done' },
-    { id: SessionStatusType.SCHEDULED, name: 'Scheduled' },
+    { id: StudentStatusType.ALL_STATUS, name: 'All Status' },
+    { id: StudentStatusType.PENDING, name: 'Pending' },
+    { id: StudentStatusType.IN_PROGRESS, name: 'In Progress' },
+    { id: StudentStatusType.CLOSED, name: 'Closed' },
 ];
 
 export const generateNextDates = (days: number = 15): string[] => {

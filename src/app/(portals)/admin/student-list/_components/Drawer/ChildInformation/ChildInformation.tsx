@@ -22,9 +22,10 @@ import styles from './styles.module.scss';
 interface Props {
     formValues: FormValues;
     setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
+    setUdiseValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChildInformationData = ({ formValues, setFormValues }: Props) => {
+const ChildInformationData = ({ formValues, setFormValues, setUdiseValid }: Props) => {
     const [errors, setErrors] = React.useState<Partial<Record<ChildFormKeys, string>>>({});
     const [udiseError, setUdiseError] = React.useState('');
     const [udiseApiMessage, setUdiseApiMessage] = React.useState('');
@@ -51,6 +52,7 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
             if (status === 1 && response?.length > 0) {
                 setUdiseApiMessage('School found successfully');
                 setIsUdiseSuccess(true);
+                setUdiseValid(true);
 
                 const schoolName = response?.[0]?.schoolName || '';
 
@@ -61,6 +63,7 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
             } else if (status === 0) {
                 setUdiseApiMessage('Invalid UDISE code');
                 setIsUdiseSuccess(false);
+                setUdiseValid(false);
 
                 setFormValues((prev) => ({
                     ...prev,
@@ -68,7 +71,7 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
                 }));
             }
         }
-    }, [school, formValues.udiseCode, setFormValues]);
+    }, [school, formValues.udiseCode, setFormValues, setUdiseValid]);
 
     const handleChange =
         (field: ChildFormKeys) =>
@@ -112,6 +115,7 @@ const ChildInformationData = ({ formValues, setFormValues }: Props) => {
 
             if (value.length > 0 && value.length < 11) {
                 setUdiseError('Please enter 11 digit UDISE code');
+                setUdiseValid(false);
 
                 setUdiseApiMessage('');
                 setIsUdiseSuccess(null);

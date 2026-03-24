@@ -138,6 +138,7 @@ const ClinicalPsychologistAssessmentPage = () => {
                     <div className={styles['table-Session-text']}>
                         {transferredEducators?.length
                             ? transferredEducators?.map((educator: string, index: number) => (
+                                  // eslint-disable-next-line react/jsx-indent
                                   <div key={index as number}>{educator}</div>
                               ))
                             : 'Not Assigned'}

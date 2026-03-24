@@ -13,6 +13,8 @@ import { useGetCaseHistoryFormDetails } from '../../../queries';
 
 import { submitFineSkillsMotor } from './utils.api';
 
+import { OPTIONS } from './constant';
+
 import { FINE_MOTOR_SCHEMA } from '../schemas/fineMotor.schema';
 
 const FineMotorSkills = () => {
@@ -28,6 +30,9 @@ const FineMotorSkills = () => {
         schema: FINE_MOTOR_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
+        checkboxConfig: {
+            selectedOptions: OPTIONS,
+        },
     });
 
     return (

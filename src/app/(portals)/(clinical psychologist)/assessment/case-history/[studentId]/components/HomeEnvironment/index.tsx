@@ -11,9 +11,9 @@ import { useAutoForm } from '@/hooks/useAutoForm';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
-import { submitHomeEnvironment } from './utils.api';
+import { HOME_ENVIRONMENT_SCHEMA } from '../schemas/homeEnvironment.schema';
 
-import { ENDURANCE_SCHEMA } from '../schemas/enudrance.schema';
+import { submitHomeEnvironment } from './utils.api';
 
 const HomeEnvironment = () => {
     const [loader, setLoader] = useState(false);
@@ -25,12 +25,12 @@ const HomeEnvironment = () => {
     });
 
     const formHook = useAutoForm({
-        schema: ENDURANCE_SCHEMA,
+        schema: HOME_ENVIRONMENT_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
     });
 
-    return <AutoForm schema={ENDURANCE_SCHEMA} formHook={formHook} btnLoader={loader} />;
+    return <AutoForm schema={HOME_ENVIRONMENT_SCHEMA} formHook={formHook} btnLoader={loader} />;
 };
 
 export default HomeEnvironment;

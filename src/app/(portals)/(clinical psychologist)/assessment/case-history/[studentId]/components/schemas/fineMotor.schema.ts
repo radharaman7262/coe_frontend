@@ -14,15 +14,15 @@ export const FINE_MOTOR_SCHEMA: FormSchemaField<FineMotorFormKeys>[] = [
     },
 
     // 🔹 HAND DOMINANCE (Radio)
-    {
-        name: FineMotorFormKeys.HAND_DOMINANCE,
-        label: 'Hand dominance (by 4–6 years)',
-        type: 'radio',
-        options: [
-            { label: 'Right', value: 'right' },
-            { label: 'Left', value: 'left' },
-        ],
-    },
+    // {
+    //     name: FineMotorFormKeys.HAND_DOMINANCE,
+    //     label: 'Hand dominance (by 4–6 years)',
+    //     type: 'radio',
+    //     options: [
+    //         { label: 'Right', value: 'right' },
+    //         { label: 'Left', value: 'left' },
+    //     ],
+    // },
 
     // 🔹 COMMENTS (Text)
     {

@@ -23,7 +23,6 @@ const FormLayout = (props: FormLayoutProps) => {
     return (
         <div className={styles['parental-birth-history']}>
             <div className={styles['form-wrapper']}>{children}</div>
-
             <div className={styles['button-wrapper']}>
                 <Text
                     tagType='div'

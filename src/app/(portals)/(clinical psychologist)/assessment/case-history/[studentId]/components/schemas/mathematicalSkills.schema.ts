@@ -4,7 +4,7 @@ import { MathematicalSkillsFormKeys } from '../MathematicalSkills/type';
 export const MATHEMATICAL_SKILLS_SCHEMA: FormSchemaField<MathematicalSkillsFormKeys>[] = [
     {
         name: MathematicalSkillsFormKeys.SCORES,
-        label: 'Mathematical Skills',
+        label: '',
         type: 'table',
 
         // meta: {

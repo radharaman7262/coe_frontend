@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 
 import cx from 'classnames';
 
-import ArrowIcon from '@public/assets/svg/chevron-down.svg'
+import ArrowIcon from '@public/assets/svg/chevron-down.svg';
 
-import Text from '../Text'; 
+import Text from '../Text';
 
 import { AccordionItemType } from './type';
 
@@ -27,9 +27,17 @@ const AccordionItem = ({ item, isOpen, onToggle }: Props) => {
 
     return (
         <div className={styles.accordionItem}>
-            <div className={styles.header} role='button' tabIndex={0} onKeyDown={onToggle} onClick={onToggle}>
+            <div
+                className={styles.header}
+                role='button'
+                tabIndex={0}
+                onKeyDown={onToggle}
+                onClick={onToggle}
+            >
                 <div className={styles.left}>
-                    <Text tagType='div' className={cx(styles.icon, open && styles.rotate)}><ArrowIcon/></Text>
+                    <Text tagType='div' className={cx(styles.icon, open && styles.rotate)}>
+                        <ArrowIcon />
+                    </Text>
                     <Text tagType='h4'>{item.name}</Text>
                 </div>
 
@@ -39,6 +47,6 @@ const AccordionItem = ({ item, isOpen, onToggle }: Props) => {
             <div className={cx(styles.body, open && styles.open)}>{item.content}</div>
         </div>
     );
-}
+};
 
 export default AccordionItem;

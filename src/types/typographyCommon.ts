@@ -231,7 +231,8 @@ export type ColorVariant =
     | 'border-text-gray'
     | 'neutral-gray'
     | 'indigo-50'
-    | 'indigo-blue';
+    | 'indigo-blue'
+    | 'deep-purple';
 
 /**
  * Button Variant

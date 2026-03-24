@@ -4,7 +4,7 @@ import { ReadingSkillsFormKeys } from '../ReadingSkills/type';
 export const READING_SKILLS_SCHEMA: FormSchemaField<ReadingSkillsFormKeys>[] = [
     {
         name: ReadingSkillsFormKeys.SCORES,
-        label: 'Reading Skills',
+        label: '',
         type: 'table',
 
         // meta: {

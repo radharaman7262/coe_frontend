@@ -1,10 +1,10 @@
 import { FormSchemaField } from '../../../../../../../../components/shared/Forms/types/form.types';
 
-import { DiagnosticImpressionFormKeys } from '../DiagnosticImpression/type';
+import { HomeEnvironmentFormKeys } from '../HomeEnvironment/type';
 
-export const HOME_ENVIRONMENT_SCHEMA: FormSchemaField<DiagnosticImpressionFormKeys>[] = [
+export const HOME_ENVIRONMENT_SCHEMA: FormSchemaField<HomeEnvironmentFormKeys>[] = [
     {
-        name: DiagnosticImpressionFormKeys.SPEECH_DIAGNOSIS,
+        name: HomeEnvironmentFormKeys.PATTERNS_OF_PARENTAL_FUNCTIONING,
         label: 'Patterns of parental functioning :',
         type: 'radio',
         required: true,
@@ -24,7 +24,7 @@ export const HOME_ENVIRONMENT_SCHEMA: FormSchemaField<DiagnosticImpressionFormKe
         ],
     },
     {
-        name: DiagnosticImpressionFormKeys.SPEECH_DIAGNOSIS,
+        name: HomeEnvironmentFormKeys.CHILD_EXPECTATIONS,
         label: 'Expectations from the child',
         type: 'radio',
         required: true,
@@ -35,7 +35,7 @@ export const HOME_ENVIRONMENT_SCHEMA: FormSchemaField<DiagnosticImpressionFormKe
     },
 
     {
-        name: DiagnosticImpressionFormKeys.FUNCTIONAL_COMMUNICATION,
+        name: HomeEnvironmentFormKeys.FAMILY_DYNAMICS,
         label: 'Patterns of Family Dynamics',
         type: 'text',
         required: true,

@@ -4,14 +4,11 @@ import { caseHistoryFormDetailKeys } from '@/services/caseHistoryFormDetailKeys'
 
 import { getStudentFormDetails } from './utils.api';
 
-
 export const useGetCaseHistoryFormDetails = (args: { studentId: string; formId: string }) => {
     const { studentId, formId } = args;
 
     return useQuery({
-        queryKey: caseHistoryFormDetailKeys.getCaseHistorySidebarList(formId),
+        queryKey: caseHistoryFormDetailKeys.getCaseHistorySidebarList(formId, studentId),
         queryFn: () => getStudentFormDetails({ formId, studentId }),
     });
 };
-
-

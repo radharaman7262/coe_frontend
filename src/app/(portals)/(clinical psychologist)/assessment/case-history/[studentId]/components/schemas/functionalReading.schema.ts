@@ -4,13 +4,8 @@ import { FunctionalReadingFormKeys } from '../FunctionalReading/type';
 export const FUNCTIONAL_READING_SCHEMA: FormSchemaField<FunctionalReadingFormKeys>[] = [
     {
         name: FunctionalReadingFormKeys.SCORES,
-        label: 'Functional Reading',
+        label: '',
         type: 'table',
-
-        // meta: {
-        //     scoringCriteria:
-        //         '0-Not Applicable, 1-Dependent, 2-Physical Prompt, 3-Verbal Prompt, 4-Cue, 5-Independent',
-        // },
 
         columns: [
             { key: 'label', label: '' },

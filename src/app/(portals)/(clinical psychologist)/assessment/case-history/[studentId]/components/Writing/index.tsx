@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
+import ScoringCriteria from '@/components/shared/ScoringCriteria';
 
 import { QueryKeys } from '@/utils/queryKeys';
 
@@ -36,14 +37,26 @@ const Writing = () => {
     });
 
     return (
-        <AutoForm
-            formGridClassName={styles['muscle-tone-form']}
-            tableRowClassName={styles['table-row']}
-            dropdownClassName={styles.dropdown}
-            schema={WRITING_SCHEMA}
-            formHook={formHook}
-            btnLoader={loader}
-        />
+        <>
+            <ScoringCriteria
+                criteria={[
+                    '0-Not Applicable',
+                    '1-Dependent',
+                    '2-Physical Prompt',
+                    '3-Verbal Prompt',
+                    '4-Cue',
+                    '5-Independent',
+                ]}
+            />
+            <AutoForm
+                formGridClassName={styles['muscle-tone-form']}
+                tableRowClassName={styles['table-row']}
+                dropdownClassName={styles.dropdown}
+                schema={WRITING_SCHEMA}
+                formHook={formHook}
+                btnLoader={loader}
+            />
+        </>
     );
 };
 

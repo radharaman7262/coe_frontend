@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
+import ScoringCriteria from '@/components/shared/ScoringCriteria';
 
 import { QueryKeys } from '@/utils/queryKeys';
 
@@ -16,7 +17,6 @@ import { submitLanguageExpression } from './utils.api';
 import { LANGUAGE_EXPRESSIVE_SCHEMA } from '../schemas/languageExpression.schema';
 
 import styles from './styles.module.scss';
-
 
 const LanguageExpressive = () => {
     const [loader, setLoader] = useState(false);
@@ -37,14 +37,27 @@ const LanguageExpressive = () => {
     });
 
     return (
-        <AutoForm
-            formGridClassName={styles['muscle-tone-form']}
-            tableRowClassName={styles['table-row']}
-            dropdownClassName={styles.dropdown}
-            schema={LANGUAGE_EXPRESSIVE_SCHEMA}
-            formHook={formHook}
-            btnLoader={loader}
-        />
+        <>
+            <ScoringCriteria
+                criteria={[
+                    '0-Not Applicable',
+                    '1-Dependent',
+                    '2-Physical Prompt',
+                    '3-Verbal Prompt',
+                    '4-Cue',
+                    '5-Independent',
+                ]}
+            />
+
+            <AutoForm
+                formGridClassName={styles['muscle-tone-form']}
+                tableRowClassName={styles['table-row']}
+                dropdownClassName={styles.dropdown}
+                schema={LANGUAGE_EXPRESSIVE_SCHEMA}
+                formHook={formHook}
+                btnLoader={loader}
+            />
+        </>
     );
 };
 

@@ -213,8 +213,9 @@ $colors: (
     text-bg-gray: #f4f4f4,
     border-text-gray: #f0f0f0,
     neutral-gray: #dedede,
-    light-gray: #E9EAEB,
-    dark-blue: #1447E6,
+    light-gray: #e9eaeb,
+    dark-blue: #1447e6,
+    deep-purple: #6b21a8
 );
 
 @each $name, $color in $colors {

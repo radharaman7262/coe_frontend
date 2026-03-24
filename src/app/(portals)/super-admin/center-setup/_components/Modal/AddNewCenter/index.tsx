@@ -142,8 +142,7 @@ const AddNewCentre = ({
             name: formValues?.centerName,
             address: formValues?.address,
             phone: formValues?.contactDetails,
-            adminId:
-                (formValues?.selectedAdmin && formValues?.selectedAdmin?.userId.toString()) || '',
+            adminId: (formValues?.selectedAdmin && formValues?.selectedAdmin?.userId) || null,
         };
 
         if (!centerId) {

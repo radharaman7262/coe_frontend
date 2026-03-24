@@ -386,7 +386,7 @@ const AddNewStaff = ({
                     </div>
                     <div className={styles.footer}>
                         <Button
-                            label={text.create}
+                            label={!AdminStaffId ? text.create : text.update}
                             variant={ButtonVariant.SOLID}
                             color='white'
                             StartIcon={<PlusIcon />}

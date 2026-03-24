@@ -13,11 +13,11 @@ export interface AddAdminStaffProps {
 }
 
 export type specializationType = {
-    createdAt: string;
+    createdAt?: string;
     id: number;
     name: string;
-    status: number;
-    updatedAt: string;
+    status?: number;
+    updatedAt?: string;
 };
 
 export type genderType = {

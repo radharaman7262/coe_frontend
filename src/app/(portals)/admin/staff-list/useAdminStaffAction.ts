@@ -45,6 +45,8 @@ export const useUserAdminStaffAction = ({
                 message: messageMap[payload.type],
             });
 
+            setShow(false);
+
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.ADMIN_STAFF_MANAGEMENT],
             });
@@ -58,6 +60,7 @@ export const useUserAdminStaffAction = ({
                 message: error instanceof Error ? error.message : String(error),
             });
         } finally {
+            setShow(false);
             setLoader?.(false);
         }
     };

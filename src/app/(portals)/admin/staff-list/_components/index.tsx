@@ -60,6 +60,12 @@ const AdminStaffListPage = () => {
             id: Number(gender?.id) ?? null,
             name: gender?.name ?? '',
         };
+
+        const updatedLanguages = item?.languages.map((item) => ({
+            id: item.languageId.toString(),
+            name: item.language,
+        }));
+
         setFormValues((prevValues) => ({
             ...prevValues,
             [AdminStaffFormKeys.NAME]: item?.name,
@@ -67,12 +73,21 @@ const AdminStaffListPage = () => {
             [AdminStaffFormKeys.EMAIL_ID]: item?.email,
             [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]: item?.totalYearOfExperience,
             [AdminStaffFormKeys.GENDER]: genderDetail,
+            [AdminStaffFormKeys.SELECTED_SPECIALIZATION]: {
+                id: Number(item?.specialist[0].specializationId),
+                name: item?.specialist[0].specialization,
+            },
+            [AdminStaffFormKeys.ASSIGN_ROLE]: {
+                id: item.roleId,
+                roleName: item?.role,
+            },
+            [AdminStaffFormKeys.LANGUAGE]: updatedLanguages,
         }));
     };
 
     const getAdminStaffManagementList = (results: staffListDataType[] = []) =>
         results?.map((item) => {
-            const { name, email, status, assignedStudents } = item;
+            const { name, email, status, assignedStudents, specialist, languages } = item;
 
             const reverseStatus =
                 Number(status) === StatusNumber.ACTIVE
@@ -89,13 +104,14 @@ const AdminStaffListPage = () => {
                         <div>{email}</div>
                     </div>
                 ),
-
+                specialist: <div>{specialist[0]?.specialization}</div>,
                 status: (
                     <div className={styles[`status-${status}`] || ''}>
                         {status === StatusNumber.ACTIVE && <div className={styles.dot} />}
                         {statusLabel}
                     </div>
                 ),
+                languages: languages.map((item) => item.language).join(', '),
                 changeStatus: (
                     <div
                         className={cx(

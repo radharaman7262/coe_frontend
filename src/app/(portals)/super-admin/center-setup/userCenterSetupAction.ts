@@ -46,7 +46,7 @@ export const useUserCenterSetupActions = ({
             });
 
             queryClient.invalidateQueries({
-                queryKey: [QueryKeys.CENTER_LIST],
+                queryKey: [QueryKeys.CENTER_LIST, QueryKeys.CENTER_ADMIN],
             });
 
             if (payload.type !== 'status') {

@@ -42,7 +42,7 @@ const SpecialEducatorInterventionPage = () => {
 
     const [currentPage, setCurrentPage] = useState<number>(StatusNumber.ACTIVE);
     const [tableFilter, setTableFilter] = useState<string>('');
-    const [openMenu, setOpenMenu] = useState<number | null>(null);
+    const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
     const [goalModal, setGoalModal] = useState<boolean>(false);
     const [bookASessionModal, setBookASessionModal] = useState<boolean>(false);
@@ -76,8 +76,8 @@ const SpecialEducatorInterventionPage = () => {
         }
     };
 
-    const handleThreeDot = (id: number) => {
-        setOpenMenu((prev) => (prev === id ? null : id));
+    const handleThreeDot = (id: string) => {
+        setOpenMenuId((prev) => (prev === id ? null : id));
     };
 
     const renderIcon = (type: string) => {
@@ -112,7 +112,16 @@ const SpecialEducatorInterventionPage = () => {
 
     const getSpecialEducatorInterventionList = (results: InterventionType[] = []) =>
         results.map((item) => {
-            const { studentName, age, gender, startTime, endTime, bookingDate, isGoalSet } = item;
+            const {
+                studentName,
+                age,
+                gender,
+                startTime,
+                endTime,
+                bookingDate,
+                isGoalSet,
+                studentId,
+            } = item;
 
             const genderInitial = gender?.[0] ?? '';
 
@@ -199,10 +208,10 @@ const SpecialEducatorInterventionPage = () => {
                 edit: (
                     <div ref={dropdownRef}>
                         <div className={styles.cursor}>
-                            <ThreeDotIcon onClick={() => handleThreeDot(Number(item.studentId))} />
+                            <ThreeDotIcon onClick={() => handleThreeDot(studentId)} />
                         </div>
 
-                        {openMenu && (
+                        {openMenuId === studentId && (
                             <div className={styles['dropdown-menu']}>
                                 {PROFILE_ACTIONS.map((profileItem) => (
                                     <div
@@ -232,12 +241,12 @@ const SpecialEducatorInterventionPage = () => {
             };
         });
 
-    useClickOutside(dropdownRef, () => setOpenMenu(null));
+    useClickOutside(dropdownRef, () => setOpenMenuId(null));
 
     const finalInterventionList = useMemo(
         () => getSpecialEducatorInterventionList(assessmentResponse),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [assessmentResponse, openMenu],
+        [assessmentResponse, openMenuId],
     );
 
     return (

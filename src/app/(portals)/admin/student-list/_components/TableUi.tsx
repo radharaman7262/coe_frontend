@@ -47,6 +47,10 @@ const TableUi = (props: tableUiProps) => {
         setCurrentPage(currentPage - 1);
     };
 
+    const handleClickOnCount = (page: number) => {
+        setCurrentPage(page);
+    };
+
     const handleSearchFilter = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
@@ -69,6 +73,7 @@ const TableUi = (props: tableUiProps) => {
             columns={constantColumns}
             data={data}
             currentPage={currentPage}
+            handleClickOnCount={handleClickOnCount}
             handleNextButton={handleNextButton}
             handlePreviousButton={handlePreviousButton}
             totalCount={totalCount}

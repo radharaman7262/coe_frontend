@@ -67,7 +67,7 @@ const CenterSetupPage = () => {
             [CenterSetupFormKeys.CONTACT_DETAILS]: item?.phone,
             [CenterSetupFormKeys.SELECTED_ADMIN]: {
                 fullName: item?.centerAdmin,
-                userId: Number(item?.centerId),
+                userId: Number(item?.adminId),
             } as AdminType,
         }));
     };

@@ -1,10 +1,11 @@
-import { addStaffApiCall, changeStaffStatusApiCall } from './utils';
+import { staffListPayloadDataType } from './type';
+
+import { addStaffApiCall, changeStaffStatusApiCall, updateStaffApiCall } from './utils';
 
 export const userAdminStaffService = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    create: (body: any) => addStaffApiCall(body),
+    create: (body: staffListPayloadDataType) => addStaffApiCall(body),
 
-    // update: (id: number, body: CenterAdminPayloadType) => updateCenterAdminApiCall(id, body),
+    update: (id: number, body: staffListPayloadDataType) => updateStaffApiCall(id, body),
 
     updateStatus: (id: string, status: string) => changeStaffStatusApiCall({ id, status }),
 };

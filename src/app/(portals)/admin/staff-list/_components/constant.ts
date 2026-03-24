@@ -3,7 +3,7 @@ import { StaffStatusType } from '../type';
 export const COLUMNS = [
     { header: 'Name', accessor: 'name' },
     { header: 'Role', accessor: 'role' },
-    // { header: 'Specialist', accessor: 'specialist' },
+    { header: 'Specialist', accessor: 'specialist' },
     { header: 'Phone number', accessor: 'phone' },
     { header: 'Assigned Students', accessor: 'assignedStudents' },
     { header: 'Status', accessor: 'status' },

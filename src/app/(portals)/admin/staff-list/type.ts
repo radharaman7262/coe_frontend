@@ -1,14 +1,25 @@
+interface getSpecializationTableType {
+    specialization: string;
+    specializationId: number;
+}
+
+interface languageDataType {
+    languageId: number;
+    language: string;
+}
+
 export interface staffListDataType {
     id: string;
     name: string;
     email: string;
+    roleId: string;
     role: string;
-    specialist: string[];
+    specialist: getSpecializationTableType[];
     phone: string;
     assignedStudents: number;
     status: number;
     totalYearOfExperience: string;
-    language: string[];
+    languages: languageDataType[];
     gender: string;
 }
 

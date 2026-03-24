@@ -5,7 +5,7 @@ import Modal from '@/components/shared/Modal';
 
 import { Text, Input, Dropdown, Button } from '@/components/index';
 
-import { MODAL_STYLING } from '@/constant/appConstants';
+import { MODAL_STYLING, StatusNumber } from '@/constant/appConstants';
 
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
@@ -93,7 +93,15 @@ const RoleMasterModal = ({
         updateFormValue(RoleFormKeys.SELECTED_USER_TYPE, item);
     };
 
-    const userTypeOptions = useMemo(() => getUserType(userTypeList), [userTypeList]);
+    const userTypeOptions = useMemo(
+        () =>
+            getUserType(
+                (userTypeList || []).filter(
+                    (item: RoleMasterType) => item.status === StatusNumber.ACTIVE,
+                ),
+            ),
+        [userTypeList],
+    );
 
     const filteredUserType = useMemo(
         () =>

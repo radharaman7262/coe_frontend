@@ -56,6 +56,30 @@ import Recommendation from './Recommendation';
 import MedicalDevelopmentalHistory from './MedicalDevelopmentalHistory';
 import HomeEnvironment from './HomeEnvironment';
 import EquilibriumTest from './EquilibriumTest';
+import MedicalAndSurgicalHistory from './MedicalAndSurgicalHistory';
+import DevelopmentalMilestone from './DevelopmentalMilestone';
+import SpeechAndArticulation from './SpeechAndArticulation';
+import ResonanceAndVoice from './ResonanceAndVoice';
+import AacAndAlternateModes from './AacAndAlternateModes';
+import CPProvisionalDiagnosis from './CPProvisionalDiagnosis';
+import CPDiagnosticImpression from './CPDiagnosticImpression';
+import CPFormalTools from './CPFormalTools';
+import FluenceSpecific from './FluenceSpecific';
+import ObservationalFindings from './ObservationalFindings';
+import ImpactOnFunctionalCommunication from './ImpactOnFunctionalCommunication';
+import SeverityRating from './SeverityRating';
+import ClinicalImpression from './ClinicalImpression';
+import VoiceCaseHistory from './VoiceCaseHistory';
+import BehavioralAndClinicalImpression from './BehavioralAndClinicalImpression';
+import PerceptionAndVoiceAnalysis from './PerceptionAndVoiceAnalysis';
+import AerodynamicAspects from './AerodynamicAspects';
+import ImpactOnCommunication from './ImpactOnCommunication';
+import VoiceFormalTools from './VoiceFormalTools';
+import VoiceDiagnosticImpression from './VoiceDiagnosticImpression';
+import ImpulseControl from './ImpulseControl';
+import GSLSensoryProfile from './GSLSensoryProfile';
+import GSLFormalTools from './ProvisionalDiagnosis copy';
+// import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '15': <PrenatalBirthHistory />,
@@ -108,10 +132,33 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '156': <ReadingSkills />,
     '157': <MathematicalSkills />,
     '158': <BehavioralObservation />,
+    '160': <ImpulseControl />,
+    '162': <GSLSensoryProfile />,
+    '163': <GSLFormalTools />,
     '164': <DiagnosticFormulation />,
     '166': <ProvisionalDiagnosis />,
     '174': <FormalAndInformalTools />,
     '175': <DiagnosticImpression />,
     '176': <Recommendation />,
-    '168': <MedicalDevelopmentalHistory />,
+    '177': <MedicalDevelopmentalHistory />,
+    '168': <MedicalAndSurgicalHistory />,
+    '169': <DevelopmentalMilestone />,
+    '171': <SpeechAndArticulation />,
+    '172': <ResonanceAndVoice />,
+    '181': <AacAndAlternateModes />,
+    '182': <CPFormalTools />,
+    '183': <CPDiagnosticImpression />,
+    '184': <CPProvisionalDiagnosis />,
+    '186': <FluenceSpecific />,
+    '187': <ObservationalFindings />,
+    '190': <ImpactOnFunctionalCommunication />,
+    '192': <SeverityRating />,
+    '193': <ClinicalImpression />,
+    '196': <VoiceCaseHistory />,
+    '195': <BehavioralAndClinicalImpression />,
+    '198': <AerodynamicAspects />,
+    '200': <ImpactOnCommunication />,
+    '201': <VoiceFormalTools />,
+    '202': <VoiceDiagnosticImpression />,
+    '204': <PerceptionAndVoiceAnalysis />,
 };

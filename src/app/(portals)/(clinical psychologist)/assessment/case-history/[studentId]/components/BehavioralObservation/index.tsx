@@ -15,6 +15,17 @@ import { useGetCaseHistoryFormDetails } from '../../../queries';
 
 import { submitBehavioralObservation } from './utils.api';
 
+import {
+    EYE_CONTACT_OPTIONS,
+    ALERTNESS,
+    ATTENTION,
+    IMITATION,
+    SENSORY_BEHAVIOR,
+    SITTING_TOLERANCE,
+    TRANSITIONS,
+    EMOTIONAL,
+} from './constant';
+
 import styles from './styles.module.scss';
 
 const BehavioralObservation = () => {
@@ -30,6 +41,16 @@ const BehavioralObservation = () => {
         schema: BEHAVIORAL_OBSERVATION_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
+        checkboxConfig: {
+            alertness: ALERTNESS,
+            eyeContact: EYE_CONTACT_OPTIONS,
+            jointAttention: ATTENTION,
+            imitation: IMITATION,
+            sittingTolerance: SITTING_TOLERANCE,
+            sensoryBehaviors: SENSORY_BEHAVIOR,
+            transitions: TRANSITIONS,
+            emotionalRegulation: EMOTIONAL,
+        },
     });
 
     return (

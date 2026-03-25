@@ -11,9 +11,9 @@
     width: 100%;
 
     .content {
-        padding: 0px 20px;
+        padding-left: 60px;
         height: calc(100vh - 120px);
-        overflow-y: hidden;
+        overflow-y: scroll;
     }
 }
 
@@ -33,11 +33,14 @@
 }
 
 .sidebar-shimmer {
-    width: 420px;
+    width: 300px;
     height: calc(100vh - 68px);
+    margin: 20px;
+    border-radius: 12px;
 }
 
 .content-shimmer {
     flex: 1;
     height: calc(100vh - 68px);
+    margin-left: 60px;
 }

@@ -30,9 +30,6 @@ const ProvisionalDiagnosis = () => {
         schema: PROVISION_DIAGNOSIS_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
-        // checkboxConfig: {
-        //     selectedOptions: OPTIONS,
-        // },
     });
 
     return (

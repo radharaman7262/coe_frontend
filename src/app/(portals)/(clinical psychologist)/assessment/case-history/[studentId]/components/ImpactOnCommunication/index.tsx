@@ -2,38 +2,37 @@
 
 import { useState } from 'react';
 
-import { useAppMutation } from '@/hooks/useAppMutation';
-
 import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
-
-import { useAutoForm } from '@/hooks/useAutoForm';
 
 import { QueryKeys } from '@/utils/queryKeys';
 
+import { useAppMutation } from '@/hooks/useAppMutation';
+import { useAutoForm } from '@/hooks/useAutoForm';
+
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
-import { DIAGNOSTIC_IMPRESSION_SCHEMA } from '../schemas/diagnosticImpression.schema';
+import { IMPACT_ON_COMMUNICATION_SCHEMA } from '../schemas/impactOnCommunication.schema';
 
-import { submitDiagnosticImpression } from './utils.api';
+import { submitImpactOnCommunication } from './utils.api';
 
-const DiagnosticImpression = () => {
+const ImpactOnCommunication = () => {
     const [loader, setLoader] = useState(false);
 
     const mutation = useAppMutation({
-        mutationFn: submitDiagnosticImpression,
+        mutationFn: submitImpactOnCommunication,
         setLoader,
         invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
     });
 
     const formHook = useAutoForm({
-        schema: DIAGNOSTIC_IMPRESSION_SCHEMA,
+        schema: IMPACT_ON_COMMUNICATION_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
     });
 
     return (
-        <AutoForm btnLoader={loader} schema={DIAGNOSTIC_IMPRESSION_SCHEMA} formHook={formHook} />
+        <AutoForm schema={IMPACT_ON_COMMUNICATION_SCHEMA} formHook={formHook} btnLoader={loader} />
     );
 };
 
-export default DiagnosticImpression;
+export default ImpactOnCommunication;

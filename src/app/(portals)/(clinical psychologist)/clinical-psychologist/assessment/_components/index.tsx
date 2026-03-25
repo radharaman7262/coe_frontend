@@ -154,15 +154,15 @@ const ClinicalPsychologistAssessmentPage = () => {
                             ))
                         ) : (
                             <span className={styles['assign-btn']} role='button' aria-hidden='true'>
-                                _
+                                + Assign Therapist first
                             </span>
                         )}
                     </div>
                 ),
 
                 action: (
-                    <div className={styles['action-wrapper']}>
-                        <div className={styles['cursor-pointer']}>
+                    <div>
+                        <div className={styles.cursor}>
                             <ThreeDotIcon onClick={() => handleThreeDot(studentId)} />
                         </div>
 

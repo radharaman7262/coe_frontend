@@ -1,4 +1,5 @@
 .sidebar {
+    width: 300px;
     background: #fff;
     border-radius: 12px;
     padding: 16px;
@@ -47,10 +48,6 @@
 .case-history {
     border-right: 1px solid #e2e8f0;
     padding: 20px;
-    height: calc(100vh - 12vh);
-    overflow-y: scroll;
-    overflow-x: hidden;
-    min-width: 360px;
 }
 
 .sectionList {

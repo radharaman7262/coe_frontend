@@ -1,10 +1,16 @@
-export type FieldType = 'text' | 'number' | 'radio' | 'checkbox' | 'select' | 'table';
+export type FieldType = 'text' | 'number' | 'radio' | 'checkbox' | 'select' | 'table' | 'group';
 
 export interface OptionType {
     label: string;
     value: string;
     key?: string;
 }
+
+// export type GroupField<T extends string> = {
+//     type: 'group';
+//     label: string;
+//     fields: FormSchemaField<T>[];
+// };
 
 export type ShowWhenCondition<T> = {
     field: T;
@@ -59,4 +65,8 @@ export type TableField<T extends string> = BaseField<T> & {
     rows: TableSection[];
 };
 
-export type FormSchemaField<T extends string> = SimpleField<T> | OptionField<T> | TableField<T>;
+export type FormSchemaField<T extends string> =
+    | SimpleField<T>
+    | OptionField<T>
+    | TableField<T>
+    // | GroupField<T>;

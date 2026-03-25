@@ -9,5 +9,6 @@ export type StudentType = {
 export enum StudentStatusType {
     ALL_STATUS = '0',
     PENDING = '1',
-    DONE = '2',
+    IN_PROGRESS = '2',
+    DONE = '3',
 }

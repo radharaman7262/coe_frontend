@@ -81,6 +81,7 @@ export const STATIC_STATUS = [
 export const STUDENT_STATUS = [
     { id: StudentStatusType.ALL_STATUS, name: 'All Status' },
     { id: StudentStatusType.PENDING, name: 'Pending' },
+    { id: StudentStatusType.IN_PROGRESS, name: 'In Progress' },
     { id: StudentStatusType.DONE, name: 'Done' },
 ];
 
@@ -230,5 +231,6 @@ export const TREE = [
 export enum SpecializationEnum {
     SPECIAL_EDUCATOR = 'Special Educator',
     SPEECH_THERAPIST = 'Speech Therapist',
+    OCCUPATIONAL_THERAPIST = 'Occupational therapists',
     CLINICAL_PSYCHOLOGIST = 'Clinical Physchologist',
 }

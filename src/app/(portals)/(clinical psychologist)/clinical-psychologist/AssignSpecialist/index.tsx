@@ -60,7 +60,7 @@ const AssignSpecialistDrawer = (props: AssignSpecialistDrawerProps) => {
                 setTimeout(() => {
                     showToast({
                         type: 'success',
-                        message,
+                        message: 'Therapist Assigned Successfully',
                     });
                     setSelectedAssignments([]);
                     handleClose();

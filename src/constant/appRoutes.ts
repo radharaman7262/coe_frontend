@@ -1,3 +1,5 @@
+import { SpecializationEnum } from './appConstants';
+
 export enum AppRoutes {
     LANDING_PAGE = '/',
     SUPER_ADMIN_DASHBOARD = 'super-admin/dashboard',
@@ -41,3 +43,11 @@ export enum AppRoutes {
 
     //   PROFILE = 'profile'
 }
+
+export const ASSESSMENT_ROUTE_MAPPING: Record<string, string> = {
+    [SpecializationEnum.OCCUPATIONAL_THERAPIST]: 'occupational-therapist/assessment/child-info',
+
+    [SpecializationEnum.SPEECH_THERAPIST]: 'speech-therapist/assessment',
+
+    [SpecializationEnum.SPECIAL_EDUCATOR]: 'specialist/assessment',
+};

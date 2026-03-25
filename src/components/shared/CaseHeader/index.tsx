@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import ArrowIcon from '@public/assets/svg/arrow-icon.svg';
 
-import { AppRoutes } from '@/constant/appRoutes';
+import { AppRoutes, ASSESSMENT_ROUTE_MAPPING } from '@/constant/appRoutes';
 
 import { SpecializationEnum } from '@/constant/appConstants';
 import AssignSpecialistDrawer from '@/app/(portals)/(clinical psychologist)/clinical-psychologist/AssignSpecialist';
@@ -45,7 +45,16 @@ const CaseHeader = () => {
     };
 
     const handleAssign = () => {
-        setOpen(true);
+        if (name === SpecializationEnum.CLINICAL_PSYCHOLOGIST) {
+            setOpen(true);
+            return;
+        }
+
+        const route = ASSESSMENT_ROUTE_MAPPING[name];
+
+        if (route) {
+            router.push(`/${route}`);
+        }
     };
 
     const handleback = () => {

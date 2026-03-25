@@ -18,10 +18,11 @@ import { INITIAL_STATE, inputFields, InputFieldType, textAreaFields } from './co
 
 import { useChildInformationSubmit } from '../mutation';
 
-import styles from './styles.module.scss';
 import { getSelectAssessmentListDetail } from './SelectAssessmentModal/util';
 import SelectAssessmentModal from './SelectAssessmentModal';
 import { AssessmentItem } from './SelectAssessmentModal/type';
+
+import styles from './styles.module.scss';
 
 interface ChildInformationFormProps {
     studentDetail: {

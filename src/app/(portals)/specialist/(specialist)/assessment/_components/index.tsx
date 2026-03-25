@@ -23,7 +23,7 @@ import { AppRoutes } from '@/constant/appRoutes';
 
 import BookASessionModal from '@/app/(portals)/(modals)/BookSessionModal';
 
-import { getClientUserDetails } from '@/utils/cookieManager';
+import { getClientUserDetails, setStudentDetail } from '@/utils/cookieManager';
 
 import { ASSESSMENT_TEXT as text } from './constant';
 
@@ -66,6 +66,7 @@ const SpecialEducatorAssessmentPage = () => {
 
     const handleClickRedirection = (item: AssessmentStudentType) => {
         if (item?.sessionStatus !== 'Pending') {
+            setStudentDetail(JSON.stringify(item));
             if (name === SpecializationEnum.SPECIAL_EDUCATOR) {
                 router.push(`/${AppRoutes.SPECIALIST_ASSESSMENT}/${item.studentId}`);
             } else {

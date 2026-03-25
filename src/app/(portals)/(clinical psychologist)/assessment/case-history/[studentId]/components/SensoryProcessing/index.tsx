@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+
 import { useParams, useSearchParams } from 'next/navigation';
 
 import { QueryKeys } from '@/utils/queryKeys';
 
-import { Button, Checkbox, Input, Text } from '@/components/index';
+import { Button, Checkbox, Input, Text, Toaster } from '@/components/index';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
@@ -59,19 +60,28 @@ const SensoryProcessing = () => {
     const calculatePercentage = (
         data: Record<string, string | Record<string, string | boolean>>,
     ) => {
-        let total = 0;
-        let checked = 0;
+        let totalSections = 0;
+        let checkedSections = 0;
 
         Object.entries(data).forEach(([key, value]) => {
             if (typeof value === 'object' && key !== 'studentId') {
-                Object.values(value).forEach((v) => {
-                    total += 1;
-                    if (v) checked += 1;
-                });
+                totalSections += 1;
+
+                const hasAnyTrue = Object.values(value).some((v) => v === true);
+
+                if (hasAnyTrue) {
+                    checkedSections += 1;
+                }
+            }
+            if (typeof value === 'string') {
+                totalSections += 1;
+                if (value) {
+                    checkedSections += 1;
+                }
             }
         });
 
-        return total ? Math.round((checked / total) * 100) : 0;
+        return totalSections ? Math.round((checkedSections / totalSections) * 100) : 0;
     };
 
     const percentage = useMemo(() => calculatePercentage(state), [state]);
@@ -195,6 +205,7 @@ const SensoryProcessing = () => {
                     disabled={loader}
                 />
             </div>
+            <Toaster />
         </>
     );
 };

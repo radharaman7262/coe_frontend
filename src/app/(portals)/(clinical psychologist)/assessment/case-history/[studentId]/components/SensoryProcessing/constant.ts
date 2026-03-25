@@ -143,7 +143,7 @@ export const DATA = [
     {
         key: 'gustatory',
         title: 'Gustatory (Taste)',
-        fields: [
+        items: [
             {
                 key: 'pickyEater',
                 label: 'Picky eater, avoids certain textures, gag reflex',
@@ -161,7 +161,7 @@ export const DATA = [
     {
         key: 'interoception',
         title: 'Interoception',
-        fields: [
+        items: [
             {
                 key: 'difficultyIdentifyingHunger',
                 label: 'Difficulty identifying hunger, thirst, need to use toilet',

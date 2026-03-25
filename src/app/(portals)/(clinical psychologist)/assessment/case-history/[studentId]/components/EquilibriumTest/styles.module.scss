@@ -1,0 +1,10 @@
+@use '@styles/theme' as *;
+
+.muscle-tone-form {
+    //  display: flex;
+    display: block;
+}
+
+.table-row {
+    grid-template-columns: 20% 80%;
+}

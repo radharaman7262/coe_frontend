@@ -55,6 +55,7 @@ import DiagnosticImpression from './DiagnosticImpression';
 import Recommendation from './Recommendation';
 import MedicalDevelopmentalHistory from './MedicalDevelopmentalHistory';
 import HomeEnvironment from './HomeEnvironment';
+import EquilibriumTest from './EquilibriumTest';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '15': <PrenatalBirthHistory />,
@@ -86,7 +87,8 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '131': <GrossDevelopmentChecklist />,
     '132': <InHandManipulation />,
     '133': <Coordination />,
-    '135': <NonEquilibriumTest />,
+    '134': <NonEquilibriumTest />,
+    '135': <EquilibriumTest />,
     '136': <CognitiveAndPerceptual />,
     '141': <SensoryProcessing />,
     '142': <CommunicationSkills />,

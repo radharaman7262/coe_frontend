@@ -8,13 +8,14 @@ import ArrowIcon from '@public/assets/svg/arrow-icon.svg';
 
 import { AppRoutes } from '@/constant/appRoutes';
 
+import { SpecializationEnum } from '@/constant/appConstants';
 import AssignSpecialistDrawer from '@/app/(portals)/(clinical psychologist)/clinical-psychologist/AssignSpecialist';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import { Button, Text } from '@/components/index';
 
-import { getStudentDetail } from '@/utils/cookieManager';
+import { getClientUserDetails, getStudentDetail } from '@/utils/cookieManager';
 
 import styles from './styles.module.scss';
 
@@ -26,6 +27,12 @@ const CaseHeader = ({ onBackClick }: CaseHeaderProps) => {
     const [open, setOpen] = useState(false);
 
     const pathname = usePathname();
+
+    const userDetails = getClientUserDetails();
+
+    const { userSpecializations } = userDetails;
+
+    const { name } = userSpecializations;
 
     const basePath = pathname?.split('/')?.slice(0, -1)?.join('/') || '/';
 
@@ -79,7 +86,9 @@ const CaseHeader = ({ onBackClick }: CaseHeaderProps) => {
                 </div>
                 {basePath === `/${AppRoutes.ASSESSMENT_CASE_HISTORY}` && (
                     <Button
-                        label='Assign'
+                        label={
+                            name === SpecializationEnum.CLINICAL_PSYCHOLOGIST ? 'Assign' : 'Submit'
+                        }
                         variant={ButtonVariant.SOLID}
                         color='white'
                         onClick={handleAssign}

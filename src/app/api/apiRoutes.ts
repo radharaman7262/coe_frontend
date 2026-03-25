@@ -161,6 +161,7 @@ const GRASP_DEVELOPMENT_ENDPOINT = `${OT_API_URL}/grasp-development`;
 const IN_HAND_DEVELOPMENT_ENDPOINT = `${OT_API_URL}/in-hand-manipulation`;
 const CO_ORDINATION_ENDPOINT = `${OT_API_URL}/coordination`;
 const NON_EQUILIBRIUM_ENDPOINT = `${OT_API_URL}/non-equilibrium-tests`;
+const EQUILIBRIUM_ENDPOINT = `${OT_API_URL}/equilibrium-tests`;
 const COGNITIVE_AND_PERCEPTUAL_SKILLS_ENDPOINT = `${OT_API_URL}/ot-cognitive-perceptual-skills`;
 const COMMUNICATION_SKILLS_ENDPOINT = `${OT_API_URL}/communication-skills`;
 const EMOTIONAL_AWARENESS_ENDPOINT = `${OT_API_URL}/emotional-awareness-expression`;
@@ -365,4 +366,5 @@ export {
     RECOMMENDATION_ENDPOINT,
     SUBMIT_MEDICAL_DEVELOPMENTAL_HISTORY_ENDPOINT,
     HOME_ENVIRONMENT_ENDPOINT,
+    EQUILIBRIUM_ENDPOINT,
 };

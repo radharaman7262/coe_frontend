@@ -231,4 +231,5 @@ export const TREE = [
 export enum SpecializationEnum {
     SPECIAL_EDUCATOR = 'Special Educator',
     SPEECH_THERAPIST = 'Speech Therapist',
+    CLINICAL_PSYCHOLOGIST = 'Clinical Physchologist',
 }

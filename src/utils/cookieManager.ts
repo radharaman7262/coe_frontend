@@ -42,8 +42,7 @@ const setClientSideUserDetail = (contentValue: string) => {
     });
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const setStudentDetail = (contentValue: any) => {
+const setStudentDetail = (contentValue: string) => {
     if (!contentValue) {
         return;
     }
@@ -107,7 +106,7 @@ const getStudentDetail = () => {
     return formId;
 };
 
-const removeParentId = () => Cookies.remove(PARENT_ID)
+const removeParentId = () => Cookies.remove(PARENT_ID);
 
 export {
     clearAllCookies,
@@ -120,5 +119,5 @@ export {
     getStudentDetail,
     getParentId,
     setParentId,
-    removeParentId
+    removeParentId,
 };

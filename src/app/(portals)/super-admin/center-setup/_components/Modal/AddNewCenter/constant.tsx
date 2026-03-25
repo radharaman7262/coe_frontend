@@ -36,7 +36,7 @@ export const MAX_LENGTHS: Partial<Record<CenterSetupFormKeys, number>> = {
 export const ERROR_MESSAGES = {
     centerErrorCreation: 'Center should be between 3 to 30 characters.',
     contactErrorDetail: 'Phone number should be valid.',
-    addressErrorDetail: 'Address should be between 3 to 50 characters.',
+    addressErrorDetail: 'Address should be valid eg. 12/24, Delhi. (Don`t use $%*= Character)',
 };
 
 export const VALIDATION_RULES = {

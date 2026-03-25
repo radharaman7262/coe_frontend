@@ -44,7 +44,7 @@ const AfterLoginHeader = () => {
         setUserDetails(details);
     };
 
-    const { firstName, role, EducatorMaster } = userDetails || {};
+    const { firstName,  EducatorMaster , userSpecializations } = userDetails || {};
 
     const { name: educatorName } = EducatorMaster || {};
 
@@ -80,7 +80,7 @@ const AfterLoginHeader = () => {
                                 font={[FontType.text_sm_regular, FontType.text_sm_regular]}
                                 color='primary-cta'
                             >
-                                {role?.name || '_'}
+                                {userSpecializations?.name || '_'}
                             </Text>
                         </button>
 

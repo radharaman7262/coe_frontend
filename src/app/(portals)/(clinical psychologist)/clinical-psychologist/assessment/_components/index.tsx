@@ -17,7 +17,10 @@ import { FontType } from '@/types/typographyCommon';
 
 import useClickOutside from '@/hooks/useClickOutside';
 
+import { setStudentDetail } from '@/utils/cookieManager';
+
 import { AppRoutes } from '@/constant/appRoutes';
+
 import { ASSESSMENT_TEXT as text, STATUS_LABEL_MAP as statusLabelMap } from './constant';
 
 import { useGetClinicalPsychologistAssessmentList } from '../queries';
@@ -45,8 +48,12 @@ const ClinicalPsychologistAssessmentPage = () => {
         setOpenMenuId((prev) => (prev === id ? null : id));
     };
 
-    const handleCaseStudyRedirection = (id: string) => {
-        router.push(`/${AppRoutes.ASSESSMENT}/${id}`);
+    const handleCaseStudyRedirection = (item: AssessmentStudentType) => {
+        const { studentId } = item;
+
+        setStudentDetail(JSON.stringify(item));
+
+        router.push(`/${AppRoutes.ASSESSMENT}/${studentId}`);
     };
 
     const { isLoading, data } = useGetClinicalPsychologistAssessmentList({
@@ -164,7 +171,7 @@ const ClinicalPsychologistAssessmentPage = () => {
                                 <div
                                     className={styles['dropdown-item']}
                                     onClick={() => {
-                                        handleCaseStudyRedirection(studentId);
+                                        handleCaseStudyRedirection(item);
                                     }}
                                     aria-hidden='true'
                                 >

@@ -1,5 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
+import { useRouter } from 'next/navigation';
+
 import { showToast } from '@/components/ui/Toaster/constant';
 
 import { QueryKeys } from '@/utils/queryKeys';
@@ -17,6 +19,8 @@ export const useUserTherpistScheduleAction = ({
     setLoader?: (v: boolean) => void;
 }) => {
     const mutation = useStudentTherpistScheduleMutation();
+
+    const router = useRouter();
 
     const queryClient = useQueryClient();
 
@@ -40,6 +44,8 @@ export const useUserTherpistScheduleAction = ({
                 type: 'success',
                 message: messageMap?.create,
             });
+
+            router.refresh();
 
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.SPECIAL_EDUCATOR_INTERVENTION],

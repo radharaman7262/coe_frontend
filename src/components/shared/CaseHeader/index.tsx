@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import ArrowIcon from '@public/assets/svg/arrow-icon.svg';
 
@@ -19,12 +19,10 @@ import { getClientUserDetails, getStudentDetail } from '@/utils/cookieManager';
 
 import styles from './styles.module.scss';
 
-interface CaseHeaderProps {
-    onBackClick?: () => void;
-}
-
-const CaseHeader = ({ onBackClick }: CaseHeaderProps) => {
+const CaseHeader = () => {
     const [open, setOpen] = useState(false);
+
+    const router = useRouter();
 
     const pathname = usePathname();
 
@@ -50,12 +48,16 @@ const CaseHeader = ({ onBackClick }: CaseHeaderProps) => {
         setOpen(true);
     };
 
+    const handleback = () => {
+        router.back();
+    };
+
     return (
         <>
             <div className={styles.header}>
                 <div className={styles.detail}>
                     <div className={styles.icon}>
-                        <ArrowIcon onClick={onBackClick} />
+                        <ArrowIcon onClick={handleback} />
                     </div>
                     <div className={styles.profile}>
                         <Text

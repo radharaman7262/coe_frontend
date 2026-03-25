@@ -121,6 +121,7 @@
 
 .action-popup {
     position: absolute;
+    // top: 7px;
     top: 330px;
     right: 100px;
     background-color: $white;
@@ -153,7 +154,7 @@
 }
 
 .dropdown-width {
-    width: 20% !important;
+    width: 20%;
 }
 
 .dropdown-bg {

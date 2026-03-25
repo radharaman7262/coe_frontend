@@ -30,7 +30,8 @@ export const useAppMutation = <TBody = any, TResponse = any>({
             const { status, error } = data || {};
 
             if (!status) {
-                throw new Error(error);
+                showToast({ type: 'error', message: error || 'Something went wrong' });
+                return;
             }
 
             invalidateKeys.forEach((key) => {

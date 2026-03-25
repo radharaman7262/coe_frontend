@@ -27,16 +27,25 @@ interface ChildPropsType {
 const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsType) => {
     const [isUdiseValid, setUdiseValid] = useState(false);
 
-    const isFormValid = useMemo(
-        () =>
+    const isFormValid = useMemo(() => {
+        const schoolTypeName = formValues.schoolType?.name;
+
+        const isSchoolOptional =
+            schoolTypeName === 'No School' ||
+            schoolTypeName === 'Home School' ||
+            schoolTypeName === 'Play School';
+
+        const isGradeValid = !!formValues.grade;
+
+        return (
             !!formValues.fullName?.trim() &&
             formValues.fullName.trim().length >= 3 &&
             formValues.fullName.trim().length <= 30 &&
             !!formValues.difficultiesFaced?.trim() &&
             formValues.difficultiesFaced.trim().length >= 10 &&
-            isUdiseValid,
-        [formValues, isUdiseValid],
-    );
+            (isSchoolOptional ? true : isUdiseValid && isGradeValid)
+        );
+    }, [formValues, isUdiseValid]);
 
     return (
         <>

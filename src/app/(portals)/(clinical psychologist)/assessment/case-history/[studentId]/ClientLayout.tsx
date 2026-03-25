@@ -2,7 +2,7 @@
 
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import CaseHeader from '@/components/shared/CaseHeader';
 
@@ -25,13 +25,8 @@ interface ClientLayoutProps {
 
 const ClientLayout = (props: ClientLayoutProps) => {
     const [specialization, setSpecialization] = useState<string>('');
+
     const { children } = props;
-
-    const router = useRouter();
-
-    const handleBack = () => {
-        router.back();
-    };
 
     const searchParams = useParams();
 
@@ -66,7 +61,7 @@ const ClientLayout = (props: ClientLayoutProps) => {
             {isLoading ? (
                 <ShimmerUiContainer className={styles['header-shimmer']} />
             ) : (
-                <CaseHeader onBackClick={handleBack} />
+                <CaseHeader />
             )}
 
             <div className={styles['lower-layout']}>

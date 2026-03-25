@@ -1,5 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
+import { useRouter } from 'next/navigation';
+
 import { showToast } from '@/components/ui/Toaster/constant';
 
 import { QueryKeys } from '@/utils/queryKeys';
@@ -14,6 +16,8 @@ export const useUserGoalAction = ({
     setLoader?: (v: boolean) => void;
 }) => {
     const mutation = useStudentGoalMutation();
+
+    const router = useRouter();
 
     const queryClient = useQueryClient();
 
@@ -37,6 +41,8 @@ export const useUserGoalAction = ({
                 type: 'success',
                 message: messageMap?.create,
             });
+
+            router.refresh();
 
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.SPECIAL_EDUCATOR_INTERVENTION],

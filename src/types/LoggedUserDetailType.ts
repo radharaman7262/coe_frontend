@@ -3,6 +3,15 @@ import { LoggedRoleType } from './roleType';
 import { userSpecializationType } from './userSpecialization';
 import { UserType } from './userType';
 
+interface EducatorMaster {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    name: string;
+    gender: string;
+    totalYearExperience: string;
+    status: number;
+}
 export interface LoggedUserDetailType {
     id: string;
     createdAt: string;
@@ -19,4 +28,5 @@ export interface LoggedUserDetailType {
     userSpecializations: userSpecializationType;
     askSpecialization: number;
     userType: UserType;
+    EducatorMaster: EducatorMaster;
 }

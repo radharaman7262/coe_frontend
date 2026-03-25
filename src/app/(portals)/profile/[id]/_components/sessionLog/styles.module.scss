@@ -33,11 +33,11 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    cursor: pointer;
+    // cursor: pointer;
 }
 
 .header-className {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr !important;
 }
 
 .headerBaseClass {

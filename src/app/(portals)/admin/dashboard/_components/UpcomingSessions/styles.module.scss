@@ -30,4 +30,18 @@
         @include flex-center(normal, center, center);
         height: 120px;
     }
+    .header-className {
+        grid-template-columns: 3fr 1fr 1fr;
+    }
+
+    .headerBaseClass {
+        width: 100px;
+        word-wrap: break-word;
+    }
+
+    .small-table-class {
+        padding: 20px;
+        height: calc(100vh - 40vh);
+        overflow: scroll;
+    }
 }

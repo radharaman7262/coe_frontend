@@ -20,7 +20,7 @@ const RemarkAndNotes = (props: remarkAndNotesData) => {
             </Text>
 
             <div className={styles['container-wrapper']}>
-                {studentRemarkList &&
+                {studentRemarkList?.length > 0 ? (
                     studentRemarkList?.map((item) => (
                         <div className={styles['text-wrap']}>
                             <Text
@@ -36,7 +36,17 @@ const RemarkAndNotes = (props: remarkAndNotesData) => {
                                 {item?.remarks}
                             </Text>
                         </div>
-                    ))}
+                    ))
+                ) : (
+                    <div className={styles['no-data-found']}>
+                        <Text
+                            font={[FontType.text_lg_medium, FontType.text_lg_medium]}
+                            color='black'
+                        >
+                            No Data Found
+                        </Text>
+                    </div>
+                )}
             </div>
         </div>
     );

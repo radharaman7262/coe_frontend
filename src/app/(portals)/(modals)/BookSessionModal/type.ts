@@ -2,7 +2,7 @@ export type slotType = {
     slotId: number;
     startTime: string;
     endTime: string;
-    selected: boolean;
+    selected?: boolean;
 };
 
 export type bookingSlotType = {

@@ -52,7 +52,11 @@ export const inputFields = [
         name: ChildInformationFormKeys.RELIABILITY,
         type: 'input',
     },
-    { label: 'Age at which problems were recognised', name: 'ageRecognised', type: 'input' },
+    {
+        label: 'Age at which problems were recognised',
+        name: ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE,
+        type: 'input',
+    },
     { label: 'Onset', name: 'onset', type: 'input' },
     { label: 'Course', name: 'course', type: 'input' },
     { label: 'Progress', name: 'progress', type: 'input' },

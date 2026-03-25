@@ -47,7 +47,13 @@ const UpcomingSessions = (props: UpcomingSessionProps) => {
                     </Text>
                 </div>
             ) : (
-                <SmallTableBody columns={COLUMNS} data={finalUpcomingSessionsList} />
+                <SmallTableBody
+                    columns={COLUMNS}
+                    data={finalUpcomingSessionsList}
+                    headerClassName={styles['header-className']}
+                    headerBaseClass={styles.headerBaseClass}
+                    smallTableClass={styles['small-table-class']}
+                />
             )}
         </div>
     );

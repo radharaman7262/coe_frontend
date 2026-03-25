@@ -1,6 +1,8 @@
-import { useQueryClient } from '@tanstack/react-query';
+'use client';
 
 import { useRouter } from 'next/navigation';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import { showToast } from '@/components/ui/Toaster/constant';
 
@@ -47,6 +49,8 @@ export const useUserGoalAction = ({
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.SPECIAL_EDUCATOR_INTERVENTION],
             });
+
+            router.refresh();
         } catch (error) {
             showToast({
                 type: 'error',

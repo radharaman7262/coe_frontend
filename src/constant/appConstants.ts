@@ -81,8 +81,7 @@ export const STATIC_STATUS = [
 export const STUDENT_STATUS = [
     { id: StudentStatusType.ALL_STATUS, name: 'All Status' },
     { id: StudentStatusType.PENDING, name: 'Pending' },
-    { id: StudentStatusType.IN_PROGRESS, name: 'In Progress' },
-    { id: StudentStatusType.CLOSED, name: 'Closed' },
+    { id: StudentStatusType.DONE, name: 'Done' },
 ];
 
 export const generateNextDates = (days: number = 15): string[] => {

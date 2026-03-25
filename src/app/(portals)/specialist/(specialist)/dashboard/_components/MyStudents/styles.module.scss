@@ -48,18 +48,10 @@
     color: #f59e0b;
 }
 
-.status-inprogress {
+.status-done {
     width: fit-content;
     padding: 4px 10px;
     border-radius: 14px;
     background: #ecfdf3;
     color: #027a48;
-}
-
-.status-closed {
-    width: fit-content;
-    padding: 4px 10px;
-    border-radius: 14px;
-    background: #f8f9fc;
-    color: $gray-700;
 }

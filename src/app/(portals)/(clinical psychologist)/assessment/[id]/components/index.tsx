@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import { AppRoutes } from '@/constant/appRoutes';
+
 import dayjs, { Dayjs } from 'dayjs';
 
 import { Input, Button, Text, TextArea, BasicDatePicker } from '@/components/index';
@@ -205,6 +206,7 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
             [ChildInformationFormKeys.MOTHER_EDUCATION]:
                 formData[ChildInformationFormKeys.MOTHER_EDUCATION],
             [ChildInformationFormKeys.COURSE]: formData[ChildInformationFormKeys.COURSE],
+            [ChildInformationFormKeys.ADDRESS]: formData[ChildInformationFormKeys.ADDRESS],
         };
 
         mutate(payload, {
@@ -273,7 +275,7 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                 <Button
                     color='white'
                     label='Start Case Study →'
-                    disabled={loader || isFormValid()}
+                    disabled={loader || !isFormValid()}
                     loader={loader}
                     variant={ButtonVariant.SOLID}
                     onClick={handleSubmit}

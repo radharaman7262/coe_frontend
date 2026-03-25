@@ -80,7 +80,7 @@ const BookASessionModal = (props: boolkSessionModaltype) => {
                 day: d.toLocaleDateString('en-US', { weekday: 'short' }),
                 date: d.getDate(),
                 month: d.toLocaleDateString('en-US', { month: 'short' }),
-                slotsCount: item.slots?.length ?? 0,
+                slotsCount: item.availableCount ?? 0,
             };
         });
     }, [bookingSlot]);
@@ -90,7 +90,7 @@ const BookASessionModal = (props: boolkSessionModaltype) => {
 
         const selectedDay = bookingSlot.find((item: bookingSlotType) => item.date === selectedDate);
 
-        return selectedDay?.slots ?? [];
+        return (selectedDay?.slots ?? []).filter((slot: slotType) => !slot.selected);
     }, [selectedDate, bookingSlot]);
 
     const handleSelectedSlots = (slot: slotType) => {

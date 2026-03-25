@@ -44,7 +44,9 @@ const AfterLoginHeader = () => {
         setUserDetails(details);
     };
 
-    const { firstName, role } = userDetails || {};
+    const { firstName, role, EducatorMaster } = userDetails || {};
+
+    const { name: educatorName } = EducatorMaster || {};
 
     useEffect(() => {
         getDetails();
@@ -69,7 +71,7 @@ const AfterLoginHeader = () => {
                                     font={[FontType.text_sm_bold, FontType.text_sm_bold]}
                                     color='black'
                                 >
-                                    {firstName || '_'}
+                                    {firstName || educatorName || ''}
                                 </Text>
                                 <BoldDropDown />
                             </div>

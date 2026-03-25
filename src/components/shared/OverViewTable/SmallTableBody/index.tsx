@@ -63,7 +63,7 @@ const SmallTableBody = (props: SmallTableBodyProps) => {
                                 font={
                                     index === 0
                                         ? [FontType.text_xs_semibold, FontType.text_xs_semibold]
-                                        : [FontType.text_xs_regular, FontType.text_xs_regular]
+                                        : [FontType.text_xs_medium, FontType.text_xs_medium]
                                 }
                             >
                                 {row[col.accessor] || 'N/A'}

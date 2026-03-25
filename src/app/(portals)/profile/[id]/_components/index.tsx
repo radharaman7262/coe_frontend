@@ -42,7 +42,7 @@ const StudentComponentPage = (props: StudentPageComponentType) => {
 
     return (
         <div className={styles['profile-page-wrapper']}>
-            <ProfileHeader portal={portal} />
+            <ProfileHeader />
 
             <div className={styles['profile-component']}>
                 <StudentProfile studentProfileList={studentProfileList} />

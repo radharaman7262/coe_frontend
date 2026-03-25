@@ -154,7 +154,7 @@ const SpecialEducatorAssessmentPage = () => {
                             font={[FontType.text_sm_regular, FontType.text_sm_regular]}
                             color='gray-500'
                         >
-                            {`${startTime} - ${endTime}`}
+                            {`${startTime || ''} - ${endTime || ''}`}
                         </Text>
                     </div>
                 ),
@@ -182,7 +182,14 @@ const SpecialEducatorAssessmentPage = () => {
                                 handleClickRedirection(item);
                             }}
                         />
-                    ) : null,
+                    ) : (
+                        <Text
+                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                            color='green-700'
+                        >
+                            Completed
+                        </Text>
+                    ),
 
                 edit: <ThreeDotIcon />,
             };

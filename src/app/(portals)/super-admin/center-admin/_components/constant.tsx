@@ -13,5 +13,5 @@ export const CENTERADMIN_TEXT = {
     simplifyUser: 'Simplify user creation and management—everything in one place.',
     createAdmin: 'Create Admin',
     clear: 'Clear',
-    searchNameOrUserType: 'Search name or user type',
+    searchNameOrUserType: 'Search name',
 };

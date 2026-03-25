@@ -356,6 +356,7 @@ const AddNewStaff = ({
                                 options={filteredRole}
                                 selectValue='roleName'
                                 value={formValues[AdminStaffFormKeys.ASSIGN_ROLE]}
+                                disable={!!AdminStaffId}
                                 loading={roleMasterLoader}
                                 isSearchable
                                 searchFilter={roleListDropDownFilter}

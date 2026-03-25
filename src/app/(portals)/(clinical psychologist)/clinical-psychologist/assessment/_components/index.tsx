@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useMemo, useRef, useState } from 'react';
-
 import { useRouter } from 'next/navigation';
 
-import { Button, PageHeader, ShimmerUiContainer, Text } from '@/components/index';
-import { getStudentDetail, setStudentDetail } from '@/utils/cookieManager';
+import { PageHeader, ShimmerUiContainer, Text } from '@/components/index';
 
 import { ToastContainer } from 'react-toastify';
 
@@ -15,9 +13,9 @@ import { DEBOUNCE_SEARCH_TIME, StatusDataType, StatusNumber } from '@/constant/a
 
 import useDebounce from '@/utils/useDebounce';
 
-import useClickOutside from '@/hooks/useClickOutside';
+import { FontType } from '@/types/typographyCommon';
 
-import { ButtonVariant, FontType } from '@/types/typographyCommon';
+import useClickOutside from '@/hooks/useClickOutside';
 
 import { AppRoutes } from '@/constant/appRoutes';
 import { ASSESSMENT_TEXT as text, STATUS_LABEL_MAP as statusLabelMap } from './constant';
@@ -34,15 +32,22 @@ const ClinicalPsychologistAssessmentPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(StatusNumber.ACTIVE);
     const [tableFilter, setTableFilter] = useState<string>('');
     const [statusFilter, setStatusFilter] = useState<StatusDataType | null>(null);
-    const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
 
     const router = useRouter();
 
-    const actionRef = useRef<HTMLDivElement | null>(null);
-
-    useClickOutside(actionRef, () => setOpenMenuIndex(null));
+    const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
+
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const handleThreeDot = (id: string) => {
+        setOpenMenuId((prev) => (prev === id ? null : id));
+    };
+
+    const handleCaseStudyRedirection = (id: string) => {
+        router.push(`/${AppRoutes.ASSESSMENT}/${id}`);
+    };
 
     const { isLoading, data } = useGetClinicalPsychologistAssessmentList({
         page: currentPage,
@@ -129,7 +134,7 @@ const ClinicalPsychologistAssessmentPage = () => {
                             font={[FontType.text_xs_regular, FontType.text_xs_regular]}
                             color='gray-500'
                         >
-                            {`${startTime} - ${endTime}`}
+                            {`${startTime || ''} - ${endTime || ''}`}
                         </Text>
                     </div>
                 ),
@@ -142,46 +147,48 @@ const ClinicalPsychologistAssessmentPage = () => {
                             ))
                         ) : (
                             <span className={styles['assign-btn']} role='button' aria-hidden='true'>
-                                + Assign Therapist
+                                + Assign Therapist first
                             </span>
                         )}
                     </div>
                 ),
 
                 action: (
-                    <div className={styles['action-wrapper']}>
-                        <button
-                            type='button'
-                            className={styles['three-dot-btn']}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setOpenMenuIndex((prev) =>
-                                    prev === +item.studentId ? null : +item.studentId,
-                                );
-                                setStudentDetail(JSON.stringify(item));
-                            }}
-                        >
-                            <ThreeDotIcon />
-                        </button>
+                    <div>
+                        <div className={styles.cursor}>
+                            <ThreeDotIcon onClick={() => handleThreeDot(studentId)} />
+                        </div>
+
+                        {openMenuId === item?.studentId && (
+                            <div className={styles['dropdown-menu']} ref={dropdownRef}>
+                                <div
+                                    className={styles['dropdown-item']}
+                                    onClick={() => {
+                                        handleCaseStudyRedirection(studentId);
+                                    }}
+                                    aria-hidden='true'
+                                >
+                                    <Text
+                                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                                        color='text-idle'
+                                    >
+                                        Start Case Study
+                                    </Text>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 ),
             };
         });
 
+    useClickOutside(dropdownRef, () => setOpenMenuId(null));
+
     const finalAssessmentList = useMemo(
         () => getClinicalPsychologistAssessmentList(assessmentResponse),
-        [assessmentResponse],
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [assessmentResponse, openMenuId],
     );
-
-    const handleClick = () => {
-        const details = getStudentDetail();
-
-        const userDetails = details ? JSON.parse(details) : {};
-
-        const { studentId } = userDetails || {};
-
-        router.push(`/${AppRoutes.ASSESSMENT}/${studentId}`);
-    };
 
     return (
         <>
@@ -203,19 +210,6 @@ const ClinicalPsychologistAssessmentPage = () => {
                 />
             )}
 
-            {openMenuIndex && (
-                <div className={styles['action-popup']} ref={actionRef}>
-                    <Button
-                        label='Start Case Study'
-                        variant={ButtonVariant.NORMAL}
-                        color='black'
-                        type='button'
-                        className={styles['action-item']}
-                        onClick={handleClick}
-                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                    />
-                </div>
-            )}
             <ToastContainer />
         </>
     );

@@ -1,34 +1,37 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
 import { useRouter } from 'next/navigation';
 
 import { Text } from '@/components/index';
 
 import BackIcon from '@public/assets/svg/chevron-right.svg';
-import DownIcon from '@public/assets/svg/chevron-down.svg';
 
-import PlusIcon from '@public/assets/svg/black-plus.svg';
-import CalendarIcon from '@public/assets/svg/small-calender.svg';
+// import DownIcon from '@public/assets/svg/chevron-down.svg';
+
+// import PlusIcon from '@public/assets/svg/black-plus.svg';
+// import CalendarIcon from '@public/assets/svg/small-calender.svg';
 
 import { FontType } from '@/types/typographyCommon';
 
-import useClickOutside from '@/hooks/useClickOutside';
+// import useClickOutside from '@/hooks/useClickOutside';
 
-import { PROFILE_HEADER_TEXT, QUICK_ACTIONS } from './constant';
+import { PROFILE_HEADER_TEXT } from './constant';
 
 import styles from './styles.module.scss';
 
-interface profileHeaderType {
-    portal: string;
-}
+/* Quick Action comment we will go with in phase 2 */
 
-const ProfileHeader = (props: profileHeaderType) => {
-    const { portal } = props;
+// interface profileHeaderType {
+//     portal: string;
+// }
 
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    const [open, setOpen] = useState(false);
+const ProfileHeader = () => {
+    // const { portal } = props;
+
+    // const dropdownRef = useRef<HTMLDivElement>(null);
+    // const [open, setOpen] = useState(false);
 
     const router = useRouter();
 
@@ -36,22 +39,22 @@ const ProfileHeader = (props: profileHeaderType) => {
         router.back();
     };
 
-    const renderIcon = (type: string) => {
-        switch (type) {
-            case 'plus':
-                return <PlusIcon />;
-            case 'calendar':
-                return <CalendarIcon />;
-            default:
-                return null;
-        }
-    };
+    // const renderIcon = (type: string) => {
+    //     switch (type) {
+    //         case 'plus':
+    //             return <PlusIcon />;
+    //         case 'calendar':
+    //             return <CalendarIcon />;
+    //         default:
+    //             return null;
+    //     }
+    // };
 
-    const handleQuickAction = () => {
-        setOpen(!open);
-    };
+    // const handleQuickAction = () => {
+    //     setOpen(!open);
+    // };
 
-    useClickOutside(dropdownRef, () => setOpen(false));
+    // useClickOutside(dropdownRef, () => setOpen(false));
 
     return (
         <div className={styles['header-container']}>
@@ -64,7 +67,7 @@ const ProfileHeader = (props: profileHeaderType) => {
                     {PROFILE_HEADER_TEXT.BACK}
                 </Text>
             </div>
-            {portal !== 'clinicalChecking' ? (
+            {/* {portal !== 'clinicalChecking' ? (
                 <div className={styles['dropdown-wrapper']}>
                     <div
                         className={styles['dropdown-container']}
@@ -98,7 +101,7 @@ const ProfileHeader = (props: profileHeaderType) => {
                         </div>
                     )}
                 </div>
-            ) : null}
+            ) : null} */}
         </div>
     );
 };

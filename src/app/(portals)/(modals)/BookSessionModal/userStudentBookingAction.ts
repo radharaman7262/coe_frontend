@@ -1,6 +1,8 @@
-import { useQueryClient } from '@tanstack/react-query';
+'use client';
 
 import { useRouter } from 'next/navigation';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import { showToast } from '@/components/ui/Toaster/constant';
 
@@ -19,10 +21,8 @@ export const useUserTherpistScheduleAction = ({
     setLoader?: (v: boolean) => void;
 }) => {
     const mutation = useStudentTherpistScheduleMutation();
-
-    const router = useRouter();
-
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     const execute = async (payload: UserTherpistScheduleMutationPayload) => {
         try {
@@ -54,6 +54,8 @@ export const useUserTherpistScheduleAction = ({
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.SPECIAL_EDUCATOR_ASSESSMENT],
             });
+
+            router.refresh();
         } catch (error) {
             showToast({
                 type: 'error',

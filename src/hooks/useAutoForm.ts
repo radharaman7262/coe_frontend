@@ -22,7 +22,12 @@ export interface FormProps<T extends string> {
         Record<string, string | number | Record<string, string>>,
         void
     >;
-    queryHook: (args: { studentId: string; formId: string }) => UseQueryResult<any, Error>;
+    queryHook: (args: {
+        studentId: string;
+        formId: string;
+        id: string;
+        sectionId: string;
+    }) => UseQueryResult<any, Error>;
     checkboxConfig?: any;
 }
 
@@ -36,10 +41,14 @@ export const useAutoForm = <T extends string>(props: FormProps<T>) => {
     const searchParams = useSearchParams();
 
     const formId = searchParams.get('formId');
+    const id = searchParams.get('id');
+    const sectionId = searchParams.get('sectionId');
 
     const { data, isLoading, isFetching } = queryHook({
         studentId,
         formId: formId ?? '',
+        id: id ?? '',
+        sectionId: sectionId ?? '',
     });
 
     const { response } = data || {};

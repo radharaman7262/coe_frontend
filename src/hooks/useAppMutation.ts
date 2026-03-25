@@ -34,6 +34,8 @@ export const useAppMutation = <TBody = any, TResponse = any>({
                 return;
             }
 
+            window.location.reload();
+
             invalidateKeys.forEach((key) => {
                 queryClient.invalidateQueries({ queryKey: key });
             });

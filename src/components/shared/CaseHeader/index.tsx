@@ -38,7 +38,7 @@ const CaseHeader = () => {
 
     const userDetail = detail ? JSON.parse(detail) : {};
 
-    const { studentName, gender } = userDetail;
+    const { studentName, gender, transferredEducators } = userDetail;
 
     const handleClose = () => {
         setOpen(false);
@@ -103,6 +103,7 @@ const CaseHeader = () => {
                         variant={ButtonVariant.SOLID}
                         color='white'
                         onClick={handleAssign}
+                        disabled={transferredEducators?.length}
                     />
                 )}
             </div>

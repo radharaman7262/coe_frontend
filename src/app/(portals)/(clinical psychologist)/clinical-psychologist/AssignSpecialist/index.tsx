@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useParams, useRouter } from 'next/navigation';
 
 import { Button, Drawer, Text } from '@/components/index';
@@ -13,6 +15,8 @@ import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
 import CrossIcon from '@/public/assets/svg/cross-icon.svg';
+
+import { QueryKeys } from '@/utils/queryKeys';
 
 import { AppRoutes } from '@/constant/appRoutes';
 import AssignPsychologist from './AssignSpecialist';
@@ -41,6 +45,8 @@ const AssignSpecialistDrawer = (props: AssignSpecialistDrawerProps) => {
 
     const { studentId } = useParams();
 
+    const queryClient = useQueryClient();
+
     const handleAssign = () => {
         const payload = {
             studentId: studentId ? +studentId : 0,
@@ -56,6 +62,10 @@ const AssignSpecialistDrawer = (props: AssignSpecialistDrawerProps) => {
                 if (!status) {
                     throw new Error(message);
                 }
+
+                queryClient.invalidateQueries({
+                    queryKey: [QueryKeys.CLINICAL_PSYCHOLOGIST_ASSESSMENT],
+                });
 
                 setTimeout(() => {
                     showToast({

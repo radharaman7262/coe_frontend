@@ -7,7 +7,7 @@ export const REFLEXES_SCHEMA: FormSchemaField<ReflexesFormKeys>[] = [
         type: 'table',
         label: 'Reflexes',
         columns: [
-            { key: 'label', label: 'Reflex Name' },
+            { key: 'label', label: 'Reflex Name(Expected Age)' },
             {
                 key: 'status',
                 label: 'Integrated / Retained',

@@ -6,15 +6,15 @@ export const ENDURANCE_SCHEMA: FormSchemaField<EnduranceFormKeys>[] = [
     {
         name: EnduranceFormKeys.ENDURANCE,
         type: 'table',
-        label: 'Non-Equilibrium Tests',
+        label: '',
         columns: [
             {
                 key: 'label',
-                label: 'Test Item',
+                label: 'Endurance',
             },
             {
                 key: 'observations',
-                label: 'Observations to Record',
+                label: 'Comments',
                 type: 'text',
             },
         ],

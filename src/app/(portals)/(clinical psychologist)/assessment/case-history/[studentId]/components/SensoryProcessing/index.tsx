@@ -35,8 +35,15 @@ const SensoryProcessing = () => {
     const searchParams = useSearchParams();
 
     const formId = searchParams.get('formId');
+    const id = searchParams.get('id');
+    const sectionId = searchParams.get('sectionId');
 
-    const { data } = useGetCaseHistoryFormDetails({ studentId, formId: formId ?? '' });
+    const { data } = useGetCaseHistoryFormDetails({
+        studentId,
+        formId: formId ?? '',
+        id: id ?? '',
+        sectionId: sectionId ?? '',
+    });
 
     const { response } = data || {};
 

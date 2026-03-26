@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface languageDataType {
     createdAt?: string;
     id: string;
@@ -6,4 +7,5 @@ export interface languageDataType {
     updatedAt?: string;
 }
 
-export type MedicalFormsType = Record<string, string | number | Record<string, string>>;
+// export type MedicalFormsType = Record<string, string | number | Record<string, string>>;
+export type MedicalFormsType = any;

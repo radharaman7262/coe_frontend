@@ -9,7 +9,7 @@ import { QueryKeys } from '@/utils/queryKeys';
 import { useAppMutation } from '@/hooks/useAppMutation';
 import { useAutoForm } from '@/hooks/useAutoForm';
 
-import { BEHAVIORAL_OBSERVATION_SCHEMA } from '../schemas/behavioral.schema';
+// import { BEHAVIORAL_OBSERVATION_SCHEMA } from '../schemas/behavioral.schema';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
@@ -26,7 +26,7 @@ import {
     EMOTIONAL,
 } from './constant';
 
-import styles from './styles.module.scss';
+import { BEHAVIORAL_OBSERVATION_SCHEMA } from '../schemas/behavioral.schema';
 
 const BehavioralObservation = () => {
     const [loader, setLoader] = useState(false);
@@ -54,13 +54,7 @@ const BehavioralObservation = () => {
     });
 
     return (
-        <AutoForm
-            formGridClassName={styles['muscle-tone-form']}
-            tableRowClassName={styles['table-row']}
-            schema={BEHAVIORAL_OBSERVATION_SCHEMA}
-            formHook={formHook}
-            btnLoader={loader}
-        />
+        <AutoForm schema={BEHAVIORAL_OBSERVATION_SCHEMA} formHook={formHook} btnLoader={loader} />
     );
 };
 

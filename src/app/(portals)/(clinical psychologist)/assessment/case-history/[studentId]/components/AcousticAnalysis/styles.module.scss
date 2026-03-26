@@ -1,0 +1,14 @@
+@use '@styles/theme' as *;
+
+.muscle-tone-form {
+    //  display: flex;
+    display: block;
+}
+
+.table-row {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.label-container{
+    grid-template-columns: 1fr 1fr 1fr;
+}

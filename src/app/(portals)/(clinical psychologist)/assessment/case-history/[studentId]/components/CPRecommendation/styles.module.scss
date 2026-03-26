@@ -1,0 +1,65 @@
+@use '@styles/theme' as *;
+
+.recommendation-container {
+    padding: 0 20px;
+}
+
+.header {
+    margin-bottom: 16px;
+}
+
+.section {
+    @include flex-center(row, space-between, normal, 24px);
+}
+
+.list {
+    @include flex-center(column, normal, normal, 20px);
+    width: 60%;
+}
+
+.row {
+    @include flex-center(row, normal, flex-start, 12px);
+}
+
+.content {
+    @include flex-center(column, normal, normal, 6px);
+}
+
+.inputWrapper {
+    @include flex-center(column, normal, normal, 8px);
+}
+
+.footer {
+    @include flex-center(row, space-between, center, 16px);
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.footer {
+    @include flex-center(row, flex-end, center);
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1.5px solid var(--light-gray);
+
+    .actions {
+        @include flex-center(row, normal, center, 12px);
+
+        .save-button {
+            padding: 8px 32px;
+        }
+
+        .progress {
+            @include flex-center(row, center, center);
+            background-color: #dbeafe;
+            height: 36px;
+            width: 60px;
+            border-radius: 14px;
+        }
+    }
+}
+
+.accordion-shimmer {
+    height: 350px;
+    width: 100%;
+}

@@ -29,10 +29,11 @@ export interface FormProps<T extends string> {
         sectionId: string;
     }) => UseQueryResult<any, Error>;
     checkboxConfig?: any;
+    parnetFormId?: string;
 }
 
 export const useAutoForm = <T extends string>(props: FormProps<T>) => {
-    const { schema, queryHook, mutation, checkboxConfig = {} } = props;
+    const { schema, queryHook, mutation, checkboxConfig = {}, parnetFormId } = props;
 
     const { values, setValue, setValues } = useFormState();
 
@@ -87,11 +88,20 @@ export const useAutoForm = <T extends string>(props: FormProps<T>) => {
             }
         });
 
-        mutation.mutate({
-            ...finalValues,
-            studentId,
-            percentage,
-        });
+        if (parnetFormId) {
+            mutation.mutate({
+                ...finalValues,
+                studentId,
+                parnetFormId,
+                percentage,
+            });
+        } else {
+            mutation.mutate({
+                ...finalValues,
+                studentId,
+                percentage,
+            });
+        }
     };
 
     return {

@@ -82,6 +82,11 @@ import GSLFormalTools from './ProvisionalDiagnosis copy';
 import SSDDiagnosisImpression from './SSDDiagnosisImpression';
 import SSDFormalAndInformalTools from './SSDFormalAndInformalTools';
 import SpeechAndPhonology from './SpeechAndPhonology';
+import AcousticAnalysis from './AcousticAnalysis';
+import GeneralSpeechRecommendation from './GeneralSpeechRecommendation';
+import CPRecommendations from './CPRecommendation';
+import VoiceRecommendation from './VoiceRecommendation';
+import FluencyRecommendation from './FluencyRecommendation';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -144,6 +149,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '175': <DiagnosticImpression />,
     '176': <Recommendation />,
     '177': <MedicalDevelopmentalHistory />,
+    '167': <GeneralSpeechRecommendation />,
     '168': <MedicalAndSurgicalHistory />,
     '169': <DevelopmentalMilestone />,
     '171': <SpeechAndArticulation />,
@@ -152,17 +158,21 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '182': <CPFormalTools />,
     '183': <CPDiagnosticImpression />,
     '184': <CPProvisionalDiagnosis />,
+    '185': <CPRecommendations />,
     '186': <FluenceSpecific />,
     '187': <ObservationalFindings />,
     '190': <ImpactOnFunctionalCommunication />,
     '192': <SeverityRating />,
     '193': <ClinicalImpression />,
+    '194': <FluencyRecommendation />,
     '196': <VoiceCaseHistory />,
+    '197': <AcousticAnalysis />,
     '195': <BehavioralAndClinicalImpression />,
     '198': <AerodynamicAspects />,
     '200': <ImpactOnCommunication />,
     '201': <VoiceFormalTools />,
     '202': <VoiceDiagnosticImpression />,
+    '203': <VoiceRecommendation />,
     '204': <PerceptionAndVoiceAnalysis />,
     '206': <SpeechAndPhonology />,
     '208': <SSDFormalAndInformalTools />,

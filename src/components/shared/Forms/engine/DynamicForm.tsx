@@ -18,6 +18,7 @@ export interface DynamicFormProps<T extends string, V extends Record<T, any>> {
     formGridClassName?: string;
     tableRowClassName?: string;
     dropdownClassName?: string;
+    labelContainerClassName?: string;
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicFormProps<T, V>) => {
@@ -32,6 +33,7 @@ const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicF
         formGridClassName,
         tableRowClassName,
         dropdownClassName,
+        labelContainerClassName
     } = props;
 
     const handleSubmit = () => {
@@ -59,6 +61,7 @@ const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicF
                         formGridClassName={formGridClassName}
                         tableRowClassName={tableRowClassName}
                         dropdownClassName={dropdownClassName}
+                        labelContainerClassName={labelContainerClassName}
                     />
                 );
             })}

@@ -1,7 +1,14 @@
 import { BehavioralSchemaFormKeys, BehavioralSchemaFormType } from './type';
 
 export const INITIAL_STATE: BehavioralSchemaFormType = {
-    [BehavioralSchemaFormKeys.IN_HAND_MANIPULATION]: '',
+    [BehavioralSchemaFormKeys.ALERTNESS]: '',
+    [BehavioralSchemaFormKeys.EYE_CONTACT]: '',
+    [BehavioralSchemaFormKeys.EMOTIONAL_REGULATION]: '',
+    [BehavioralSchemaFormKeys.IMITATION]: '',
+    [BehavioralSchemaFormKeys.JOINT_ATTENTION]: '',
+    [BehavioralSchemaFormKeys.SENSORY_BEHAVIORS]: '',
+    [BehavioralSchemaFormKeys.SITTING_TOLERANCE]: '',
+    [BehavioralSchemaFormKeys.TRANSITIONS]: '',
 };
 
 export const ALERTNESS = [

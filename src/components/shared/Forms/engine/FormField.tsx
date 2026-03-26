@@ -21,6 +21,7 @@ export interface FormFieldProps<T extends string, TValue = FieldValue> {
     formGridClassName?: string;
     tableRowClassName?: string;
     dropdownClassName?: string;
+    labelContainerClassName?: string;
 }
 
 const FormField = <T extends string>(props: FormFieldProps<T>) => {
@@ -32,6 +33,7 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
         formGridClassName,
         tableRowClassName,
         dropdownClassName,
+        labelContainerClassName
     } = props;
 
     const renderField = () => {
@@ -108,6 +110,7 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
                         value={value}
                         onChange={onChange}
                         dropdownClassName={dropdownClassName}
+                        labelContainerClassName={labelContainerClassName}
                     />
                 );
 

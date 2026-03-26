@@ -17,10 +17,18 @@ interface TableFieldProps<T extends string> {
     onChange: (key: T, value: FieldValue) => void;
     tableRowClassName?: string;
     dropdownClassName?: string;
+    labelContainerClassName?: string;
 }
 
 const TableField = <T extends string>(props: TableFieldProps<T>) => {
-    const { field, value, onChange, tableRowClassName, dropdownClassName } = props;
+    const {
+        field,
+        value,
+        onChange,
+        tableRowClassName,
+        dropdownClassName,
+        labelContainerClassName,
+    } = props;
 
     const tableValue = (value as Record<string, Record<string, string | string[]>>) || {};
 
@@ -38,7 +46,7 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
         <div className={styles.tableContainer}>
             {field.rows?.map((section) => (
                 <div key={section.section} className={styles.tableSection}>
-                    <div className={styles['label-container']}>
+                    <div className={cx(styles['label-container'], labelContainerClassName)}>
                         {field.columns.map((col) => (
                             <Text
                                 key={col.key}

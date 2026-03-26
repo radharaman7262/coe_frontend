@@ -36,7 +36,7 @@ export const mapTableToApi = <T extends string>(
 
                 dynamicRow[colKey] = value ?? '';
             });
-
+           
             result[section][key] = dynamicRow;
         });
     });

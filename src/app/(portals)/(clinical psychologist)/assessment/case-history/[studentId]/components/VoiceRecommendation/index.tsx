@@ -4,27 +4,26 @@ import { useState } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
-import { useAppMutation } from '@/hooks/useAppMutation';
-
 import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
-
-import { useAutoForm } from '@/hooks/useAutoForm';
 
 import { QueryKeys } from '@/utils/queryKeys';
 
-import { RECOMMENDATION_SCHEMA } from '../schemas/recommendation.schema';
+import { useAppMutation } from '@/hooks/useAppMutation';
+import { useAutoForm } from '@/hooks/useAutoForm';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
-import { submitRecommendation } from './utils.api';
+import { VOICE_RECOMMENDATION_SCHEMA } from '../schemas/voiceRecommendation.schema';
 
-import { OPTIONS } from './constant';
+import { submitVoiceRecommendation } from './utils.api';
 
-const Recommendation = () => {
+import { VOICE_THERAPY_OPTIONS } from './constant';
+
+const VoiceRecommendation = () => {
     const [loader, setLoader] = useState(false);
 
     const mutation = useAppMutation({
-        mutationFn: submitRecommendation,
+        mutationFn: submitVoiceRecommendation,
         setLoader,
         invalidateKeys: [[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]],
     });
@@ -34,16 +33,16 @@ const Recommendation = () => {
     const id = searchParams.get('id');
 
     const formHook = useAutoForm({
-        schema: RECOMMENDATION_SCHEMA,
+        schema: VOICE_RECOMMENDATION_SCHEMA,
         queryHook: useGetCaseHistoryFormDetails,
         mutation,
         checkboxConfig: {
-            therapies: OPTIONS,
+            therapies: VOICE_THERAPY_OPTIONS,
         },
         parnetFormId: id ?? '',
     });
 
-    return <AutoForm btnLoader={loader} schema={RECOMMENDATION_SCHEMA} formHook={formHook} />;
+    return <AutoForm schema={VOICE_RECOMMENDATION_SCHEMA} formHook={formHook} btnLoader={loader} />;
 };
 
-export default Recommendation;
+export default VoiceRecommendation;

@@ -1,6 +1,6 @@
 import { FormSchemaField } from '@/components/shared/Forms/types/form.types';
 
-import { BehavioralSchemaFormKeys } from '../BehavioralObservation/type';
+
 
 import {
     ALERTNESS,
@@ -13,69 +13,55 @@ import {
     TRANSITIONS,
 } from '../BehavioralObservation/constant';
 
+import { BehavioralSchemaFormKeys } from '../BehavioralObservation/type';
+
 export const BEHAVIORAL_OBSERVATION_SCHEMA: FormSchemaField<BehavioralSchemaFormKeys>[] = [
     {
-        name: BehavioralSchemaFormKeys.IN_HAND_MANIPULATION,
-        label: 'Behavioral Observation',
-        type: 'table',
-
-        columns: [
-            { key: 'label', label: 'Area' },
-            {
-                key: 'value',
-                label: 'Observation',
-                type: 'checkbox',
-                // dynamic per row
-            },
-        ],
-
-        rows: [
-            {
-                section: 'Behavioral Observation',
-                sectionKey: 'behavioralObservation',
-                items: [
-                    {
-                        key: 'alertness',
-                        label: 'Alertness',
-                        options: ALERTNESS,
-                    },
-                    {
-                        key: 'eyeContact',
-                        label: 'Eye Contact',
-                        options: EYE_CONTACT_OPTIONS,
-                    },
-                    {
-                        key: 'jointAttention',
-                        label: 'Joint Attention',
-                        options: ATTENTION,
-                    },
-                    {
-                        key: 'imitation',
-                        label: 'Imitation',
-                        options: IMITATION,
-                    },
-                    {
-                        key: 'sittingTolerance',
-                        label: 'Sitting Tolerance',
-                        options: SITTING_TOLERANCE,
-                    },
-                    {
-                        key: 'sensoryBehaviors',
-                        label: 'Sensory Behaviors',
-                        options: SENSORY_BEHAVIOR,
-                    },
-                    {
-                        key: 'transitions',
-                        label: 'Transitions',
-                        options: TRANSITIONS,
-                    },
-                    {
-                        key: 'emotionalRegulation',
-                        label: 'Emotional Regulation',
-                        options: EMOTIONAL,
-                    },
-                ],
-            },
-        ],
+        name: BehavioralSchemaFormKeys.ALERTNESS,
+        type: 'checkbox',
+        label: 'Alertness',
+        options: ALERTNESS,
+    },
+    {
+        name: BehavioralSchemaFormKeys.EYE_CONTACT,
+        type: 'checkbox',
+        label: 'Eye Contact',
+        options:EYE_CONTACT_OPTIONS,
+    },
+    {
+        name: BehavioralSchemaFormKeys.JOINT_ATTENTION,
+        type: 'checkbox',
+        label: 'Joint Attention',
+        options: ATTENTION,
+    },
+    {
+        name: BehavioralSchemaFormKeys.IMITATION,
+        type: 'checkbox',
+        label: 'Imitation',
+        options:IMITATION,
+    },
+    {
+        name: BehavioralSchemaFormKeys.SITTING_TOLERANCE,
+        type: 'checkbox',
+        label: 'Sitting Tolerance',
+        options: SITTING_TOLERANCE,
+    },
+    {
+        name: BehavioralSchemaFormKeys.SENSORY_BEHAVIORS,
+        type: 'checkbox',
+        label: 'Sensory Behaviors',
+        options: SENSORY_BEHAVIOR,
+    },
+    {
+        name: BehavioralSchemaFormKeys.TRANSITIONS,
+        type: 'checkbox',
+        label: 'Transitions',
+        options: TRANSITIONS,
+    },
+    {
+        name: BehavioralSchemaFormKeys.EMOTIONAL_REGULATION,
+        type: 'checkbox',
+        label: 'Emotional Regulation',
+        options: EMOTIONAL,
     },
 ];

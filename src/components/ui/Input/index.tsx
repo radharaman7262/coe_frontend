@@ -169,7 +169,7 @@ const InputBase = (props: InputProps, ref: React.ForwardedRef<HTMLInputElement>)
                 <div className={styles['helper-text']}>
                     <Text
                         font={[FontType.text_xs_regular, FontType.text_xs_regular]}
-                        color={error ? 'red-500' : 'black'}
+                        color={error ? 'red-500' : 'primary-cta'}
                     >
                         {helperText}
                     </Text>

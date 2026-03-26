@@ -4,6 +4,10 @@ import { useState } from 'react';
 
 import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
 
+import { Text } from '@/components/index';
+
+import { FontType } from '@/types/typographyCommon';
+
 import { QueryKeys } from '@/utils/queryKeys';
 
 import { useAppMutation } from '@/hooks/useAppMutation';
@@ -33,12 +37,27 @@ const ROM = () => {
     });
 
     return (
-        <AutoForm
-            formGridClassName={styles['muscle-tone-form']}
-            schema={ROM_SCHEMA}
-            formHook={formHook}
-            btnLoader={loader}
-        />
+        <>
+            <div className={styles['bg-header-title']}>
+                <Text font={[FontType.text_sm_medium, FontType.text_sm_medium]} color='primary-cta'>
+                    ROM
+                </Text>
+                <Text
+                    font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                    color='text-gray-900'
+                >
+                    WNL = Within Normal Limits, L = Limited (Reduced range noted), Comments = Record
+                    asymmetry, tone, pain, compensations, etc.
+                </Text>
+            </div>
+
+            <AutoForm
+                formGridClassName={styles['muscle-tone-form']}
+                schema={ROM_SCHEMA}
+                formHook={formHook}
+                btnLoader={loader}
+            />
+        </>
     );
 };
 

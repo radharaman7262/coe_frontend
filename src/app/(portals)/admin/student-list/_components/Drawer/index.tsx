@@ -59,11 +59,11 @@ const StudentDrawerController = ({
         formData.append('difficulties', childData.difficultiesFaced);
         formData.append('fatherName', parentData.fathersName);
         formData.append('fatherAge', String(parentData.fathersAge ?? 0));
-        formData.append('fatherOccupation', parentData.fathersOccupation?.id.toString() ?? '');
+        formData.append('fatherOccupation', parentData.fathersOccupation?.name.toString() ?? '');
         formData.append('fatherPhone', parentData.fathersNo?.toString() ?? '');
         formData.append('motherName', parentData.mothersName);
         formData.append('motherAge', String(parentData.mothersAge ?? 0));
-        formData.append('motherOccupation', parentData.mothersOccupation?.id.toString() ?? '');
+        formData.append('motherOccupation', parentData.mothersOccupation?.name.toString() ?? '');
         formData.append('motherPhone', parentData.mothersNo?.toString() ?? '');
         formData.append('siblings', parentData.siblingType?.name ?? '');
         formData.append('languageId', String(parentData.language?.id || 0));

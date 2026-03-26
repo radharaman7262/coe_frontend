@@ -42,27 +42,27 @@ export const MUSCLE_TONE_SCHEMA: FormSchemaField<MuscleToneFormKeys>[] = [
                 items: [
                     {
                         key: 'shoulderAbductors',
-                        label: 'Abductors',
+                        label: '(Shoulder) Abductors',
                     },
                     {
                         key: 'shoulderAdductors',
-                        label: 'Adductors',
+                        label: '(Shoulder) Adductors',
                     },
                     {
                         key: 'shoulderFlexors',
-                        label: 'Flexors',
+                        label: '(Shoulder) Flexors',
                     },
                     {
                         key: 'shoulderExtensors',
-                        label: 'Extensors',
+                        label: '(Shoulder) Extensors',
                     },
                     {
                         key: 'shoulderInternalRotators',
-                        label: 'Internal Rotators',
+                        label: '(Shoulder) Internal Rotators',
                     },
                     {
                         key: 'shoulderExternalRotators',
-                        label: 'External Rotators',
+                        label: '(Shoulder) External Rotators',
                     },
                 ],
             },
@@ -74,11 +74,11 @@ export const MUSCLE_TONE_SCHEMA: FormSchemaField<MuscleToneFormKeys>[] = [
                 items: [
                     {
                         key: 'elbowFlexors',
-                        label: 'Flexors',
+                        label: '(Elbow) Flexors',
                     },
                     {
                         key: 'elbowExtensors',
-                        label: 'Extensors',
+                        label: '(Elbow) Extensors',
                     },
                 ],
             },
@@ -90,11 +90,11 @@ export const MUSCLE_TONE_SCHEMA: FormSchemaField<MuscleToneFormKeys>[] = [
                 items: [
                     {
                         key: 'wristFlexors',
-                        label: 'Flexors',
+                        label: '(Wrist) Flexors',
                     },
                     {
                         key: 'wristExtensors',
-                        label: 'Extensors',
+                        label: '(Wrist) Extensors',
                     },
                 ],
             },
@@ -106,11 +106,11 @@ export const MUSCLE_TONE_SCHEMA: FormSchemaField<MuscleToneFormKeys>[] = [
                 items: [
                     {
                         key: 'fingerFlexors',
-                        label: 'Flexors',
+                        label: '(Finger) Flexors',
                     },
                     {
                         key: 'fingerExtensors',
-                        label: 'Extensors',
+                        label: '(Finger) Extensors',
                     },
                 ],
             },
@@ -122,27 +122,27 @@ export const MUSCLE_TONE_SCHEMA: FormSchemaField<MuscleToneFormKeys>[] = [
                 items: [
                     {
                         key: 'hipFlexors',
-                        label: 'Flexors (Iliopsoas)',
+                        label: '(Hip) Flexors (Iliopsoas)',
                     },
                     {
                         key: 'hipExtensors',
-                        label: 'Extensors (Gluteus Maximus)',
+                        label: '(Hip) Extensors (Gluteus Maximus)',
                     },
                     {
                         key: 'hipAbductors',
-                        label: 'Abductors (Gluteus Medius)',
+                        label: '(Hip) Abductors (Gluteus Medius)',
                     },
                     {
                         key: 'hipAdductors',
-                        label: 'Adductors',
+                        label: '(Hip) Adductors',
                     },
                     {
                         key: 'hipInternalRotators',
-                        label: 'Internal Rotators',
+                        label: '(Hip) Internal Rotators',
                     },
                     {
                         key: 'hipExternalRotators',
-                        label: 'External Rotators',
+                        label: '(Hip) External Rotators',
                     },
                 ],
             },
@@ -154,11 +154,11 @@ export const MUSCLE_TONE_SCHEMA: FormSchemaField<MuscleToneFormKeys>[] = [
                 items: [
                     {
                         key: 'kneeFlexors',
-                        label: 'Flexors (Hamstring)',
+                        label: '(Knee) Flexors (Hamstring)',
                     },
                     {
                         key: 'kneeExtensors',
-                        label: 'Extensors (Quadriceps)',
+                        label: '(Knee) Extensors (Quadriceps)',
                     },
                 ],
             },
@@ -170,19 +170,19 @@ export const MUSCLE_TONE_SCHEMA: FormSchemaField<MuscleToneFormKeys>[] = [
                 items: [
                     {
                         key: 'ankleDorsiflexors',
-                        label: 'Dorsiflexors (Tibialis anterior)',
+                        label: '(Ankle) Dorsiflexors (Tibialis anterior)',
                     },
                     {
                         key: 'anklePlantarflexors',
-                        label: 'Plantarflexors (Gastrocnemius, Soleus)',
+                        label: '(Ankle) Plantarflexors (Gastrocnemius, Soleus)',
                     },
                     {
                         key: 'ankleInvertors',
-                        label: 'Invertors',
+                        label: '(Ankle) Invertors',
                     },
                     {
                         key: 'ankleEvertors',
-                        label: 'Evertors',
+                        label: '(Ankle) Evertors',
                     },
                 ],
             },

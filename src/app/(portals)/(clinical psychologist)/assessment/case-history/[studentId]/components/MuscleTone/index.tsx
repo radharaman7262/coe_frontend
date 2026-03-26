@@ -9,6 +9,9 @@ import { QueryKeys } from '@/utils/queryKeys';
 import { useAppMutation } from '@/hooks/useAppMutation';
 import { useAutoForm } from '@/hooks/useAutoForm';
 
+import { Text } from '@/components/index';
+
+import { FontType } from '@/types/typographyCommon';
 import { MUSCLE_TONE_SCHEMA } from '../schemas/muscleTone.schema';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
@@ -38,12 +41,19 @@ const MuscleTone = () => {
     });
 
     return (
-        <AutoForm
-            formGridClassName={styles['muscle-tone-form']}
-            schema={MUSCLE_TONE_SCHEMA}
-            formHook={formHook}
-            btnLoader={loader}
-        />
+        <>
+            <div className={styles['bg-header-title']}>
+                <Text font={[FontType.text_sm_medium, FontType.text_sm_medium]} color='primary-cta'>
+                    Modified Ashworth Scale (0, 1, 1+, 2, 3, 4)
+                </Text>
+            </div>
+            <AutoForm
+                formGridClassName={styles['muscle-tone-form']}
+                schema={MUSCLE_TONE_SCHEMA}
+                formHook={formHook}
+                btnLoader={loader}
+            />
+        </>
     );
 };
 

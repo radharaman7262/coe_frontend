@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 
-import { AutoForm } from '@/components/shared/Forms/engine/AutoForm';
-
 import { QueryKeys } from '@/utils/queryKeys';
 
 import { useAppMutation } from '@/hooks/useAppMutation';
 import { useAutoForm } from '@/hooks/useAutoForm';
+
+import { TableAutoForm } from '@/components/shared/Forms/tableHeaderEngine/AutoSecondForm';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
@@ -36,7 +36,7 @@ const Reflexes = () => {
     });
 
     return (
-        <AutoForm
+        <TableAutoForm
             formGridClassName={styles['muscle-tone-form']}
             schema={REFLEXES_SCHEMA}
             formHook={formHook}

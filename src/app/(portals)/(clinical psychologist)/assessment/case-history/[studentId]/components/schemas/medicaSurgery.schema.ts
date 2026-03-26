@@ -68,7 +68,7 @@ export const MEDICAL_SURGICAL_HISTORY_SCHEMA: FormSchemaField<MedicalHistoryForm
 
     {
         name: MedicalHistoryFormKeys.COMORBIDITIES,
-        label: 'Comorbidities (e.g., cardiac, syndromes)',
+        label: 'Comorbidities (e.g cardiac, syndromes)',
         type: 'text',
         placeholder: 'Enter here',
     },

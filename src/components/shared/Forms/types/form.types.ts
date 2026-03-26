@@ -46,6 +46,8 @@ type BaseField<T extends string> = {
     label: string;
     required?: boolean;
     showWhen?: ShowWhenCondition<T>;
+    helperText?: string;
+    helperInputText?: string;
 };
 
 export type SimpleField<T extends string> = BaseField<T> & {
@@ -65,8 +67,5 @@ export type TableField<T extends string> = BaseField<T> & {
     rows: TableSection[];
 };
 
-export type FormSchemaField<T extends string> =
-    | SimpleField<T>
-    | OptionField<T>
-    | TableField<T>
-    // | GroupField<T>;
+export type FormSchemaField<T extends string> = SimpleField<T> | OptionField<T> | TableField<T>;
+// | GroupField<T>;

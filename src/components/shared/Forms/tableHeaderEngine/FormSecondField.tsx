@@ -6,7 +6,7 @@ import { FontType } from '@/types/typographyCommon';
 
 import { FormSchemaField } from '../types/form.types';
 
-import TableField from './TableField';
+import TableField from './TableSecondField';
 
 import styles from '../styles.module.scss';
 
@@ -22,10 +22,9 @@ export interface FormFieldProps<T extends string, TValue = FieldValue> {
     formGridClassName?: string;
     tableRowClassName?: string;
     dropdownClassName?: string;
-    labelContainerClassName?: string;
 }
 
-const FormField = <T extends string>(props: FormFieldProps<T>) => {
+const FormTableField = <T extends string>(props: FormFieldProps<T>) => {
     const {
         field,
         value,
@@ -34,7 +33,6 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
         formGridClassName,
         tableRowClassName,
         dropdownClassName,
-        labelContainerClassName
     } = props;
 
     const renderField = () => {
@@ -112,7 +110,6 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
                         value={value}
                         onChange={onChange}
                         dropdownClassName={dropdownClassName}
-                        labelContainerClassName={labelContainerClassName}
                     />
                 );
 
@@ -147,4 +144,4 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
     );
 };
 
-export default FormField;
+export default FormTableField;

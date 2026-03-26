@@ -1,8 +1,6 @@
 import { FormSchemaField } from '@/components/shared/Forms/types/form.types';
 import { LanguageReceiptFormKeys } from '../LanguageReceptive/type';
 
-
-
 export const LANGUAGE_RECEPTIVE_SCHEMA: FormSchemaField<LanguageReceiptFormKeys>[] = [
     {
         name: LanguageReceiptFormKeys.SCORES,
@@ -46,12 +44,11 @@ export const LANGUAGE_RECEPTIVE_SCHEMA: FormSchemaField<LanguageReceiptFormKeys>
                     },
                     {
                         key: 'singleInstruction',
-                        label: 'Follows a single instruction (e.g., "Give me the ball").',
+                        label: 'Follows a single instruction (e.g "Give me the ball").',
                     },
                     {
                         key: 'multiInstruction',
-                        label:
-                            'Follows multi-step instructions (e.g., "Pick up the book and put it on the table").',
+                        label: 'Follows multi-step instructions (e.g "Pick up the book and put it on the table").',
                     },
                     {
                         key: 'whatQuestions',

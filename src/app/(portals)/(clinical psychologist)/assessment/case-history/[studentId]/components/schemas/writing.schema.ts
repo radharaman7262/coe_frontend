@@ -48,7 +48,7 @@ export const WRITING_SCHEMA: FormSchemaField<WritingFormKeys>[] = [
                     },
                     {
                         key: 'tracesDottedPatterns',
-                        label: 'Traces dotted-line patterns (e.g., zigzag).',
+                        label: 'Traces dotted-line patterns (e.g zigzag).',
                     },
                     {
                         key: 'copiesShapes',

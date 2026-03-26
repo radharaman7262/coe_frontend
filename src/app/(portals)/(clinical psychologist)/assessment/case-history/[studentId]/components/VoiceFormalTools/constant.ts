@@ -14,8 +14,8 @@ export const VOICE_ASSESSMENT_TOOLS_OPTIONS = [
         key: 'pvhi',
     },
     {
-        label: 'Acoustic lab analysis (e.g., Praat, CSL)',
-        value: 'Acoustic lab analysis (e.g., Praat, CSL)',
+        label: 'Acoustic lab analysis (e.g Praat, CSL)',
+        value: 'Acoustic lab analysis (e.g Praat, CSL)',
         key: 'acoustic_lab_analysis',
     },
     {

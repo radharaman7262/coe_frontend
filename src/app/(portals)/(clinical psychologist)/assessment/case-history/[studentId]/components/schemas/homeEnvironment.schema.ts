@@ -39,5 +39,7 @@ export const HOME_ENVIRONMENT_SCHEMA: FormSchemaField<HomeEnvironmentFormKeys>[]
         label: 'Patterns of Family Dynamics',
         type: 'text',
         required: true,
+        helperInputText:
+            '(child’s relationship with family members, interpersonal relationship among family members, Interaction pattern and family support system)',
     },
 ];

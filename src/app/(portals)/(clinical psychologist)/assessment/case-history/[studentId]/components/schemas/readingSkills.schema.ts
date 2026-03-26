@@ -60,15 +60,15 @@ export const READING_SKILLS_SCHEMA: FormSchemaField<ReadingSkillsFormKeys>[] = [
                     },
                     {
                         key: 'blendsSounds',
-                        label: 'Blends sounds to form words (e.g., c-a-t → cat).',
+                        label: 'Blends sounds to form words (e.g c-a-t → cat).',
                     },
                     {
                         key: 'segmentsSounds',
-                        label: 'Segments words into sounds (e.g., cat → c-a-t).',
+                        label: 'Segments words into sounds (e.g cat → c-a-t).',
                     },
                     {
                         key: 'manipulatesSounds',
-                        label: 'Changes a sound to make a new word (e.g., cat → hat).',
+                        label: 'Changes a sound to make a new word (e.g cat → hat).',
                     },
                     {
                         key: 'spellingSkills',

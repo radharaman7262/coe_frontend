@@ -10,7 +10,7 @@ export const DEVELOPMENTAL_FINE_MOTOR_SCHEMA: FormSchemaField<DevelopmentalFineM
             type: 'text',
             placeholder: 'e.g. 2 months / 2 years',
             required: true,
-            // helperText: 'Expected at 1 year',
+            helperText: 'Expected at 1 year',
             options: [],
         },
         {
@@ -19,7 +19,7 @@ export const DEVELOPMENTAL_FINE_MOTOR_SCHEMA: FormSchemaField<DevelopmentalFineM
             type: 'text',
             placeholder: 'e.g. 2 months / 2 years',
             required: true,
-            // helperText: 'Expected at 1.5 years',
+            helperText: 'Expected at 1.5 years',
             options: [],
         },
         {
@@ -28,7 +28,7 @@ export const DEVELOPMENTAL_FINE_MOTOR_SCHEMA: FormSchemaField<DevelopmentalFineM
             type: 'text',
             placeholder: 'e.g. 2 months / 2 years',
             required: true,
-            // helperText: 'Expected at 3 years',
+            helperText: 'Expected at 3 years',
             options: [],
         },
         {
@@ -37,7 +37,7 @@ export const DEVELOPMENTAL_FINE_MOTOR_SCHEMA: FormSchemaField<DevelopmentalFineM
             type: 'text',
             placeholder: 'e.g. 2 months / 2 years',
             required: true,
-            // helperText: 'Expected at 4 years',
+            helperText: 'Expected at 4 years',
             options: [],
         },
         {
@@ -46,7 +46,7 @@ export const DEVELOPMENTAL_FINE_MOTOR_SCHEMA: FormSchemaField<DevelopmentalFineM
             type: 'text',
             placeholder: 'e.g. 2 months / 2 years',
             required: true,
-            // helperText: 'Expected at 4 years',
+            helperText: 'Expected at 4 years',
             options: [],
         },
     ];

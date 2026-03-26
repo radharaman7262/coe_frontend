@@ -10,6 +10,8 @@ export const GENERAL_OBSERVATION_SCHEMA: FormSchemaField<GeneralObservationFormK
         placeholder: 'Type here',
         required: true,
         options: [],
+        helperInputText:
+            '(Physical appearance, appropriate to age, body built & Size, dress, physical disabilities/impairments if any)',
     },
 
     {
@@ -19,6 +21,7 @@ export const GENERAL_OBSERVATION_SCHEMA: FormSchemaField<GeneralObservationFormK
         placeholder: 'Type here',
         required: true,
         options: [],
+        helperInputText: '(Retarted, Hyperkinetic, Quiet)',
     },
 
     {
@@ -28,6 +31,7 @@ export const GENERAL_OBSERVATION_SCHEMA: FormSchemaField<GeneralObservationFormK
         placeholder: 'Type here',
         required: true,
         options: [],
+        helperInputText: '(flow, level of development of speech etc.)',
     },
 
     {
@@ -37,6 +41,8 @@ export const GENERAL_OBSERVATION_SCHEMA: FormSchemaField<GeneralObservationFormK
         placeholder: 'Type here',
         required: true,
         options: [],
+        helperInputText:
+            '(Any appearance of anxiety, fear, depression, shyness including child’s attitude towards the examiner)',
     },
 
     {
@@ -46,6 +52,8 @@ export const GENERAL_OBSERVATION_SCHEMA: FormSchemaField<GeneralObservationFormK
         placeholder: 'Type here',
         required: true,
         options: [],
+        helperInputText:
+            '(Sustained, easily distracted, requires frequent redirection, age-appropriate, impulsive, fidgety, calm and focused)',
     },
 
     {
@@ -64,5 +72,7 @@ export const GENERAL_OBSERVATION_SCHEMA: FormSchemaField<GeneralObservationFormK
         placeholder: 'Type here',
         required: true,
         options: [],
+        helperInputText:
+            '(child’s Knowledge of reasons for problems, desire for help, sense of own capacity for change)',
     },
 ];

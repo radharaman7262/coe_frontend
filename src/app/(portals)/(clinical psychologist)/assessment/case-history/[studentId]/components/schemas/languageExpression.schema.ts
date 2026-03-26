@@ -37,8 +37,7 @@ export const LANGUAGE_EXPRESSIVE_SCHEMA: FormSchemaField<LanguageExpressionFormK
                 items: [
                     {
                         key: 'imitatesSounds',
-                        label:
-                            'Imitates sounds (e.g., teacher says "ba, ba" or "moo," and repeats it).',
+                        label: 'Imitates sounds (e.g teacher says "ba, ba" or "moo," and repeats it).',
                     },
                     {
                         key: 'imitatesGestures',
@@ -66,7 +65,7 @@ export const LANGUAGE_EXPRESSIVE_SCHEMA: FormSchemaField<LanguageExpressionFormK
                     },
                     {
                         key: 'expressesNeeds',
-                        label: 'Expresses needs (e.g., "I need water").',
+                        label: 'Expresses needs (e.g "I need water").',
                     },
                 ],
             },

@@ -42,7 +42,7 @@ export const SELF_REGULATION_SCHEMA: FormSchemaField<SelfRegulationFormKeys>[] =
                     },
                     {
                         key: 'usesCalmingStrategies',
-                        label: 'Uses calming strategies independently (e.g., deep breaths, sensory input)',
+                        label: 'Uses calming strategies independently (e.g deep breaths, sensory input)',
                     },
                     {
                         key: 'requiresAdultAssistance',

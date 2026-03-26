@@ -1,11 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { Checkbox, Dropdown, Input, Text } from '@components/index';
+import { Dropdown, Input, Text } from '@components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
-import { FieldValue } from './FormField';
+import { FieldValue } from './FormSecondField';
 
 import { TableField as TableFieldType } from '../types/form.types';
 
@@ -17,18 +17,10 @@ interface TableFieldProps<T extends string> {
     onChange: (key: T, value: FieldValue) => void;
     tableRowClassName?: string;
     dropdownClassName?: string;
-    labelContainerClassName?: string;
 }
 
-const TableField = <T extends string>(props: TableFieldProps<T>) => {
-    const {
-        field,
-        value,
-        onChange,
-        tableRowClassName,
-        dropdownClassName,
-        labelContainerClassName,
-    } = props;
+const TableEngineField = <T extends string>(props: TableFieldProps<T>) => {
+    const { field, value, onChange, tableRowClassName, dropdownClassName } = props;
 
     const tableValue = (value as Record<string, Record<string, string | string[]>>) || {};
 
@@ -46,7 +38,16 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
         <div className={styles.tableContainer}>
             {field.rows?.map((section) => (
                 <div key={section.section} className={styles.tableSection}>
-                    <div className={cx(styles['label-container'], labelContainerClassName)}>
+                    <div className={styles.sectionHeading}>
+                        <Text
+                            font={[FontType.text_md_bold, FontType.text_md_bold]}
+                            color='text-cta-3'
+                        >
+                            {section.section}
+                        </Text>
+                    </div>
+
+                    <div className={styles['label-container']}>
                         {field.columns.map((col) => (
                             <Text
                                 key={col.key}
@@ -57,12 +58,11 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
                             </Text>
                         ))}
                     </div>
+
                     {section.items?.map((item) => (
                         <div key={item.key} className={cx(styles.tableRow, tableRowClassName)}>
-                            {/* First column → label */}
                             <Text className={styles.label}>{item.label}</Text>
 
-                            {/* 🔥 Dynamic columns */}
                             {field.columns.slice(1).map((col) => {
                                 const cellValue = tableValue[item.key]?.[col.key];
 
@@ -95,51 +95,6 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
                                         />
                                     );
                                 }
-                                if (col.type === 'checkbox') {
-                                    const selectedValues = (value as string[]) || [];
-
-                                    const handleCheckboxChange = (optionValue: string) => {
-                                        let updatedValues: string[];
-
-                                        if (selectedValues.includes(optionValue)) {
-                                            // remove
-                                            updatedValues = selectedValues.filter(
-                                                (v) => v !== optionValue,
-                                            );
-                                        } else {
-                                            // add
-                                            updatedValues = [...selectedValues, optionValue];
-                                        }
-
-                                        onChange(field.name, updatedValues);
-                                    };
-
-                                    return (
-                                        <div className={styles['checkbox-container']}>
-                                            {item.options?.map((optionItem) => (
-                                                <Checkbox
-                                                    key={col.key}
-                                                    isChecked={
-                                                        Array.isArray(value)
-                                                            ? value?.includes(
-                                                                  optionItem?.value as string,
-                                                              )
-                                                            : false
-                                                    }
-                                                    labelFont={[
-                                                        FontType.text_sm_regular,
-                                                        FontType.text_sm_regular,
-                                                    ]}
-                                                    label={optionItem.label}
-                                                    labelColor='gray-900'
-                                                    onChange={() =>
-                                                        handleCheckboxChange(optionItem.value)
-                                                    }
-                                                />
-                                            ))}
-                                        </div>
-                                    );
-                                }
 
                                 return null;
                             })}
@@ -151,4 +106,4 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
     );
 };
 
-export default TableField;
+export default TableEngineField;

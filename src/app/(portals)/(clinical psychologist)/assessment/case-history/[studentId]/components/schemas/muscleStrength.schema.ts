@@ -9,7 +9,7 @@ export const MUSCLE_STRENGTH_SCHEMA: FormSchemaField<MuscleStrengthFormKeys>[] =
         type: 'table',
 
         columns: [
-            { key: 'label', label: '' },
+            { key: 'label', label: 'Muscle Group' },
             {
                 key: 'grade',
                 label: 'Grade',

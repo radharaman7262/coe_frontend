@@ -43,7 +43,7 @@ export const FUNCTIONAL_READING_SCHEMA: FormSchemaField<FunctionalReadingFormKey
                     },
                     {
                         key: 'tracesDottedPatterns',
-                        label: 'Traces dotted-line patterns (e.g., zigzag).',
+                        label: 'Traces dotted-line patterns (e.g zigzag).',
                     },
                     {
                         key: 'copiesShapes',

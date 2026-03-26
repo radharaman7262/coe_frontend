@@ -118,7 +118,7 @@ export const DATA = [
             },
             {
                 key: 'missesVisualDetails',
-                label: 'Misses visual details (e.g., locating items, copying from board)',
+                label: 'Misses visual details (e.g locating items, copying from board)',
             },
         ],
     },

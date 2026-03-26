@@ -4,3 +4,13 @@
     //  display: flex;
     display: block;
 }
+
+.bg-header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background-color: #f4ebff;
+    padding: 12px 14px;
+    margin: 0px 20px;
+    border-radius: 6px;
+}

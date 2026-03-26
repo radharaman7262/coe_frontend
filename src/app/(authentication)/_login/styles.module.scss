@@ -86,21 +86,48 @@
     border-radius: 12px;
     border: 1px solid #e9ebf3;
     background-color: white;
-
-    white-space: nowrap;
-
     cursor: pointer;
     transition: all 0.2s ease;
+}
 
-    &:hover {
+.centerAdmin{
+    &:hover,
+    &.active {
         border: 1px solid #de7aff;
         background: #fbefff;
     }
 }
 
-.active {
-    border: 1px solid #de7aff;
-    background: #fbefff;
+.clinicalPsychologist {
+    &:hover,
+    &.active {
+        border: 1px solid #1498ee;
+        background: #edf8ff;
+    }
+}
+
+.specialEducator {
+    &:hover,
+    &.active {
+        border: 1px solid #3a9a7d;
+        background: #dcfff4;
+    }
+}
+
+.occupationalTherapist {
+    &:hover,
+    &.active {
+        border: 1px solid #fa6e85;
+        background: #fee;
+    }
+}
+
+.speechTherapist {
+    &:hover,
+    &.active {
+        border: 1px solid #f2c42c;
+        background: #fffadc;
+    }
 }
 
 .role-footer {

@@ -7,10 +7,22 @@
     gap: 13px;
     height: 83vh;
     border-radius: 12px;
+    overflow-y: auto;
+    padding-right: 6px;
     background-color: $white;
     box-shadow:
         0 1px 2px rgba(0, 0, 0, 0.06),
         0 8px 24px rgba(0, 0, 0, 0.12);
+
+    &::-webkit-scrollbar {
+        width: 4px !important;
+        display: block !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $gray-200 !important;
+        border-radius: 16px !important;
+    }
 
     @include breakpoints('2xl') {
         height: 85vh;
@@ -20,6 +32,17 @@
         display: flex;
         flex-direction: column;
         gap: 6px;
+    }
+
+    .instruction-aligned {
+        display: flex;
+        gap: 8px;
+    }
+
+    .hr-instruction-line {
+        height: 24px;
+        width: 8px;
+        border: none;
     }
 
     .content-activity-schedule {

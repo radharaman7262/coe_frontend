@@ -4,6 +4,10 @@ import { useRouter } from 'next/navigation';
 import { Button, Text } from '@/components/index';
 
 import CenterAdminIcon from '@/public/assets/svg/center-admin-icon.svg';
+import ClinicalPsychologistIcon from '@/public/assets/svg/clinical-psychologist-icon.svg';
+import SpecialEducatorIcon from '@/public/assets/svg/special-educator-iconss.svg';
+import OccupationalTherapistIcon from '@/public/assets/svg/occupational_therapist-icon.svg';
+import SpeechTherapistIcon from '@/public/assets/svg/speech-therapist-icon.svg';
 
 import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
 
@@ -61,6 +65,7 @@ const RoleSelection = (props: RoleSelectionType) => {
             const { token, Message, data: userDetail } = response || {};
 
             const { assignedMenus: menuLists } = userDetail || {};
+
             if (!menuLists?.length) {
                 showToast({ type: 'error', message: 'Please mapped at least one menu.' });
                 return;
@@ -101,6 +106,50 @@ const RoleSelection = (props: RoleSelectionType) => {
         }
     };
 
+    const getRoleClass = (roleName: string) => {
+        switch (roleName?.toLowerCase()) {
+            case 'center admin':
+                return styles.centerAdmin;
+
+            case 'clinical physchologist':
+                return styles.clinicalPsychologist;
+
+            case 'special educator':
+                return styles.specialEducator;
+
+            case 'occupational therapists':
+                return styles.occupationalTherapist;
+
+            case 'speech therapist':
+                return styles.speechTherapist;
+
+            default:
+                return '';
+        }
+    };
+
+    const getRoleIcon = (roleName: string) => {
+        switch (roleName?.toLowerCase()) {
+            case 'center admin':
+                return <CenterAdminIcon />;
+
+            case 'clinical physchologist':
+                return <ClinicalPsychologistIcon />;
+
+            case 'special educator':
+                return <SpecialEducatorIcon />;
+
+            case 'occupational therapists':
+                return <OccupationalTherapistIcon />;
+
+            case 'speech therapist':
+                return <SpeechTherapistIcon />;
+
+            default:
+                return null;
+        }
+    };
+
     return (
         <>
             <div className={styles['text-part']}>
@@ -114,15 +163,15 @@ const RoleSelection = (props: RoleSelectionType) => {
             <div className={styles.roles}>
                 {multiSelectionUser &&
                     multiSelectionUser?.map((item: LoggedRoleType) => (
-                        <div className={styles['role-part']}>
+                        <div className={styles['role-part']} key={item?.id}>
                             <div
-                                className={`${styles['role-card']} ${
+                                className={`${styles['role-card']} ${getRoleClass(item?.name)} ${
                                     selectSpecialization?.name === item?.name ? styles.active : ''
                                 }`}
                                 onClick={() => setSelectSpecialization(item)}
                                 aria-hidden='true'
                             >
-                                <CenterAdminIcon />
+                                {getRoleIcon(item?.name)}
                                 <Text
                                     font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                                     color='black'

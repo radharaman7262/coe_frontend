@@ -21,7 +21,7 @@ export const pageNameMap: Record<string, string> = {
     '/occupational-therapist/intervention': 'Intervention',
     '/occupational-therapist/assessment': 'Student List',
     '/speech-therapist/dashboard': 'Dashboard',
-    '/speech-therapist/assessment': 'Student List',
+    '/speech-therapist/assessment/child-info': 'Student List',
     '/speech-therapist/intervention': 'Intervention',
     '/occupational-therapist/assessment/child-info': 'Student List',
 };

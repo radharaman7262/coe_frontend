@@ -69,6 +69,8 @@ const SpecialEducatorAssessmentPage = () => {
             setStudentDetail(JSON.stringify(item));
             if (name === SpecializationEnum.SPECIAL_EDUCATOR) {
                 router.push(`/${AppRoutes.SPECIALIST_ASSESSMENT}/${item.studentId}`);
+            } else if (name === SpecializationEnum.SPEECH_THERAPIST) {
+                router.push(`/${AppRoutes.SPEECH_THERAPIST_ASSESSMENT}/${item.studentId}`);
             } else {
                 router.push(`/${AppRoutes.OCCUPATIONAL_THERAPIST_ASSESSMENT}/${item.studentId}`);
             }

@@ -1,7 +1,9 @@
 import { Text } from '@/components/index';
 import { FontType } from '@/types/typographyCommon';
+import { getRandomColor } from '@/constant/appConstants';
 import { ACTIVITY_TEXT as text } from '../../constant';
 import { StudentCaseAssigned } from '../../type';
+import styles from  '../../styles.module.scss';
 
 const formatDate = (date?: string) => date?.split('T')[0];
 
@@ -16,17 +18,23 @@ const StudentCaseAssignedActivity = (props: StudentCaseAssignedActivityProps) =>
     const { item } = props;
 
     return (
-        <div>
-            <Text font={[FontType.text_xs_medium, FontType.text_xs_medium]} color='gray-900'>
-                {text.studentCaseAssigned}&nbsp;
-            </Text>
+        <div className={styles['instruction-aligned']}>
+            <hr
+                className={styles['hr-instruction-line']}
+                style={{ backgroundColor: getRandomColor() }}
+            />
+            <div>
+                <Text font={[FontType.text_xs_medium, FontType.text_xs_medium]} color='gray-900'>
+                    {text.studentCaseAssigned}&nbsp;
+                </Text>
 
-            <Text font={[FontType.text_xs_medium, FontType.text_xs_medium]} color='gray-400'>
-                {`STUDENT ID: ${item?.userId} linked to (${getSpecializations(
-                    item?.specialization,
-                )}) ${item?.studentName} to ${item?.userName}
+                <Text font={[FontType.text_xs_medium, FontType.text_xs_medium]} color='gray-400'>
+                    {`STUDENT ID: ${item?.userId} linked to (${getSpecializations(
+                        item?.specialization,
+                    )}) ${item?.studentName} to ${item?.userName}
                 at ${formatDate(item?.dateTime)}`}
-            </Text>
+                </Text>
+            </div>
         </div>
     );
 };

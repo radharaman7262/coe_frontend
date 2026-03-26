@@ -47,7 +47,7 @@ export enum AppRoutes {
 export const ASSESSMENT_ROUTE_MAPPING: Record<string, string> = {
     [SpecializationEnum.OCCUPATIONAL_THERAPIST]: 'occupational-therapist/assessment/child-info',
 
-    [SpecializationEnum.SPEECH_THERAPIST]: 'speech-therapist/assessment',
+    [SpecializationEnum.SPEECH_THERAPIST]: 'speech-therapist/assessment/child-info',
 
     [SpecializationEnum.SPECIAL_EDUCATOR]: 'specialist/assessment',
 };

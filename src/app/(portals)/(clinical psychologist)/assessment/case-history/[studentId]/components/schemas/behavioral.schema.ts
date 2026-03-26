@@ -24,14 +24,8 @@ export const BEHAVIORAL_OBSERVATION_SCHEMA: FormSchemaField<BehavioralSchemaForm
             {
                 key: 'value',
                 label: 'Observation',
-                type: 'checkbox', // 👈 IMPORTANT (checkbox group)
-                options: [
-                    {
-                        label: 'Paras',
-                        key: 'paras',
-                        value: 'paaras',
-                    },
-                ], // dynamic per row
+                type: 'checkbox',
+                // dynamic per row
             },
         ],
 

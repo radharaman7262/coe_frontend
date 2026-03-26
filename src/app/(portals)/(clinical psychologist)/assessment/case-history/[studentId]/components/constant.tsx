@@ -79,6 +79,9 @@ import VoiceDiagnosticImpression from './VoiceDiagnosticImpression';
 import ImpulseControl from './ImpulseControl';
 import GSLSensoryProfile from './GSLSensoryProfile';
 import GSLFormalTools from './ProvisionalDiagnosis copy';
+import SSDDiagnosisImpression from './SSDDiagnosisImpression';
+import SSDFormalAndInformalTools from './SSDFormalAndInformalTools';
+import SpeechAndPhonology from './SpeechAndPhonology';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -161,4 +164,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '201': <VoiceFormalTools />,
     '202': <VoiceDiagnosticImpression />,
     '204': <PerceptionAndVoiceAnalysis />,
+    '206': <SpeechAndPhonology />,
+    '208': <SSDFormalAndInformalTools />,
+    '209': <SSDDiagnosisImpression />,
 };

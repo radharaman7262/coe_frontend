@@ -1,4 +1,4 @@
-import { FormSchemaField } from '../../../../../../../../components/shared/Forms/types/form.types';
+import { FormSchemaField } from '@/components/shared/Forms/types/form.types';
 
 import { DiagnosticImpressionFormKeys } from '../DiagnosticImpression/type';
 

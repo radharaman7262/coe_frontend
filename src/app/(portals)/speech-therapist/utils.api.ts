@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import callApi from '@/app/api/api';
 
 import {
@@ -9,7 +11,7 @@ import { HTTP_METHOD } from '@/types/common';
 
 import { getCookie } from '@/utils/cookieInServer';
 import { JWT_TOKEN } from '@/utils/cookieManager';
-import { SpeechTherapistStudentFormType } from '@/types/speechTherapistChildInformationType';
+// import { SpeechTherapistStudentFormType } from '@/types/speechTherapistChildInformationType';
 
 export const getSpeechTherapistStudentDetail = async (id: string) => {
     const authToken = await getCookie(JWT_TOKEN);
@@ -23,9 +25,7 @@ export const getSpeechTherapistStudentDetail = async (id: string) => {
     return response;
 };
 
-export const submitSpeechTherapistChildInformation = async (
-    body: SpeechTherapistStudentFormType,
-) => {
+export const submitSpeechTherapistChildInformation = async (body: Record<string, any>) => {
     const authToken = await getCookie(JWT_TOKEN);
 
     const response = await callApi({

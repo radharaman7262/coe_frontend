@@ -12,11 +12,11 @@ import RightChevronIcon from '@/public/assets/svg/right-chevrons.svg';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
-import styles from './styles.module.scss';
-
 import { AssessmentItem, SelectAssessmentPayload } from './type';
 import { SELECT_ASSESSMENT_TEXT as text } from './constant';
 import { usePostSelectAssessment } from './mutation';
+
+import styles from './styles.module.scss';
 
 interface Props {
     open: boolean;
@@ -49,9 +49,9 @@ const SelectAssessmentModal = ({ open, setOpen, data, studentId, onContinue, onC
     };
 
     const handleContinue = () => {
-        const selected = assessmentList.filter((item) => item.checked);
+        const selected = assessmentList?.filter((item) => item.checked);
 
-        if (selected.length === 0) {
+        if (selected?.length === 0) {
             toast.error('Please select at least one assessment');
             return;
         }
@@ -69,6 +69,10 @@ const SelectAssessmentModal = ({ open, setOpen, data, studentId, onContinue, onC
                     onContinue(selected);
                     onClose?.();
                 }
+
+                // query.invalidateQueries({
+                //     queryKey:[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]
+                // })
             },
             onError: (error) => {
                 console.error(error);

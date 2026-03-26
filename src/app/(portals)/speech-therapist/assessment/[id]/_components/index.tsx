@@ -14,6 +14,8 @@ import {
     SpeechTherapistStudentFormType,
 } from '@/types/speechTherapistChildInformationType';
 
+import { submitSpeechTherapistChildInformation } from '../../../utils.api';
+
 import {
     disableFieldMap,
     INITIAL_STATE,
@@ -21,8 +23,6 @@ import {
     InputFieldType,
     textAreaFields,
 } from './constant';
-
-import { useChildInformationSubmit } from '../mutation';
 
 import { getSelectAssessmentListDetail } from './SelectAssessmentModal/util';
 import SelectAssessmentModal from './SelectAssessmentModal';
@@ -53,7 +53,7 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
     const [openModal, setOpenModal] = useState(false);
     const [assessmentList, setAssessmentList] = useState<AssessmentItem[]>([]);
 
-    const { mutate } = useChildInformationSubmit({ setLoader });
+    // const { mutateAsync } = useChildInformationSubmit({ setLoader });
     const { id } = useParams();
     const router = useRouter();
 
@@ -176,9 +176,41 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
             return value !== '' && value !== null && value !== undefined;
         });
 
-    const handleSubmit = () => {
-        mutate(
-            {
+    // const handleSubmit = () => {
+    //     mutate(
+    //         {
+    //             studentId: studentDetail.studentId,
+    //             primaryConcern: formData.primaryConcern,
+    //             diagnosis: {
+    //                 type: formData.diagnosisAny,
+    //                 other: formData.diagnosisAny === 'Other' ? formData.diagnosisOther : '',
+    //             },
+    //             languageAtHome: formData.languageAtHome,
+    //         },
+    //         {
+    //             onSuccess: async () => {
+    //                 try {
+    //                     const result = await getSelectAssessmentListDetail(studentDetail.studentId);
+
+    //                     console.log(result,'resultltlltltllt');
+
+    //                     if (result?.status) {
+    //                         setAssessmentList(result?.response || []);
+    //                     }
+
+    //                     setOpenModal(true);
+    //                 } catch (error) {
+    //                     console.error('Assessment fetch error:', error);
+    //                 }
+    //             },
+    //         },
+    //     );
+    // };
+
+    const handleSubmit = async () => {
+        try {
+            setLoader(true);
+            const payload = {
                 studentId: studentDetail.studentId,
                 primaryConcern: formData.primaryConcern,
                 diagnosis: {
@@ -186,25 +218,35 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                     other: formData.diagnosisAny === 'Other' ? formData.diagnosisOther : '',
                 },
                 languageAtHome: formData.languageAtHome,
-            },
-            {
-                onSuccess: async () => {
-                    try {
-                        const result = await getSelectAssessmentListDetail(studentDetail.studentId);
+                diagnosisAny: formData.diagnosisAny,
+            };
 
-                        if (result?.status) {
-                            setAssessmentList(result?.response || []);
-                        }
+            const response = await submitSpeechTherapistChildInformation(payload); // 👈 wait for success
 
-                        router.push(`${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
+            const { status, error } = response || {};
 
-                        setOpenModal(true);
-                    } catch (error) {
-                        console.error('Assessment fetch error:', error);
-                    }
-                },
-            },
-        );
+            if (!status) {
+                throw new Error(error);
+            }
+
+            const selectedAssessmentResponse = await getSelectAssessmentListDetail(
+                studentDetail.studentId,
+            );
+
+            const {
+                status: assessmentStatus,
+                response: apiResponse,
+                error: assessmentError,
+            } = selectedAssessmentResponse || {};
+
+            if (!assessmentStatus) {
+                throw new Error(assessmentError);
+            }
+            setAssessmentList(apiResponse || []);
+            setOpenModal(true);
+        } catch (error) {
+            console.error('Submit or fetch error:', error);
+        }
     };
 
     return (

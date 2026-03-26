@@ -196,6 +196,8 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                             setAssessmentList(result?.response || []);
                         }
 
+                        router.push(`${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
+
                         setOpenModal(true);
                     } catch (error) {
                         console.error('Assessment fetch error:', error);

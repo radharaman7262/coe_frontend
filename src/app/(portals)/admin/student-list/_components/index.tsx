@@ -42,14 +42,14 @@ const AdminStudentListPage = () => {
 
     const { isLoading, data } = useGetStudentList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
         search: debouncedFilters,
         status: statusFilter?.id || '',
     });
 
     const { response } = data || {};
 
-    const { limit, data: studentResponse = [], total = 0 } = response || {};
+    const { data: studentResponse = [], total = 0 } = response || {};
 
     const getAdminStudentList = (results: studentDataType[] = []) =>
         results.map((item) => {
@@ -117,7 +117,7 @@ const AdminStudentListPage = () => {
     };
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             <PageHeader
                 title={text.studentList}
                 description={text.description}
@@ -132,7 +132,6 @@ const AdminStudentListPage = () => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     data={finalStudentList}
-                    limit={limit}
                     totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
@@ -150,7 +149,7 @@ const AdminStudentListPage = () => {
             )}
 
             <ToastContainer position='top-right' autoClose={3000} pauseOnHover />
-        </>
+        </div>
     );
 };
 export default AdminStudentListPage;

@@ -45,13 +45,13 @@ const CenterSetupPage = () => {
 
     const { isLoading, data, isFetching } = useGetCenterList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
         search: debouncedFilters,
     });
 
     const { response } = data || {};
 
-    const { limit, results = [], totalCount = 0 } = response || {};
+    const { results = [], totalCount = 0 } = response || {};
 
     const { execute } = useUserCenterSetupActions({
         setShow: setAddNewCenterModal,
@@ -130,7 +130,7 @@ const CenterSetupPage = () => {
     const finalCenterSetupList = useMemo(() => getCenterSetupList(results), [results]);
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             {addNewCenterModal && (
                 <AddNewCentre
                     open={addNewCenterModal}
@@ -158,12 +158,11 @@ const CenterSetupPage = () => {
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
                     data={finalCenterSetupList}
-                    limit={limit}
                     totalCount={totalCount}
                 />
             )}
             <ToastContainer />
-        </>
+        </div>
     );
 };
 export default CenterSetupPage;

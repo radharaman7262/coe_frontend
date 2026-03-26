@@ -1,21 +1,36 @@
 @use '@styles/theme' as *;
 
+.assessment-page {
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px !important;
+        display: block !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $gray-400 !important;
+        border-radius: 16px !important;
+    }
+}
+
 .search-bar {
     width: 25%;
 }
 
-.table-container {
-    height: calc(100vh - 248px);
-}
+// .table-container {
+//     height: calc(100vh - 248px);
+// }
 
-.table-wrapper {
-    height: 100%;
-}
+// .table-wrapper {
+//     height: 100%;
+// }
 
-.table-data {
-    height: 80%;
-    overflow-y: scroll;
-}
+// .table-data {
+//     height: 80%;
+//     overflow-y: scroll;
+// }
 
 .table-row {
     @include flex-center(normal, normal, center, 12px);

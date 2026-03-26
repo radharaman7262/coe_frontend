@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { SmallTableBody, Text } from '@/components/index';
 import { FontType } from '@/types/typographyCommon';
 
-import { ZERO_DATA } from '@/constant/appConstants';
+import { getRandomColor, ZERO_DATA } from '@/constant/appConstants';
 import { COLUMNS } from './constant';
 
 import { UpcomingSessionListType } from './type';
@@ -17,10 +17,43 @@ interface UpcomingSessionProps {
 const UpcomingSessions = (props: UpcomingSessionProps) => {
     const { upcomingSessionList } = props;
 
+    const capitalizeFirstLetter = (text: string = '') => {
+        if (!text) return '';
+        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    };
+
     const getSpecialEducatorList = (results: UpcomingSessionListType[]) => {
         const data = results?.map((item: UpcomingSessionListType) => ({
             ...item,
-            activity: `${item?.educatorName || '_'} with student: ${item?.studentName || '_'}`,
+            activity: (
+                <div className={styles['instruction-aligned']}>
+                    <hr
+                        className={styles['hr-instruction-line']}
+                        style={{ backgroundColor: getRandomColor() }}
+                    />
+                    <div className={styles.activityText}>
+                        <Text
+                            font={[FontType.text_xs_regular, FontType.text_xs_regular]}
+                            color='text-cta-3'
+                        >
+                            {capitalizeFirstLetter(item?.educatorName)}
+                        </Text>{' '}
+                        <Text
+                            font={[FontType.text_xs_regular, FontType.text_xs_regular]}
+                            color='gray-900'
+                        >
+                            &nbsp;with student:
+                        </Text>{' '}
+                        <Text
+                            font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                            color='blue-500'
+                            className={styles['student-name']}
+                        >
+                            &nbsp;{capitalizeFirstLetter(item?.studentName)}
+                        </Text>
+                    </div>
+                </div>
+            ),
             date: `${item?.bookingDate || '-'}`,
             time: `${item?.startTime} - ${item?.endTime}`,
         }));
@@ -30,7 +63,8 @@ const UpcomingSessions = (props: UpcomingSessionProps) => {
 
     const finalUpcomingSessionsList = useMemo(
         () => getSpecialEducatorList(upcomingSessionList),
-        [upcomingSessionList],
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [],
     );
 
     const hasData = finalUpcomingSessionsList?.length > ZERO_DATA;

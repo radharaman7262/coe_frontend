@@ -1,17 +1,32 @@
 @use '@styles/theme' as *;
 
+.assessment-page {
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px !important;
+        display: block !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $gray-400 !important;
+        border-radius: 16px !important;
+    }
+}
+
 .toggle-data {
     @include flex-center(normal, normal, center);
 }
 
-.table-container {
-    height: calc(100vh - 190px);
-}
+// .table-container {
+//     height: calc(100vh - 190px);
+// }
 
-.table-data {
-    max-height: calc(100vh - 190px);
-    overflow-y: scroll !important;
-}
+// .table-data {
+//     max-height: calc(100vh - 190px);
+//     overflow-y: scroll !important;
+// }
 
 .edit-cursor {
     cursor: pointer;

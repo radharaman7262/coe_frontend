@@ -100,7 +100,7 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
     };
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             {addRoleMasterModal && (
                 <RoleMasterModal
                     open={addRoleMasterModal}
@@ -129,7 +129,7 @@ const RoleMasterPage = (props: roleMasterPageProps) => {
             )}
 
             <ToastContainer />
-        </>
+        </div>
     );
 };
 

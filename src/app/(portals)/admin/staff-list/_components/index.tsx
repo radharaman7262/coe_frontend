@@ -42,12 +42,12 @@ const AdminStaffListPage = () => {
 
     const { isLoading, data } = useGetAdminStaffManagementList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
     });
 
     const { response } = data || {};
 
-    const { limit, data: staffManagementData = [], total: totalCount } = response || {};
+    const { data: staffManagementData = [], total: totalCount } = response || {};
 
     const handleEditModal = (item: staffListDataType) => {
         setFormValues(initialState);
@@ -164,7 +164,7 @@ const AdminStaffListPage = () => {
     );
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             {addNewStaffModal && (
                 <AddNewStaff
                     open={addNewStaffModal}
@@ -190,13 +190,12 @@ const AdminStaffListPage = () => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     data={finalStaffManagementList}
-                    limit={limit}
                     totalCount={totalCount}
                 />
             )}
 
             <ToastContainer />
-        </>
+        </div>
     );
 };
 

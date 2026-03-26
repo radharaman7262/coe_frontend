@@ -29,14 +29,14 @@ const AdminSessionPage = () => {
 
     const { isLoading, data } = useGetAdminSessionList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
         search: debouncedFilters,
         status: statusFilter?.id || '',
     });
 
     const { response } = data || {};
 
-    const { limit, data: sessionResponse = [], total = 0 } = response || {};
+    const { data: sessionResponse = [], total = 0 } = response || {};
 
     const getAdminSessionList = (results: sessionDataType[] = []) =>
         results.map((item) => {
@@ -92,7 +92,7 @@ const AdminSessionPage = () => {
     const finalSessionList = useMemo(() => getAdminSessionList(sessionResponse), [sessionResponse]);
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             <PageHeader title={text.staffManagement} description={text.description} />
 
             {isLoading ? (
@@ -102,7 +102,6 @@ const AdminSessionPage = () => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     data={finalSessionList}
-                    limit={limit}
                     totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
@@ -112,7 +111,7 @@ const AdminSessionPage = () => {
             )}
 
             <ToastContainer />
-        </>
+        </div>
     );
 };
 export default AdminSessionPage;

@@ -8,12 +8,7 @@ import { PageHeader, ShimmerUiContainer, Toggle } from '@/components/index';
 
 import useDebounce from '@/utils/useDebounce';
 
-import {
-    DEBOUNCE_SEARCH_TIME,
-    StatusNumber,
-    StatusNumberString,
-    TEN_MIN_LENGTH,
-} from '@/constant/appConstants';
+import { DEBOUNCE_SEARCH_TIME, StatusNumber, StatusNumberString } from '@/constant/appConstants';
 
 import EditIcon from '@/public/assets/svg/edit-icon.svg';
 
@@ -57,7 +52,7 @@ const CenterAdminPage = () => {
 
     const { isLoading, data, isFetching } = useGetCenterAdminList({
         page: currentPage,
-        limit: TEN_MIN_LENGTH,
+        limit: 25,
         search: debouncedFilters,
     });
 
@@ -67,7 +62,7 @@ const CenterAdminPage = () => {
 
     const { response } = data || {};
 
-    const { limit, results = [], totalCount = 0 } = response || {};
+    const { results = [], totalCount = 0 } = response || {};
 
     const handleEditAdmin = (item: getCenterAdminListType) => {
         setAddNewCenterAdminModal(true);
@@ -160,7 +155,7 @@ const CenterAdminPage = () => {
     const finalCenterAdminList = useMemo(() => getCenterAdminList(results), [results]);
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             {addNewCenterAdminModal && (
                 <AddCenterAdmin
                     open={addNewCenterAdminModal}
@@ -188,13 +183,12 @@ const CenterAdminPage = () => {
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
                     data={finalCenterAdminList}
-                    limit={limit}
                     totalCount={totalCount}
                 />
             )}
 
             <ToastContainer />
-        </>
+        </div>
     );
 };
 export default CenterAdminPage;

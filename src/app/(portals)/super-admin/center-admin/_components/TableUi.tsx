@@ -18,13 +18,11 @@ interface tableUiProps {
     setTableFilter: React.Dispatch<React.SetStateAction<string>>;
     tableFilter: string;
     data: TableDataType[];
-    limit: number;
     totalCount: number;
 }
 
 const TableUi = (props: tableUiProps) => {
-    const { currentPage, setCurrentPage, setTableFilter, tableFilter, data, limit, totalCount } =
-        props;
+    const { currentPage, setCurrentPage, setTableFilter, tableFilter, data, totalCount } = props;
 
     const handleNextButton = () => {
         setCurrentPage(currentPage + 1);
@@ -59,8 +57,8 @@ const TableUi = (props: tableUiProps) => {
             handleNextButton={handleNextButton}
             handlePreviousButton={handlePreviousButton}
             totalCount={totalCount}
-            numberOfRowsPerPage={limit || 10}
-            isPagination
+            numberOfRowsPerPage={25}
+            isPagination={totalCount > 25}
             tableClassName={styles['table-container']}
             baseTableContainerClassName={styles['table-wrapper']}
             baseTableClassName={styles['table-data']}

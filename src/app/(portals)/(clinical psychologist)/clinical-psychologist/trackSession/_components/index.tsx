@@ -36,14 +36,14 @@ const TrackSessionPage = () => {
 
     const { isLoading, data } = useGetTrackSessionList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
         search: debouncedFilters,
         status: statusFilter?.id || '',
     });
 
     const { response } = data || {};
 
-    const { limit, data: trackSessionResponse = [], total = 0 } = response || {};
+    const { data: trackSessionResponse = [], total = 0 } = response || {};
 
     const handleRedirection = (studentId?: string) => {
         if (!studentId) return;
@@ -113,7 +113,7 @@ const TrackSessionPage = () => {
     );
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             <PageHeader title={text.trackSessions} description={text.description} />
 
             {isLoading ? (
@@ -123,7 +123,6 @@ const TrackSessionPage = () => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     data={finalTrackSessionList}
-                    limit={limit}
                     totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
@@ -133,7 +132,7 @@ const TrackSessionPage = () => {
             )}
 
             <ToastContainer />
-        </>
+        </div>
     );
 };
 export default TrackSessionPage;

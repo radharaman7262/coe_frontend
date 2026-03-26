@@ -55,14 +55,14 @@ const SpecialEducatorAssessmentPage = () => {
 
     const { isLoading, data } = useGetSpecialEducatorAssessmentList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
         search: debouncedFilters,
         status: statusFilter?.id || '',
     });
 
     const { response } = data || {};
 
-    const { limit, data: assessmentResponse = [], total = 0 } = response || {};
+    const { data: assessmentResponse = [], total = 0 } = response || {};
 
     const handleClickRedirection = (item: AssessmentStudentType) => {
         if (item?.sessionStatus !== 'Pending') {
@@ -205,7 +205,7 @@ const SpecialEducatorAssessmentPage = () => {
     );
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             <PageHeader title={text.assessment} description={text.description} />
 
             {bookASessionModal && studentId && (
@@ -225,7 +225,6 @@ const SpecialEducatorAssessmentPage = () => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     data={finalAssessmentList}
-                    limit={limit}
                     totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
@@ -235,7 +234,7 @@ const SpecialEducatorAssessmentPage = () => {
             )}
 
             <ToastContainer />
-        </>
+        </div>
     );
 };
 export default SpecialEducatorAssessmentPage;

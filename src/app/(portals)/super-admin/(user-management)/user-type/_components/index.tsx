@@ -108,7 +108,7 @@ const UserTypePage = (props: UserTypePageProps) => {
     };
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             {addNewUserTypeModal && (
                 <UserTypeModal
                     open={addNewUserTypeModal}
@@ -141,7 +141,7 @@ const UserTypePage = (props: UserTypePageProps) => {
                 />
             )}
             <ToastContainer />
-        </>
+        </div>
     );
 };
 

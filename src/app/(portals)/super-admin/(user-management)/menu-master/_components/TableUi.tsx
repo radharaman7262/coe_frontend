@@ -19,10 +19,11 @@ interface tableUiProps {
     tableFilter: string;
     data: TableDataType[];
     totalCount: number;
-    limit: number;
     noTitleContainer: string;
     noDescriptionContainer: string;
 }
+
+const limit = 25;
 
 const TableUi = ({
     currentPage,
@@ -31,7 +32,6 @@ const TableUi = ({
     tableFilter,
     data,
     totalCount,
-    limit,
     noTitleContainer,
     noDescriptionContainer,
 }: tableUiProps) => {
@@ -74,7 +74,7 @@ const TableUi = ({
             handlePreviousButton={handlePreviousButton}
             handleClickOnCount={handleClickOnCount}
             totalCount={totalCount}
-            numberOfRowsPerPage={limit}
+            numberOfRowsPerPage={25}
             tableClassName={styles['table-container']}
             baseTableContainerClassName={styles['table-wrapper']}
             baseTableClassName={styles['table-data']}

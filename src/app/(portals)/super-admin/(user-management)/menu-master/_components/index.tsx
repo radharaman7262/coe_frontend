@@ -85,13 +85,13 @@ const MenuMasterPage = () => {
 
     const { isLoading, data } = useGetMenuMasterList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
         search: debouncedFilters,
     });
 
     const { response } = data || {};
 
-    const { limit, results = [], totalCount = 0 } = response || {};
+    const { results = [], totalCount = 0 } = response || {};
 
     useEffect(() => {
         setCurrentPage(1);
@@ -162,7 +162,7 @@ const MenuMasterPage = () => {
     const menuMasterList = useMemo(() => getMenuMasterType(results), [results]);
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             <MenuMasterModal
                 open={addMenuMasterModal}
                 setOpen={setAddMenuMasterModal}
@@ -190,13 +190,12 @@ const MenuMasterPage = () => {
                     tableFilter={tableFilter}
                     data={menuMasterList}
                     totalCount={totalCount}
-                    limit={limit}
                     noTitleContainer={text.noMenuMaster}
                     noDescriptionContainer={text.addMenutoGetStarted}
                 />
             )}
             <ToastContainer />
-        </>
+        </div>
     );
 };
 

@@ -4,6 +4,8 @@ import React, { useMemo, useState } from 'react';
 
 import { Text, Dropdown } from '@/components';
 import { FontType } from '@/types/typographyCommon';
+import FemaleIcon from '@/public/assets/svg/female-icon.svg';
+import MaleIcon from '@/public/assets/svg/male-icon.svg';
 
 import { StatusDataType, STUDENT_STATUS } from '@/constant/appConstants';
 import styles from './styles.module.scss';
@@ -56,33 +58,50 @@ const MyStudents = ({ studentData }: MyStudentsProps) => {
                     </Text>
                 ) : (
                     filteredStudents?.map((student) => {
-                        const genderText = student.gender || '';
+                        const gender = student.gender?.toLowerCase();
 
                         return (
                             <div key={student.id} className={styles.card}>
-                                <Text
-                                    font={[FontType.text_xs_regular, FontType.text_xs_regular]}
-                                    className={
-                                        styles[`status-${student.processStatus?.toLowerCase()}`] ||
-                                        styles['status-default']
-                                    }
-                                >
-                                    {student.processStatus}
-                                </Text>
+                                <div className={styles.leftIcon}>
+                                    {gender === 'male' ? (
+                                        <MaleIcon />
+                                    ) : gender === 'female' ? (
+                                        <FemaleIcon />
+                                    ) : null}
+                                </div>
 
-                                <Text
-                                    font={[FontType.text_sm_bold, FontType.text_sm_bold]}
-                                    color='black'
-                                >
-                                    {student.name}
-                                </Text>
+                                <div className={styles.rightContent}>
+                                    <Text
+                                        font={[
+                                            FontType.text_xxs_regular,
+                                            FontType.text_xxs_regular,
+                                        ]}
+                                        className={
+                                            styles[
+                                                `status-${student.processStatus?.toLowerCase()}`
+                                            ] || styles['status-default']
+                                        }
+                                    >
+                                        {student.processStatus}
+                                    </Text>
 
-                                <Text
-                                    font={[FontType.text_xs_regular, FontType.text_xs_regular]}
-                                    color='text-cta-3'
-                                >
-                                    {`${student.age} yrs | ${genderText}`}
-                                </Text>
+                                    <Text
+                                        font={[
+                                            FontType.text_xs_semibold,
+                                            FontType.text_xs_semibold,
+                                        ]}
+                                        color='black'
+                                    >
+                                        {student.name}
+                                    </Text>
+
+                                    <Text
+                                        font={[FontType.text_xs_regular, FontType.text_xs_regular]}
+                                        color='text-cta-3'
+                                    >
+                                        {`${student.age} years | ${student.gender || ''}`}
+                                    </Text>
+                                </div>
                             </div>
                         );
                     })

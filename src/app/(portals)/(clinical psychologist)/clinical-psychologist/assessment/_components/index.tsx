@@ -58,14 +58,14 @@ const ClinicalPsychologistAssessmentPage = () => {
 
     const { isLoading, data } = useGetClinicalPsychologistAssessmentList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
         search: debouncedFilters,
         status: statusFilter?.id || '',
     });
 
     const { response } = data || {};
 
-    const { limit, finalData: assessmentResponse = [], total = 0 } = response || {};
+    const { finalData: assessmentResponse = [], total = 0 } = response || {};
 
     const getClinicalPsychologistAssessmentList = (results: AssessmentStudentType[] = []) =>
         results.map((item) => {
@@ -198,7 +198,7 @@ const ClinicalPsychologistAssessmentPage = () => {
     );
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             <PageHeader title={text.assessment} description={text.description} />
 
             {isLoading ? (
@@ -208,7 +208,6 @@ const ClinicalPsychologistAssessmentPage = () => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     data={finalAssessmentList}
-                    limit={limit}
                     totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
@@ -218,7 +217,7 @@ const ClinicalPsychologistAssessmentPage = () => {
             )}
 
             <ToastContainer />
-        </>
+        </div>
     );
 };
 export default ClinicalPsychologistAssessmentPage;

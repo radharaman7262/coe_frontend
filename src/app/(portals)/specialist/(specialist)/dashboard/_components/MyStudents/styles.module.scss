@@ -5,6 +5,17 @@
     border-radius: 12px;
     padding: 13px 15px;
     height: 100%;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        scrollbar-width: thin;
+        display: block !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $gray-200 !important;
+        border-radius: 8px !important;
+    }
 }
 
 .header {
@@ -35,17 +46,16 @@
     background: #ffffff;
     border: 1px solid #e5e7eb;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
+    gap: 12px;
+    align-items: start;
 }
 
 .status-pending {
     width: fit-content;
     padding: 4px 10px;
     border-radius: 14px;
-    background: #fef3c7;
-    color: #f59e0b;
+    background: #fffaeb;
+    color: #b54708;
 }
 
 .status-done {
@@ -54,4 +64,21 @@
     border-radius: 14px;
     background: #ecfdf3;
     color: #027a48;
+}
+
+.leftIcon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9fafb;
+}
+
+.rightContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }

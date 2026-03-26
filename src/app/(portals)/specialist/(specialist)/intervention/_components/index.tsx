@@ -54,13 +54,13 @@ const SpecialEducatorInterventionPage = () => {
 
     const { isLoading, data } = useGetSpecialEducatorInterventionList({
         page: currentPage,
-        limit: 10,
+        limit: 25,
         search: debouncedFilters,
     });
 
     const { response } = data || {};
 
-    const { limit, data: assessmentResponse = [], total = 0 } = response || {};
+    const { data: assessmentResponse = [], total = 0 } = response || {};
 
     const handleModal = (item: InterventionType) => {
         const { studentId, isGoalSet } = item;
@@ -257,7 +257,7 @@ const SpecialEducatorInterventionPage = () => {
     );
 
     return (
-        <>
+        <div className={styles['assessment-page']}>
             <PageHeader title={text.assessment} description={text.description} />
             {goalModal && studentId && (
                 <GoalModal
@@ -285,7 +285,6 @@ const SpecialEducatorInterventionPage = () => {
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                     data={finalInterventionList}
-                    limit={limit}
                     totalCount={total}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
@@ -293,7 +292,7 @@ const SpecialEducatorInterventionPage = () => {
             )}
 
             <ToastContainer />
-        </>
+        </div>
     );
 };
 export default SpecialEducatorInterventionPage;

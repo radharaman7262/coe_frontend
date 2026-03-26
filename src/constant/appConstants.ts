@@ -78,6 +78,11 @@ export const STATIC_STATUS = [
     { id: SessionStatusType.SCHEDULED, name: 'Scheduled' },
 ];
 
+export const TWO_STATIC_STATUS = [
+    { id: SessionStatusType.DONE, name: 'Done' },
+    { id: SessionStatusType.SCHEDULED, name: 'Scheduled' },
+];
+
 export const STUDENT_STATUS = [
     { id: StudentStatusType.ALL_STATUS, name: 'All Status' },
     { id: StudentStatusType.PENDING, name: 'Pending' },

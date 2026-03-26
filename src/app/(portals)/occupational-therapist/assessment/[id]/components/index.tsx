@@ -11,7 +11,13 @@ import { OTFormKeys, OTFormType } from '@/types/OTchildInformationType';
 import { AppRoutes } from '@/constant/appRoutes';
 import { showToast } from '@/components/ui/Toaster/constant';
 import { LOADING_TIME_DURATION } from '@/constant/appConstants';
-import { INITIAL_STATE, inputFields, InputFieldType, textAreaFields } from './constant';
+import {
+    disableFieldMap,
+    INITIAL_STATE,
+    inputFields,
+    InputFieldType,
+    textAreaFields,
+} from './constant';
 
 import { useChildInformationSubmit } from '../mutation';
 
@@ -39,7 +45,9 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
     const [loader, setLoader] = useState(false);
 
     const { mutate } = useChildInformationSubmit({ setLoader });
+
     const { id } = useParams();
+
     const router = useRouter();
 
     useEffect(() => {
@@ -63,6 +71,7 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
@@ -86,7 +95,16 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
     const renderField = (field: (typeof inputFields)[number]) => {
         const { label, name, type } = field;
 
-        const isDisabled = Boolean(studentDetail?.[name as keyof typeof studentDetail]);
+        const isDisabled = (() => {
+            const key = disableFieldMap[name];
+
+            if (name === OTFormKeys.INFORMANT) {
+                return !!studentDetail?.informant?.type;
+            }
+
+            const value = studentDetail?.[key as keyof typeof studentDetail];
+            return value !== null && value !== '' && value !== undefined;
+        })();
 
         return (
             <div key={name} className={styles.inputContainer}>
@@ -118,6 +136,18 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
     const renderRadioField = (field: InputFieldType) => {
         const { name, options } = field;
 
+        const isDisabled = (() => {
+            if (name === OTFormKeys.INFORMANT) {
+                return !!studentDetail?.informant?.type;
+            }
+
+            if (name === OTFormKeys.MODE_OF_ASSESSMENT) {
+                return !!studentDetail?.modeOfAssessment;
+            }
+
+            return false;
+        })();
+
         return (
             <div className={styles.radioGroup}>
                 {options?.map((item: string) => (
@@ -129,6 +159,7 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
                             value={item}
                             checked={formData[name as keyof OTFormType] === item}
                             onChange={handleChange}
+                            disabled={isDisabled}
                         />
                         {item}
                     </label>
@@ -173,6 +204,11 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
             },
         );
     };
+
+    const isReferralDisabled =
+        studentDetail?.referralSource !== null &&
+        studentDetail?.referralSource !== '' &&
+        studentDetail?.referralSource !== undefined;
 
     return (
         <>
@@ -242,6 +278,7 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
                                         <Input
                                             placeholder='Enter here'
                                             name={referralField?.name}
+                                            disable={isReferralDisabled}
                                             value={formData.referralSource}
                                             onChange={handleChange}
                                         />

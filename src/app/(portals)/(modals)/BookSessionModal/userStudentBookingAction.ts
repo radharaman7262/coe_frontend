@@ -55,6 +55,10 @@ export const useUserTherpistScheduleAction = ({
                 queryKey: [QueryKeys.SPECIAL_EDUCATOR_ASSESSMENT],
             });
 
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.GET_BOOKING_SLOT],
+            });
+
             router.refresh();
         } catch (error) {
             showToast({

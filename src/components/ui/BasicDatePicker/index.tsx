@@ -110,9 +110,9 @@ const customStyles = {
             border: '1px solid var(--gray-300)',
         },
 
-        '& css-1rebu5w-MuiFormControl-root-MuiPickersTextField-root' : {
-            border : '1px solid var(--gray-300)',
-        }
+    '& css-1rebu5w-MuiFormControl-root-MuiPickersTextField-root': {
+        border: '1px solid var(--gray-300)',
+    },
 };
 
 const BasicFontStyle = {
@@ -189,6 +189,7 @@ const BasicDatePicker = (props: BasicDatePickerProps) => {
                         sx={{ ...customStyles, ...additionalStyles }}
                         value={value}
                         disableFuture={isDisableFutureDate}
+                        disablePast={!!minDate}
                         minDate={minDate}
                         // slots={{ openPickerIcon: OpenCalenderIcon }}
                         slotProps={

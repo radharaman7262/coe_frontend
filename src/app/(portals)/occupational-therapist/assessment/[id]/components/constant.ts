@@ -11,7 +11,7 @@ export type InputFieldType = {
 
 export const inputFields: InputFieldType[] = [
     { label: 'Name of Child', name: OTFormKeys.NAME, type: 'input' },
-    { label: 'Age', name: OTFormKeys.AGE, type: 'date' },
+    { label: 'Age', name: OTFormKeys.AGE, type: 'input' },
     { label: 'Gender', name: OTFormKeys.GENDER, type: 'input' },
     { label: 'DOB', name: OTFormKeys.DOB, type: 'date' },
 
@@ -42,6 +42,20 @@ export const INITIAL_STATE: OTFormType = {
     [OTFormKeys.MODE_OF_ASSESSMENT]: '',
     [OTFormKeys.DOB]: null,
     [OTFormKeys.AGE]: null,
+
+    informantOther: '',
+};
+
+export const disableFieldMap: Record<string, string> = {
+    [OTFormKeys.STUDENT_ID]: 'studentId',
+    [OTFormKeys.NAME]: 'name',
+    [OTFormKeys.GENDER]: 'gender',
+    [OTFormKeys.DIAGNOSIS]: 'diagnosis',
+    [OTFormKeys.REFERRAL_SOURCE]: 'referralSource',
+    [OTFormKeys.INFORMANT]: 'informant',
+    [OTFormKeys.MODE_OF_ASSESSMENT]: 'modeOfAssessment',
+    [OTFormKeys.DOB]: 'dob',
+    [OTFormKeys.AGE]: 'age',
 
     informantOther: '',
 };

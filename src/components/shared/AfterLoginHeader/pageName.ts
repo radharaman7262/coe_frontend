@@ -12,7 +12,7 @@ export const pageNameMap: Record<string, string> = {
     '/admin/staff-list': 'Staff List',
     '/admin/sessions': 'Sessions',
     '/clinical-psychologist/dashboard': 'Dashboard',
-    '/clinical-psychologist/assessment': 'Assessment',
+    '/clinical-psychologist/assessment': 'Student List',
     '/clinical-psychologist/trackSession': 'Sessions',
     '/specialist/dashboard': 'Dashboard',
     '/specialist/assessment': 'Student List',

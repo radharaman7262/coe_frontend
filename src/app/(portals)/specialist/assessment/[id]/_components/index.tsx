@@ -4,11 +4,9 @@ import React, { useEffect, useState } from 'react';
 
 import { useParams, useRouter } from 'next/navigation';
 
-import { AppRoutes } from '@/constant/appRoutes';
 import dayjs, { Dayjs } from 'dayjs';
 
-import { Input, Button, Text, TextArea, BasicDatePicker } from '@/components/index';
-
+import { Input, Button, Text, TextArea, BasicDatePicker } from '@/components';
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import {
@@ -16,9 +14,11 @@ import {
     SpecialEducatorStudentFormType,
 } from '@/types/specialEducatorChildInformationType';
 
+import { AppRoutes } from '@/constant/appRoutes';
+
 import { useChildInformationSubmit } from '../mutation';
 
-import { INITIAL_STATE, inputFields, textAreaFields } from './constant';
+import { disableFieldMap, INITIAL_STATE, inputFields, textAreaFields } from './constant';
 
 import styles from './styles.module.scss';
 
@@ -33,43 +33,50 @@ interface ChildInformationFormProps {
     };
 }
 
-const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) => {
-    const { studentDetail } = props;
-
+const SpecialEducatorChildInformationForm = ({ studentDetail }: ChildInformationFormProps) => {
     const [formData, setFormData] = useState<SpecialEducatorStudentFormType>(INITIAL_STATE);
     const [loader, setLoader] = useState(false);
 
     const { mutate } = useChildInformationSubmit({ setLoader });
-
     const { id } = useParams();
-
     const router = useRouter();
+
+    const isFieldDisabled = (name: string) => {
+        const key = disableFieldMap[name] as keyof typeof studentDetail;
+        const value = studentDetail?.[key];
+        return value !== null && value !== '' && value !== undefined;
+    };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+    const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     useEffect(() => {
-        setFormData((prevValues) => ({
-            ...prevValues,
+        if (!studentDetail) return;
+
+        setFormData((prev) => ({
+            ...prev,
             [SpecialEducatorStudentFormKeys.STUDENT_ID]: studentDetail.studentId || '',
-            [SpecialEducatorStudentFormKeys.DOB]: dayjs(studentDetail.dob),
-            [SpecialEducatorStudentFormKeys.GENDER]: studentDetail.gender || '',
             [SpecialEducatorStudentFormKeys.NAME]: studentDetail.name || '',
-            [SpecialEducatorStudentFormKeys.AGE]: dayjs(studentDetail.age),
+            [SpecialEducatorStudentFormKeys.GENDER]: studentDetail.gender || '',
+            [SpecialEducatorStudentFormKeys.DOB]: studentDetail.dob
+                ? dayjs(studentDetail.dob)
+                : null,
+            [SpecialEducatorStudentFormKeys.AGE]: studentDetail.age
+                ? dayjs(studentDetail.age)
+                : null,
             [SpecialEducatorStudentFormKeys.AREA_OF_CONCERN]: studentDetail.areaOfConcern || '',
         }));
     }, [studentDetail]);
 
     const renderField = (field: (typeof inputFields)[number]) => {
         const { label, name, type } = field;
-
-        const isDisabled = Boolean(studentDetail?.[name as keyof typeof studentDetail]);
 
         return (
             <div key={name} className={styles['input-container']}>
@@ -81,10 +88,8 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
                     <Input
                         label={label}
                         name={name}
-                        disable={isDisabled}
-                        value={
-                            formData[field.name as keyof SpecialEducatorStudentFormType] as string
-                        }
+                        disable={isFieldDisabled(name)}
+                        value={formData[name as keyof SpecialEducatorStudentFormType] as string}
                         onChange={handleChange}
                     />
                 )}
@@ -93,28 +98,18 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
                     <BasicDatePicker
                         label={label}
                         name={name}
-                        value={
-                            formData[field.name as keyof SpecialEducatorStudentFormType] as Dayjs
-                        }
-                        onChange={(date) => {
+                        disabled={isFieldDisabled(name)}
+                        value={formData[name as keyof SpecialEducatorStudentFormType] as Dayjs}
+                        onChange={(date) =>
                             setFormData((prev) => ({
                                 ...prev,
                                 [name]: date,
-                            }));
-                        }}
+                            }))
+                        }
                     />
                 )}
             </div>
         );
-    };
-
-    const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const { name, value } = event.target;
-
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
     };
 
     const isFormValid = () =>
@@ -132,12 +127,9 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
         mutate(payload, {
             onSuccess: (data) => {
                 const { response } = data || {};
-
                 const { success, message } = response || {};
 
-                if (!success) {
-                    throw new Error(message);
-                }
+                if (!success) throw new Error(message);
 
                 router.replace(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
             },
@@ -155,9 +147,11 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
                     >
                         Child Information
                     </Text>
+
                     <div className={styles.container}>
                         <div className={styles.form}>
                             <div className={styles.formGrid}>{inputFields.map(renderField)}</div>
+
                             <div>
                                 {textAreaFields.map((field) => (
                                     <div key={field.name} className={styles['input-container']}>
@@ -174,11 +168,7 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
                                         <TextArea
                                             label={field.label}
                                             name={field.name}
-                                            // disable={Boolean(
-                                            //     studentDetail?.[
-                                            //         field.name as keyof typeof studentDetail
-                                            //     ],
-                                            // )}
+                                            disable={isFieldDisabled(field.name)}
                                             value={
                                                 formData[
                                                     field.name as keyof SpecialEducatorStudentFormType
@@ -193,6 +183,7 @@ const SpecialEducatorChildInformationForm = (props: ChildInformationFormProps) =
                     </div>
                 </div>
             </div>
+
             <div className={styles.buttonWrapper}>
                 <Button
                     color='white'

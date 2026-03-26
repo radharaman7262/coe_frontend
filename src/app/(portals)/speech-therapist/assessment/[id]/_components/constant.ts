@@ -52,3 +52,17 @@ export const INITIAL_STATE: SpeechTherapistStudentFormType = {
 
     diagnosisOther: '',
 };
+
+export const disableFieldMap: Record<string, string> = {
+    [SpeechTherapistStudentFormKeys.STUDENT_ID]: 'studentId',
+    [SpeechTherapistStudentFormKeys.NAME]: 'name',
+    [SpeechTherapistStudentFormKeys.GENDER]: 'gender',
+    [SpeechTherapistStudentFormKeys.DIAGNOSIS]: 'diagnosis',
+    [SpeechTherapistStudentFormKeys.PRIMARY_CONCERN]: 'primaryConcern',
+    [SpeechTherapistStudentFormKeys.LANGUAGES_AT_HOME]: 'languageAtHome',
+    [SpeechTherapistStudentFormKeys.DIAGNOSIS_ANY]: 'diagnosisAny',
+    [SpeechTherapistStudentFormKeys.DOB]: 'dob',
+    [SpeechTherapistStudentFormKeys.AGE]: 'age',
+
+    diagnosisOther: '',
+};

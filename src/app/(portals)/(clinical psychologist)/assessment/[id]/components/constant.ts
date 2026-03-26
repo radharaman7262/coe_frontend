@@ -88,3 +88,27 @@ export const INITIAL_STATE: ChildInformationFormType = {
     [ChildInformationFormKeys.PROGRESS]: '',
     [ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE]: '',
 };
+
+export const disableFieldMap: Record<string, string> = {
+    [ChildInformationFormKeys.CHILD_NAME]: 'studentName',
+    [ChildInformationFormKeys.DOB]: 'dob',
+    [ChildInformationFormKeys.GENDER]: 'gender',
+    [ChildInformationFormKeys.ADDRESS]: 'address',
+    [ChildInformationFormKeys.CONTACT_NUMBER]: 'contact',
+    [ChildInformationFormKeys.FATHER_NAME]: 'fatherName',
+    [ChildInformationFormKeys.MOTHER_NAME]: 'motherName',
+    [ChildInformationFormKeys.FATHER_EDUCATION]: 'fatherQualification',
+    [ChildInformationFormKeys.MOTHER_EDUCATION]: 'motherQualification',
+    [ChildInformationFormKeys.FATHER_OCCUPATION]: 'fatherOccupation',
+    [ChildInformationFormKeys.MOTHER_OCCUPATION]: 'motherOccupation',
+    [ChildInformationFormKeys.LANGUAGES]: 'languageSpoken',
+    [ChildInformationFormKeys.REFERRED_BY]: 'referredBy',
+    [ChildInformationFormKeys.VISIT_DATE]: 'dateOfVisit',
+    [ChildInformationFormKeys.PROBLEM_RECOGNITION_AGE]: 'ageWhenProblemRecognized',
+    [ChildInformationFormKeys.COURSE]: 'course',
+    [ChildInformationFormKeys.CHIEF_COMPLAINTS]: 'chiefComplaints',
+    [ChildInformationFormKeys.INFORMANT]: 'informantNameRelationship',
+    [ChildInformationFormKeys.RELIABILITY]: 'reliabilityOfInformant',
+    [ChildInformationFormKeys.ONSET]: 'onset',
+    [ChildInformationFormKeys.PROGRESS]: 'progress',
+};

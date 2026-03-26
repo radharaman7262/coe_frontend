@@ -8,7 +8,7 @@ import SearchIcon from '@/public/assets/svg/search-icon.svg';
 
 import { FontType } from '@/types/typographyCommon';
 
-import { StatusDataType, STATIC_STATUS as statusOptions } from '@/constant/appConstants';
+import { StatusDataType, TWO_STATIC_STATUS as statusOptions } from '@/constant/appConstants';
 
 import { COLUMNS as constantColumns, ASSESSMENT_TEXT as dummyText } from './constant';
 

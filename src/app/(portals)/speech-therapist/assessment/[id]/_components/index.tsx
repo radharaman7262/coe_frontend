@@ -14,7 +14,13 @@ import {
     SpeechTherapistStudentFormType,
 } from '@/types/speechTherapistChildInformationType';
 
-import { INITIAL_STATE, inputFields, InputFieldType, textAreaFields } from './constant';
+import {
+    disableFieldMap,
+    INITIAL_STATE,
+    inputFields,
+    InputFieldType,
+    textAreaFields,
+} from './constant';
 
 import { useChildInformationSubmit } from '../mutation';
 
@@ -99,7 +105,11 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
     const renderField = (field: (typeof inputFields)[number]) => {
         const { label, name, type } = field;
 
-        const isDisabled = Boolean(studentDetail?.[name as keyof typeof studentDetail]);
+        const isDisabled = (() => {
+            const key = disableFieldMap[name] as keyof typeof studentDetail;
+            const value = studentDetail?.[key];
+            return value !== null && value !== '' && value !== undefined;
+        })();
 
         return (
             <div key={name} className={styles.inputContainer}>

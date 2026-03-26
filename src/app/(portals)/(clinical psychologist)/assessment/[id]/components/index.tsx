@@ -15,7 +15,7 @@ import { ChildInformationFormKeys, ChildInformationFormType } from '@/types/chil
 
 import { useChildInformationSubmit } from '../mutation';
 
-import { INITIAL_STATE, inputFields, textAreaFields } from './constant';
+import { disableFieldMap, INITIAL_STATE, inputFields, textAreaFields } from './constant';
 
 import styles from './styles.module.scss';
 
@@ -130,7 +130,11 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
     const renderField = (field: (typeof inputFields)[number]) => {
         const { label, name, type } = field;
 
-        const isDisabled = Boolean(studentDetail?.[name as keyof typeof studentDetail]);
+        const isDisabled = (() => {
+            const key = disableFieldMap[name] as keyof typeof studentDetail;
+            const value = studentDetail?.[key];
+            return value !== null && value !== '' && value !== undefined;
+        })();
 
         return (
             <div key={name} className={styles['input-container']}>
@@ -159,6 +163,9 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                                 [name]: date,
                             }));
                         }}
+                        isDisableFutureDate={false}
+                        minDate={name === ChildInformationFormKeys.VISIT_DATE ? dayjs() : undefined}
+                        disabled={isDisabled}
                     />
                 )}
             </div>
@@ -189,7 +196,7 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
             [ChildInformationFormKeys.ONSET]: formData[ChildInformationFormKeys.ONSET],
             [ChildInformationFormKeys.PROGRESS]: formData[ChildInformationFormKeys.PROGRESS],
             [ChildInformationFormKeys.CHIEF_COMPLAINTS]:
-                formData[ChildInformationFormKeys.PROGRESS],
+                formData[ChildInformationFormKeys.CHIEF_COMPLAINTS],
             [ChildInformationFormKeys.PRE_DISPOSING_FACTORS]:
                 formData[ChildInformationFormKeys.PRE_DISPOSING_FACTORS],
             [ChildInformationFormKeys.PRECIPITATING_FACTORS]:

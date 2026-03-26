@@ -154,7 +154,6 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
 
                 {type === 'date' && (
                     <BasicDatePicker
-                        label={label}
                         name={name}
                         value={formData[field.name as keyof ChildInformationFormType] as Dayjs}
                         onChange={(date) => {

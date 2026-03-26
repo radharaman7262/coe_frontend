@@ -60,6 +60,20 @@ const customStyles = {
         borderRadius: '12px',
     },
 
+    '& .MuiOutlinedInput-root.Mui-disabled': {
+        backgroundColor: '#eaecf0',
+        border: ' 1px solid #eaecf0',
+    },
+
+    '& .css-1hgcujo-MuiPickersInputBase-root-MuiPickersOutlinedInput-root.Mui-disabled ': {
+        backgroundColor: '#eaecf0',
+        border: ' 1px solid #eaecf0',
+    },
+
+    '& .MuiInputBase-input.Mui-disabled': {
+        WebkitTextFillColor: '#667085', // optional: text color for disabled
+    },
+
     '& .MuiPickersSectionList-root': {
         padding: '14px 0',
         fontSize: '14px',

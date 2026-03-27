@@ -8,6 +8,7 @@ export const FINE_MOTOR_SCHEMA: FormSchemaField<FineMotorFormKeys>[] = [
     {
         name: FineMotorFormKeys.GENERAL,
         label: 'General',
+        helperText: 'Multiple Choice',
         type: 'checkbox',
         options: OPTIONS,
         required: true,

@@ -1,7 +1,7 @@
 export type SelectAssessmentPayload = {
     studentId: number;
     formId: {
-        id: number;
+        id: string;
     }[];
 };
 
@@ -11,6 +11,6 @@ export type AssessmentItem = {
     tableName: string | null;
     priority: number;
     parentId: string | null;
-    isSelected: number;
+    isSelected: string;
     checked?: boolean;
 };

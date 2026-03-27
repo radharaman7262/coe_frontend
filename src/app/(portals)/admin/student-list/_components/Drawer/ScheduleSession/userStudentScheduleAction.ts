@@ -41,6 +41,9 @@ export const useUserStudentScheduleAction = ({
             queryClient.invalidateQueries({
                 queryKey: [QueryKeys.GET_STUDENT_LIST],
             });
+            queryClient.invalidateQueries({
+                queryKey: [QueryKeys.ADMIN_STAFF_MANAGEMENT],
+            });
         } catch (error) {
             showToast({
                 type: 'error',

@@ -44,7 +44,7 @@ const SelectAssessmentModal = ({
     const { mutate } = usePostSelectAssessment();
 
     const handleContinue = () => {
-        const selected = data?.filter((item) => item.isSelected === 1);
+        const selected = data?.filter((item) => item.isSelected === '1');
 
         if (selected?.length === 0) {
             toast.error('Please select at least one assessment');
@@ -54,7 +54,7 @@ const SelectAssessmentModal = ({
         const payload: SelectAssessmentPayload = {
             studentId,
             formId: selected.map((item) => ({
-                id: Number(item.id),
+                id: item.id.toString(),
             })),
         };
 
@@ -75,8 +75,8 @@ const SelectAssessmentModal = ({
     const handleChange = (target: AssessmentItem) => {
         setAssessmentList((prev) =>
             prev.map((item) =>
-                item.id === target.id
-                    ? { ...item, isSelected: item.isSelected === 1 ? 0 : 1 }
+                item.id.toString() === target.id.toString()
+                    ? { ...item, isSelected: item.isSelected === '1' ? '0' : '1' }
                     : item,
             ),
         );
@@ -134,7 +134,7 @@ const SelectAssessmentModal = ({
                                 </div>
 
                                 <Checkbox
-                                    isChecked={item?.isSelected === 1}
+                                    isChecked={item?.isSelected === '1'}
                                     onChange={() => handleChange(item)}
                                     inputClassName={styles.customCheckbox}
                                     checkIconClassName={styles.customCheckIcon}

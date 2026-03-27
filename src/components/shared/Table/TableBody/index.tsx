@@ -36,6 +36,8 @@ interface TableBodyPropsType {
 const TableBody = (props: TableBodyPropsType) => {
     const { data, columns, handleRedirection, actions, tableBodyTextColor } = props;
 
+    console.warn('Build');
+
     const bodyColor = tableBodyTextColor || 'gray-900';
 
     return (

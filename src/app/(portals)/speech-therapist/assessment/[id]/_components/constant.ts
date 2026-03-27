@@ -14,7 +14,7 @@ export type InputFieldType = {
 
 export const inputFields: InputFieldType[] = [
     { label: 'Name of Child', name: SpeechTherapistStudentFormKeys.NAME, type: 'input' },
-    { label: 'Age', name: SpeechTherapistStudentFormKeys.AGE, type: 'date' },
+    { label: 'Age', name: SpeechTherapistStudentFormKeys.AGE, type: 'input' },
     { label: 'Gender', name: SpeechTherapistStudentFormKeys.GENDER, type: 'input' },
     { label: 'Date of Evaluation', name: SpeechTherapistStudentFormKeys.DOB, type: 'date' },
 

@@ -41,7 +41,8 @@ interface ChildInformationFormProps {
         primaryConcern: string;
         languageAtHome: string;
         speechDiagnosis?: {
-            name: string;
+            type: string;
+            other: string;
         };
     };
 }
@@ -71,11 +72,11 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
             primaryConcern: studentDetail.primaryConcern || '',
             languageAtHome: studentDetail.languageAtHome || '',
 
-            diagnosisAny: studentDetail.speechDiagnosis?.name || '',
+            diagnosisAny: studentDetail.speechDiagnosis?.type || '',
 
             diagnosisOther:
-                studentDetail.speechDiagnosis?.name === 'Other'
-                    ? studentDetail.diagnosis || ''
+                studentDetail.speechDiagnosis?.type === 'Other'
+                    ? studentDetail.speechDiagnosis?.other || ''
                     : '',
         }));
     }, [studentDetail]);
@@ -141,8 +142,19 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
     const renderRadioField = (field: InputFieldType) => {
         const { name, options } = field;
 
-        const isPrimary = name === SpeechTherapistStudentFormKeys.PRIMARY_CONCERN;
+        const isDisabled = (() => {
+            if (name === SpeechTherapistStudentFormKeys.PRIMARY_CONCERN) {
+                return !!studentDetail?.primaryConcern;
+            }
 
+            if (name === SpeechTherapistStudentFormKeys.DIAGNOSIS_ANY) {
+                return !!studentDetail?.speechDiagnosis?.type;
+            }
+
+            return false;
+        })();
+
+        const isPrimary = name === SpeechTherapistStudentFormKeys.PRIMARY_CONCERN;
         const isDiagnosis = name === SpeechTherapistStudentFormKeys.DIAGNOSIS_ANY;
 
         return (
@@ -162,6 +174,7 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                                 formData[name as keyof SpeechTherapistStudentFormType] === item
                             }
                             onChange={handleChange}
+                            disabled={isDisabled}
                         />
                         {item}
                     </label>
@@ -221,7 +234,7 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                 // diagnosisAny: formData.diagnosisAny,
             };
 
-            const response = await submitSpeechTherapistChildInformation(payload); // 👈 wait for success
+            const response = await submitSpeechTherapistChildInformation(payload);
 
             const { status, error } = response || {};
 
@@ -331,6 +344,7 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                                         name={languageField?.name}
                                         value={formData.languageAtHome}
                                         onChange={handleChange}
+                                        disable={Boolean(studentDetail?.languageAtHome)}
                                     />
                                 )}
                             </div>
@@ -354,6 +368,9 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                                                 placeholder='Enter here'
                                                 name='diagnosisOther'
                                                 value={formData.diagnosisOther || ''}
+                                                disable={Boolean(
+                                                    studentDetail?.speechDiagnosis?.type,
+                                                )}
                                                 onChange={(e) =>
                                                     setFormData((prev) => ({
                                                         ...prev,

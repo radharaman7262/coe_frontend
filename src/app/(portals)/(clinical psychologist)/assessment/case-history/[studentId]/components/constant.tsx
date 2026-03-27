@@ -87,6 +87,7 @@ import GeneralSpeechRecommendation from './GeneralSpeechRecommendation';
 import CPRecommendations from './CPRecommendation';
 import VoiceRecommendation from './VoiceRecommendation';
 import FluencyRecommendation from './FluencyRecommendation';
+import SSDRecommendations from './SSDRecommendation';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -177,4 +178,5 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '206': <SpeechAndPhonology />,
     '208': <SSDFormalAndInformalTools />,
     '209': <SSDDiagnosisImpression />,
+    '210': <SSDRecommendations />,
 };

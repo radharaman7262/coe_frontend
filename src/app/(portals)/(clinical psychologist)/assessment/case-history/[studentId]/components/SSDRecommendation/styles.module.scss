@@ -1,0 +1,62 @@
+@use '@styles/theme' as *;
+
+.card {
+    padding: 0 20px;
+}
+
+.section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.left {
+    width: 140px;
+    font-weight: 500;
+}
+
+.right {
+    width: 60%;
+    //   flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    input {
+        width: 160px;
+    }
+}
+
+.footer {
+    @include flex-center(row, flex-end, center);
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1.5px solid var(--light-gray);
+
+    .actions {
+        @include flex-center(row, normal, center, 12px);
+
+        .save-button {
+            padding: 8px 32px;
+        }
+
+        .progress {
+            @include flex-center(row, center, center);
+            background-color: #dbeafe;
+            height: 36px;
+            width: 60px;
+            border-radius: 14px;
+        }
+    }
+}
+
+.accordion-shimmer {
+    height: 350px;
+    width: 100%;
+}

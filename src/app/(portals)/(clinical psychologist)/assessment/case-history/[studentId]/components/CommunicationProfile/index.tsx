@@ -157,7 +157,7 @@ const CommunicationProfile = () => {
                     <Checkbox
                         isChecked={form.receptiveLanguage.respondsToName}
                         onChange={(v) => update('receptiveLanguage.respondsToName', v)}
-                        label='Responds to name / WH questions'
+                        label='Responds to name / commands /WH questions'
                         labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
                     />
 

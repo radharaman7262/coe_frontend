@@ -91,6 +91,7 @@ import SSDRecommendations from './SSDRecommendation';
 import CommunicationProfile from './CommunicationProfile';
 import FluencyCharacteristics from './FluencyCharacterstics';
 import AssociatedSecondaryBehavior from './AssociatedSecondaryBehavior';
+import GSLCommunicationProfile from './GSLCommunicationProfile';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -144,6 +145,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '156': <ReadingSkills />,
     '157': <MathematicalSkills />,
     '158': <BehavioralObservation />,
+    '159': <GSLCommunicationProfile />,
     '160': <ImpulseControl />,
     '162': <GSLSensoryProfile />,
     '163': <GSLFormalTools />,

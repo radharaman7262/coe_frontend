@@ -1,0 +1,162 @@
+@use '@styles/theme' as *;
+
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border: 1px solid #f1f1f1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+.receiptive-language {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: start;
+    width: 100%;
+}
+
+.receptive-left {
+    width: 20%;
+}
+
+.receptive-right {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* =========================
+   SUB SECTION (Understands, Aided by)
+========================= */
+.sub-level {
+    display: flex;
+    flex-direction: column;
+    // gap: 10px;
+}
+
+/* =========================
+   GRID (MAIN LAYOUT)
+========================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 32px;
+    row-gap: 12px;
+
+    margin-top: 6px;
+}
+
+/* =========================
+   TEXT SPACING
+========================= */
+.card > span {
+    margin-top: 6px;
+}
+
+/* =========================
+   EXPRESSIVE + PRAGMATIC SECTIONS
+========================= */
+.card > p {
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+/* =========================
+   RADIO GROUP (ToM / IOM)
+========================= */
+.radioGroup {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    border-top: 1px solid #f3f4f6;
+    padding-top: 16px;
+    margin-top: 10px;
+
+    .actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 64px;
+            height: 34px;
+
+            background: #e0edff;
+            color: #1d4ed8;
+
+            border-radius: 14px;
+
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .save-button {
+            height: 36px;
+            padding: 0 20px;
+            border-radius: 8px;
+        }
+    }
+}
+
+/* =========================
+   CHECKBOX ALIGNMENT FIX
+========================= */
+.grid :global(.checkbox-wrapper) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .radioGroup {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+.accordion-shimmer {
+    height: 350px;
+    width: 100%;
+}
+
+.option-alignment {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}

@@ -218,7 +218,7 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                     other: formData.diagnosisAny === 'Other' ? formData.diagnosisOther : '',
                 },
                 languageAtHome: formData.languageAtHome,
-                diagnosisAny: formData.diagnosisAny,
+                // diagnosisAny: formData.diagnosisAny,
             };
 
             const response = await submitSpeechTherapistChildInformation(payload); // 👈 wait for success

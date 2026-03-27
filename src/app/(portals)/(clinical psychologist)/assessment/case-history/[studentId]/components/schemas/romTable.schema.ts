@@ -9,8 +9,8 @@ export const ROM_SCHEMA: FormSchemaField<ROMFormKeys>[] = [
         type: 'table',
 
         columns: [
-            { key: 'joint', label: 'Joint' },
-            { key: 'motion', label: 'Motion' },
+            { key: 'joint', label: 'Joint (Motion)' },
+            // { key: 'motion', label: 'Motion' },
             {
                 key: 'wnl',
                 label: 'WNL/NA',
@@ -50,52 +50,52 @@ export const ROM_SCHEMA: FormSchemaField<ROMFormKeys>[] = [
                 items: [
                     {
                         key: 'shoulderFlexion',
-                        label: 'Shoulder',
+                        label: 'Shoulder (Flexion / Extension)',
                         // motion: 'Flexion / Extension',
                     },
                     {
                         key: 'shoulderAbduction',
-                        label: 'Shoulder',
+                        label: 'Shoulder(Abduction / Adduction)',
                         // motion: 'Abduction / Adduction',
                     },
                     {
                         key: 'shoulderRotation',
-                        label: 'Shoulder',
+                        label: 'Shoulder(Internal / External Rotation)',
                         // motion: 'Internal / External Rotation',
                     },
 
                     {
                         key: 'elbowFlexion',
-                        label: 'Elbow',
+                        label: 'Elbow(Flexion / Extension)',
                         // motion: 'Flexion / Extension',
                     },
 
                     {
                         key: 'forearmRotation',
-                        label: 'Forearm',
+                        label: 'Forearm(Supination / Pronation)',
                         // motion: 'Supination / Pronation',
                     },
 
                     {
                         key: 'wristFlexion',
-                        label: 'Wrist',
+                        label: 'Wrist(Flexion / Extension)',
                         // motion: 'Flexion / Extension',
                     },
                     {
                         key: 'wristDeviation',
-                        label: 'Wrist',
+                        label: 'Wrist(Radial / Ulnar Deviation)',
                         // motion: 'Radial / Ulnar Deviation',
                     },
 
                     {
                         key: 'fingerFlexion',
-                        label: 'Fingers',
+                        label: 'Fingers(Flexion / Extension)',
                         // motion: 'Flexion / Extension',
                     },
 
                     {
                         key: 'thumbOpposition',
-                        label: 'Thumb',
+                        label: 'Thumb(Opposition / Abduction)',
                         // motion: 'Opposition / Abduction',
                     },
                 ],
@@ -108,40 +108,40 @@ export const ROM_SCHEMA: FormSchemaField<ROMFormKeys>[] = [
                 items: [
                     {
                         key: 'hipFlexion',
-                        label: 'Hip',
+                        label: 'Hip(Flexion / Extension)',
                         // motion: 'Flexion / Extension',
                     },
                     {
                         key: 'hipAbduction',
-                        label: 'Hip',
+                        label: 'Hip(Abduction / Adduction)',
                         // motion: 'Abduction / Adduction',
                     },
                     {
                         key: 'hipRotation',
-                        label: 'Hip',
+                        label: 'Hip(Internal / External Rotation)',
                         // motion: 'Internal / External Rotation',
                     },
 
                     {
                         key: 'kneeFlexion',
-                        label: 'Knee',
+                        label: 'Knee(Flexion / Extension)',
                         // motion: 'Flexion / Extension',
                     },
 
                     {
                         key: 'ankleFlexion',
-                        label: 'Ankle',
+                        label: 'Ankle(Dorsiflexion / Plantarflexion)',
                         // motion: 'Dorsiflexion / Plantarflexion',
                     },
                     {
                         key: 'ankleInversion',
-                        label: 'Ankle',
+                        label: 'Ankle(Inversion / Eversion)',
                         // motion: 'Inversion / Eversion',
                     },
 
                     {
                         key: 'toesFlexion',
-                        label: 'Toes',
+                        label: 'Toes(Flexion / Extension)',
                         // motion: 'Flexion / Extension',
                     },
                 ],

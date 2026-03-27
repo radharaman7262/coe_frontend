@@ -31,7 +31,7 @@ export const REFLEXES_SCHEMA: FormSchemaField<ReflexesFormKeys>[] = [
                 section: 'Primitive Reflexes',
                 sectionKey: 'primitive',
                 items: [
-                    { key: 'moro', label: 'Moro Reflex' },
+                    { key: 'moro', label: 'Moro Reflex', helperText: 'Expected At (0–6 months)' },
                     { key: 'rooting', label: 'Rooting Reflex' },
                     { key: 'sucking', label: 'Sucking Reflex' },
                     { key: 'palmarGrasp', label: 'Palmar Grasp Reflex' },

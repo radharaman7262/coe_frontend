@@ -32,6 +32,7 @@ export interface TableDropdownOptionType {
 export type TableRowItem = {
     key: string;
     label: string;
+    helperText?: string;
     options?: TableDropdownOptionType[];
 };
 

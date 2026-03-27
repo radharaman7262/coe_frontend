@@ -1,0 +1,101 @@
+@use '@styles/theme' as *;
+
+.container {
+    background: #f5f6f8;
+}
+
+/* SECTION BLOCK */
+.section {
+    padding: 0px 16px;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.accordion-shimmer {
+    height: 350px;
+    width: 100%;
+}
+
+/* SECTION TITLE */
+.section > :first-child {
+    margin-bottom: 12px;
+}
+
+/* HEADER ROW (Area / Observation) */
+.headerRow {
+    display: flex;
+    padding: 8px 0;
+    // border-bottom: 1px solid #e6e8ec;
+    margin-bottom: 8px;
+}
+
+/* COMMON ROW */
+.row {
+    display: flex;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+/* LEFT COLUMN (LABEL) */
+.row > :first-child {
+    width: 30%;
+    min-width: 30%;
+    color: #4b5563;
+}
+
+/* RIGHT COLUMN (OPTIONS / INPUT) */
+.options {
+    display: flex;
+    align-items: center;
+    gap: 32px; /* spacing between radios */
+    flex-wrap: wrap;
+}
+
+/* RADIO ALIGNMENT FIX */
+.options > * {
+    display: flex;
+    align-items: center;
+    min-width: 120px;
+}
+
+/* INPUT FIELD */
+.row input {
+    width: 260px;
+}
+
+/* LAST ROW BORDER REMOVE */
+.row:last-child {
+    border-bottom: none;
+}
+
+/* SMALL TEXT ALIGN (like "Area", "Observation") */
+.subHeader {
+    width: 30%;
+}
+
+.input-wrapper {
+    width: 100% !important;
+}
+.footer {
+    @include flex-center(row, flex-end, center);
+    padding: 20px;
+    background-color: $white;
+    border-top: 1.5px solid var(--light-gray);
+
+    .actions {
+        @include flex-center(row, normal, center, 12px);
+
+        .save-button {
+            padding: 8px 32px;
+        }
+
+        .progress {
+            @include flex-center(row, center, center);
+            background-color: #dbeafe;
+            height: 36px;
+            width: 60px;
+            border-radius: 14px;
+        }
+    }
+}

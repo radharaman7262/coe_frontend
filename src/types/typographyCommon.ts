@@ -101,6 +101,7 @@ export enum FontType {
     'text_xxs_medium' = 'text_xxs_medium',
     'text_xxs_semibold' = 'text_xxs_semibold',
     'text_xxs_bold' = 'text_xxs_bold',
+    text_sm = "text_sm",
 }
 
 export type ColorVariant =

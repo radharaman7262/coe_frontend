@@ -1,34 +1,34 @@
 import { FormSchemaField } from '@/components/shared/Forms/types/form.types';
 
-import { SpeechAndPhonologyFormKeys } from '../SpeechAndPhonology/type';
-import {
-    CAS_INDICATORS_OPTIONS,
-    MOTOR_SPEECH_MARKER_OPTIONS,
-    PHONOLOGICAL_PROCESS,
-} from '../SpeechAndPhonology/constant';
+import { PHONOLOGICAL_PROCESS } from '../SpeechAndPhonology/constant';
 
-export const SSD_FORMAL_AND_INFORMAL_SCHEMA: FormSchemaField<SpeechAndPhonologyFormKeys>[] = [
+import { SSDFormalAndInformalFormKeys } from '../SSDFormalAndInformalTools/type';
+import { FORMAL_TOOLS, SPEECH_SAMPLE_OPTIONS } from '../SSDFormalAndInformalTools/constant';
+
+export const SSD_FORMAL_AND_INFORMAL_SCHEMA: FormSchemaField<SSDFormalAndInformalFormKeys>[] = [
     {
-        name: SpeechAndPhonologyFormKeys.SPEECH,
+        name: SSDFormalAndInformalFormKeys.SPEECH_SAMPLE,
         label: 'Speech Intelligibility:',
-        type: 'text',
+        type: 'checkbox',
         required: true,
+        options: SPEECH_SAMPLE_OPTIONS,
     },
     {
-        name: SpeechAndPhonologyFormKeys.PHONEMES,
+        name: SSDFormalAndInformalFormKeys.FORMAL_TOOL_USED,
         label: 'Formal tools (if used)',
-        type: 'text',
+        type: 'checkbox',
         required: true,
+        options: FORMAL_TOOLS,
     },
     {
-        name: SpeechAndPhonologyFormKeys.PHONOLOGICAL,
+        name: SSDFormalAndInformalFormKeys.STIMULATION_CHECKED,
         label: 'Phonological Processes Observed',
         type: 'radio',
         required: true,
         options: PHONOLOGICAL_PROCESS,
     },
     {
-        name: SpeechAndPhonologyFormKeys.CONSISTENCY,
+        name: SSDFormalAndInformalFormKeys.ERROR_ANALYSIS_METHOD,
         label: 'Error analysis method',
         type: 'radio',
         required: true,
@@ -36,19 +36,5 @@ export const SSD_FORMAL_AND_INFORMAL_SCHEMA: FormSchemaField<SpeechAndPhonologyF
             { key: 'phoneme-based', label: 'Phoneme-based', value: 'Phoneme-based' },
             { key: 'process-based', label: 'Process-based', value: 'Process-based' },
         ],
-    },
-    {
-        name: SpeechAndPhonologyFormKeys.MOTOR_SPEECH,
-        label: 'Motor speech markers',
-        type: 'checkbox',
-        required: true,
-        options: MOTOR_SPEECH_MARKER_OPTIONS,
-    },
-    {
-        name: SpeechAndPhonologyFormKeys.CAS_INDICATORS,
-        label: 'CAS indicators',
-        type: 'checkbox',
-        required: true,
-        options: CAS_INDICATORS_OPTIONS,
     },
 ];

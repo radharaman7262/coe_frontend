@@ -92,6 +92,11 @@ import CommunicationProfile from './CommunicationProfile';
 import FluencyCharacteristics from './FluencyCharacterstics';
 import AssociatedSecondaryBehavior from './AssociatedSecondaryBehavior';
 import GSLCommunicationProfile from './GSLCommunicationProfile';
+import OralExam from './OralExam';
+import VoiceOralPeripheralExam from './VoiceOralPeripheralExam';
+// import CPVoiceOralPeripheralExam from './CLPVoiceOralPeripheralExam';
+import CLPVoiceOralPeripheralExam from './CLPVoiceOralPeripheralExam';
+import CPVoiceOralPeripheralExam from './CPVoiceOralPeripheralExam';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -155,11 +160,13 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '175': <DiagnosticImpression />,
     '176': <Recommendation />,
     '177': <MedicalDevelopmentalHistory />,
+    '180': <CPVoiceOralPeripheralExam />,
     '167': <GeneralSpeechRecommendation />,
     '168': <MedicalAndSurgicalHistory />,
     '169': <DevelopmentalMilestone />,
     '171': <SpeechAndArticulation />,
     '172': <ResonanceAndVoice />,
+    '173': <CLPVoiceOralPeripheralExam />,
     '181': <AacAndAlternateModes />,
     '182': <CPFormalTools />,
     '183': <CPDiagnosticImpression />,
@@ -177,6 +184,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '197': <AcousticAnalysis />,
     '195': <BehavioralAndClinicalImpression />,
     '198': <AerodynamicAspects />,
+    '199': <VoiceOralPeripheralExam />,
     '200': <ImpactOnCommunication />,
     '201': <VoiceFormalTools />,
     '202': <VoiceDiagnosticImpression />,
@@ -184,6 +192,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '204': <PerceptionAndVoiceAnalysis />,
     '205': <CommunicationProfile />,
     '206': <SpeechAndPhonology />,
+    '207': <OralExam />,
     '208': <SSDFormalAndInformalTools />,
     '209': <SSDDiagnosisImpression />,
     '210': <SSDRecommendations />,

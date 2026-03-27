@@ -1,0 +1,61 @@
+@use '@styles/theme' as *;
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.table {
+    margin-top: 16px;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.section {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.footer {
+    @include flex-center(row, flex-end, center);
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1.5px solid var(--light-gray);
+
+    .actions {
+        @include flex-center(row, normal, center, 12px);
+
+        .save-button {
+            padding: 8px 32px;
+        }
+
+        .progress {
+            @include flex-center(row, center, center);
+            background-color: #dbeafe;
+            height: 36px;
+            width: 60px;
+            border-radius: 14px;
+        }
+    }
+}
+
+.accordion-shimmer {
+    height: 350px;
+    width: 100%;
+}

@@ -88,6 +88,9 @@ import CPRecommendations from './CPRecommendation';
 import VoiceRecommendation from './VoiceRecommendation';
 import FluencyRecommendation from './FluencyRecommendation';
 import SSDRecommendations from './SSDRecommendation';
+import CommunicationProfile from './CommunicationProfile';
+import FluencyCharacteristics from './FluencyCharacterstics';
+import AssociatedSecondaryBehavior from './AssociatedSecondaryBehavior';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -162,6 +165,8 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '185': <CPRecommendations />,
     '186': <FluenceSpecific />,
     '187': <ObservationalFindings />,
+    '188': <FluencyCharacteristics />,
+    '189': <AssociatedSecondaryBehavior />,
     '190': <ImpactOnFunctionalCommunication />,
     '192': <SeverityRating />,
     '193': <ClinicalImpression />,
@@ -175,6 +180,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '202': <VoiceDiagnosticImpression />,
     '203': <VoiceRecommendation />,
     '204': <PerceptionAndVoiceAnalysis />,
+    '205': <CommunicationProfile />,
     '206': <SpeechAndPhonology />,
     '208': <SSDFormalAndInformalTools />,
     '209': <SSDDiagnosisImpression />,

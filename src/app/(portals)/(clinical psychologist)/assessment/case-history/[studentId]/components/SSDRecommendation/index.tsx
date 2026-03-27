@@ -112,7 +112,7 @@ const SSDRecommendations = () => {
             },
 
             percentage: calculatePercentage(),
-            parnetFormId: id,
+            parnetFormId: sectionId,
         };
 
         mutation.mutate(payload);

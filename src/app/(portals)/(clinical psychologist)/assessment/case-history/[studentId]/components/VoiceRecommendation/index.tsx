@@ -30,7 +30,7 @@ const VoiceRecommendation = () => {
 
     const searchParams = useSearchParams();
 
-    const id = searchParams.get('id');
+    const sectionId = searchParams.get('sectionId');
 
     const formHook = useAutoForm({
         schema: VOICE_RECOMMENDATION_SCHEMA,
@@ -39,7 +39,7 @@ const VoiceRecommendation = () => {
         checkboxConfig: {
             therapies: VOICE_THERAPY_OPTIONS,
         },
-        parnetFormId: id ?? '',
+        parnetFormId: sectionId ?? '',
     });
 
     return <AutoForm schema={VOICE_RECOMMENDATION_SCHEMA} formHook={formHook} btnLoader={loader} />;

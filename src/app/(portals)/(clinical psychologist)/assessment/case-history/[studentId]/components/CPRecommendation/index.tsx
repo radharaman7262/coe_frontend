@@ -108,7 +108,7 @@ export default function CPRecommendations() {
 
             percentage: calculateCPPercentage(selected, inputs),
 
-            parnetFormId: id,
+            parnetFormId: sectionId,
         };
 
         mutation.mutate(payload);

@@ -123,7 +123,7 @@ const FluencyRecommendation = () => {
 
             percentage: calculateFluencyPercentage(selected, inputs),
 
-            parnetFormId: id,
+            parnetFormId: sectionId,
         };
 
         // mutation.mutate(payload);

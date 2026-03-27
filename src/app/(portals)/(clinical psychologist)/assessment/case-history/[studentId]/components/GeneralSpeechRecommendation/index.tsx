@@ -121,7 +121,7 @@ const GeneralSpeechRecommendation = () => {
             },
 
             percentage: calculatePercentage(selected, inputs), // 🔁 replace with dynamic calculation
-            parnetFormId: id, // 🔁 replace dynamically
+            parnetFormId: sectionId, // 🔁 replace dynamically
         };
 
         mutation.mutate(payload);

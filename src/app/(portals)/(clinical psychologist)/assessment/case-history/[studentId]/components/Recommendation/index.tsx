@@ -31,7 +31,7 @@ const Recommendation = () => {
 
     const searchParams = useSearchParams();
 
-    const id = searchParams.get('id');
+    const sectionId = searchParams.get('sectionId');
 
     const formHook = useAutoForm({
         schema: RECOMMENDATION_SCHEMA,
@@ -40,7 +40,7 @@ const Recommendation = () => {
         checkboxConfig: {
             therapies: OPTIONS,
         },
-        parnetFormId: id ?? '',
+        parnetFormId: sectionId ?? '',
     });
 
     return <AutoForm btnLoader={loader} schema={RECOMMENDATION_SCHEMA} formHook={formHook} />;

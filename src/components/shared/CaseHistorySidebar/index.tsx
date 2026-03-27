@@ -21,6 +21,7 @@ interface CaseHistorySidebarProps {
 }
 
 const CaseHistorySidebar = (props: CaseHistorySidebarProps) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { menuList, totalProgress } = props;
 
     return (
@@ -59,7 +60,7 @@ const CaseHistorySidebar = (props: CaseHistorySidebarProps) => {
                                 font={[FontType.text_xs_bold, FontType.text_xs_bold]}
                                 tagType='span'
                             >
-                                {totalProgress}%
+                                {item.percentage}%
                             </Text>
                         </div>
 

@@ -97,6 +97,7 @@ import VoiceOralPeripheralExam from './VoiceOralPeripheralExam';
 // import CPVoiceOralPeripheralExam from './CLPVoiceOralPeripheralExam';
 import CLPVoiceOralPeripheralExam from './CLPVoiceOralPeripheralExam';
 import CPVoiceOralPeripheralExam from './CPVoiceOralPeripheralExam';
+import CLPCommunicationProfile from './CLPCommunicationProfile';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -164,6 +165,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '167': <GeneralSpeechRecommendation />,
     '168': <MedicalAndSurgicalHistory />,
     '169': <DevelopmentalMilestone />,
+    '170': <CLPCommunicationProfile />,
     '171': <SpeechAndArticulation />,
     '172': <ResonanceAndVoice />,
     '173': <CLPVoiceOralPeripheralExam />,

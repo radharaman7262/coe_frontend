@@ -1,0 +1,102 @@
+@use '@styles/theme' as *;
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.section {
+    display: flex;
+    width: 60%;
+    margin-top: 20px;
+}
+
+.left {
+    width: 220px;
+}
+
+.receiptive-language {
+    @include flex-center(column, normal, normal, 24px);
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.row {
+    @include flex-center(column, normal, normal, 12px);
+}
+
+.options-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 320px;
+}
+
+.inputRow {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.progress {
+    background: #dbeafe;
+    padding: 6px 12px;
+    border-radius: 14px;
+}
+
+.unsaved {
+    color: red;
+    font-size: 12px;
+}
+
+.footer {
+    @include flex-center(row, flex-end, center);
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1.5px solid var(--light-gray);
+
+    .actions {
+        @include flex-center(row, normal, center, 12px);
+
+        .save-button {
+            padding: 8px 32px;
+        }
+
+        .progress {
+            @include flex-center(row, center, center);
+            background-color: #dbeafe;
+            height: 36px;
+            width: 60px;
+            border-radius: 14px;
+        }
+    }
+}
+
+.accordion-shimmer {
+    height: 350px;
+    width: 100%;
+}

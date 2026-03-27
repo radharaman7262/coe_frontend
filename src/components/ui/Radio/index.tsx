@@ -4,7 +4,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { FontType } from '@/types/typographyCommon';
+import { ColorVariant, FontType } from '@/types/typographyCommon';
 
 import { Text } from '@components/index';
 
@@ -33,6 +33,7 @@ type RadioProps = React.ComponentPropsWithoutRef<'input'> & {
     font?: [FontType, FontType];
 
     checked: boolean;
+    color?: ColorVariant;
 };
 
 const Radio = (props: RadioProps) => {
@@ -44,7 +45,7 @@ const Radio = (props: RadioProps) => {
         font = [FontType.text_sm_medium, FontType.text_sm_medium],
         name,
         checked,
-
+        color = 'gray-500',
         disabled = false,
     } = props;
 
@@ -64,7 +65,7 @@ const Radio = (props: RadioProps) => {
                 disabled={disabled}
             />
             <label htmlFor={inputId} aria-hidden style={{ cursor: 'pointer' }}>
-                <Text tagType='span' font={font}>
+                <Text tagType='span' color={color} font={font}>
                     {label}
                 </Text>
             </label>

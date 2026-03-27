@@ -18,7 +18,7 @@ export const CENTER_ADMIN_TEXT = {
     languageKnown: 'Languages Known (Multi Select)',
     selectLanguage: 'Select Language',
     create: 'Add & Send Invite link',
-    update: 'Update & Send Invite link',
+    update: 'Update',
     enterHere: 'Enter here',
 };
 

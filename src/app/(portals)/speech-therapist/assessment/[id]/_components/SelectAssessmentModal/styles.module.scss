@@ -1,8 +1,6 @@
 @use '@styles/theme' as *;
 
 .container {
-    // width: 100%;
-    // max-width: 1016px;
     background: $white;
     border-radius: 16px;
     padding: 36px 24px;
@@ -39,10 +37,6 @@
     height: 76px;
     padding: 16px;
     border: 1px solid #e5e7eb;
-    box-shadow:
-        0 1px 3px 0 rgba(10, 13, 18, 0.1),
-        0 1px 2px 0 rgba(10, 13, 18, 0.06),
-        0 0 0 4px #f4ebff;
     border-radius: 12px;
     background: #f8f9fc;
     transition: all 0.2s ease;
@@ -109,4 +103,8 @@
     .grid {
         grid-template-columns: 1fr;
     }
+}
+
+.close {
+    cursor: pointer;
 }

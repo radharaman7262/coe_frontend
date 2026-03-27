@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -12,8 +12,12 @@ import RightChevronIcon from '@/public/assets/svg/right-chevrons.svg';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
+import { LARGE_MODAL_STYLING } from '@/constant/appConstants';
+
 import { AssessmentItem, SelectAssessmentPayload } from './type';
+
 import { SELECT_ASSESSMENT_TEXT as text } from './constant';
+
 import { usePostSelectAssessment } from './mutation';
 
 import styles from './styles.module.scss';
@@ -22,34 +26,25 @@ interface Props {
     open: boolean;
     setOpen: (val: boolean) => void;
     data: AssessmentItem[];
+    setAssessmentList: React.Dispatch<React.SetStateAction<AssessmentItem[]>>;
     studentId: number;
     onContinue: (selected: AssessmentItem[]) => void;
     onClose?: () => void;
 }
 
-const SelectAssessmentModal = ({ open, setOpen, data, studentId, onContinue, onClose }: Props) => {
-    const [assessmentList, setAssessmentList] = useState<AssessmentItem[]>([]);
-
-    const { mutate, isPending } = usePostSelectAssessment();
-
-    useEffect(() => {
-        if (data?.length) {
-            const updated = data?.map((item) => ({
-                ...item,
-                checked: item.isSelected === '1',
-            }));
-            setAssessmentList(updated);
-        }
-    }, [data]);
-
-    const handleToggle = (id: string) => {
-        setAssessmentList((prev) =>
-            prev.map((item) => (item.id === id ? { ...item, checked: !item.checked } : item)),
-        );
-    };
+const SelectAssessmentModal = ({
+    open,
+    setOpen,
+    data,
+    studentId,
+    onContinue,
+    onClose,
+    setAssessmentList,
+}: Props) => {
+    const { mutate } = usePostSelectAssessment();
 
     const handleContinue = () => {
-        const selected = assessmentList?.filter((item) => item.checked);
+        const selected = data?.filter((item) => item.isSelected === 1);
 
         if (selected?.length === 0) {
             toast.error('Please select at least one assessment');
@@ -69,10 +64,6 @@ const SelectAssessmentModal = ({ open, setOpen, data, studentId, onContinue, onC
                     onContinue(selected);
                     onClose?.();
                 }
-
-                // query.invalidateQueries({
-                //     queryKey:[QueryKeys.CASE_HISTORY_SIDEBAR_MENU]
-                // })
             },
             onError: (error) => {
                 console.error(error);
@@ -81,14 +72,18 @@ const SelectAssessmentModal = ({ open, setOpen, data, studentId, onContinue, onC
         });
     };
 
+    const handleChange = (target: AssessmentItem) => {
+        setAssessmentList((prev) =>
+            prev.map((item) =>
+                item.id === target.id
+                    ? { ...item, isSelected: item.isSelected === 1 ? 0 : 1 }
+                    : item,
+            ),
+        );
+    };
+
     return (
-        <Modal
-            open={open}
-            setOpen={(val) => {
-                if (!val && onClose) onClose();
-                else setOpen(val);
-            }}
-        >
+        <Modal open={open} setOpen={setOpen} sx={LARGE_MODAL_STYLING}>
             <div className={styles.container}>
                 <div className={styles.header}>
                     <div className={styles.text}>
@@ -116,32 +111,36 @@ const SelectAssessmentModal = ({ open, setOpen, data, studentId, onContinue, onC
                 </div>
 
                 <div className={styles.grid}>
-                    {assessmentList?.map((item) => (
-                        <div
-                            key={item?.id}
-                            className={styles.card}
-                            onClick={() => handleToggle(item?.id)}
-                            aria-hidden='true'
-                        >
-                            <div className={styles.left}>
-                                <div className={styles.icon} />
+                    {data &&
+                        data?.map((item) => (
+                            <div
+                                key={item?.id}
+                                className={styles.card}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleChange(item);
+                                }}
+                                aria-hidden='true'
+                            >
+                                <div className={styles.left}>
+                                    <div className={styles.icon} />
 
-                                <Text
-                                    font={[FontType.text_md_medium, FontType.text_md_medium]}
-                                    color='black'
-                                >
-                                    {item?.name}
-                                </Text>
+                                    <Text
+                                        font={[FontType.text_md_medium, FontType.text_md_medium]}
+                                        color='black'
+                                    >
+                                        {item?.name}
+                                    </Text>
+                                </div>
+
+                                <Checkbox
+                                    isChecked={item?.isSelected === 1}
+                                    onChange={() => handleChange(item)}
+                                    inputClassName={styles.customCheckbox}
+                                    checkIconClassName={styles.customCheckIcon}
+                                />
                             </div>
-
-                            <Checkbox
-                                isChecked={item?.checked}
-                                onChange={() => handleToggle(item?.id)}
-                                inputClassName={styles.customCheckbox}
-                                checkIconClassName={styles.customCheckIcon}
-                            />
-                        </div>
-                    ))}
+                        ))}
                 </div>
 
                 <div className={styles.footer}>
@@ -151,7 +150,6 @@ const SelectAssessmentModal = ({ open, setOpen, data, studentId, onContinue, onC
                         color='white'
                         EndIcon={<RightChevronIcon />}
                         onClick={handleContinue}
-                        loader={isPending}
                     />
                 </div>
             </div>

@@ -189,37 +189,6 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
             return value !== '' && value !== null && value !== undefined;
         });
 
-    // const handleSubmit = () => {
-    //     mutate(
-    //         {
-    //             studentId: studentDetail.studentId,
-    //             primaryConcern: formData.primaryConcern,
-    //             diagnosis: {
-    //                 type: formData.diagnosisAny,
-    //                 other: formData.diagnosisAny === 'Other' ? formData.diagnosisOther : '',
-    //             },
-    //             languageAtHome: formData.languageAtHome,
-    //         },
-    //         {
-    //             onSuccess: async () => {
-    //                 try {
-    //                     const result = await getSelectAssessmentListDetail(studentDetail.studentId);
-
-    //                     console.log(result,'resultltlltltllt');
-
-    //                     if (result?.status) {
-    //                         setAssessmentList(result?.response || []);
-    //                     }
-
-    //                     setOpenModal(true);
-    //                 } catch (error) {
-    //                     console.error('Assessment fetch error:', error);
-    //                 }
-    //             },
-    //         },
-    //     );
-    // };
-
     const handleSubmit = async () => {
         try {
             setLoader(true);
@@ -256,14 +225,36 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                 throw new Error(assessmentError);
             }
             setAssessmentList(apiResponse || []);
+
             setOpenModal(true);
         } catch (error) {
             console.error('Submit or fetch error:', error);
         }
     };
 
+    const handleCloseModal = () => {
+        setOpenModal(false);
+        setLoader(false);
+    };
+
     return (
         <div className={styles.containerMain}>
+            {assessmentList && openModal && (
+                <SelectAssessmentModal
+                    open={openModal}
+                    setOpen={setOpenModal}
+                    data={assessmentList}
+                    setAssessmentList={setAssessmentList}
+                    studentId={Number(studentDetail.studentId)}
+                    onClose={() => {
+                        handleCloseModal();
+                    }}
+                    onContinue={() => {
+                        router.replace(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
+                    }}
+                />
+            )}
+
             <div className={styles.scrollArea}>
                 <div className={styles.wrapper}>
                     <Text
@@ -397,17 +388,6 @@ const SpeechTherapistChildInformationForm = ({ studentDetail }: ChildInformation
                     onClick={handleSubmit}
                 />
             </div>
-
-            <SelectAssessmentModal
-                open={openModal}
-                setOpen={setOpenModal}
-                data={assessmentList}
-                studentId={Number(studentDetail.studentId)}
-                onClose={() => setOpenModal(false)}
-                onContinue={() => {
-                    router.replace(`/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${id}`);
-                }}
-            />
         </div>
     );
 };

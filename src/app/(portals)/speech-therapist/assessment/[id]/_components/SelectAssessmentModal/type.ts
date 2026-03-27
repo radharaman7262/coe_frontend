@@ -11,6 +11,6 @@ export type AssessmentItem = {
     tableName: string | null;
     priority: number;
     parentId: string | null;
-    isSelected: string;
+    isSelected: number;
     checked?: boolean;
 };

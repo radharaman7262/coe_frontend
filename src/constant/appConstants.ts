@@ -16,6 +16,16 @@ export const MODAL_STYLING = {
     },
 };
 
+export const LARGE_MODAL_STYLING = {
+    '& .MuiDialog-container': {
+        background: 'rgba(0, 0, 0, 0.50)',
+    },
+    '& .MuiPaper-root': {
+        borderRadius: '12px',
+        minWidth: '1048px',
+    },
+};
+
 export const ZERO_DATA = 0;
 
 export const EIGHT_MIN_LENGTH = 8;

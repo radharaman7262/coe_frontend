@@ -31,46 +31,12 @@ export const mapCPApiToState = (data: any) => {
     return { selectedState, inputState };
 };
 
-export const OPTIONS = [
-    {
-        label: 'Speech therapy for articulation / resonance',
-        value: 'Speech therapy for articulation / resonance',
-        key: 'speechTherapy',
-    },
-    {
-        label: 'Focus on oral airflow, pressure consonants',
-        value: 'Focus on oral airflow, pressure consonants',
-        key: 'languageTherapy',
-    },
-    {
-        label: 'Nasality monitoring exercises',
-        value: 'Nasality monitoring exercises',
-        key: 'nasilityMonitoring',
-    },
-    {
-        label: 'ENT / Audiology referral (if not done recently)',
-        value: 'ENT / Audiology referral (if not done recently)',
-        key: 'ent',
-    },
-    { label: 'Dental / orthodontic consult', value: 'Dental / orthodontic consult', key: 'dental' },
-    {
-        label: 'Parent training for home practice',
-        value: 'Parent training for home practice',
-        key: 'parentTraining',
-    },
-    {
-        label: 'Multidisciplinary cleft team follow-up',
-        value: 'Multidisciplinary cleft team follow-up',
-        key: 'multiDisciplinary',
-    },
-];
-
 export const calculateCPPercentage = (
     selected: Record<string, boolean>,
     inputs: Record<string, string>,
 ) => {
-    let total = 0;
-    let filled = 0;
+    const totalSections = 1; // Only "Therapies" section
+    let completedSections = 0;
 
     const therapyKeys = [
         'speechTherapy',
@@ -82,17 +48,18 @@ export const calculateCPPercentage = (
         'multidisciplinary',
     ];
 
-    // --- CHECKBOXES ---
-    therapyKeys.forEach((key) => {
-        total += 1;
-        if (selected[key]) filled += 1;
-    });
+    const hasAnyTherapySelected = therapyKeys.some((key) => selected[key]);
 
-    // --- SPEECH FREQUENCY (conditional) ---
-    if (selected.speechTherapy) {
-        total += 1;
-        if (inputs.frequency) filled += 1;
+    if (hasAnyTherapySelected) {
+        // Special condition for speech therapy
+        if (selected.speechTherapy) {
+            if (inputs.frequency) {
+                completedSections += 1;
+            }
+        } else {
+            completedSections += 1;
+        }
     }
 
-    return Math.round((filled / total) * 100);
+    return Math.round((completedSections / totalSections) * 100);
 };

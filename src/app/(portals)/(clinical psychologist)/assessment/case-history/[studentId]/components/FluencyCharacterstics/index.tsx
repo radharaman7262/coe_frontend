@@ -75,32 +75,35 @@ export const FluencyCharacteristics = () => {
 
     // ---------- PERCENTAGE ----------
     const calculatePercentage = () => {
-        let total = 0;
-        let filled = 0;
+        let totalSections = 0;
+        let completedSections = 0;
 
+        // ---------- DISFLUENCY TYPES ----------
         DISFLUENCY_KEYS.forEach(({ key }) => {
+            totalSections += 1;
+
             const item = form.typeOfDisfluency[key];
 
-            total += 3; // frequency + severity + comment
-
-            if (item?.frequency) filled += 1;
-            if (item?.severity) filled += 1;
-            if (item?.comment) filled += 1;
+            if (item?.frequency || item?.severity || item?.comment) {
+                completedSections += 1;
+            }
         });
 
-        // speech rate
-        total += 1;
-        if (form.speechRate) filled += 1;
+        // ---------- SPEECH RATE ----------
+        totalSections += 1;
+        if (form.speechRate) {
+            completedSections += 1;
+        }
 
-        // cluttering
-        total += 3;
-        Object.values(form.clutteringSigns).forEach((v) => {
-            if (v) filled += 1;
-        });
+        // ---------- CLUTTERING SIGNS ----------
+        totalSections += 1;
+        const hasCluttering = Object.values(form.clutteringSigns).some(Boolean);
+        if (hasCluttering) {
+            completedSections += 1;
+        }
 
-        return total === 0 ? 0 : Math.round((filled / total) * 100);
+        return totalSections === 0 ? 0 : Math.round((completedSections / totalSections) * 100);
     };
-
     // ---------- SUBMIT ----------
     const handleSubmit = () => {
         const payload = {

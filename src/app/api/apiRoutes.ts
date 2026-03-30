@@ -162,6 +162,8 @@ const CO_ORDINATION_ENDPOINT = `${OT_API_URL}/coordination`;
 const NON_EQUILIBRIUM_ENDPOINT = `${OT_API_URL}/non-equilibrium-tests`;
 const EQUILIBRIUM_ENDPOINT = `${OT_API_URL}/equilibrium-tests`;
 const COGNITIVE_AND_PERCEPTUAL_SKILLS_ENDPOINT = `${OT_API_URL}/ot-cognitive-perceptual-skills`;
+const COGNITIVE_SKILLS_ASSESSMENT_ENDPOINT = `${OT_API_URL}/cognitive-skills-assessment-checklist`;
+const BALANCE_ENDPOINT = `${OT_API_URL}/balance`;
 const COMMUNICATION_SKILLS_ENDPOINT = `${OT_API_URL}/communication-skills`;
 const EMOTIONAL_AWARENESS_ENDPOINT = `${OT_API_URL}/emotional-awareness-expression`;
 const SELF_REGULATION_ENDPOINT = `${OT_API_URL}/self-regulation-coping`;
@@ -266,14 +268,17 @@ const VOICE_ACOUSTIC_ANALYSIS_ENDPOINT = `${SPEECH_THERAPIST_URL}/voice-acoustic
 const GSL_SPEECH_RECOMMENDATION = `${SPEECH_THERAPIST_URL}/gsl-recommendations`;
 const SSD_RECOMMENDATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/ssd-recommendations`;
 const CP_RECOMMENDATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/cp-recommendations`;
+const CP_COMMUNICATION_PROFILE_ENDPOINT = `${SPEECH_THERAPIST_URL}/cp-communication-profile`;
 const FLUENCY_RECOMMENDATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/flc-recommendations`;
 const FLUENCY_CHARACTER_STICKS_ENDPOINT = `${SPEECH_THERAPIST_URL}/flc-characteristics`;
+const FLUENCY_FORMAL_INFORMAL_TOOLS_ENDPOINT = `${SPEECH_THERAPIST_URL}/flc-formal-informal-assessments-used`;
 const FLUENCY_ASSOCIATED_BEHAVIORS_ENDPOINT = `${SPEECH_THERAPIST_URL}/flc-associated-secondary-behaviors`;
 const GSL_COMMUNICATION_PROFILE_ENDPOINT = `${SPEECH_THERAPIST_URL}/gsl-communication-profile`;
 const ORAL_PERIPHERAL_MECHANISMS_EXAMINATION = `${SPEECH_THERAPIST_URL}/ssd-oral-peripheral-mechanism-examination`;
 const VOICE_ORAL_PERIPHERAL_EXAMINATION = `${SPEECH_THERAPIST_URL}/voice-oral-peripheral-mechanism-examination`;
 const CLP_ORAL_PERIPHERAL_EXAMINATION = `${SPEECH_THERAPIST_URL}/clp-oral-peripheral-mechanism-exam`;
 const CP_ORAL_PERIPHERAL_EXAMINATION = `${SPEECH_THERAPIST_URL}/cp-oral-peripheral-mechanism`;
+const CP_SPEECH_MOTOR_EXAMINATION = `${SPEECH_THERAPIST_URL}/cp-speech-motor-assessment`;
 const CLP_COMMUNICATION_EXAMINATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/clp-communication-profile`;
 
 export {
@@ -451,4 +456,9 @@ export {
     CLP_ORAL_PERIPHERAL_EXAMINATION,
     CP_ORAL_PERIPHERAL_EXAMINATION,
     CLP_COMMUNICATION_EXAMINATION_ENDPOINT,
+    CP_COMMUNICATION_PROFILE_ENDPOINT,
+    FLUENCY_FORMAL_INFORMAL_TOOLS_ENDPOINT,
+    CP_SPEECH_MOTOR_EXAMINATION,
+    BALANCE_ENDPOINT,
+    COGNITIVE_SKILLS_ASSESSMENT_ENDPOINT,
 };

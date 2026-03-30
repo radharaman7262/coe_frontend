@@ -52,7 +52,7 @@ type BaseField<T extends string> = {
 };
 
 export type SimpleField<T extends string> = BaseField<T> & {
-    type: 'text' | 'number';
+    type: 'text' | 'number' | 'textArea';
     placeholder?: string;
     options?: OptionType[];
 };

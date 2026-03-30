@@ -87,33 +87,38 @@ const CommunicationProfile = () => {
 
     // ---------- PERCENTAGE ----------
     const calculatePercentage = () => {
-        const values = [
-            form.receptiveLanguage.respondsToName,
-            form.receptiveLanguage.understandsVocabulary,
-            form.receptiveLanguage.usesVisualSupport,
+        const totalSections = 3;
+        let filledSections = 0;
 
-            form.expressiveLanguage.speechOutput,
-            form.expressiveLanguage.vocabulary,
+        // ✅ A. Receptive Language
+        const receptiveFilled =
+            form.receptiveLanguage.respondsToName ||
+            form.receptiveLanguage.understandsVocabulary ||
+            form.receptiveLanguage.usesVisualSupport;
 
-            form.expressiveLanguage.mode.verbal,
-            form.expressiveLanguage.mode.aac,
-            form.expressiveLanguage.mode.gestures,
-            form.expressiveLanguage.mode.echolalia,
+        if (receptiveFilled) filledSections += 1;
 
-            form.pragmaticSkills.eyeContact,
-            form.pragmaticSkills.jointAttention,
-            form.pragmaticSkills.turnTaking,
-            form.pragmaticSkills.initiation,
-        ];
+        // ✅ B. Expressive Language
+        const expressiveFilled =
+            form.expressiveLanguage.speechOutput ||
+            form.expressiveLanguage.vocabulary ||
+            form.expressiveLanguage.mode.verbal ||
+            form.expressiveLanguage.mode.aac ||
+            form.expressiveLanguage.mode.gestures ||
+            form.expressiveLanguage.mode.echolalia;
 
-        const total = values.length;
+        if (expressiveFilled) filledSections += 1;
 
-        const filled = values.filter((v) => {
-            if (typeof v === 'boolean') return v;
-            return v && v !== '';
-        }).length;
+        // ✅ C. Pragmatic Skills
+        const pragmaticFilled =
+            form.pragmaticSkills.eyeContact ||
+            form.pragmaticSkills.jointAttention ||
+            form.pragmaticSkills.turnTaking ||
+            form.pragmaticSkills.initiation;
 
-        return total === 0 ? 0 : Math.round((filled / total) * 100);
+        if (pragmaticFilled) filledSections += 1;
+
+        return Math.round((filledSections / totalSections) * 100);
     };
 
     // ---------- SUBMIT ----------

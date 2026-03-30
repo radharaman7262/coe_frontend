@@ -1,6 +1,8 @@
+@use '@styles/theme' as *;
+
 .container {
     padding: 20px;
-    background: #f7f7f9;
+    // background: #f7f7f9;
     border-radius: 8px;
     font-family: Arial, sans-serif;
 }
@@ -32,7 +34,7 @@
 
 .tableHeader {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     font-weight: 600;
     margin-bottom: 8px;
     font-size: 14px;
@@ -40,7 +42,7 @@
 
 .row {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 10px;
     margin-bottom: 10px;
     align-items: center;
@@ -70,22 +72,24 @@
 }
 
 .footer {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 2fr;
-    margin-top: 12px;
-    font-weight: 600;
-}
-
-.submitBtn {
+    @include flex-center(row, flex-end, center);
+    padding: 20px;
     margin-top: 20px;
-    padding: 10px 18px;
-    background: #7c6ee6;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    border-top: 1.5px solid var(--light-gray);
 
-    &:hover {
-        background: #6a5be0;
+    .actions {
+        @include flex-center(row, normal, center, 12px);
+
+        .save-button {
+            padding: 8px 32px;
+        }
+
+        .progress {
+            @include flex-center(row, center, center);
+            background-color: #dbeafe;
+            height: 36px;
+            width: 60px;
+            border-radius: 14px;
+        }
     }
 }

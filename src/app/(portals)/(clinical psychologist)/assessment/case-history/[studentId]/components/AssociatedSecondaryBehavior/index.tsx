@@ -13,7 +13,7 @@ import DocIcon from '@public/assets/svg/doc-icon.svg';
 import { QueryKeys } from '@/utils/queryKeys';
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 import { useAppMutation } from '@/hooks/useAppMutation';
-import { mapBehaviorData } from './constant';
+import { DISFLUENCY_KEYS, mapBehaviorData } from './constant';
 
 import styles from './styles.module.scss';
 
@@ -32,7 +32,7 @@ const BEHAVIOR_LABELS: Record<string, string> = {
 };
 
 export const AssociatedSecondaryBehavior = () => {
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<any>({
         behaviors: {
             facialTension: { present: '', frequency: '', context: '' },
             eyeBlinking: { present: '', frequency: '', context: '' },
@@ -87,23 +87,21 @@ export const AssociatedSecondaryBehavior = () => {
 
     // ---------- PERCENTAGE ----------
     const calculatePercentage = () => {
-        let total = 0;
-        let filled = 0;
+        let totalSections = 0;
+        let completedSections = 0;
 
-        Object.values(form.behaviors).forEach((item: any) => {
-            total += 1;
-            if (item.present) filled += 1;
+        // ---------- DISFLUENCY TYPES ----------
+        DISFLUENCY_KEYS.forEach(({ key }) => {
+            totalSections += 1;
 
-            if (item.present === 'Yes') {
-                total += 1;
-                if (item.frequency) filled += 1;
+            const item = form.behaviors[key];
+
+            if (item?.frequency || item?.severity || item?.comment) {
+                completedSections += 1;
             }
-
-            total += 1;
-            if (item.context) filled += 1;
         });
 
-        return total === 0 ? 0 : Math.round((filled / total) * 100);
+        return totalSections === 0 ? 0 : Math.round((completedSections / totalSections) * 100);
     };
 
     // ---------- SUBMIT ----------
@@ -185,18 +183,7 @@ export const AssociatedSecondaryBehavior = () => {
                                     onChange={(e) =>
                                         update(`behaviors.${key}.frequency`, e.target.value)
                                     }
-                                    // disabled={row.present !== 'Yes'}
                                 />
-
-                                {/* CONTEXT */}
-                                {/* <Input
-                                    name=''
-                                    placeholder='Add context / triggers'
-                                    value={row.context || ''}
-                                    onChange={(e) =>
-                                        update(`behaviors.${key}.context`, e.target.value)
-                                    }
-                                /> */}
                             </div>
                         );
                     })}

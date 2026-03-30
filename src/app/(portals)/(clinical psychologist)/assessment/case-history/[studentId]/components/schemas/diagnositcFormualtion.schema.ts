@@ -6,7 +6,7 @@ export const DIAGNOSTIC_FORMULATION_SCHEMA: FormSchemaField<DiagnosticFormulatio
     {
         name: DiagnosticFormulationFormKeys.DESCRIPTION,
         label: '',
-        type: 'text',
+        type: 'textArea',
         placeholder: 'Enter here',
         required: true,
         // helperText: 'Expected at 1 year',

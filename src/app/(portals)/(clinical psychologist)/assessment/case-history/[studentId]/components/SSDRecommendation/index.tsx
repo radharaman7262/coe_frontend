@@ -56,9 +56,12 @@ const SSDRecommendations = () => {
         setInputs((prev) => ({ ...prev, [key]: value }));
     };
 
-    const calculatePercentage = () => {
-        let total = 0;
-        let filled = 0;
+    const calculatePercentage = (
+        selected: Record<string, boolean>,
+        inputs: Record<string, string>,
+    ) => {
+        const totalSections = 1; // Only "Therapies" section
+        let completedSections = 0;
 
         const keys = [
             'speechTherapy',
@@ -70,22 +73,20 @@ const SSDRecommendations = () => {
             'entReferral',
         ];
 
-        keys.forEach((key) => {
-            total += 1;
-            if (selected[key]) filled += 1;
-        });
+        const hasAnyTherapySelected = keys.some((key) => selected[key]);
 
-        if (selected.speechTherapy) {
-            total += 1;
-            if (inputs.frequency) filled += 1;
+        if (hasAnyTherapySelected) {
+            // Special condition for speech therapy
+            if (selected.speechTherapy) {
+                if (inputs.frequency) {
+                    completedSections += 1;
+                }
+            } else {
+                completedSections += 1;
+            }
         }
 
-        if (selected.reevaluation) {
-            total += 1;
-            if (inputs.months) filled += 1;
-        }
-
-        return total === 0 ? 0 : Math.round((filled / total) * 100);
+        return Math.round((completedSections / totalSections) * 100);
     };
 
     const handleSubmit = () => {
@@ -111,7 +112,7 @@ const SSDRecommendations = () => {
                 entReferral: !!selected.entReferral,
             },
 
-            percentage: calculatePercentage(),
+            percentage: calculatePercentage(selected, inputs),
             parnetFormId: sectionId,
         };
 
@@ -243,7 +244,7 @@ const SSDRecommendations = () => {
                         color='dark-blue'
                         className={styles.progress}
                     >
-                        {`${calculatePercentage()}%`}
+                        {`${calculatePercentage(selected, inputs)}%`}
                     </Text>
                     <Button
                         label='save'

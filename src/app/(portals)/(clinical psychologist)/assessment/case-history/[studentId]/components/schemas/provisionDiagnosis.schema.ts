@@ -6,7 +6,7 @@ export const PROVISION_DIAGNOSIS_SCHEMA: FormSchemaField<ProvisionDiagnosisFormK
     {
         name: ProvisionDiagnosisFormKeys.DESCRIPTION,
         label: '',
-        type: 'text',
+        type: 'textArea',
         placeholder: 'Enter here',
         required: true,
         // helperText: 'Expected at 1 year',

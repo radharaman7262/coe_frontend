@@ -22,6 +22,7 @@ import { submitOralPeripheralMechanismExam } from './utils.api';
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
 import styles from './style.module.scss';
+import { functionFields, functionFieldsTwo, structureFields, vegetativeFields } from './constant';
 
 const VoiceOralPeripheralExam = () => {
     const [form, setForm] = useState<FormState>({
@@ -71,7 +72,7 @@ const VoiceOralPeripheralExam = () => {
     };
 
     const handleSubmit = async () => {
-        const percent = calculatePercentage(form, ddk);
+        const percent = calculatePercentage(form);
 
         const payload = {
             studentId: studentId ?? '',
@@ -109,39 +110,6 @@ const VoiceOralPeripheralExam = () => {
         mutation.mutate(payload);
     };
 
-    const structureFields = [
-        { field: 'Face', options: ['Symmetrical', 'Asymmetrical'] },
-        { field: 'Jaw', options: ['Normal', 'Micro/Prognathic', 'Hypotonic'] },
-        { field: 'Tongue', options: ['Normal', 'Ankyloglossia', 'Deviated'] },
-        { field: 'Palate', options: ['Normal', 'High/Low arch', 'Cleft'] },
-        { field: 'Dentition', options: ['Normal', 'Malocclusion', 'Missing'] },
-        { field: 'Bite', options: ['Normal', 'Open', 'Cross', 'Overbite'] },
-    ];
-
-    const functionFields = [
-        { field: 'Lip Closure', options: ['Complete', 'Partial', 'Weak'] },
-        { field: 'Lip Movement', options: ['Adequate', 'Limited'] },
-        { field: 'Tongue Mobility', options: ['Adequate', 'Reduced'] },
-        { field: 'Jaw Control', options: ['Stable', 'Tremors', 'Limited ROM'] },
-    ];
-
-    const functionFieldsTwo = [
-        { field: 'Cheek Puff', options: ['Maintains', 'Air escape'] },
-        { field: 'Soft Palate', options: ['Symmetrical', 'Asymmetrical', 'Absent'] },
-        { field: 'Gag', options: ['Present', 'Absent', 'Hyper'] },
-        { field: 'Drooling', options: ['None', 'Occasional', 'Frequent', 'Continuous'] },
-    ];
-
-    const vegetativeFields = [
-        { field: 'Sucking', options: ['Efficient', 'Weak', 'Absent'] },
-        { field: 'Swallowing', options: ['Safe', 'Delayed', 'Wet voice'] },
-        { field: 'Shewing', options: ['Rotary', 'Munching', 'Poor'] },
-        { field: 'Biting', options: ['Controlled', 'Avoids solids'] },
-        { field: 'Breathing', options: ['Nasal', 'Oral'] },
-        { field: 'Saliva', options: ['Adequate', 'Excessive'] },
-        { field: 'Nasal Regurgitation', options: ['Yes', 'No'] },
-    ];
-
     const setFormData = (data: any) => {
         setForm({
             structure: data.structure || {},
@@ -155,7 +123,7 @@ const VoiceOralPeripheralExam = () => {
     };
 
     useEffect(() => {
-        const percent = calculatePercentage(form, ddk);
+        const percent = calculatePercentage(form);
         setPercentage(percent);
     }, [form, ddk]);
 

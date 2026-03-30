@@ -1,25 +1,14 @@
 @use '@styles/theme' as *;
 
 .card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px 24px;
-    border: 1px solid #f1f1f1;
-
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    @include flex-center(column, normal, normal);
+    padding: 0 24px;
 }
 
-/* =========================
-   SECTION TITLE
-========================= */
 .receiptive-language {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    align-items: start;
+    @include flex-center(row, normal, start, 12px);
     width: 100%;
+    // border-bottom: 1px solid var(--light-gray);
 }
 
 .receptive-left {
@@ -33,18 +22,10 @@
     gap: 24px;
 }
 
-/* =========================
-   SUB SECTION (Understands, Aided by)
-========================= */
 .sub-level {
-    display: flex;
-    flex-direction: column;
-    // gap: 10px;
+    @include flex-center(column);
 }
 
-/* =========================
-   GRID (MAIN LAYOUT)
-========================= */
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -54,34 +35,10 @@
     margin-top: 6px;
 }
 
-/* =========================
-   TEXT SPACING
-========================= */
-.card > span {
-    margin-top: 6px;
-}
-
-/* =========================
-   EXPRESSIVE + PRAGMATIC SECTIONS
-========================= */
-.card > p {
-    margin-top: 10px;
-    margin-bottom: 4px;
-}
-
-/* =========================
-   RADIO GROUP (ToM / IOM)
-========================= */
 .radioGroup {
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-    gap: 4px;
+    @include flex-center(column, normal, start, 4px);
 }
 
-/* =========================
-   FOOTER
-========================= */
 .footer {
     display: flex;
     justify-content: flex-end;
@@ -121,32 +78,15 @@
     }
 }
 
-/* =========================
-   CHECKBOX ALIGNMENT FIX
-========================= */
 .grid :global(.checkbox-wrapper) {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
 @media (max-width: 1024px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .radioGroup {
-        flex-wrap: wrap;
-        gap: 12px;
     }
 }
 
@@ -159,4 +99,10 @@
     display: flex;
     flex-direction: row;
     gap: 8px;
+}
+
+.divider {
+    height: 1px;
+    background: var(--light-gray);
+    margin: 20px 0;
 }

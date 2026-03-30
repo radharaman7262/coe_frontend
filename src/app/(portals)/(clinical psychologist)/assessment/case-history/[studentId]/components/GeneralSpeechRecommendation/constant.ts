@@ -38,51 +38,34 @@ export const mapApiToState = (data: any) => {
 
     return { selectedState, inputState };
 };
-
 export const calculatePercentage = (
     selected: Record<string, boolean>,
     inputs: Record<string, string>,
 ) => {
-    let total = 0;
-    let filled = 0;
+    let completedSections = 0;
+    const totalSections = 2;
 
-    // --- THERAPIES ---
+    // --- THERAPIES SECTION ---
+    const therapiesCompleted =
+        (selected.speech && inputs.speech) ||
+        selected.parentTraining ||
+        (selected.pecs && inputs.pecs) ||
+        selected.ot;
 
-    // speech (checkbox + input)
-    total += 1;
-    if (selected.speech) {
-        filled += 1;
-
-        total += 1; // input counts only if selected
-        if (inputs.speech) filled += 1;
+    if (therapiesCompleted) {
+        completedSections += 1;
     }
 
-    // parent training
-    total += 1;
-    if (selected.parentTraining) filled += 1;
-
-    // pecs (checkbox + input)
-    total += 1;
-    if (selected.pecs) {
-        filled += 1;
-
-        total += 1;
-        if (inputs.pecs) filled += 1;
-    }
-
-    // ot
-    total += 1;
-    if (selected.ot) filled += 1;
-
-    // --- REFERRALS ---
+    // --- REFERRALS SECTION ---
     const referralKeys = ['psychologist', 'devPediatrician', 'audiologist', 'homePlan'];
 
-    referralKeys.forEach((key) => {
-        total += 1;
-        if (selected[key]) filled += 1;
-    });
+    const referralsCompleted = referralKeys.some((key) => selected[key]);
 
-    const percentage = Math.round((filled / total) * 100);
+    if (referralsCompleted) {
+        completedSections += 1;
+    }
+
+    const percentage = Math.round((completedSections / totalSections) * 100);
 
     return percentage;
 };

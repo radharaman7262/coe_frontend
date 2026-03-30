@@ -1,6 +1,6 @@
 import cx from 'classnames';
 
-import { Input, Radio, Checkbox, Text } from '@/components/index';
+import { Input, Radio, Checkbox, Text, TextArea } from '@/components/index';
 
 import { FontType } from '@/types/typographyCommon';
 
@@ -34,7 +34,7 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
         formGridClassName,
         tableRowClassName,
         dropdownClassName,
-        labelContainerClassName
+        labelContainerClassName,
     } = props;
 
     const renderField = () => {
@@ -51,7 +51,16 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
                         helperText={field?.helperInputText}
                     />
                 );
-
+            case 'textArea':
+                return (
+                    <TextArea
+                        value={(value as string) || ''}
+                        placeholder={field.placeholder}
+                        name={field.name}
+                        onChange={(e) => onChange(field.name, e.target.value)}
+                        helperText={field?.helperInputText}
+                    />
+                );
             case 'radio':
                 return (
                     <div className={cx(styles.radioGroup, className)}>

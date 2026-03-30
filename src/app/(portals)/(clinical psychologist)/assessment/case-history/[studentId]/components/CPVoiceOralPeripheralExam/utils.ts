@@ -1,5 +1,4 @@
-import { FormState } from './type';
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const structureKeys = ['face', 'jaw', 'tongue', 'palate', 'dentition', 'bite'];
 
 const functionKeys = [
@@ -23,31 +22,27 @@ const vegetativeKeys = [
     'nasalRegurgitation',
 ];
 
-export const calculatePercentage = (form: FormState, ddk: string) => {
-    let filled = 0;
+export const calculatePercentage = (form: any): number => {
     let total = 0;
+    let filled = 0;
 
-    // ✅ STRUCTURE
+    const count = (value: boolean) => {
+        total += 1;
+        if (value) filled += 1;
+    };
+
+    // ---------- RECEPTIVE ----------
     structureKeys.forEach((key) => {
-        total += 1;
-        if (form.structure[key]) filled += 1;
+        count(form.structure[key]);
     });
 
-    // ✅ FUNCTION
-    functionKeys.forEach((key) => {
-        total += 1;
-        if (form.function[key]) filled += 1;
-    });
-
-    // ✅ DDK
-    total += 1;
-    if (ddk) filled += 1;
-
-    // ✅ VEGETATIVE
     vegetativeKeys.forEach((key) => {
-        total += 1;
-        if (form.vegetativeSkills[key]) filled += 1;
+        count(form.vegetativeSkills[key]);
     });
 
-    return Math.round((filled / total) * 100);
+    functionKeys.forEach((key) => {
+        count(form.function[key]);
+    });
+
+    return total === 0 ? 0 : Math.round((filled / total) * 100);
 };

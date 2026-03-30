@@ -126,26 +126,6 @@ const FluencyRecommendation = () => {
             parnetFormId: sectionId,
         };
 
-        // mutation.mutate(payload);
-
-        // console.lo;
-
-        // const payload: any = {
-        //     studentId: Number(studentId),
-
-        //     onsetOfDisfluency: { value: formData.onsetOfDisfluency || '' },
-        //     developmentPattern: { value: formData.developmentPattern || '' },
-        //     familyHistoryOfStuttering: { value: formData.familyHistoryOfStuttering || '' },
-        //     speechPatternsHomeSchool: { value: formData.speechPatternsHomeSchool || '' },
-        //     triggerSituations: { value: formData.triggerSituations || '' },
-        //     awarenessOfDisfluency: { value: formData.awarenessOfDisfluency || '' },
-        //     familyPeersReaction: { value: formData.familyPeersReaction || '' },
-        //     previousTherapyIfAny: { value: formData.previousTherapyIfAny || '' },
-        //     associatedConcerns: { value: formData.associatedConcerns || '' },
-
-        //     percentage: calculateFluencyPercentage(selected, inputs),
-        // };
-
         mutation.mutate(payload);
 
         setLoader(true);

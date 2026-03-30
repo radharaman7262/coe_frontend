@@ -66,7 +66,12 @@ export const mapApiToFormValues = <T extends string>(
 
             values[field.name] = tableResult;
         }
-        if (field.type === 'text' || field.type === 'radio' || field.type === 'number') {
+        if (
+            field.type === 'text' ||
+            field.type === 'radio' ||
+            field.type === 'number' ||
+            field.type === 'textArea'
+        ) {
             values[field.name] = apiValue ?? '';
         }
     });

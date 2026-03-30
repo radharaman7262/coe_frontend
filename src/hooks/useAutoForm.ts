@@ -56,7 +56,6 @@ export const useAutoForm = <T extends string>(props: FormProps<T>) => {
 
     const percentage = useMemo(() => calculateCompletion(schema, values), [values, schema]);
 
-    // 🔁 API → FORM
     useEffect(() => {
         if (response?.length) {
             const mapped = mapApiToFormValues(schema, response[0]);

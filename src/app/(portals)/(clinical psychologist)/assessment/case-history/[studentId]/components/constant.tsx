@@ -98,6 +98,11 @@ import VoiceOralPeripheralExam from './VoiceOralPeripheralExam';
 import CLPVoiceOralPeripheralExam from './CLPVoiceOralPeripheralExam';
 import CPVoiceOralPeripheralExam from './CPVoiceOralPeripheralExam';
 import CLPCommunicationProfile from './CLPCommunicationProfile';
+import CPCommunicationProfile from './CPCommunicationProfile';
+import FluencyInformalFormalTools from './FluencyInformalFormalTools';
+import CPSpeechMotorAssessment from './CPSpeechMotorAssessment';
+import BalanceForm from './Balance';
+import CognitiveSkillAssessment from './CognitiveSkillAssessment';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -123,6 +128,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '122': <MuscleTone />,
     '124': <MuscleStrength />,
     '125': <ROM />,
+    '126': <BalanceForm />,
     '127': <SpeedAndAgility />,
     '128': <Endurance />,
     '130': <Reflexes />,
@@ -133,6 +139,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '134': <NonEquilibriumTest />,
     '135': <EquilibriumTest />,
     '136': <CognitiveAndPerceptual />,
+    '137': <CognitiveSkillAssessment />,
     '141': <SensoryProcessing />,
     '142': <CommunicationSkills />,
     '143': <EmotionalAwarenessAndExpression />,
@@ -179,6 +186,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '188': <FluencyCharacteristics />,
     '189': <AssociatedSecondaryBehavior />,
     '190': <ImpactOnFunctionalCommunication />,
+    '191': <FluencyInformalFormalTools />,
     '192': <SeverityRating />,
     '193': <ClinicalImpression />,
     '194': <FluencyRecommendation />,
@@ -198,4 +206,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '208': <SSDFormalAndInformalTools />,
     '209': <SSDDiagnosisImpression />,
     '210': <SSDRecommendations />,
+    '178': <CPCommunicationProfile />,
+    '179': <CPSpeechMotorAssessment />,
+    '138': <CognitiveSkillAssessment />,
 };

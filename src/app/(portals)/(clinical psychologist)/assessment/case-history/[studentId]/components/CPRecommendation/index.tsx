@@ -48,8 +48,6 @@ export default function CPRecommendations() {
     const [inputs, setInputs] = useState<Record<string, string>>({});
     const [loader, setLoader] = useState(false);
 
-    // console.log(selected,'selectedselected');
-
     const { studentId } = useParams();
 
     const searchParams = useSearchParams();
@@ -114,10 +112,6 @@ export default function CPRecommendations() {
         };
 
         mutation.mutate(payload);
-
-        // console.lo;
-
-        setLoader(true);
     };
 
     return isLoading ? (

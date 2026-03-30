@@ -116,33 +116,73 @@ const GSLCommunicationProfile = () => {
 
     const { response } = data || {};
 
-    const calculatePercentage = () => {
-        let total = 0;
-        let filled = 0;
+    const calculatePercentage = (form: any): number => {
+        const totalSections = 8;
+        let completed = 0;
 
-        const countBooleans = (obj: any) => {
-            Object.values(obj).forEach((val) => {
-                if (typeof val === 'boolean') {
-                    total += 1;
-                    if (val) filled += 1;
-                } else if (typeof val === 'object') {
-                    countBooleans(val);
-                } else if (typeof val === 'string') {
-                    total += 1;
-                    if (val) filled += 1;
-                }
+        const hasAnyTrue = (obj: Record<string, any>): boolean =>
+            Object.values(obj).some((val) => {
+                if (typeof val === 'boolean') return val;
+                if (typeof val === 'object' && val !== null) return hasAnyTrue(val);
+                return false;
             });
-        };
 
-        countBooleans(form);
+        // 1. Understands
+        if (
+            form.receptiveLanguage.objectLabels ||
+            form.receptiveLanguage.whQuestions ||
+            form.receptiveLanguage.narratives
+        ) {
+            completed += 1;
+        }
 
-        return total === 0 ? 0 : Math.round((filled / total) * 100);
+        // 2. Aided by
+        if (hasAnyTrue(form.receptiveLanguage.aidedBy)) {
+            completed += 1;
+        }
+
+        // 3. Functions
+        if (hasAnyTrue(form.expressiveLanguage.functions)) {
+            completed += 1;
+        }
+
+        // 4. Gestures
+        if (hasAnyTrue(form.pragmaticsSocial.gestures)) {
+            completed += 1;
+        }
+
+        // 5. TOM
+        if (form.pragmaticsSocial.iom) {
+            completed += 1;
+        }
+
+        // 6. Pragmatics Core
+        if (
+            form.pragmaticsSocial.initiates ||
+            form.pragmaticsSocial.maintainsTurn ||
+            form.pragmaticsSocial.sharesEnjoyment
+        ) {
+            completed += 1;
+        }
+
+        // 7. Expressive Language (overall)
+        if (hasAnyTrue(form.expressiveLanguage)) {
+            completed += 1;
+        }
+
+        // 8. Receptive Language (overall)
+        if (hasAnyTrue(form.receptiveLanguage)) {
+            completed += 1;
+        }
+
+        return Math.round((completed / totalSections) * 100);
     };
+
     const handleSubmit = () => {
         const payload = {
             studentId: studentId ?? '',
             ...form,
-            percentage: calculatePercentage(),
+            percentage: calculatePercentage(form),
         };
 
         mutation.mutate(payload);
@@ -220,6 +260,7 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.receptiveLanguage.respondsToName}
                             onChange={(v) => update('receptiveLanguage.respondsToName', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
 
                         <Checkbox
@@ -227,6 +268,7 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.receptiveLanguage.oneStep}
                             onChange={(v) => update('receptiveLanguage.oneStep', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
 
                         <Checkbox
@@ -234,12 +276,14 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.receptiveLanguage.twoStepCommands}
                             onChange={(v) => update('receptiveLanguage.twoStepCommands', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
                     </div>
                     <div className={styles['sub-level']}>
                         <Text
                             tagType='span'
                             font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            color='gray-500'
                         >
                             Understands:
                         </Text>
@@ -250,6 +294,7 @@ const GSLCommunicationProfile = () => {
                                 isChecked={form.receptiveLanguage.objectLabels}
                                 onChange={(v) => update('receptiveLanguage.objectLabels', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
 
                             <Checkbox
@@ -257,6 +302,7 @@ const GSLCommunicationProfile = () => {
                                 isChecked={form.receptiveLanguage.whQuestions}
                                 onChange={(v) => update('receptiveLanguage.whQuestions', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
 
                             <Checkbox
@@ -264,6 +310,7 @@ const GSLCommunicationProfile = () => {
                                 isChecked={form.receptiveLanguage.narratives}
                                 onChange={(v) => update('receptiveLanguage.narratives', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
                         </div>
                     </div>
@@ -271,6 +318,7 @@ const GSLCommunicationProfile = () => {
                         <Text
                             tagType='span'
                             font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            color='gray-500'
                         >
                             Aided by:
                         </Text>
@@ -281,6 +329,7 @@ const GSLCommunicationProfile = () => {
                                 isChecked={form.receptiveLanguage.aidedBy.gestures}
                                 onChange={(v) => update('receptiveLanguage.aidedBy.gestures', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
 
                             <Checkbox
@@ -288,6 +337,7 @@ const GSLCommunicationProfile = () => {
                                 isChecked={form.receptiveLanguage.aidedBy.visuals}
                                 onChange={(v) => update('receptiveLanguage.aidedBy.visuals', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
 
                             <Checkbox
@@ -295,15 +345,14 @@ const GSLCommunicationProfile = () => {
                                 isChecked={form.receptiveLanguage.aidedBy.routines}
                                 onChange={(v) => update('receptiveLanguage.aidedBy.routines', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
                         </div>
                     </div>
                 </div>
             </div>
+            <div className={styles.divider} />
 
-            {/* AIDED BY */}
-
-            {/* EXPRESSIVE */}
             <div className={styles['receiptive-language']}>
                 <div className={styles['receptive-left']}>
                     <Text tagType='p' font={[FontType.text_sm_medium, FontType.text_sm_medium]}>
@@ -318,6 +367,7 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.expressiveLanguage.mode.verbal}
                             onChange={(v) => update('expressiveLanguage.mode.verbal', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
 
                         <Checkbox
@@ -325,6 +375,7 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.expressiveLanguage.mode.gestural}
                             onChange={(v) => update('expressiveLanguage.mode.gestural', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
 
                         <Checkbox
@@ -332,6 +383,7 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.expressiveLanguage.echolalia}
                             onChange={(v) => update('expressiveLanguage.echolalia', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
 
                         <Checkbox
@@ -339,6 +391,37 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.expressiveLanguage.aacpecs}
                             onChange={(v) => update('expressiveLanguage.aacpecs', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
+                        />
+                        <Checkbox
+                            label='Intentional vocalizations'
+                            isChecked={form.expressiveLanguage.intentionalVocalizations}
+                            onChange={(v) =>
+                                update('expressiveLanguage.intentionalVocalizations', v)
+                            }
+                            labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
+                        />
+                        <Checkbox
+                            label='Word approximations'
+                            isChecked={form.expressiveLanguage.wordApproximations}
+                            onChange={(v) => update('expressiveLanguage.wordApproximations', v)}
+                            labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
+                        />
+                        <Checkbox
+                            label='Word combinations'
+                            isChecked={form.expressiveLanguage.wordCombinations}
+                            onChange={(v) => update('expressiveLanguage.wordCombinations', v)}
+                            labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
+                        />
+                        <Checkbox
+                            label='Repetition'
+                            isChecked={form.expressiveLanguage.repetition}
+                            onChange={(v) => update('expressiveLanguage.repetition', v)}
+                            labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
                     </div>
 
@@ -347,6 +430,7 @@ const GSLCommunicationProfile = () => {
                         <Text
                             tagType='span'
                             font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            color='gray-500'
                         >
                             Functions:
                         </Text>
@@ -365,6 +449,7 @@ const GSLCommunicationProfile = () => {
                                         update(`expressiveLanguage.functions.${key}`, v)
                                     }
                                     labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                    labelColor='gray-900'
                                 />
                             ))}
                         </div>
@@ -372,7 +457,7 @@ const GSLCommunicationProfile = () => {
                 </div>
             </div>
 
-            {/* PRAGMATICS */}
+            <div className={styles.divider} />
 
             <div className={styles['receiptive-language']}>
                 <div className={styles['receptive-left']}>
@@ -388,6 +473,7 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.pragmaticsSocial.initiates}
                             onChange={(v) => update('pragmaticsSocial.initiates', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
 
                         <Checkbox
@@ -395,6 +481,7 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.pragmaticsSocial.maintainsTurn}
                             onChange={(v) => update('pragmaticsSocial.maintainsTurn', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
 
                         <Checkbox
@@ -402,6 +489,7 @@ const GSLCommunicationProfile = () => {
                             isChecked={form.pragmaticsSocial.sharesEnjoyment}
                             onChange={(v) => update('pragmaticsSocial.sharesEnjoyment', v)}
                             labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            labelColor='gray-900'
                         />
                     </div>
 
@@ -409,6 +497,7 @@ const GSLCommunicationProfile = () => {
                         <Text
                             tagType='span'
                             font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                            color='gray-500'
                         >
                             Gestures:
                         </Text>
@@ -416,29 +505,35 @@ const GSLCommunicationProfile = () => {
                         <div className={styles.grid}>
                             <Checkbox
                                 label='Pointing'
-                                isChecked={form.pragmaticsSocial.initiates}
-                                onChange={(v) => update('pragmaticsSocial.initiates', v)}
+                                isChecked={form.pragmaticsSocial.gestures.pointing}
+                                onChange={(v) => update('pragmaticsSocial.gestures.pointing', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
 
                             <Checkbox
                                 label='Reaching'
-                                isChecked={form.pragmaticsSocial.maintainsTurn}
-                                onChange={(v) => update('pragmaticsSocial.maintainsTurn', v)}
+                                isChecked={form.pragmaticsSocial.gestures.reaching}
+                                onChange={(v) => update('pragmaticsSocial.gestures.reaching', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
 
                             <Checkbox
                                 label='Leading'
-                                isChecked={form.pragmaticsSocial.sharesEnjoyment}
-                                onChange={(v) => update('pragmaticsSocial.sharesEnjoyment', v)}
+                                isChecked={form.pragmaticsSocial.gestures.leading}
+                                onChange={(v) => update('pragmaticsSocial.gestures.leading', v)}
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
                             <Checkbox
                                 label='Combines eye gaze + vocal intent'
-                                isChecked={form.pragmaticsSocial.sharesEnjoyment}
-                                onChange={(v) => update('pragmaticsSocial.sharesEnjoyment', v)}
+                                isChecked={form.pragmaticsSocial.gestures.eyeGazeVocalIntent}
+                                onChange={(v) =>
+                                    update('pragmaticsSocial.gestures.eyeGazeVocalIntent', v)
+                                }
                                 labelFont={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                labelColor='gray-900'
                             />
                         </div>
                     </div>
@@ -461,6 +556,7 @@ const GSLCommunicationProfile = () => {
                                     label={val}
                                     checked={form.pragmaticsSocial.iom === val}
                                     onChange={() => update('pragmaticsSocial.iom', val)}
+                                    color='gray-900'
                                 />
                             ))}
                         </div>
@@ -477,7 +573,7 @@ const GSLCommunicationProfile = () => {
                         color='dark-blue'
                         className={styles.progress}
                     >
-                        {`${calculatePercentage()}%`}
+                        {`${calculatePercentage(form)}%`}
                     </Text>
                     <Button
                         label='save'

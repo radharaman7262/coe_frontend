@@ -6,7 +6,7 @@ export const CP_PROVISION_DIAGNOSIS_SCHEMA: FormSchemaField<CPProvisionDiagnosis
     {
         name: CPProvisionDiagnosisFormKeys.DESCRIPTION,
         label: '',
-        type: 'text',
+        type: 'textArea',
         placeholder: 'Enter here',
         required: true,
         // helperText: 'Expected at 1 year',

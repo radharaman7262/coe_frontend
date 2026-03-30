@@ -67,6 +67,8 @@ const BalanceForm = () => {
         }));
     };
 
+    console.warn("Bug")
+
     const calculatePercentage = () => {
         const totalSections = Object.keys(form).length;
 

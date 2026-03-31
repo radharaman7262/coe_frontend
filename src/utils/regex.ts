@@ -15,7 +15,7 @@ export const MOBILE_INPUT_REGEX = /^\d{0,10}$/;
 
 export const NAME_REGEX = /^(?=.{3,20}$)[A-Za-z]+(?: [A-Za-z]+)*$/;
 
-export const CENTER_NAME_REGEX = /^(?=.{3,30}$)[A-Za-z]+(?: [A-Za-z]+)*$/;
+export const CENTER_NAME_REGEX = /^[a-zA-Z0-9\s.,&'()\-#@*^]{3,60}$/;
 
 export const UDISE_CODE_REGEX = /^\d{11}$/;
 

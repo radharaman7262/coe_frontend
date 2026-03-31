@@ -149,7 +149,7 @@ const ClinicalPsychologistAssessmentPage = () => {
                 assignedTherapist: (
                     <div className={styles['table-Session-text']}>
                         {transferredEducators?.length > 0 ? (
-                            transferredEducators.map((educator: string) => (
+                            transferredEducators?.map((educator: string) => (
                                 <div key={educator}>{educator}</div>
                             ))
                         ) : (

@@ -44,6 +44,12 @@ export const LOADING_TIME_DURATION = 2000;
 
 export const FIFTY_MAX_LENGTH = 50;
 
+export const SIXTY_MAX_LENGTH = 60;
+
+export const HUNDRED_MAX_LENGTH = 100;
+
+export const ONE_FIFTY_MAX_LENGTH = 150;
+
 export const THREE_MIN_LENGTH = 3;
 
 export const FOUR_MIN_LENGTH = 4;
@@ -137,6 +143,7 @@ export enum OccupationType {
     BUSINESS = 'Business',
     SELF_EMPLOYED = 'Self Employed',
     AGRICULTURE = 'Agriculture/Farmer',
+    HOUSE_WIFE = 'House Wife',
 }
 
 export const STATIC_OCCUPATION_TYPE = [
@@ -145,6 +152,7 @@ export const STATIC_OCCUPATION_TYPE = [
     { id: 3, name: OccupationType.BUSINESS },
     { id: 4, name: OccupationType.SELF_EMPLOYED },
     { id: 5, name: OccupationType.AGRICULTURE },
+    { id: 6, name: OccupationType.HOUSE_WIFE },
 ];
 
 export enum SiblingType {

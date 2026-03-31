@@ -339,6 +339,7 @@ const AddCenterAdmin = ({
                                 onChange={handleSpecializationSelect}
                                 searchStartIcon={SearchIcon}
                                 loading={specializedLoader}
+                                isSearchable={false}
                             />
                         </div>
                     </div>

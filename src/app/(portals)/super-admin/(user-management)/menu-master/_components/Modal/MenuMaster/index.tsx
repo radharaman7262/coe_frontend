@@ -245,6 +245,7 @@ const MenuMasterModal = ({
                                 handleSearch={handleChange(MenuMasterFormKeys.SEARCH_FILTER)}
                                 onChange={handleParentMenuSelect}
                                 searchStartIcon={SearchIcon}
+                                isSearchable={false}
                             />
                         </div>
                     )}

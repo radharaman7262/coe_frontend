@@ -358,7 +358,7 @@ const AddNewStaff = ({
                                 value={formValues[AdminStaffFormKeys.ASSIGN_ROLE]}
                                 disable={!!AdminStaffId}
                                 loading={roleMasterLoader}
-                                isSearchable
+                                isSearchable={false}
                                 searchFilter={roleListDropDownFilter}
                                 handleSearch={handleRoleFilterSearch}
                                 onChange={handleSelectRole}
@@ -378,7 +378,7 @@ const AddNewStaff = ({
                                 selectValue='name'
                                 value={formValues[AdminStaffFormKeys.SELECTED_SPECIALIZATION]}
                                 onChange={handleSpecializationSelect}
-                                isSearchable
+                                isSearchable={false}
                                 searchFilter={specializationDropDownFilter}
                                 handleSearch={handleSpecializationFilterSearch}
                                 loading={specializedLoader}

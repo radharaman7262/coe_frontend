@@ -49,6 +49,7 @@ interface ChildInformationFormProps {
         motherName: string;
         fatherOccupation: string;
         motherOccupation: string;
+        status: string;
     };
 }
 

@@ -55,8 +55,7 @@ const Parent = ({
             !!formValues.mothersOccupation &&
             !!formValues.language &&
             !!formValues.familyType &&
-            !!formValues.siblingType &&
-            formValues.files.length > 0,
+            !!formValues.siblingType,
         [formValues],
     );
 

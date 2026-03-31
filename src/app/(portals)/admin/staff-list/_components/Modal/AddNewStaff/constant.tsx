@@ -1,6 +1,6 @@
 import { TEN_MIN_LENGTH, THIRTY_MAX_LENGTH, TWO_MIN_LENGTH } from '@/constant/appConstants';
 
-import { EMAIL_REGEX, MOBILE_NUMBER_REGEX, NAME_REGEX } from '@/utils/regex';
+import { MOBILE_NUMBER_REGEX, NAME_REGEX } from '@/utils/regex';
 
 import { AdminStaffFormKeys, FormValues } from './type';
 
@@ -36,12 +36,11 @@ export const INITIAL_STATE: FormValues = {
 export const MAX_LENGTHS: Partial<Record<AdminStaffFormKeys, number>> = {
     [AdminStaffFormKeys.NAME]: THIRTY_MAX_LENGTH,
     [AdminStaffFormKeys.PHONE_NO]: TEN_MIN_LENGTH,
-    [AdminStaffFormKeys.EMAIL_ID]: THIRTY_MAX_LENGTH,
     [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE]: TWO_MIN_LENGTH,
 };
 
 export const ERROR_MESSAGES = {
-    nameErrorCreation: 'Name should be between 3 to 10 characters.',
+    nameErrorCreation: 'Name should be between 3 to 30 characters.',
     contactErrorDetail: 'Phone Number should be 10 numbers.',
     emailErrorDetail: 'Email should be between 3 to 50 characters.',
     totalYearExperience: 'Total Year of experience',
@@ -59,8 +58,8 @@ export const VALIDATION_RULES = {
         errorMessage: ERROR_MESSAGES?.contactErrorDetail,
     },
     [AdminStaffFormKeys.EMAIL_ID]: {
-        regex: EMAIL_REGEX,
-        required: true,
+        regex: null,
+        required: false,
         errorMessage: ERROR_MESSAGES?.emailErrorDetail,
     },
     [AdminStaffFormKeys.GENDER]: {

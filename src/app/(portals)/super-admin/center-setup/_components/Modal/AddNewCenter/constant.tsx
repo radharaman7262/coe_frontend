@@ -1,6 +1,6 @@
 import { ADDRESS_CODE_REGEX, CENTER_NAME_REGEX, MOBILE_NUMBER_REGEX } from '@/utils/regex';
 
-import { FIFTY_MAX_LENGTH, TEN_MIN_LENGTH, THIRTY_MAX_LENGTH } from '@/constant/appConstants';
+import { ONE_FIFTY_MAX_LENGTH, SIXTY_MAX_LENGTH, TEN_MIN_LENGTH } from '@/constant/appConstants';
 
 import { CenterSetupFormKeys } from './type';
 
@@ -28,13 +28,13 @@ export const INITIAL_STATE = {
 };
 
 export const MAX_LENGTHS: Partial<Record<CenterSetupFormKeys, number>> = {
-    [CenterSetupFormKeys.CENTER_NAME]: THIRTY_MAX_LENGTH,
-    [CenterSetupFormKeys.ADDRESS]: FIFTY_MAX_LENGTH,
+    [CenterSetupFormKeys.CENTER_NAME]: SIXTY_MAX_LENGTH,
+    [CenterSetupFormKeys.ADDRESS]: ONE_FIFTY_MAX_LENGTH,
     [CenterSetupFormKeys.CONTACT_DETAILS]: TEN_MIN_LENGTH,
 };
 
 export const ERROR_MESSAGES = {
-    centerErrorCreation: 'Center should be between 3 to 30 characters.',
+    centerErrorCreation: 'Center Name should be between 3 to 60 characters.',
     contactErrorDetail: 'Phone number should be valid.',
     addressErrorDetail: 'Address should be valid eg. 12/24, Delhi. (Don`t use $%*= Character)',
 };

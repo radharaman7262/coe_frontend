@@ -146,6 +146,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-idle'
+                            required
                         >
                             {text.fathersName}
                         </Text>
@@ -164,6 +165,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-idle'
+                            required
                         >
                             {text.fathersAge}
                         </Text>
@@ -184,6 +186,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-idle'
+                            required
                         >
                             {text.fathersOccupation}
                         </Text>
@@ -204,6 +207,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-idle'
+                            required
                         >
                             {text.fathersNo}
                         </Text>
@@ -226,6 +230,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-idle'
+                            required
                         >
                             {text.mothersName}
                         </Text>
@@ -244,6 +249,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-idle'
+                            required
                         >
                             {text.mothersAge}
                         </Text>
@@ -264,6 +270,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-idle'
+                            required
                         >
                             {text.mothersOccupation}
                         </Text>
@@ -284,6 +291,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
                             color='text-idle'
+                            required
                         >
                             {text.phoneNo}
                         </Text>

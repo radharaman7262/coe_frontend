@@ -1,4 +1,4 @@
-import { FIFTY_MAX_LENGTH, THIRTY_MAX_LENGTH, THREE_MIN_LENGTH } from '@/constant/appConstants';
+import { FIFTY_MAX_LENGTH, THREE_MIN_LENGTH } from '@/constant/appConstants';
 import { USER_TYPE_REGEX } from '@/utils/regex';
 import { FormValues, MenuMasterFormKeys } from './type';
 
@@ -30,7 +30,7 @@ export const INITIAL_STATE: FormValues = {
 };
 
 export const MAX_LENGTHS: Record<MenuMasterFormKeys, number> = {
-    [MenuMasterFormKeys.MENU_NAME]: THIRTY_MAX_LENGTH,
+    [MenuMasterFormKeys.MENU_NAME]: FIFTY_MAX_LENGTH,
     [MenuMasterFormKeys.MENU_URL]: FIFTY_MAX_LENGTH,
     [MenuMasterFormKeys.REMARKS]: FIFTY_MAX_LENGTH,
     [MenuMasterFormKeys.PRIORITY]: THREE_MIN_LENGTH,
@@ -50,7 +50,7 @@ export const MIN_LENGTHS: Record<MenuMasterFormKeys, number> = {
 };
 
 export const ERROR_MESSAGES = {
-    menuName: 'Menu Name should be between 3 to 30 characters.',
+    menuName: 'Menu Name should be between 3 to 50 characters.',
     menuURL: 'Menu URL should be between 3 to 30 characters.',
     remarks: 'Remarks should be between 3 to 30 characters.',
     priority: 'Priority should be between 3 to 30 characters.',

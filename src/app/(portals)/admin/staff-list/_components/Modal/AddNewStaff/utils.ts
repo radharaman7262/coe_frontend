@@ -44,23 +44,39 @@ export const validateInput = (
     value: string,
     setErrorMessages: React.Dispatch<React.SetStateAction<ErrorMessagesType>>,
 ) => {
+    const rule = VALIDATION_RULES[key];
     let isInputValid = true;
 
-    const rule = VALIDATION_RULES[key];
+    const trimmedValue = value.trim();
+
+    if (rule?.required && !trimmedValue) {
+        isInputValid = false;
+    }
+
+    if (key === AdminStaffFormKeys.NAME && trimmedValue.length > 0 && trimmedValue.length < 3) {
+        isInputValid = false;
+    }
+
+    if (key === AdminStaffFormKeys.PHONE_NO && trimmedValue && !/^[6-9]\d{9}$/.test(trimmedValue)) {
+        isInputValid = false;
+    }
 
     if (
-        (rule && 'required' in rule && rule.required && !value) ||
-        (rule && 'regex' in rule && rule.regex && !rule.regex.test(value as string))
+        key === AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE &&
+        trimmedValue &&
+        (Number(trimmedValue) < 0 || trimmedValue.length > 2)
     ) {
         isInputValid = false;
     }
 
-    setErrorMsgOnValidationFailed(
-        key,
-        rule ? rule.errorMessage : '',
-        isInputValid,
-        setErrorMessages,
-    );
+    if (rule?.regex && trimmedValue && !rule.regex.test(trimmedValue)) {
+        isInputValid = false;
+    }
+
+    setErrorMessages((prev) => ({
+        ...prev,
+        [key]: isInputValid ? '' : rule?.errorMessage || '',
+    }));
 
     return isInputValid;
 };

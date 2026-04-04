@@ -7,7 +7,12 @@ import { Textarea } from '@/components/ui/TextArea';
 
 import { FontType } from '@/types/typographyCommon';
 
-import { STATIC_GENDER, STATIC_SCHOOL_TYPE } from '@/constant/appConstants';
+import {
+    ELEVEN_MAX_LENGTH,
+    STATIC_GENDER,
+    STATIC_SCHOOL_TYPE,
+    ZERO_DATA,
+} from '@/constant/appConstants';
 
 import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
 
@@ -47,31 +52,38 @@ const ChildInformationData = ({ formValues, setFormValues, setUdiseValid }: Prop
     useEffect(() => {
         const status = school?.data?.status;
         const response = school?.data?.response;
+        const udiseLength = formValues.udiseCode?.length;
 
-        if (formValues.udiseCode?.length === 11) {
-            if (status === 1 && response?.length > 0) {
+        if (udiseLength === ELEVEN_MAX_LENGTH) {
+            if (status === 1 && response?.length > ZERO_DATA) {
+                const fetchedSchoolName = response?.[0]?.schoolName || '';
+
                 setUdiseApiMessage('School found successfully');
                 setIsUdiseSuccess(true);
-                setUdiseValid(true);
 
-                const schoolName = response?.[0]?.schoolName || '';
+                setFormValues((prev) => {
+                    if (prev.schoolName === fetchedSchoolName) return prev;
 
-                setFormValues((prev) => ({
-                    ...prev,
-                    [ChildFormKeys.SCHOOL_NAME]: schoolName,
-                }));
-            } else if (status === 0) {
+                    return {
+                        ...prev,
+                        [ChildFormKeys.SCHOOL_NAME]: fetchedSchoolName,
+                    };
+                });
+            } else if (status === ZERO_DATA) {
                 setUdiseApiMessage('Invalid UDISE code');
                 setIsUdiseSuccess(false);
-                setUdiseValid(false);
 
-                setFormValues((prev) => ({
-                    ...prev,
-                    schoolName: '',
-                }));
+                setFormValues((prev) => {
+                    if (prev.schoolName === '') return prev;
+
+                    return {
+                        ...prev,
+                        schoolName: '',
+                    };
+                });
             }
         }
-    }, [school, formValues.udiseCode, setFormValues, setUdiseValid]);
+    }, [school, formValues.udiseCode, setFormValues]);
 
     const handleChange =
         (field: ChildFormKeys) =>
@@ -113,7 +125,7 @@ const ChildInformationData = ({ formValues, setFormValues, setUdiseValid }: Prop
         if (/^\d{0,11}$/.test(value)) {
             updateFormValue(ChildFormKeys.UDISE_CODE, value);
 
-            if (value.length > 0 && value.length < 11) {
+            if (value.length > ZERO_DATA && value.length < ELEVEN_MAX_LENGTH) {
                 setUdiseError('Please enter 11 digit UDISE code');
                 setUdiseValid(false);
 
@@ -132,16 +144,17 @@ const ChildInformationData = ({ formValues, setFormValues, setUdiseValid }: Prop
 
     const schoolTypeName = formValues.schoolType?.name;
 
-    const disableSchoolFields =
-        !formValues.schoolType ||
-        schoolTypeName === 'No School' ||
-        schoolTypeName === 'Home School' ||
-        schoolTypeName === 'Play School';
+    const isNoOrHomeSchool = schoolTypeName === 'No School' || schoolTypeName === 'Home School';
 
-    const disableSchoolName =
-        disableSchoolFields ||
-        schoolTypeName === 'Govt. School' ||
-        schoolTypeName === 'Pvt. School';
+    const hideSchoolField = !formValues.schoolType || isNoOrHomeSchool;
+
+    const isPlayOrSpecialSchoolField =
+        schoolTypeName === 'Play School' || schoolTypeName === 'Special School';
+
+    const disableSchoolFields =
+        !formValues.schoolType || isNoOrHomeSchool || isPlayOrSpecialSchoolField;
+
+    const disableSchoolName = isNoOrHomeSchool;
 
     useEffect(() => {
         const prev = prevSchoolTypeRef.current;
@@ -274,39 +287,45 @@ const ChildInformationData = ({ formValues, setFormValues, setUdiseValid }: Prop
                     </div>
                 </div>
 
-                <div className={styles['input-container']}>
-                    <Text
-                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                        color='text-idle'
-                    >
-                        {text.schoolname}
-                    </Text>
-                    <Input
-                        name='schoolname'
-                        placeholder={schoolLoading ? 'Loading...' : 'School'}
-                        value={formValues.schoolName}
-                        disable={disableSchoolName}
-                    />
-                </div>
+                {!hideSchoolField && (
+                    <div className={styles['input-container']}>
+                        <Text
+                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                            color='text-idle'
+                            required
+                        >
+                            {text.schoolname}
+                        </Text>
+                        <Input
+                            name='schoolname'
+                            placeholder={schoolLoading ? 'Loading...' : 'School'}
+                            value={formValues.schoolName}
+                            disable={disableSchoolName}
+                            onChange={handleChange(ChildFormKeys.SCHOOL_NAME)}
+                        />
+                    </div>
+                )}
 
-                <div className={styles['input-container']}>
-                    <Text
-                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                        color='text-idle'
-                        required
-                    >
-                        {text.grade}
-                    </Text>
-                    <Dropdown
-                        label={text.selectGrade}
-                        options={gradeLoading ? [] : grades}
-                        selectValue='name'
-                        value={formValues.grade}
-                        isSearchable={false}
-                        disable={disableSchoolFields}
-                        onChange={(value) => updateFormValue(ChildFormKeys.GRADE, value)}
-                    />
-                </div>
+                {!hideSchoolField && !isPlayOrSpecialSchoolField && (
+                    <div className={styles['input-container']}>
+                        <Text
+                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                            color='text-idle'
+                            required
+                        >
+                            {text.grade}
+                        </Text>
+                        <Dropdown
+                            label={text.selectGrade}
+                            options={gradeLoading ? [] : grades}
+                            selectValue='name'
+                            value={formValues.grade}
+                            isSearchable={false}
+                            disable={disableSchoolFields}
+                            onChange={(value) => updateFormValue(ChildFormKeys.GRADE, value)}
+                        />
+                    </div>
+                )}
 
                 <div className={styles['text-container']}>
                     <Text

@@ -254,7 +254,7 @@ const AddNewCentre = ({
                     </div>
                     <Text
                         font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                        color='text-cta-3'
+                        color='blue-500'
                     >
                         {title.heyjustheads}
                     </Text>

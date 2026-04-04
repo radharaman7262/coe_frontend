@@ -1,6 +1,6 @@
-import { TEN_MIN_LENGTH, THIRTY_MAX_LENGTH } from '@/constant/appConstants';
+import { TEN_MIN_LENGTH } from '@/constant/appConstants';
 
-import { MOBILE_NUMBER_REGEX, NAME_REGEX } from '@/utils/regex';
+import { MOBILE_NUMBER_REGEX } from '@/utils/regex';
 
 import { CenterAdminFormKeys } from './type';
 
@@ -33,29 +33,29 @@ export const INITIAL_STATE = {
 };
 
 export const MAX_LENGTHS: Partial<Record<CenterAdminFormKeys, number>> = {
-    [CenterAdminFormKeys.FIRST_NAME]: THIRTY_MAX_LENGTH,
-    [CenterAdminFormKeys.LAST_NAME]: THIRTY_MAX_LENGTH,
+    [CenterAdminFormKeys.FIRST_NAME]: 0,
+    [CenterAdminFormKeys.LAST_NAME]: 0,
     [CenterAdminFormKeys.PHONE_NO]: TEN_MIN_LENGTH,
     // [CenterAdminFormKeys.EMAIL_ID]: THIRTY_MAX_LENGTH,
 };
 
 export const ERROR_MESSAGES = {
-    firstNameErrorCreation: 'First Name should be between 3 to 30 characters.',
-    lastNameErrorCreation: 'Last Name should be between 3 to 30 characters.',
+    firstNameErrorCreation: 'First Name should be between 3 to 50 characters.',
+    lastNameErrorCreation: 'Last Name should be between 3 to 50 characters.',
     contactErrorDetail: 'Phone Number should be 10 numbers.',
     emailErrorDetail: 'Email should be between 3 to 50 characters.',
 };
 
 export const VALIDATION_RULES = {
     [CenterAdminFormKeys.FIRST_NAME]: {
-        regex: NAME_REGEX,
-        required: true,
-        errorMessage: ERROR_MESSAGES?.firstNameErrorCreation,
+        regex: null,
+        required: false,
+        errorMessage: '',
     },
     [CenterAdminFormKeys.LAST_NAME]: {
-        regex: NAME_REGEX,
-        required: true,
-        errorMessage: ERROR_MESSAGES?.lastNameErrorCreation,
+        regex: null,
+        required: false,
+        errorMessage: '',
     },
     [CenterAdminFormKeys.PHONE_NO]: {
         regex: MOBILE_NUMBER_REGEX,

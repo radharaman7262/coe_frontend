@@ -1,6 +1,6 @@
-import { ALPHA_NUMERIC_REGEX } from '@/utils/regex';
+import { USER_TYPE_REGEX } from '@/utils/regex';
 
-import { THIRTY_MAX_LENGTH } from '@/constant/appConstants';
+import { FIFTY_MAX_LENGTH } from '@/constant/appConstants';
 
 import { RoleFormKeys } from './type';
 
@@ -20,17 +20,17 @@ export const INITIAL_STATE = {
 };
 
 export const MAX_LENGTHS: Record<RoleFormKeys, number> = {
-    [RoleFormKeys.ROLE_NAME]: THIRTY_MAX_LENGTH,
+    [RoleFormKeys.ROLE_NAME]: FIFTY_MAX_LENGTH,
     [RoleFormKeys.SELECTED_USER_TYPE]: 0,
 };
 
 export const ERROR_MESSAGES = {
-    roleError: 'User Role should be between 3 to 30 characters.',
+    roleError: 'User Role should be between 3 to 50 characters.',
 };
 
 export const VALIDATION_RULES = {
     [RoleFormKeys.ROLE_NAME]: {
-        regex: ALPHA_NUMERIC_REGEX,
+        regex: USER_TYPE_REGEX,
         required: true,
         errorMessage: ERROR_MESSAGES.roleError,
     },

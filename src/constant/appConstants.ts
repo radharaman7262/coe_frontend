@@ -32,6 +32,8 @@ export const EIGHT_MIN_LENGTH = 8;
 
 export const TEN_MIN_LENGTH = 10;
 
+export const SIX_MAX_LENGTH = 6;
+
 export const ELEVEN_MAX_LENGTH = 11;
 
 export const THIRTY_MAX_LENGTH = 30;
@@ -127,6 +129,7 @@ export enum SchoolType {
     PLAY_SCHOOL = 'Play School',
     GOVT_SCHOOL = 'Govt. School',
     PVT_SCHOOL = 'Pvt. School',
+    SPECIAL_SCHOOL = 'Special School',
 }
 
 export const STATIC_SCHOOL_TYPE = [
@@ -135,6 +138,7 @@ export const STATIC_SCHOOL_TYPE = [
     { id: 3, name: SchoolType.PLAY_SCHOOL },
     { id: 4, name: SchoolType.GOVT_SCHOOL },
     { id: 5, name: SchoolType.PVT_SCHOOL },
+    { id: 6, name: SchoolType.SPECIAL_SCHOOL },
 ];
 
 export enum OccupationType {
@@ -143,7 +147,7 @@ export enum OccupationType {
     BUSINESS = 'Business',
     SELF_EMPLOYED = 'Self Employed',
     AGRICULTURE = 'Agriculture/Farmer',
-    HOUSE_WIFE = 'House Wife',
+    HOME_MAKER = 'Home Maker',
 }
 
 export const STATIC_OCCUPATION_TYPE = [
@@ -152,7 +156,7 @@ export const STATIC_OCCUPATION_TYPE = [
     { id: 3, name: OccupationType.BUSINESS },
     { id: 4, name: OccupationType.SELF_EMPLOYED },
     { id: 5, name: OccupationType.AGRICULTURE },
-    { id: 6, name: OccupationType.HOUSE_WIFE },
+    { id: 6, name: OccupationType.HOME_MAKER },
 ];
 
 export enum SiblingType {

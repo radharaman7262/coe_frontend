@@ -54,6 +54,10 @@ const Parent = ({
             String(formValues.mothersNo).length === 10 &&
             !!formValues.mothersOccupation &&
             !!formValues.language &&
+            !!formValues.addressLine &&
+            !!formValues.state &&
+            !!formValues.district &&
+            !!formValues.block &&
             !!formValues.familyType &&
             !!formValues.siblingType,
         [formValues],

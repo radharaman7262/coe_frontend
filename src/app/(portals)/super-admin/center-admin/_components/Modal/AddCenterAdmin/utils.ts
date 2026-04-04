@@ -40,19 +40,28 @@ export const validateInput = (
 
     const rule = VALIDATION_RULES[key];
 
+    const trimmedValue = value?.trim();
+
+    if (rule?.required && !trimmedValue) {
+        isInputValid = false;
+    }
+
     if (
-        (rule && 'required' in rule && rule.required && !value) ||
-        (rule && 'regex' in rule && rule.regex && !rule.regex.test(value as string))
+        (key === CenterAdminFormKeys.FIRST_NAME || key === CenterAdminFormKeys.LAST_NAME) &&
+        trimmedValue.length > 0 &&
+        trimmedValue.length < 3
     ) {
         isInputValid = false;
     }
 
-    setErrorMsgOnValidationFailed(
-        key,
-        rule ? rule.errorMessage : '',
-        isInputValid,
-        setErrorMessages,
-    );
+    if (rule?.regex && trimmedValue && !rule.regex.test(trimmedValue)) {
+        isInputValid = false;
+    }
+
+    setErrorMessages((prev) => ({
+        ...prev,
+        [key]: isInputValid ? '' : rule?.errorMessage || '',
+    }));
 
     return isInputValid;
 };

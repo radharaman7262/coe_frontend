@@ -21,7 +21,12 @@ import { useGetSpecializationDropDownList } from '@/app/(portals)/super-admin/ce
 
 import { languageDataType } from '@/app/(portals)/type';
 
-import { INITIAL_STATE as initalState, MAX_LENGTHS, CENTER_ADMIN_TEXT as text } from './constant';
+import {
+    INITIAL_STATE as initalState,
+    MAX_LENGTHS,
+    CENTER_ADMIN_TEXT as text,
+    VALIDATION_RULES,
+} from './constant';
 
 import {
     AddAdminStaffProps,
@@ -116,29 +121,32 @@ const AddNewStaff = ({
         const { name, value } = event.target;
 
         const fieldKey = name as AdminStaffFormKeys;
-
-        const isNumericField =
-            [AdminStaffFormKeys.PHONE_NO].includes(fieldKey) ||
-            [AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE].includes(fieldKey);
-
-        const isNumeric = !Number.isNaN(Number(value)) || value === '';
-
-        if (isNumericField && !isNumeric) return;
-
+        const rule = VALIDATION_RULES[fieldKey];
         const maxLength = MAX_LENGTHS[fieldKey];
+
+        if (
+            fieldKey === AdminStaffFormKeys.PHONE_NO ||
+            fieldKey === AdminStaffFormKeys.TOTAL_YEAR_EXPERIENCE
+        ) {
+            if (!/^\d*$/.test(value)) return;
+        }
 
         if (!value) {
             setErrorMessages((prev) => ({
                 ...prev,
-                [name]: '',
+                [fieldKey]: rule?.required ? rule.errorMessage : '',
             }));
-            updateFormValue(fieldKey as AdminStaffFormKeys, value);
+
+            updateFormValue(fieldKey, value);
             return;
         }
 
         if (!maxLength || value.length <= maxLength) {
             updateFormValue(fieldKey, value);
-            validateInput(fieldKey, value, setErrorMessages);
+
+            if (fieldKey !== AdminStaffFormKeys.NAME) {
+                validateInput(fieldKey, value, setErrorMessages);
+            }
         }
     };
 

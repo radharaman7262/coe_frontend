@@ -10,15 +10,27 @@ import { FontType } from '@/types/typographyCommon';
 
 import PaperClipIcon from '@/public/assets/svg/paper-clip.svg';
 
-import { STATIC_OCCUPATION_TYPE, STATIC_SIBLING_TYPE } from '@/constant/appConstants';
+import {
+    SIX_MAX_LENGTH,
+    STATIC_OCCUPATION_TYPE,
+    STATIC_SIBLING_TYPE,
+    TWO_MIN_LENGTH,
+    ZERO_DATA,
+} from '@/constant/appConstants';
 
 import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
 
 import { FormValues, ParentFormKeys, SiblingType, OccupationType } from './type';
 
-import { MAX_LENGTHS, MIN_LENGTHS, DRAWER_DATA as text, VALIDATION_RULES } from './constant';
+import {
+    ERROR_MESSAGES,
+    MAX_LENGTHS,
+    MIN_LENGTHS,
+    DRAWER_DATA as text,
+    VALIDATION_RULES,
+} from './constant';
 
-import { useLanguageList } from './queries';
+import { useGetBlockList, useGetDistrictList, useGetStateList, useLanguageList } from './queries';
 
 import styles from './styles.module.scss';
 
@@ -37,6 +49,22 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
 
     const { data: languages = [], isLoading: languageLoading } = useLanguageList();
 
+    const { data: stateResponse, isLoading: stateLoading } = useGetStateList();
+
+    const states = stateResponse?.response || [];
+
+    const stateId = formValues.state?.id;
+
+    const { data: districtResponse, isLoading: districtLoading } = useGetDistrictList(stateId);
+
+    const districts = districtResponse?.response || [];
+
+    const districtId = formValues.district?.id;
+
+    const { data: blockResponse, isLoading: blockLoading } = useGetBlockList(districtId);
+
+    const blocks = blockResponse?.response || [];
+
     const updateFormValue = <K extends ParentFormKeys>(key: K, value: FormValues[K]) => {
         setFormValues((prev) => ({
             ...prev,
@@ -53,13 +81,25 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
 
             if (field === ParentFormKeys.FATHERS_AGE || field === ParentFormKeys.MOTHERS_AGE) {
                 if (!/^\d*$/.test(value)) return;
+                if (value.length > TWO_MIN_LENGTH) return;
 
-                if (value.length > 2) return;
+                setErrors((prev) => ({
+                    ...prev,
+                    [field]: value.length === TWO_MIN_LENGTH ? '' : 'Please enter valid age',
+                }));
 
-                if (value.length !== 2) {
+                updateFormValue(field, value === '' ? null : Number(value));
+                return;
+            }
+
+            if (field === ParentFormKeys.PINCODE) {
+                if (!/^\d*$/.test(value)) return;
+                if (value.length > 6) return;
+
+                if (value.length > ZERO_DATA && value.length < SIX_MAX_LENGTH) {
                     setErrors((prev) => ({
                         ...prev,
-                        [field]: 'Please enter valid age',
+                        [field]: ERROR_MESSAGES.pinCodeEroor,
                     }));
                 } else {
                     setErrors((prev) => ({
@@ -73,22 +113,29 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
             }
 
             const rule = VALIDATION_RULES[field];
+            const minLength = MIN_LENGTHS[field];
+            const maxLength = MAX_LENGTHS[field];
+
             if (rule?.regex && value && !rule.regex.test(value)) {
                 return;
             }
-
-            const minLength = MIN_LENGTHS[field];
-            const maxLength = MAX_LENGTHS[field];
 
             if (maxLength && value.length > maxLength) {
                 return;
             }
 
-            if (rule?.required && value.length > 0 && value.length < minLength) {
-                setErrors((prev) => ({
-                    ...prev,
-                    [field]: rule.errorMessage,
-                }));
+            if (field !== ParentFormKeys.ADDRESS_LINE) {
+                if (rule?.required && value.length > ZERO_DATA && value.length < minLength) {
+                    setErrors((prev) => ({
+                        ...prev,
+                        [field]: rule.errorMessage,
+                    }));
+                } else {
+                    setErrors((prev) => ({
+                        ...prev,
+                        [field]: '',
+                    }));
+                }
             } else {
                 setErrors((prev) => ({
                     ...prev,
@@ -116,7 +163,7 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = e.target.files;
 
-        if (!selectedFiles || selectedFiles.length === 0) return;
+        if (!selectedFiles || selectedFiles.length === ZERO_DATA) return;
 
         if (selectedFiles.length > 1) {
             toast.error('Only one PDF file is allowed');
@@ -303,6 +350,113 @@ const ParentInformationData = ({ formValues, setFormValues }: Props) => {
                             onChange={handleInputChange(ParentFormKeys.MOTHERS_NUMBER)}
                             error={Boolean(errors[ParentFormKeys.MOTHERS_NUMBER])}
                             helperText={errors[ParentFormKeys.MOTHERS_NUMBER]}
+                        />
+                    </div>
+                </div>
+
+                <hr className={styles['horizontal-line']} />
+
+                <div className={styles['input-container']}>
+                    <Text
+                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                        color='text-idle'
+                        required
+                    >
+                        {text.addressline1}
+                    </Text>
+
+                    <Input
+                        name={ParentFormKeys.ADDRESS_LINE}
+                        placeholder='Type here'
+                        value={formValues.addressLine}
+                        onChange={handleInputChange(ParentFormKeys.ADDRESS_LINE)}
+                        error={Boolean(errors[ParentFormKeys.ADDRESS_LINE])}
+                        helperText={errors[ParentFormKeys.ADDRESS_LINE]}
+                    />
+                </div>
+
+                <div className={styles['input-second-container']}>
+                    <div className={styles['input-container']}>
+                        <Text
+                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                            color='text-idle'
+                            required
+                        >
+                            {text.state}
+                        </Text>
+
+                        <Dropdown
+                            label={text.selectState}
+                            options={stateLoading ? [] : states}
+                            selectValue='name'
+                            value={formValues.state}
+                            isSearchable={false}
+                            onChange={(value) => {
+                                updateFormValue(ParentFormKeys.STATE, value);
+                                updateFormValue(ParentFormKeys.DISTRICT, null);
+                                updateFormValue(ParentFormKeys.BLOCK, null);
+                            }}
+                        />
+                    </div>
+
+                    <div className={styles['input-container']}>
+                        <Text
+                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                            color='text-idle'
+                            required
+                        >
+                            {text.district}
+                        </Text>
+
+                        <Dropdown
+                            label={text.selectDistrict}
+                            options={districtLoading ? [] : districts}
+                            selectValue='name'
+                            value={formValues.district}
+                            isSearchable={false}
+                            onChange={(value) => {
+                                updateFormValue(ParentFormKeys.DISTRICT, value);
+                                updateFormValue(ParentFormKeys.BLOCK, null);
+                            }}
+                        />
+                    </div>
+                </div>
+
+                <div className={styles['input-second-container']}>
+                    <div className={styles['input-container']}>
+                        <Text
+                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                            color='text-idle'
+                            required
+                        >
+                            {text.block}
+                        </Text>
+
+                        <Dropdown
+                            label={text.selectBlock}
+                            options={blockLoading ? [] : blocks}
+                            selectValue='name'
+                            value={formValues.block}
+                            isSearchable={false}
+                            onChange={(value) => updateFormValue(ParentFormKeys.BLOCK, value)}
+                        />
+                    </div>
+
+                    <div className={styles['input-container']}>
+                        <Text
+                            font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                            color='text-idle'
+                        >
+                            {text.pinCode}
+                        </Text>
+
+                        <Input
+                            name={ParentFormKeys.PINCODE}
+                            placeholder='Enter Pincode'
+                            value={formValues.pinCode?.toString() ?? ''}
+                            onChange={handleInputChange(ParentFormKeys.PINCODE)}
+                            error={Boolean(errors[ParentFormKeys.PINCODE])}
+                            helperText={errors[ParentFormKeys.PINCODE]}
                         />
                     </div>
                 </div>

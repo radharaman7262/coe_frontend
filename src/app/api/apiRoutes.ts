@@ -203,6 +203,14 @@ const SUBMIT_OT_STUDENT_INFORMATION = `${API_URL}/special-educator/ot-student-in
 const OCCUPATIONAL_THERAPIST_GET_DURATION = `${API_URL}/ot/get-duration-data`;
 const OCCUPATIONAL_THERAPIST_LEVEL_OF_SUPPORT = `${API_URL}/ot/get-level-data`;
 
+/* State List */
+
+const STATE_LIST_ENDPOINT = `${API_URL}/students/states`;
+
+const DISTRICT_LIST_ENDPOINT = `${API_URL}/students/district`;
+
+const BLOCK_LIST_ENDPOINT = `${API_URL}/students/block`;
+
 /* Student Profile */
 const STUDENT_PERSONAL_DETAIL = `${API_URL}/students/`;
 const STUDENT_ASSESMENT_DETAIL = `${STUDENT_PERSONAL_DETAIL}assessmentData/`;
@@ -461,4 +469,7 @@ export {
     CP_SPEECH_MOTOR_EXAMINATION,
     BALANCE_ENDPOINT,
     COGNITIVE_SKILLS_ASSESSMENT_ENDPOINT,
+    STATE_LIST_ENDPOINT,
+    DISTRICT_LIST_ENDPOINT,
+    BLOCK_LIST_ENDPOINT,
 };

@@ -16,7 +16,7 @@ export const LOGIN_PAGE_DATA = {
 };
 
 export const BUTTON_TEXT = {
-    login: 'Login',
+    login: 'Log In',
 };
 
 export const MAX_LENGTHS = {

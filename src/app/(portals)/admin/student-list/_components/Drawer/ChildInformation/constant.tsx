@@ -1,9 +1,8 @@
 import {
     ELEVEN_MAX_LENGTH,
     TEN_MIN_LENGTH,
-    THIRTY_MAX_LENGTH,
     THREE_HUNDRED_MAX_LENGTH,
-    THREE_MIN_LENGTH,
+    ZERO_DATA,
 } from '@/constant/appConstants';
 import { USER_TYPE_REGEX } from '@/utils/regex';
 import { ChildFormKeys, FormValues } from './type';
@@ -41,29 +40,29 @@ export const INITIAL_STATE: FormValues = {
 };
 
 export const MAX_LENGTHS: Record<ChildFormKeys, number> = {
-    [ChildFormKeys.FULL_NAME]: THIRTY_MAX_LENGTH,
+    [ChildFormKeys.FULL_NAME]: ZERO_DATA,
     [ChildFormKeys.DIFFICULTIES_FACED]: THREE_HUNDRED_MAX_LENGTH,
-    [ChildFormKeys.GENDER]: 0,
+    [ChildFormKeys.GENDER]: ZERO_DATA,
     [ChildFormKeys.UDISE_CODE]: ELEVEN_MAX_LENGTH,
-    [ChildFormKeys.SCHOOL_NAME]: 0,
-    [ChildFormKeys.GRADE]: 0,
-    [ChildFormKeys.DATE_OF_BIRTH]: 0,
-    [ChildFormKeys.SCHOOL_TYPE]: 0,
+    [ChildFormKeys.SCHOOL_NAME]: ZERO_DATA,
+    [ChildFormKeys.GRADE]: ZERO_DATA,
+    [ChildFormKeys.DATE_OF_BIRTH]: ZERO_DATA,
+    [ChildFormKeys.SCHOOL_TYPE]: ZERO_DATA,
 };
 
 export const MIN_LENGTHS: Record<ChildFormKeys, number> = {
-    [ChildFormKeys.FULL_NAME]: THREE_MIN_LENGTH,
+    [ChildFormKeys.FULL_NAME]: ZERO_DATA,
     [ChildFormKeys.DIFFICULTIES_FACED]: TEN_MIN_LENGTH,
-    [ChildFormKeys.GENDER]: 0,
-    [ChildFormKeys.UDISE_CODE]: 0,
-    [ChildFormKeys.SCHOOL_NAME]: 0,
-    [ChildFormKeys.GRADE]: 0,
-    [ChildFormKeys.DATE_OF_BIRTH]: 0,
-    [ChildFormKeys.SCHOOL_TYPE]: 0,
+    [ChildFormKeys.GENDER]: ZERO_DATA,
+    [ChildFormKeys.UDISE_CODE]: ZERO_DATA,
+    [ChildFormKeys.SCHOOL_NAME]: ZERO_DATA,
+    [ChildFormKeys.GRADE]: ZERO_DATA,
+    [ChildFormKeys.DATE_OF_BIRTH]: ZERO_DATA,
+    [ChildFormKeys.SCHOOL_TYPE]: ZERO_DATA,
 };
 
 export const ERROR_MESSAGES = {
-    fullName: 'Name should be between 3 to 30 characters.',
+    fullName: 'Name should be between 3 to 50 characters.',
     difficultiesFaced: 'write between 10 to 300 characters.',
 };
 
@@ -78,9 +77,9 @@ export const VALIDATION_RULES: Partial<
     >
 > = {
     [ChildFormKeys.FULL_NAME]: {
-        regex: USER_TYPE_REGEX,
-        required: true,
-        errorMessage: ERROR_MESSAGES.fullName,
+        regex: undefined,
+        required: false,
+        errorMessage: '',
     },
     [ChildFormKeys.DIFFICULTIES_FACED]: {
         regex: USER_TYPE_REGEX,

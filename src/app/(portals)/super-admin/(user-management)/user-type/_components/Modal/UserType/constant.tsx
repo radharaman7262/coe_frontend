@@ -23,7 +23,7 @@ export const MIN_LENGTHS: Record<UserTypeFormKeys, number> = {
 };
 
 export const ERROR_MESSAGES = {
-    userTypeError: 'User Type should be between 3 to 30 characters.',
+    userTypeError: 'User Type should be between 3 to 50 characters.',
 };
 
 export const VALIDATION_RULES = {

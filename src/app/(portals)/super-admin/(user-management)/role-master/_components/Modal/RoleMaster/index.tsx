@@ -16,7 +16,7 @@ import { useGetUserTypeList } from '../../../../user-type/queries';
 
 import { FormValues, RoleFormKeys, RoleMasterProps, RoleMasterType } from './type';
 
-import { MAX_LENGTHS, ROLE_TEXT as text } from './constant';
+import { MAX_LENGTHS, ROLE_TEXT as text, VALIDATION_RULES } from './constant';
 
 import {
     checkAllFieldValidOrNot,
@@ -66,26 +66,43 @@ const RoleMasterModal = ({
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
 
+        const fieldKey = name as RoleFormKeys;
+
+        if (fieldKey === RoleFormKeys.ROLE_NAME) {
+            if (!/^[A-Za-z\s]*$/.test(value)) return;
+        }
+
+        const rule = VALIDATION_RULES[fieldKey];
+        const maxLength = MAX_LENGTHS[fieldKey];
+
         if (!value) {
-            setErrorMessages((prev) => ({
-                ...prev,
-                [name]: '',
-            }));
-            updateFormValue(name as RoleFormKeys, value);
+            if (rule?.required) {
+                setErrorMessages((prev) => ({
+                    ...prev,
+                    [fieldKey]: rule.errorMessage,
+                }));
+            } else {
+                setErrorMessages((prev) => ({
+                    ...prev,
+                    [fieldKey]: '',
+                }));
+            }
+
+            updateFormValue(fieldKey, value);
             return;
         }
 
-        if (
-            !MAX_LENGTHS[name as RoleFormKeys] ||
-            value.length <= MAX_LENGTHS[name as RoleFormKeys]
-        ) {
-            updateFormValue(name as RoleFormKeys, value);
+        if (!maxLength || value.length <= maxLength) {
+            updateFormValue(fieldKey, value);
 
-            const isFieldValid = validateInput(name as RoleFormKeys, value);
+            const { key, message, isInputValid } = validateInput(fieldKey, value);
 
-            const { key, message, isInputValid } = isFieldValid;
-
-            setErrorMsgOnValidationFailed({ key, message, isInputValid, setErrorMessages });
+            setErrorMsgOnValidationFailed({
+                key,
+                message,
+                isInputValid,
+                setErrorMessages,
+            });
         }
     };
 

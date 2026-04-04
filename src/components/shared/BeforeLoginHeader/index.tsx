@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { Button } from '@components/index';
 
-import RupantarIcon from '@public/assets/svg/rupantar-header-icon.svg';
+import MothersGraceLogo from '@public/assets/svg/mothers-grace-logo.svg';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
@@ -48,7 +48,7 @@ const BeforeLoginHeader = () => {
 
     return (
         <div className={containerWrapperClass}>
-            <RupantarIcon />
+            <MothersGraceLogo />
 
             {hasToken ? (
                 <Button
@@ -57,17 +57,17 @@ const BeforeLoginHeader = () => {
                     variant={ButtonVariant.SOLID}
                     color='white'
                     onClick={handleGoToHome}
-                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                    font={[FontType.text_md_semibold, FontType.text_md_semibold]}
                     className={styles['btn-class']}
                 />
             ) : (
                 <Button
-                    label='Login'
+                    label='Log In'
                     type='button'
                     variant={ButtonVariant.SOLID}
                     color='white'
                     onClick={handleLoggingIn}
-                    font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                    font={[FontType.text_md_semibold, FontType.text_md_semibold]}
                     className={styles['btn-class']}
                 />
             )}

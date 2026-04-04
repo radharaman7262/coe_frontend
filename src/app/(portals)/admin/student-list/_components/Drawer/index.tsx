@@ -69,6 +69,12 @@ const StudentDrawerController = ({
         formData.append('languageId', String(parentData.language?.id || 0));
         formData.append('familyType', parentData.familyType ?? '');
         formData.append('udiseCode', childData.udiseCode ?? '');
+        formData.append('stateId', String(parentData.state?.id ?? 0));
+        formData.append('stateName', parentData.state?.name ?? '');
+        formData.append('districtId', String(parentData.district?.id ?? 0));
+        formData.append('districtName', parentData.district?.name ?? '');
+        formData.append('blockId', String(parentData.block?.id ?? 0));
+        formData.append('blockName', parentData.block?.name ?? '');
 
         if (parentData.files && parentData.files.length > 0) {
             parentData.files.forEach((file) => {

@@ -19,7 +19,12 @@ import { useGetRoleMasterList } from '@/app/(portals)/super-admin/(user-manageme
 import { useGetCenterDropDownList, useGetSpecializationDropDownList } from '../../../queries';
 import { useUserCenterAdminAction } from '../../../userCenterAdminAction';
 
-import { CENTER_ADMIN_TEXT as text, MAX_LENGTHS, INITIAL_STATE as initialState } from './constant';
+import {
+    CENTER_ADMIN_TEXT as text,
+    MAX_LENGTHS,
+    INITIAL_STATE as initialState,
+    VALIDATION_RULES,
+} from './constant';
 import { checkAllFieldValidOrNot, validateInput } from './utils';
 import {
     AddCenterAdminProps,
@@ -120,18 +125,27 @@ const AddCenterAdmin = ({
 
         const isNumericField = [CenterAdminFormKeys.PHONE_NO].includes(fieldKey);
 
-        const isNumeric = !Number.isNaN(Number(value)) || value === '';
-
-        if (isNumericField && !isNumeric) return;
-
         const maxLength = MAX_LENGTHS[fieldKey];
 
+        if (isNumericField) {
+            if (!/^\d*$/.test(value)) return;
+        }
+
         if (!value) {
-            setErrorMessages((prev) => ({
-                ...prev,
-                [name]: '',
-            }));
-            updateFormValue(fieldKey as CenterAdminFormKeys, value);
+            const rule = VALIDATION_RULES[fieldKey];
+
+            if (rule?.required) {
+                setErrorMessages((prev) => ({
+                    ...prev,
+                    [fieldKey]: rule.errorMessage,
+                }));
+            } else {
+                setErrorMessages((prev) => ({
+                    ...prev,
+                    [fieldKey]: '',
+                }));
+            }
+            updateFormValue(fieldKey, value);
             return;
         }
 
@@ -364,7 +378,7 @@ const AddCenterAdmin = ({
                     </div>
                     <Text
                         font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                        color='text-cta-3'
+                        color='blue-500'
                     >
                         {text.heyJustNeeds}
                     </Text>

@@ -3,21 +3,28 @@ import React from 'react';
 import { RoleFormKeys, RoleFormType } from './type';
 import { ERROR_MESSAGES, VALIDATION_RULES } from './constant';
 
-export const validateInput = (key: RoleFormKeys, value: string | number | boolean) => {
+export const validateInput = (key: RoleFormKeys, value: string) => {
     const rule = VALIDATION_RULES[key];
     let message = '';
     const { roleError } = ERROR_MESSAGES;
 
     let isInputValid = true;
 
-    if (
-        (rule && 'required' in rule && rule.required && !value) ||
-        (rule && 'regex' in rule && rule.regex && !rule.regex.test(value as string))
-    ) {
+    const trimmedValue = value.trim();
+
+    if (rule?.required && !trimmedValue) {
         isInputValid = false;
         message = roleError;
+    }
 
-        return { key, message, isInputValid };
+    if (key === RoleFormKeys.ROLE_NAME && trimmedValue.length > 0 && trimmedValue.length < 3) {
+        isInputValid = false;
+        message = roleError;
+    }
+
+    if (rule?.regex && trimmedValue && !rule.regex.test(trimmedValue)) {
+        isInputValid = false;
+        message = roleError;
     }
 
     return { key, message, isInputValid };

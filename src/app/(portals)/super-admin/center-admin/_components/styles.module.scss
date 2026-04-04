@@ -61,7 +61,8 @@
     border-radius: 16px;
     background-color: $green-0;
     color: $green-700;
-    text-align: center;
+    text-align: start;
+    width: 100px;
 }
 
 .assign-capsule-container {
@@ -69,8 +70,9 @@
     border-radius: 16px;
     background-color: $indigo-50;
     color: $indigo-blue;
-    text-align: center;
+    text-align: start;
     cursor: pointer;
+    width: 130px;
 }
 
 .pointer-event {

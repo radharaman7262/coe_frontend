@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { Button, Text } from '@/components';
 
@@ -25,16 +25,14 @@ interface ChildPropsType {
 }
 
 const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsType) => {
-    const [isUdiseValid, setUdiseValid] = useState(false);
-
     const isFormValid = useMemo(() => {
         const schoolTypeName = formValues.schoolType?.name;
 
-        const isSchoolOptional =
-            schoolTypeName === 'No School' ||
-            schoolTypeName === 'Home School' ||
-            schoolTypeName === 'Play School';
+        const isNoOrHome = schoolTypeName === 'No School' || schoolTypeName === 'Home School';
 
+        const isGovtOrPvt = schoolTypeName === 'Govt. School' || schoolTypeName === 'Pvt. School';
+
+        const isSchoolNameValid = !!formValues.schoolName?.trim();
         const isGradeValid = !!formValues.grade;
 
         return (
@@ -43,9 +41,10 @@ const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsTyp
             formValues.fullName.trim().length <= 30 &&
             !!formValues.difficultiesFaced?.trim() &&
             formValues.difficultiesFaced.trim().length >= 10 &&
-            (isSchoolOptional ? true : isUdiseValid && isGradeValid)
+            (isNoOrHome ? true : isSchoolNameValid) &&
+            (isGovtOrPvt ? isGradeValid : true)
         );
-    }, [formValues, isUdiseValid]);
+    }, [formValues]);
 
     return (
         <>
@@ -70,7 +69,7 @@ const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsTyp
                 <ChildInformationData
                     formValues={formValues}
                     setFormValues={setFormValues}
-                    setUdiseValid={setUdiseValid}
+                    setUdiseValid={() => {}}
                 />
             </div>
 

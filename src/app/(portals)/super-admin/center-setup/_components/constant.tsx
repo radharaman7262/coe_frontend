@@ -1,5 +1,5 @@
 export const COLUMNS = [
-    { header: 'Center Detail', accessor: 'name' },
+    { header: 'Center Name', accessor: 'name' },
     { header: 'Full Address', accessor: 'address' },
     { header: 'Center Admin', accessor: 'centerAdmin' },
     // { header: 'Email', accessor: 'email' },
@@ -12,7 +12,7 @@ export const NEW_CENTRE_TEXT = {
     simplifyCenter: 'Simplify center creation and management—everything in one place.',
     createCenter: 'Create Center',
     clear: 'Clear',
-    searchNameOrUniqueId: 'Search name or Unique ID',
+    searchNameOrUniqueId: 'Center name',
 };
 
 export const CENTER_ACTIVE_STATUS_MESSAGE = 'Center Active Succesfully';

@@ -12,6 +12,9 @@ import {
     GET_GRADE_ENDPOINT,
     GET_SCHOOL_ENDPOINT,
     ASSIGN_STUDENT_SESSION,
+    STATE_LIST_ENDPOINT,
+    DISTRICT_LIST_ENDPOINT,
+    BLOCK_LIST_ENDPOINT,
 } from '@/app/api/apiRoutes';
 
 import { SchoolPayloadType } from './ChildInformation/type';
@@ -117,6 +120,42 @@ export const getPsychologistApiCall = async () => {
     const response = await callApi({
         method: HTTP_METHOD.GET,
         url: GET_PSYCHOLOGIST_ENDPOINT,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+
+    return response;
+};
+
+export const getStateListApiCall = async () => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.GET,
+        url: STATE_LIST_ENDPOINT,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+
+    return response;
+};
+
+export const getDistrictListApiCall = async (stateId: number) => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.GET,
+        url: `${DISTRICT_LIST_ENDPOINT}/${stateId}`,
+        headers: { Authorization: `Bearer ${authToken}` },
+    });
+
+    return response;
+};
+
+export const getBlockListApiCall = async (districtId: number) => {
+    const authToken = await getCookie(JWT_TOKEN);
+
+    const response = await callApi({
+        method: HTTP_METHOD.GET,
+        url: `${BLOCK_LIST_ENDPOINT}/${districtId}`,
         headers: { Authorization: `Bearer ${authToken}` },
     });
 

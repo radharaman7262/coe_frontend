@@ -106,7 +106,7 @@ const CenterSetupPage = () => {
                     {item?.centerAdmin ? (
                         <div>
                             <div>{item.centerAdmin}</div>
-                            <div>{item.email}</div>
+                            <div className={styles.email}>{item.email}</div>
                         </div>
                     ) : (
                         <div

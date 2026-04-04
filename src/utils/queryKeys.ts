@@ -30,4 +30,7 @@ export enum QueryKeys {
     THERPIST_DURATION = 'therpistDuration',
     LEVEL_OF_SUPPORT = 'levelOfSupport',
     GET_BOOKING_SLOT = 'booking_slot',
+    STATE = 'state',
+    DISTRICT = 'district',
+    BLOCK = 'block',
 }

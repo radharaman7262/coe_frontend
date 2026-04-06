@@ -111,7 +111,7 @@ const RoleSelection = (props: RoleSelectionType) => {
             case 'center admin':
                 return styles.centerAdmin;
 
-            case 'clinical physchologist':
+            case 'clinical psychologist':
                 return styles.clinicalPsychologist;
 
             case 'special educator':
@@ -133,7 +133,7 @@ const RoleSelection = (props: RoleSelectionType) => {
             case 'center admin':
                 return <CenterAdminIcon />;
 
-            case 'clinical physchologist':
+            case 'clinical psychologist':
                 return <ClinicalPsychologistIcon />;
 
             case 'special educator':

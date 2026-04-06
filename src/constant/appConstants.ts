@@ -259,5 +259,5 @@ export enum SpecializationEnum {
     SPECIAL_EDUCATOR = 'Special Educator',
     SPEECH_THERAPIST = 'Speech Therapist',
     OCCUPATIONAL_THERAPIST = 'Occupational therapists',
-    CLINICAL_PSYCHOLOGIST = 'Clinical Physchologist',
+    CLINICAL_PSYCHOLOGIST = 'Clinical Psychologist',
 }

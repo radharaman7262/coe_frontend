@@ -62,6 +62,7 @@ export const config = {
         '/super-admin/center-admin/:path*',
         '/super-admin/menu-master/:path*',
         '/super-admin/menu-mapping/:path*',
+        '/super-admin/center-tracking/:path',
 
         /* Admin Route Paths */
         '/admin/dashboard/:path*',

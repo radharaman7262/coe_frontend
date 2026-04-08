@@ -39,6 +39,7 @@ export const prenatalSchema: FormSchemaField<PersonalBirthHistoryFormKeys>[] = [
             { label: 'Hypertension', value: 'Hypertension', key: 'hypertension' },
             { label: 'Jaundice', value: 'Jaundice', key: 'jaundice' },
             { label: 'Hyperthyroidism', value: 'Hyperthyroidism', key: 'hyperthyroidism' },
+            { label: 'None Elicated', value: 'None Elicated', key: 'noneElicated' },
         ],
     },
 

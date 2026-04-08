@@ -33,6 +33,7 @@ export const postNatalSchema: FormSchemaField<PostNatalHistoryFormKeys>[] = [
         required: true,
         options: [
             { label: 'Yes', value: 'Yes' },
+            { label: 'No', value: 'No' },
             { label: 'Not Known', value: 'Not Known' },
         ],
     },
@@ -64,8 +65,8 @@ export const postNatalSchema: FormSchemaField<PostNatalHistoryFormKeys>[] = [
         type: 'radio',
         required: true,
         options: [
-            { label: 'Yes', value: 'Yes' },
-            { label: 'No', value: 'No' },
+            { label: 'Up-to-date', value: 'Up-to-date' },
+            { label: 'Not up-to-date', value: 'Not up-to-date' },
             { label: 'Not Known', value: 'Not Known' },
         ],
     },

@@ -25,6 +25,7 @@ export enum ChildInformationFormKeys {
     PRECIPITATING_FACTORS = 'precipitatingFactors',
     PREPETUATING_FACTORS = 'perpetuatingFactors',
     CHIEF_COMPLAINTS = 'chiefComplaints',
+    BRIEF_HISTORY = 'briefHistory',
 }
 
 type StringOnlyAdminStaffFormKeys = Exclude<

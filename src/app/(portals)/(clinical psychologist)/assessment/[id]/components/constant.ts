@@ -5,6 +5,7 @@ export const textAreaFields = [
     { label: 'Predisposing Factors', name: 'predisposingFactors' },
     { label: 'Precipitating Factors', name: 'precipitatingFactors' },
     { label: 'Perpetuating Factors', name: 'perpetuatingFactors' },
+    { label: 'Brief History', name: 'briefHistory' },
 ];
 
 export const inputFields = [
@@ -83,6 +84,7 @@ export const INITIAL_STATE: ChildInformationFormType = {
     [ChildInformationFormKeys.COURSE]: '',
     [ChildInformationFormKeys.PRECIPITATING_FACTORS]: '',
     [ChildInformationFormKeys.PREPETUATING_FACTORS]: '',
+    [ChildInformationFormKeys.BRIEF_HISTORY]: '',
     [ChildInformationFormKeys.PRE_DISPOSING_FACTORS]: '',
     [ChildInformationFormKeys.ONSET]: '',
     [ChildInformationFormKeys.PROGRESS]: '',
@@ -111,4 +113,5 @@ export const disableFieldMap: Record<string, string> = {
     [ChildInformationFormKeys.RELIABILITY]: 'reliabilityOfInformant',
     [ChildInformationFormKeys.ONSET]: 'onset',
     [ChildInformationFormKeys.PROGRESS]: 'progress',
+    [ChildInformationFormKeys.BRIEF_HISTORY]: 'briefHistory',
 };

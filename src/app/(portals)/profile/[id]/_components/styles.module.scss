@@ -9,7 +9,17 @@
         gap: 16px;
         padding: 24px 40px;
         height: calc(100vh - 60px);
-        overflow: scroll;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 6px !important;
+            display: block !important;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $gray-400 !important;
+            border-radius: 16px !important;
+        }
     }
 
     .assessment-remark {

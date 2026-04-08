@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import { ToastContainer } from 'react-toastify';
 
 import BoldDropDown from '@public/assets/svg/bold-dropdown.svg';
-import LogoutIcon from '@/public/assets/svg/logout-icon.svg';
+import LogoutIcon from '@/public/assets/svg/log-out-icon.svg';
+import ChangePasswordIcon from '@/public/assets/svg/change-password-icon.svg';
 
 import LogoutModal from '@/components/Modal/LogOutModal';
 import { BreadCrumb, Text } from '@components/index';
@@ -20,7 +21,11 @@ import { pageNameMap } from './pageName';
 
 import styles from './styles.module.scss';
 
-const AfterLoginHeader = () => {
+interface Props {
+    onChangePassword: () => void;
+}
+
+const AfterLoginHeader = ({ onChangePassword }: Props) => {
     const [userDetails, setUserDetails] = useState<LoggedUserDetailType | null>(null);
 
     const pathname = usePathname();
@@ -36,6 +41,11 @@ const AfterLoginHeader = () => {
         setIsLogoutModalOpen(true);
     };
 
+    const handleChangePassword = () => {
+        setOpen(false);
+        onChangePassword();
+    };
+
     const PageName = pageNameMap[pathname];
 
     const getDetails = async () => {
@@ -44,7 +54,7 @@ const AfterLoginHeader = () => {
         setUserDetails(details);
     };
 
-    const { firstName,  EducatorMaster , userSpecializations } = userDetails || {};
+    const { firstName, EducatorMaster, userSpecializations } = userDetails || {};
 
     const { name: educatorName } = EducatorMaster || {};
 
@@ -86,6 +96,19 @@ const AfterLoginHeader = () => {
 
                         {open && (
                             <div className={styles['logout-popup']}>
+                                <button
+                                    type='button'
+                                    className={styles['logout-section']}
+                                    onClick={handleChangePassword}
+                                >
+                                    <ChangePasswordIcon />
+                                    <Text
+                                        font={[FontType.text_sm_regular, FontType.text_sm_regular]}
+                                        color='black'
+                                    >
+                                        Change Password
+                                    </Text>
+                                </button>
                                 <button
                                     type='button'
                                     className={styles['logout-section']}

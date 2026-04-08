@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CenterTrack from './_components/(center-track)';
+import CenterStaffTrack from './(center-staff-track)';
 
-const CenterSetup = () => <CenterTrack />;
+const CenterSetup = () => <CenterStaffTrack />;
 
 export default CenterSetup;

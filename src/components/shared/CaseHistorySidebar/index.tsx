@@ -9,8 +9,6 @@ import { CaseHistoryResponse } from '@/types/caseHIstorySidebarMenuType';
 
 import HumanIcon from '@public/assets/svg/human-icon.svg';
 
-import LinearProgressBar from '../LinearProgressBar';
-
 import CaseHistoryItem from './CaseHistoryItem';
 
 import styles from './styles.module.scss';
@@ -48,7 +46,12 @@ const CaseHistorySidebar = (props: CaseHistorySidebarProps) => {
                         </div>
                     </div>
 
-                    <div className={styles.progressContainer}>
+                    {/*
+                    NOTE:
+                    Due to current requirement we are comment it out for now
+                    */}
+
+                    {/* <div className={styles.progressContainer}>
                         <div className={styles.progressHeader}>
                             <Text
                                 font={[FontType.text_xs_bold, FontType.text_xs_bold]}
@@ -67,7 +70,7 @@ const CaseHistorySidebar = (props: CaseHistorySidebarProps) => {
                         <div className={styles.progressBar}>
                             <LinearProgressBar progress={item.percentage} />
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className={styles.sectionList}>
                         {item.children.map((section, index) => (

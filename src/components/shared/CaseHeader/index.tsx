@@ -28,9 +28,7 @@ const CaseHeader = () => {
 
     const userDetails = getClientUserDetails();
 
-    const { userSpecializations } = userDetails;
-
-    const { name } = userSpecializations;
+    const name = userDetails?.userSpecializations[0]?.name;
 
     const basePath = pathname?.split('/')?.slice(0, -1)?.join('/') || '/';
 

@@ -52,6 +52,14 @@ const CENTER_STATUS = `${API_URL}/center/status`;
 const CENTER_ADMIN_LIST = `${CENTER_ADMIN_DROPDOWN_LIST}/list`;
 const CENTER_ADMIN_STATUS = `${DASHBOARD_API_URL}/center-setup/status-change`;
 
+/** Center Track */
+
+const CENTER_TRACK_LIST = `${API_URL}/center/track`;
+
+const CENTER_STAFF_LIST = `${API_URL}/center/staff`;
+
+const CENTER_STUDENT_LIST = `${API_URL}/center/track`;
+
 /** Center Admin Modal */
 const CENTER_ADMIN_SPECIALIZATION = `${ROLE_MASTER_ENDPOINT}/specialization/`;
 const CENTER_DROPDOWN_LIST_API = `${CENTER_SETUP_LIST}/list`;
@@ -472,4 +480,7 @@ export {
     STATE_LIST_ENDPOINT,
     DISTRICT_LIST_ENDPOINT,
     BLOCK_LIST_ENDPOINT,
+    CENTER_TRACK_LIST,
+    CENTER_STAFF_LIST,
+    CENTER_STUDENT_LIST,
 };

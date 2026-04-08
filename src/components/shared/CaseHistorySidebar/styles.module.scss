@@ -1,3 +1,5 @@
+@use '@styles/theme' as *;
+
 .sidebar {
     background: #fff;
     border-radius: 12px;
@@ -54,6 +56,16 @@
     flex-direction: column;
     gap: 16px;
     min-width: 360px;
+
+    &::-webkit-scrollbar {
+        width: 4px !important;
+        display: block !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $gray-200 !important;
+        border-radius: 16px !important;
+    }
 }
 
 .sectionList {

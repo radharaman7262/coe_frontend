@@ -8,6 +8,8 @@ import { getUserMenu } from '@/utils/cookieInServer';
 
 import { AssignedMenuType } from '@/types/assignedMenuType';
 
+import ChangePassword from '@/components/Drawer/ChangePassword';
+
 import { ICON_MAP } from './constant';
 
 import styles from './styles.module.scss';
@@ -18,6 +20,7 @@ interface ClientLayoutProps {
 
 const ClientLayout = ({ children }: ClientLayoutProps) => {
     const [userMenuList, setUserMenuList] = useState<AssignedMenuType[]>([]);
+    const [openChangePasswordDrawer, setOpenChangePasswordDrawer] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -77,9 +80,11 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
             </aside>
 
             <div className={styles.header}>
-                <AfterLoginHeader />
+                <AfterLoginHeader onChangePassword={() => setOpenChangePasswordDrawer(true)} />
+
                 <main className={styles['main-children']}>{children}</main>
             </div>
+            <ChangePassword open={openChangePasswordDrawer} setOpen={setOpenChangePasswordDrawer} />
         </div>
     );
 };

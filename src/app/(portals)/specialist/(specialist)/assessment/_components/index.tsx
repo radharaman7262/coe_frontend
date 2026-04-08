@@ -51,7 +51,7 @@ const SpecialEducatorAssessmentPage = () => {
 
     const { userSpecializations } = userDetail || {};
 
-    const { name } = userSpecializations || {};
+    const { name } = userSpecializations[0] || {};
 
     const { isLoading, data } = useGetSpecialEducatorAssessmentList({
         page: currentPage,

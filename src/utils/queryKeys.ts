@@ -33,4 +33,7 @@ export enum QueryKeys {
     STATE = 'state',
     DISTRICT = 'district',
     BLOCK = 'block',
+    CENTER_TRACK = 'centerTrack',
+    CENTER_STAFF = 'centerStaff',
+    CENTER_STUDENT = 'centerStudent',
 }

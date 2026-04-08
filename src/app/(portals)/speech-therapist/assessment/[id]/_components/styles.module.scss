@@ -1,3 +1,5 @@
+@use '@styles/theme' as *;
+
 .containerMain {
     height: 100vh;
     display: flex;
@@ -10,6 +12,16 @@
     overflow-y: auto;
     padding: 24px;
     padding-bottom: 100px;
+
+    &::-webkit-scrollbar {
+        width: 6px !important;
+        display: block !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $gray-400 !important;
+        border-radius: 16px !important;
+    }
 }
 
 .wrapper {

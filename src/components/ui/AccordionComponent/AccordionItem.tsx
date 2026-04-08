@@ -41,7 +41,9 @@ const AccordionItem = ({ item, isOpen, onToggle }: Props) => {
                     <Text tagType='h4'>{item.name}</Text>
                 </div>
 
-                {item.rightContent && <div className={styles.right}>{item.rightContent}</div>}
+                {/* due to current requirement we are comment it out for now */}
+
+                {/* {item.rightContent && <div className={styles.right}>{item.rightContent}</div>} */}
             </div>
 
             <div className={cx(styles.body, open && styles.open)}>{item.content}</div>

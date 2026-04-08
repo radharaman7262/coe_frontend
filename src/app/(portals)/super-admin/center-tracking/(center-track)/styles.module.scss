@@ -30,7 +30,6 @@
 // .table-data {
 //     height: 80%;
 //     overflow-y: scroll;
-//     overflow-x: hidden;
 // }
 
 .table-row {
@@ -56,15 +55,6 @@
     cursor: pointer;
 }
 
-.capsule-container {
-    padding: 2px 8px;
-    border-radius: 16px;
-    background-color: $green-0;
-    color: $green-700;
-    text-align: center;
-    width: 85px;
-}
-
 .assign-capsule-container {
     padding: 2px 8px;
     border-radius: 16px;
@@ -74,44 +64,6 @@
     cursor: pointer;
 }
 
-.status-0 {
-    padding: 2px 8px;
-    border-radius: 16px;
-    background-color: $orange-0;
-    color: $orange-700;
-    text-align: center;
-    cursor: pointer;
-    width: 86px;
-}
-
-.status-1 {
-    padding: 2px 8px;
-    border-radius: 16px;
-    background-color: $green-0;
-    color: $green-700;
-    text-align: center;
-    cursor: pointer;
-    width: 86px;
-}
-
-.status-2 {
-    padding: 2px 8px;
-    border-radius: 16px;
-    background-color: $gray-100;
-    color: $black;
-    text-align: center;
-    cursor: pointer;
-    width: 86px;
-}
-
-.table-Session-text {
-    color: $blue-500;
-}
-
-.dropdown-width {
-    width: 20% !important;
-}
-
-.dropdown-bg {
-    background-color: $white;
+.email {
+    color: $gray-400;
 }

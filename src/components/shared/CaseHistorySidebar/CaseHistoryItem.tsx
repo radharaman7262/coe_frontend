@@ -63,13 +63,15 @@ const CaseHistoryItem = (props: Props) => {
                 </Text>
             </div>
 
-            <Text
+            {/* Due to current requirement we are comment it out for now */}
+
+            {/* <Text
                 font={[FontType.text_xs_bold, FontType.text_xs_bold]}
                 tagType='span'
                 className={styles.sectionProgress}
             >
                 {section.percentage}%
-            </Text>
+            </Text> */}
         </div>
     );
 };

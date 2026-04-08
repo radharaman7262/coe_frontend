@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 
-import { Button, Text } from '@/components/index';
+import { Button } from '@/components/index';
 
 import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
@@ -24,14 +24,16 @@ const FormLayout = (props: FormLayoutProps) => {
         <div className={styles['parental-birth-history']}>
             <div className={styles['form-wrapper']}>{children}</div>
             <div className={styles['button-wrapper']}>
-                <Text
+                {/* Due to current requirement we are comment it out for now */}
+
+                {/* <Text
                     tagType='div'
                     color='dark-blue'
                     font={[FontType.text_sm_bold, FontType.text_sm_bold]}
                     className={styles.right}
                 >
                     {`${percentage} %`}
-                </Text>
+                </Text> */}
 
                 <Button
                     StartIcon={<DocIcon />}

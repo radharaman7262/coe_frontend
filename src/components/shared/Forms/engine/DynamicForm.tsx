@@ -1,8 +1,8 @@
 'use client';
 
 import { FormSchemaField } from '../types/form.types';
-
-import FormField, { TableValue } from './FormField';
+// TableValue
+import FormField, { FieldValue } from './FormField';
 
 import FormLayout from './FormLayout';
 
@@ -10,7 +10,8 @@ import FormLayout from './FormLayout';
 export interface DynamicFormProps<T extends string, V extends Record<T, any>> {
     schema: FormSchemaField<T>[];
     values: V;
-    setValue: (key: T, value: string | number | boolean | string[] | TableValue) => void;
+    // setValue: (key: T, value: string | number | boolean | string[] | TableValue) => void;
+    setValue: (key: T, value: FieldValue) => void;
     onSubmit: () => void;
     loader: boolean;
     percentage: number;
@@ -33,7 +34,7 @@ const DynamicForm = <T extends string, V extends Record<T, any>>(props: DynamicF
         formGridClassName,
         tableRowClassName,
         dropdownClassName,
-        labelContainerClassName
+        labelContainerClassName,
     } = props;
 
     const handleSubmit = () => {

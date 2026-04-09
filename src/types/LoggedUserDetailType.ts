@@ -25,7 +25,7 @@ export interface LoggedUserDetailType {
     token: null;
     assignedMenus: AssignedMenuType[];
     role: LoggedRoleType;
-    userSpecializations: userSpecializationType;
+    userSpecializations: userSpecializationType[];
     askSpecialization: number;
     userType: UserType;
     EducatorMaster: EducatorMaster;

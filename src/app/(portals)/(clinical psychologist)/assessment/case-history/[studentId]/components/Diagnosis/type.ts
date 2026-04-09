@@ -3,6 +3,7 @@ export enum DiagnosisFormKeys {
     DIAGNOSIS_FORMULATION = 'diagnosticFormulation',
     DIAGNOSIS = 'diagnosis',
     RECOMMENDATION = 'recommendation',
+    NOTES = 'notes',
 }
 
 export type DiagnosisFormType = {

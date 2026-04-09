@@ -68,5 +68,15 @@ export type TableField<T extends string> = BaseField<T> & {
     rows: TableSection[];
 };
 
-export type FormSchemaField<T extends string> = SimpleField<T> | OptionField<T> | TableField<T>;
+export type FileField<T extends string> = BaseField<T> & {
+    type: 'file';
+    accept?: string;
+    multiple?: boolean;
+};
+
+export type FormSchemaField<T extends string> =
+    | SimpleField<T>
+    | OptionField<T>
+    | TableField<T>
+    | FileField<T>;
 // | GroupField<T>;

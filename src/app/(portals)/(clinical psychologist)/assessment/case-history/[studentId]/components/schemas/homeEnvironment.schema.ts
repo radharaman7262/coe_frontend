@@ -26,12 +26,8 @@ export const HOME_ENVIRONMENT_SCHEMA: FormSchemaField<HomeEnvironmentFormKeys>[]
     {
         name: HomeEnvironmentFormKeys.CHILD_EXPECTATIONS,
         label: 'Expectations from the child',
-        type: 'radio',
+        type: 'text',
         required: true,
-        options: [
-            { label: 'Any pressures', value: 'Any pressures' },
-            { label: 'Deprivation', value: 'Deprivation' },
-        ],
     },
 
     {
@@ -43,3 +39,8 @@ export const HOME_ENVIRONMENT_SCHEMA: FormSchemaField<HomeEnvironmentFormKeys>[]
             '(child’s relationship with family members, interpersonal relationship among family members, Interaction pattern and family support system)',
     },
 ];
+
+// options: [
+//     { label: 'Any pressures', value: 'Any pressures' },
+//     { label: 'Deprivation', value: 'Deprivation' },
+// ],

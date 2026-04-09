@@ -304,8 +304,6 @@ const GoalModal = (props: goalModaltype) => {
                             name='behaviour'
                             placeholder='Enter here'
                             onChange={handleInputChange}
-                            error={!!errorMessages[GoalSetupFormKeys.BEHAVIOUR]}
-                            helperText={errorMessages[GoalSetupFormKeys.BEHAVIOUR] || ''}
                         />
                     </div>
 

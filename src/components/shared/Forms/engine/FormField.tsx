@@ -8,11 +8,17 @@ import { FormSchemaField } from '../types/form.types';
 
 import TableField from './TableField';
 
+import FileUploadField from './FileUploadField';
+
 import styles from '../styles.module.scss';
 
 export type TableValue = Record<string, Record<string, string | string[]>>;
 
-export type FieldValue = string | string[] | TableValue;
+export type FileValue = {
+    base64: string;
+};
+
+export type FieldValue = string | string[] | TableValue | FileValue;
 
 export interface FormFieldProps<T extends string, TValue = FieldValue> {
     field: FormSchemaField<T>;
@@ -124,6 +130,9 @@ const FormField = <T extends string>(props: FormFieldProps<T>) => {
                         labelContainerClassName={labelContainerClassName}
                     />
                 );
+
+            case 'file':
+                return <FileUploadField field={field} value={value} onChange={onChange} />;
 
             default:
                 return null;

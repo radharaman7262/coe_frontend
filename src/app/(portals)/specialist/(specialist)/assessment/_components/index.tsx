@@ -130,8 +130,8 @@ const SpecialEducatorAssessmentPage = () => {
                     <div className={styles['report-container']}>
                         <Text
                             font={[FontType.text_sm_medium, FontType.text_sm_medium]}
-                            color='blue-400'
-                            className={styles['case-history']}
+                            // color='blue-400'
+                            // className={styles['case-history']}
                         >
                             {text.caseHistory}
                         </Text>

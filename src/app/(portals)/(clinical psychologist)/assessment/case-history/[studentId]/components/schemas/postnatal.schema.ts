@@ -71,12 +71,12 @@ export const postNatalSchema: FormSchemaField<PostNatalHistoryFormKeys>[] = [
         ],
     },
 
-    {
-        name: PostNatalHistoryFormKeys.CHIEF_COMPLICATIONS,
-        label: 'Chief Complaints',
-        type: 'text',
-        placeholder: 'Enter here',
-        required: true,
-        options: [],
-    },
+    // {
+    //     name: PostNatalHistoryFormKeys.CHIEF_COMPLICATIONS,
+    //     label: 'Chief Complaints',
+    //     type: 'text',
+    //     placeholder: 'Enter here',
+    //     required: true,
+    //     options: [],
+    // },
 ];

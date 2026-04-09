@@ -50,10 +50,10 @@ export const EMOTIONAL_AWARENESS_SCHEMA: FormSchemaField<'emotionalAwareness'>[]
                         key: 'usesGestures',
                         label: 'Uses gestures/facial expressions to show emotions',
                     },
-                    {
-                        key: 'emotionalContagion',
-                        label: 'Demonstrates emotional contagion (mirrors others’ emotions)',
-                    },
+                    // {
+                    //     key: 'emotionalContagion',
+                    //     label: 'Demonstrates emotional contagion (mirrors others’ emotions)',
+                    // },
                 ],
             },
         ],

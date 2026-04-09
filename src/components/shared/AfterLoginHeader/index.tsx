@@ -90,7 +90,7 @@ const AfterLoginHeader = ({ onChangePassword }: Props) => {
                                 font={[FontType.text_sm_regular, FontType.text_sm_regular]}
                                 color='primary-cta'
                             >
-                                {userSpecializations?.name || '_'}
+                                {userSpecializations?.[0]?.name || '_'}
                             </Text>
                         </button>
 

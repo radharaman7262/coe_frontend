@@ -35,9 +35,17 @@ export const PLAY_HISTORY_SCHEMA: FormSchemaField<PlayHistoryFormKeys>[] = [
     },
 
     {
+        name: PlayHistoryFormKeys.PLAY_PREFERENCE_NOTES,
+        label: 'Play preference (Notes)',
+        type: 'textArea',
+        required: false,
+        placeholder: 'write play preference here...',
+    },
+
+    {
         name: PlayHistoryFormKeys.KNOWLEDGE_OF_RULE_BASED_GAMES,
         label: 'Knowledge of games governed by rules',
-        type: 'radio',
+        type: 'text',
         required: true,
         options: [
             { label: 'Yes', value: 'Yes' },

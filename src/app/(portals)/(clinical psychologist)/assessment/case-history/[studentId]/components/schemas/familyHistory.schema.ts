@@ -72,12 +72,20 @@ export const FAMILY_HISTORY_SCHEMA: FormSchemaField<FamilyHistoryFormKeys>[] = [
         ],
     },
 
+    // {
+    //     name: FamilyHistoryFormKeys.FAMILY_GENOGRAM,
+    //     label: 'Family Genogram',
+    //     type: 'text',
+    //     placeholder: 'Enter details',
+    //     required: true,
+    //     options: [],
+    // },
+
     {
         name: FamilyHistoryFormKeys.FAMILY_GENOGRAM,
         label: 'Family Genogram',
-        type: 'text',
-        placeholder: 'Enter details',
+        type: 'file',
         required: true,
-        options: [],
+        accept: 'image/*', // optional (good practice)
     },
 ];

@@ -5,6 +5,7 @@ export enum PlayHistoryFormKeys {
     KNOWLEDGE_OF_RULE_BASED_GAMES = 'knowledgeOfGames',
     BEHAVIOUR_IN_GROUP_PLAY = 'behaviourInGroup',
     SPECIAL_LIKES_DISLIKES = 'specialLikesDislikes',
+    PLAY_PREFERENCE_NOTES = 'playPreferenceNote',
 }
 
 export type PlayHistoryFormType = {

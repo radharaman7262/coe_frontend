@@ -28,4 +28,12 @@ export const DIAGNOSIS_SCHEMA: FormSchemaField<DiagnosisFormKeys>[] = [
         required: true,
         options: [],
     },
+
+    {
+        name: DiagnosisFormKeys.NOTES,
+        label: 'Notes',
+        type: 'textArea',
+        placeholder: 'Any Comments / Note',
+        required: true,
+    },
 ];

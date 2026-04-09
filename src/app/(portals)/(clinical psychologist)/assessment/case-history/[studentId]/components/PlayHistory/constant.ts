@@ -7,4 +7,5 @@ export const INITIAL_STATE: PlayHistoryFormType = {
     [PlayHistoryFormKeys.PLAY_BEHAVIOUR]: '',
     [PlayHistoryFormKeys.PLAY_PREFERENCE]: '',
     [PlayHistoryFormKeys.SPECIAL_LIKES_DISLIKES]: '',
+    [PlayHistoryFormKeys.PLAY_PREFERENCE_NOTES]: '',
 };

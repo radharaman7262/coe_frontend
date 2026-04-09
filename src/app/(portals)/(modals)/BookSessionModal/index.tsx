@@ -125,7 +125,7 @@ const BookASessionModal = (props: boolkSessionModaltype) => {
             notes: '',
             goal: '',
             subGoal: '',
-            toSpecializationId: Number(userSpecializations?.id),
+            toSpecializationId: Number(userSpecializations?.[0]?.id),
             sessionType: sessionTypeId,
             userId: Number(id),
         };

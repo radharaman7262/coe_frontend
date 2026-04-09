@@ -14,11 +14,11 @@ type InputProps = React.ComponentPropsWithoutRef<'input'> & {
     /**
      * value for showing state in input.
      */
-    value: string;
+    value?: string;
     /**
      * name for the input.
      */
-    name: string;
+    name?: string;
     /**
      * Label for the input
      */

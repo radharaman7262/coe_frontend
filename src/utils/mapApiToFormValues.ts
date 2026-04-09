@@ -7,72 +7,67 @@ export const mapApiToFormValues = <T extends string>(
     apiData: Record<string, any>,
 ) => {
     const values: Record<string, any> = {};
+    const keyMap = buildKeyMapFromSchema(schema); // compute once
 
     schema.forEach((field) => {
         const apiValue = apiData?.[field.name];
 
-        if (field.type === 'checkbox') {
-            // convert object → array
-            if (typeof apiValue === 'object' && apiValue !== null) {
-                values[field.name] = Object.keys(apiValue)
-                    .map((key) => apiValue[key])
-                    .filter((item) => item !== '');
-            } else {
-                values[field.name] = apiValue || [];
+        switch (field.type) {
+            case 'checkbox': {
+                if (typeof apiValue === 'object' && apiValue !== null) {
+                    values[field.name] = Object.values(apiValue).filter(Boolean);
+                } else {
+                    values[field.name] = apiValue || [];
+                }
+                break;
             }
-        }
-        if (field.type === 'table') {
-            const keyMap = buildKeyMapFromSchema(schema);
 
-            const tableResult: Record<string, any> = {};
+            case 'table': {
+                const tableResult: Record<string, any> = {};
 
-            const columnKeys = field.columns
-                .map((col) => col.key)
-                .filter((key) => key !== 'label' && key !== 'joint' && key !== 'motion');
+                const columnKeys = field.columns
+                    .map((col) => col.key)
+                    .filter((key) => !['label', 'joint', 'motion'].includes(key));
 
-            Object.entries(keyMap).forEach(([rowKey, { section, key }]) => {
-                const data = apiData?.[section]?.[key];
+                Object.entries(keyMap).forEach(([rowKey, { section, key }]) => {
+                    const data = apiData?.[section]?.[key];
+                    const rowResult: Record<string, any> = {};
 
-                const rowResult: Record<string, any> = {};
+                    columnKeys.forEach((colKey) => {
+                        let value = data?.[colKey];
 
-                columnKeys.forEach((colKey) => {
-                    let value = data?.[colKey];
+                        if (value === null || value === undefined) value = '';
+                        if (typeof value === 'number') value = String(value);
 
-                    // normalize for UI (important)
-                    if (value === null || value === undefined) {
-                        value = '';
-                    }
+                        rowResult[colKey] = value;
+                    });
 
-                    // convert number → string (for dropdown/input)
-                    if (typeof value === 'number') {
-                        value = String(value);
-                    }
-
-                    rowResult[colKey] = value;
+                    tableResult[rowKey] = rowResult;
                 });
 
-                tableResult[rowKey] = rowResult;
+                values[field.name] = tableResult;
+                break;
+            }
 
-                // if (data) {
-                //     tableResult[rowKey] = {
-                //         grade:
-                //             data.grade !== null && data.grade !== undefined
-                //                 ? String(data.grade)
-                //                 : '',
-                //         comments: data.comments || '',
-                //     };
-                // }
-            });
+            // ✅ FILE / IMAGE HANDLING (BASE64)
+            case 'file': {
+                values[field.name] = typeof apiValue === 'string' ? apiValue : '';
+                break;
+            }
 
-            values[field.name] = tableResult;
-        }
-        if (
-            field.type === 'text' ||
-            field.type === 'radio' ||
-            field.type === 'number' ||
-            field.type === 'textArea'
-        ) {
-            values[field.name] = apiValue ?? '';
+            // ✅ DEFAULT INPUT TYPES
+            case 'text':
+            case 'radio':
+            case 'number':
+            case 'textArea': {
+                values[field.name] = apiValue ?? '';
+                break;
+            }
+
+            // ✅ FALLBACK (future-proof)
+            default: {
+                values[field.name] = apiValue ?? '';
+            }
         }
     });
 

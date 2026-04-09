@@ -1,0 +1,40 @@
+@use '@styles/theme' as *;
+
+.uploadBox {
+    width: 160px;
+    height: 160px;
+    border: 2px dashed $text-idle;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fafafa;
+
+    &:hover {
+        border-color: $green-400;
+        background: $gray-100;
+    }
+}
+
+.uploadContent {
+    text-align: center;
+}
+
+.uploadTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: $black;
+    margin-bottom: 4px;
+}
+
+.uploadSubtitle {
+    font-size: 12px;
+    color: $black;
+}
+
+.previewImage {
+    border-radius: 10px;
+    object-fit: cover;
+}

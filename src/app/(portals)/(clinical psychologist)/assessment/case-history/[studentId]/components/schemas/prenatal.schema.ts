@@ -54,14 +54,14 @@ export const prenatalSchema: FormSchemaField<PersonalBirthHistoryFormKeys>[] = [
         ],
     },
 
-    {
-        name: PersonalBirthHistoryFormKeys.CHIEF_COMPLAINTS,
-        label: 'Chief Complaints',
-        type: 'text',
-        placeholder: 'Enter here',
-        required: true,
-        options: [],
-    },
+    // {
+    //     name: PersonalBirthHistoryFormKeys.CHIEF_COMPLAINTS,
+    //     label: 'Chief Complaints',
+    //     type: 'text',
+    //     placeholder: 'Enter here',
+    //     required: true,
+    //     options: [],
+    // },
     {
         name: PersonalBirthHistoryFormKeys.INFECTION_FEVER_RASH_STD,
         label: 'Infection / Fever / Rash / STD',

@@ -57,10 +57,12 @@ export const getCenterStaffListApiCall = async ({
 };
 
 export const getCenterStudentListApiCall = async ({
+    staffId,
     page,
     limit,
     search,
 }: {
+    staffId: string | number;
     page: string | number;
     limit: number;
     search?: string;
@@ -69,7 +71,7 @@ export const getCenterStudentListApiCall = async ({
 
     const response = await callApi({
         method: HTTP_METHOD.GET,
-        url: CENTER_STUDENT_LIST,
+        url: `${CENTER_STUDENT_LIST}/${staffId}/students`,
         headers: { Authorization: `Bearer ${authToken}` },
         queryParams: {
             page: page.toString(),

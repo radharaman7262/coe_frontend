@@ -58,7 +58,7 @@ const CENTER_TRACK_LIST = `${API_URL}/center/track`;
 
 const CENTER_STAFF_LIST = `${API_URL}/center/staff`;
 
-const CENTER_STUDENT_LIST = `${API_URL}/center/track`;
+const CENTER_STUDENT_LIST = `${API_URL}/center/staff`;
 
 /** Center Admin Modal */
 const CENTER_ADMIN_SPECIALIZATION = `${ROLE_MASTER_ENDPOINT}/specialization/`;

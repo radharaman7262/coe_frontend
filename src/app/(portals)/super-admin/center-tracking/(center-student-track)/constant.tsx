@@ -3,7 +3,7 @@ export const COLUMNS = [
     { header: 'Name/Age/Gender', accessor: 'nameAgeGender' },
     { header: 'Session Schedule', accessor: 'sessionSchedule' },
     { header: 'Session Status', accessor: 'sessionStatus' },
-    { header: 'Action', accessor: 'action' },
+    { header: '', accessor: 'action' },
 ];
 
 export const CENTRE_TRACKING_TEXT = {

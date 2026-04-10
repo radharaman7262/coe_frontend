@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from 'react';
 
-import { PageHeader, ShimmerUiContainer } from '@/components/index';
+import { PageHeader, ShimmerUiContainer, Text } from '@/components/index';
 
 import useDebounce from '@/utils/useDebounce';
 
@@ -12,6 +12,8 @@ import EditIcon from '@/public/assets/svg/chevron-right.svg';
 
 import { ToastContainer } from 'react-toastify';
 
+import { FontType } from '@/types/typographyCommon';
+import { formatDate, formatTime } from '@/utils/formatDate';
 import { getCenterStudentListType } from '../type';
 
 import { useGetCenterStudentList } from '../queries';
@@ -30,6 +32,7 @@ const CenterStudentTrack = () => {
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
     const { isLoading, data, isFetching } = useGetCenterStudentList({
+        staffId: '46',
         page: currentPage,
         limit: 25,
         search: debouncedFilters,
@@ -37,25 +40,58 @@ const CenterStudentTrack = () => {
 
     const { response } = data || {};
 
-    const { results = [], totalCount = 0 } = response || {};
+    const { data: studentList = [], total = 0 } = response || {};
 
     const getCenterStudentList = (results: getCenterStudentListType[]) => {
         const data = results?.map((item) => ({
             ...item,
-            studentID: item.centerId,
+            studentID: (
+                <div className={styles['capsule-container']}>{`STU-${item?.studentId}`}</div>
+            ),
 
-            nameAgeGender: item.centerName,
+            nameAgeGender: (
+                <div className={styles['name-row']}>
+                    <Text
+                        font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                        color='text-gray-900'
+                    >
+                        {item?.studentName}
+                    </Text>
 
-            sessionSchedule: item.centerAdmin,
+                    <Text
+                        font={[FontType.text_xs_regular, FontType.text_xs_regular]}
+                        color='gray-500'
+                    >
+                        {`(${item?.age}y | ${item?.gender?.charAt(0)})`}
+                    </Text>
+                </div>
+            ),
 
-            sessionStatus: item.studentCount,
+            sessionSchedule: (
+                <div className={styles['date-container']}>
+                    <Text
+                        font={[FontType.text_xs_medium, FontType.text_xs_medium]}
+                        color='text-gray-900'
+                    >
+                        {formatDate(item?.bookingDate)}
+                    </Text>
+                    <Text
+                        font={[FontType.text_xs_regular, FontType.text_xs_regular]}
+                        color='gray-500'
+                    >
+                        {`${formatTime(item?.startTime)} - ${formatTime(item?.endTime)}`}
+                    </Text>
+                </div>
+            ),
+
+            sessionStatus: item?.status,
 
             action: (
                 <EditIcon
-                    onClick={() => {
-                        // handleEditAdmin(item);
-                    }}
                     className={styles['cursor-pointer']}
+                    onClick={() => {
+                        // handle click
+                    }}
                 />
             ),
         }));
@@ -63,7 +99,7 @@ const CenterStudentTrack = () => {
         return data;
     };
 
-    const finalCenterStudentList = useMemo(() => getCenterStudentList(results), [results]);
+    const finalCenterStudentList = useMemo(() => getCenterStudentList(studentList), [studentList]);
 
     return (
         <div className={styles['assessment-page']}>
@@ -78,7 +114,7 @@ const CenterStudentTrack = () => {
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
                     data={finalCenterStudentList}
-                    totalCount={totalCount}
+                    totalCount={total}
                 />
             )}
 

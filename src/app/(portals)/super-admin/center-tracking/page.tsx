@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CenterStaffTrack from './(center-staff-track)';
+import CenterStudentTrack from './(center-student-track)';
 
-const CenterSetup = () => <CenterStaffTrack />;
+const CenterSetup = () => <CenterStudentTrack />;
 
 export default CenterSetup;

@@ -34,10 +34,12 @@ export const useGetDistrictList = (stateId?: number) =>
     useQuery({
         queryKey: [...districtTypeKeys.getDistrictTypeList(), stateId],
         queryFn: () => getDistrictListApiCall(stateId as number),
+        enabled: !!stateId,
     });
 
 export const useGetBlockList = (districtId?: number) =>
     useQuery({
         queryKey: [...blockTypeKeys.getBlockTypeList(), districtId],
         queryFn: () => getBlockListApiCall(districtId as number),
+        enabled: !!districtId,
     });

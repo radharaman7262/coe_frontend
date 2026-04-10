@@ -50,18 +50,21 @@ export const useGetCenterStaffList = ({
     });
 
 export const useGetCenterStudentList = ({
+    staffId,
     page,
     limit,
     search,
 }: {
+    staffId: string | number;
     page: string | number;
     limit: number;
     search: string;
 }) =>
     useQuery({
-        queryKey: centerStudentKeys.getCenterStudentList({ page, limit, search }),
+        queryKey: centerStudentKeys.getCenterStudentList({ staffId, page, limit, search }),
         queryFn: () =>
             getCenterStudentListApiCall({
+                staffId,
                 page,
                 limit,
                 search,

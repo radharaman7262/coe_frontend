@@ -17,10 +17,12 @@ export interface getCenterStaffListType {
 }
 
 export interface getCenterStudentListType {
-    centerId: string;
-    centerName: string;
-    centerAdminId: string;
-    centerAdmin: string;
-    staffCount: string;
-    studentCount: string;
+    studentId: string;
+    studentName: string;
+    gender: string;
+    age: string;
+    startTime: string;
+    endTime: string;
+    bookingDate: string;
+    status: string;
 }

@@ -55,6 +55,15 @@
     cursor: pointer;
 }
 
+.capsule-container {
+    padding: 2px 8px;
+    border-radius: 16px;
+    background-color: $green-0;
+    color: $green-700;
+    text-align: start;
+    width: 70px;
+}
+
 .assign-capsule-container {
     padding: 2px 8px;
     border-radius: 16px;
@@ -62,6 +71,17 @@
     color: $indigo-blue;
     text-align: center;
     cursor: pointer;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.name-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
 }
 
 .email {

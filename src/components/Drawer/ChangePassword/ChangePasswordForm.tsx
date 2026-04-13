@@ -23,11 +23,12 @@ import { PASSWORD_PATTERN } from '@/utils/regex';
 import { CHANGE_PASSWORD_PAGE_DATA as text, INITIAL_STATE } from './constant';
 
 import styles from './styles.module.scss';
+import { useChangePassword } from './mutation';
 
 const ChangePasswordForm = () => {
     const [formValues, setFormValues] = useState<ChangePasswordFormType>(INITIAL_STATE);
-
     const [errorMessages, setErrorMessages] = useState<ErrorMessagesType>({});
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState({
         old: false,
         new: false,
@@ -37,6 +38,8 @@ const ChangePasswordForm = () => {
     const oldPasswordRef = useRef<HTMLInputElement | null>(null);
     const newPasswordRef = useRef<HTMLInputElement | null>(null);
     const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
+
+    const { mutate } = useChangePassword({ setLoader: setLoading });
 
     const INPUT_MAPPING: Record<string, React.RefObject<HTMLInputElement | null>> = {
         [ChangePasswordFormKeys.OLD_PASSWORD]: newPasswordRef,
@@ -102,6 +105,14 @@ const ChangePasswordForm = () => {
             ...prev,
             [field]: !prev[field],
         }));
+    };
+
+    const handleSubmit = () => {
+        mutate({
+            oldPassword: formValues.oldPassword,
+            newPassword: formValues.newPassword,
+            confirmPassword: formValues.confirmPassword,
+        });
     };
 
     const isFormValid =
@@ -262,6 +273,8 @@ const ChangePasswordForm = () => {
                         font={[FontType.text_md_semibold, FontType.text_md_semibold]}
                         className={styles['btn-class']}
                         disabled={!isFormValid}
+                        loader={loading}
+                        onClick={handleSubmit}
                     />
                 </div>
             </div>

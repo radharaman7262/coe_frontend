@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-export type METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export type METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 const HEADERS = {
     Accept: 'application/json',

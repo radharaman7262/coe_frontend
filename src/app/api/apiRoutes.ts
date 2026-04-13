@@ -297,6 +297,10 @@ const CP_ORAL_PERIPHERAL_EXAMINATION = `${SPEECH_THERAPIST_URL}/cp-oral-peripher
 const CP_SPEECH_MOTOR_EXAMINATION = `${SPEECH_THERAPIST_URL}/cp-speech-motor-assessment`;
 const CLP_COMMUNICATION_EXAMINATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/clp-communication-profile`;
 
+/* Change Password */
+
+const CHANGE_PASSWORD_ENDPOINT = `${API_URL}/change-password`;
+
 export {
     LOGIN_ENDPOINT,
     USER_TYPE_ENDPOINT,
@@ -483,4 +487,5 @@ export {
     CENTER_TRACK_LIST,
     CENTER_STAFF_LIST,
     CENTER_STUDENT_LIST,
+    CHANGE_PASSWORD_ENDPOINT,
 };

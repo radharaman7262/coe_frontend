@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { SmallTableHeaderType, TableDataType } from '@/types/TableType';
-import { DashboardOverviewData } from '@/app/(portals)/super-admin/dashboard/_components/CenterUserOverView/type';
+
 import { goalTrackerType, sessionLogType } from '@/app/(portals)/profile/[id]/_components/type';
 
 import cx from 'classnames';
@@ -10,6 +10,8 @@ import cx from 'classnames';
 import { Text } from '@components/index';
 
 import { FontType } from '@/types/typographyCommon';
+
+import { DashboardOverviewData } from '@/app/(portals)/super-admin/(super-admin)/dashboard/_components/CenterUserOverView/type';
 
 import styles from './styles.module.scss';
 

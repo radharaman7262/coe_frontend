@@ -2,6 +2,8 @@
 
 import React, { useMemo, useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { PageHeader, ShimmerUiContainer } from '@/components/index';
 
 import useDebounce from '@/utils/useDebounce';
@@ -12,9 +14,10 @@ import EditIcon from '@/public/assets/svg/chevron-right.svg';
 
 import { ToastContainer } from 'react-toastify';
 
-import { getCenterStaffListType } from '../type';
+import { AppRoutes } from '@/constant/appRoutes';
+import { getCenterTrackListType } from '../type';
 
-import { useGetCenterStaffList } from '../queries';
+import { useGetCenterTrackList } from '../queries';
 
 import TableUi from './TableUi';
 
@@ -22,15 +25,16 @@ import { CENTRE_TRACKING_TEXT as text } from './constant';
 
 import styles from './styles.module.scss';
 
-const CenterStaffTrack = () => {
+const CenterTrack = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
+
+    const router = useRouter();
 
     const [tableFilter, setTableFilter] = useState<string>('');
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
-    const { isLoading, data, isFetching } = useGetCenterStaffList({
-        centerAdminId: '234',
+    const { isLoading, data, isFetching } = useGetCenterTrackList({
         page: currentPage,
         limit: 25,
         search: debouncedFilters,
@@ -38,35 +42,44 @@ const CenterStaffTrack = () => {
 
     const { response } = data || {};
 
-    const { data: staffList = [], total = 0 } = response || {};
+    const { results = [], totalCount = 0 } = response || {};
 
-    const getCenterStaffList = (results: getCenterStaffListType[]) => {
+    const handleRedirection = (item: getCenterTrackListType) => {
+        router.push(`${AppRoutes.CENTER_TRACKING}/${item?.centerId}/staff`);
+    };
+
+    const getCenterTrackList = (results: getCenterTrackListType[]) => {
         const data = results?.map((item) => ({
             ...item,
-            staffName: item.name,
+            centerName: item.centerName,
 
-            specialization: item.specialization,
+            centerAdmin: item.centerAdmin,
 
-            student: item.assignedStudents,
+            staff: item.staffCount,
+
+            student: item.studentCount,
 
             action: (
-                <EditIcon
-                    onClick={() => {
-                        // handleEditAdmin(item);
-                    }}
-                    className={styles['cursor-pointer']}
-                />
+                <div>
+                    <EditIcon
+                        onClick={() => {
+                            handleRedirection(item);
+                        }}
+                        className={styles['cursor-pointer']}
+                    />
+                </div>
             ),
         }));
 
         return data;
     };
 
-    const finalCenterStaffList = useMemo(() => getCenterStaffList(staffList), [staffList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const finalCenterTrackList = useMemo(() => getCenterTrackList(results), [results]);
 
     return (
         <div className={styles['assessment-page']}>
-            <PageHeader title={text.centerName} description={text.simplifyCenter} />
+            <PageHeader title={text.centerTracking} description={text.simplifyCenter} />
 
             {isLoading || isFetching ? (
                 <ShimmerUiContainer className={styles['shimmer-data']} />
@@ -76,8 +89,8 @@ const CenterStaffTrack = () => {
                     setCurrentPage={setCurrentPage}
                     setTableFilter={setTableFilter}
                     tableFilter={tableFilter}
-                    data={finalCenterStaffList}
-                    totalCount={total}
+                    data={finalCenterTrackList}
+                    totalCount={totalCount}
                 />
             )}
 
@@ -85,4 +98,4 @@ const CenterStaffTrack = () => {
         </div>
     );
 };
-export default CenterStaffTrack;
+export default CenterTrack;

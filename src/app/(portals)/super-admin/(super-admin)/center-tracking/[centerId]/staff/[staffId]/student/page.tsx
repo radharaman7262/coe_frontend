@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 
 import { PageHeader, ShimmerUiContainer, Text } from '@/components/index';
 
@@ -13,26 +14,31 @@ import EditIcon from '@/public/assets/svg/chevron-right.svg';
 import { ToastContainer } from 'react-toastify';
 
 import { FontType } from '@/types/typographyCommon';
-import { formatDate, formatTime } from '@/utils/formatDate';
-import { getCenterStudentListType } from '../type';
 
-import { useGetCenterStudentList } from '../queries';
+import { formatDate, formatTime } from '@/utils/formatDate';
 
 import TableUi from './TableUi';
 
 import { CENTRE_TRACKING_TEXT as text } from './constant';
+
+import { getCenterStudentListType } from '../../../../type';
+import { useGetCenterStudentList } from '../../../../queries';
 
 import styles from './styles.module.scss';
 
 const CenterStudentTrack = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
 
+    const { staffId } = useParams<{ staffId: string }>();
+
+    const router = useRouter();
+
     const [tableFilter, setTableFilter] = useState<string>('');
 
     const debouncedFilters = useDebounce(tableFilter, DEBOUNCE_SEARCH_TIME);
 
     const { isLoading, data, isFetching } = useGetCenterStudentList({
-        staffId: '46',
+        staffId,
         page: currentPage,
         limit: 25,
         search: debouncedFilters,
@@ -41,6 +47,10 @@ const CenterStudentTrack = () => {
     const { response } = data || {};
 
     const { data: studentList = [], total = 0 } = response || {};
+
+    const handleRedirection = (item: getCenterStudentListType) => {
+        router.push(`/super-admin/profile/${item?.studentId}`);
+    };
 
     const getCenterStudentList = (results: getCenterStudentListType[]) => {
         const data = results?.map((item) => ({
@@ -90,7 +100,7 @@ const CenterStudentTrack = () => {
                 <EditIcon
                     className={styles['cursor-pointer']}
                     onClick={() => {
-                        // handle click
+                        handleRedirection(item);
                     }}
                 />
             ),
@@ -99,6 +109,7 @@ const CenterStudentTrack = () => {
         return data;
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const finalCenterStudentList = useMemo(() => getCenterStudentList(studentList), [studentList]);
 
     return (

@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 
 type ProfilePageProps = {
     id: string;
-    portal: 'clinicalChecking' | 'therapistChecking';
+    portal: 'clinicalChecking' | 'therapistChecking' | 'superAdminChecking';
 };
 
 const ProfilePage = ({ id, portal }: ProfilePageProps) => (

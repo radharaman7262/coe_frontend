@@ -46,7 +46,11 @@ const AfterLoginHeader = ({ onChangePassword }: Props) => {
         onChangePassword();
     };
 
-    const PageName = pageNameMap[pathname];
+    const matchedKey = Object.keys(pageNameMap)
+        .sort((a, b) => b.length - a.length) // longest match first
+        .find((key) => pathname.includes(key));
+
+    const PageName = matchedKey ? pageNameMap[matchedKey] : '';
 
     const getDetails = async () => {
         const user = (await getUserDetails()) || {};

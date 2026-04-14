@@ -13,14 +13,13 @@ import { FontType, ButtonVariant } from '@/types/typographyCommon';
 
 import { RoleType } from '@/types/roleType';
 
-import { useGetRoleMasterList } from '@/app/(portals)/super-admin/(user-management)/role-master/queries';
+import { useGetRoleMasterList } from '@/app/(portals)/super-admin/(super-admin)/(user-management)/role-master/queries';
 
 import { useGetLanguageList } from '@/app/(portals)/queries';
 
-import { useGetSpecializationDropDownList } from '@/app/(portals)/super-admin/center-admin/queries';
-
 import { languageDataType } from '@/app/(portals)/type';
 
+import { useGetSpecializationDropDownList } from '@/app/(portals)/super-admin/(super-admin)/center-admin/queries';
 import {
     INITIAL_STATE as initalState,
     MAX_LENGTHS,

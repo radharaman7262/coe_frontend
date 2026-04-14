@@ -5,6 +5,7 @@ export enum AppRoutes {
     SUPER_ADMIN_DASHBOARD = 'super-admin/dashboard',
     CENTER_SETUP = 'super-admin/center-setup',
     CENTER_ADMIN = 'super-admin/center-admin',
+    CENTER_TRACKING = 'center-tracking',
     USER_TYPE = 'super-admin/user-type',
     ROLE_MASTER = 'super-admin/role-master',
     MENU_MASTER = 'super-admin/menu-master',

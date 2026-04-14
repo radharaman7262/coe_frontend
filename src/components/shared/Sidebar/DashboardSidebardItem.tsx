@@ -32,7 +32,7 @@ const SidebarItem = ({ label, active, icon: Icon, open, showIcon, link }: Sideba
 
     const pathname = usePathname();
 
-    const selectedItem = pathname === link ? styles['sidebar-item-selected'] : null;
+    const selectedItem = link && pathname.startsWith(link) ? styles['sidebar-item-selected'] : null;
 
     return (
         <div className={cx(styles['sidebar-item'], active && styles.active, selectedItem)}>

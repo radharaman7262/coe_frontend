@@ -38,7 +38,7 @@ const StudentComponentPage = (props: StudentPageComponentType) => {
         id,
     } = props;
 
-    const giveAccessToUser = portal !== 'clinicalChecking';
+    const giveAccessToUser = portal !== 'clinicalChecking' && portal !== 'superAdminChecking';
 
     return (
         <div className={styles['profile-page-wrapper']}>

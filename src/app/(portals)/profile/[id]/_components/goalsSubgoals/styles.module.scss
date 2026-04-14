@@ -25,7 +25,11 @@
 }
 
 .no-data {
-    @include flex-center(normal, center, center);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
     height: 120px;
 }
 

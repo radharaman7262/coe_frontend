@@ -14,7 +14,7 @@ import { KeyboardEvent } from '@/constant/enumConstant';
 import { FontType, ButtonVariant } from '@/types/typographyCommon';
 import { RoleType } from '@/types/roleType';
 
-import { useGetRoleMasterList } from '@/app/(portals)/super-admin/(user-management)/role-master/queries';
+import { useGetRoleMasterList } from '@/app/(portals)/super-admin/(super-admin)/(user-management)/role-master/queries';
 
 import { useGetCenterDropDownList, useGetSpecializationDropDownList } from '../../../queries';
 import { useUserCenterAdminAction } from '../../../userCenterAdminAction';

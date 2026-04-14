@@ -8,6 +8,8 @@ export const pageNameMap: Record<string, string> = {
     '/super-admin/menu-master': 'Menu Master',
     '/super-admin/menu-mapping': 'Menu Mapping',
     '/super-admin/center-tracking': 'Center Tracking',
+    '/staff': 'Staff',
+    '/student': 'Student',
     '/admin/dashboard': 'Dashboard',
     '/admin/student-list': 'Student List',
     '/admin/staff-list': 'Staff List',

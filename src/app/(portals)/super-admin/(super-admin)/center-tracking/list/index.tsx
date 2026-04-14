@@ -45,7 +45,7 @@ const CenterTrack = () => {
     const { results = [], totalCount = 0 } = response || {};
 
     const handleRedirection = (item: getCenterTrackListType) => {
-        router.push(`${AppRoutes.CENTER_TRACKING}/${item?.centerId}/staff`);
+        router.push(`${AppRoutes.CENTER_TRACKING}/${item?.centerAdminId}/staff`);
     };
 
     const getCenterTrackList = (results: getCenterTrackListType[]) => {

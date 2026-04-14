@@ -46,11 +46,11 @@ const AfterLoginHeader = ({ onChangePassword }: Props) => {
         onChangePassword();
     };
 
-    const matchedKey = Object.keys(pageNameMap)
-        .sort((a, b) => b.length - a.length)
-        .find((key) => pathname.includes(key));
+    const matchedKeys = Object.keys(pageNameMap)
+        .filter((key) => key && pathname.includes(key))
+        .sort((a, b) => pathname.indexOf(a) - pathname.indexOf(b));
 
-    const PageName = matchedKey ? pageNameMap[matchedKey] : '';
+    const PageName = [...new Set(matchedKeys.map((key) => pageNameMap[key]))].join(' > ');
 
     const getDetails = async () => {
         const user = (await getUserDetails()) || {};

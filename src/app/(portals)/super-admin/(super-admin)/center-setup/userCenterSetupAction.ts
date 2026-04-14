@@ -48,6 +48,7 @@ export const useUserCenterSetupActions = ({
             await Promise.all([
                 queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_ADMIN] }),
                 queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_LIST] }),
+                queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_TRACK] }),
             ]);
 
             if (payload.type !== 'status') {

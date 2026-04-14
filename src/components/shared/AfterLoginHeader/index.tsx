@@ -2,7 +2,6 @@
 
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { ToastContainer } from 'react-toastify';
 
 import BoldDropDown from '@public/assets/svg/bold-dropdown.svg';
 import LogoutIcon from '@/public/assets/svg/log-out-icon.svg';
@@ -28,10 +27,11 @@ interface Props {
 const AfterLoginHeader = ({ onChangePassword }: Props) => {
     const [userDetails, setUserDetails] = useState<LoggedUserDetailType | null>(null);
 
-    const pathname = usePathname();
     const [open, setOpen] = useState(false);
+
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
+    const pathname = usePathname();
     const dropdownRef = useRef<HTMLDivElement | null>(null);
 
     useClickOutside(dropdownRef, () => setOpen(false));
@@ -47,7 +47,7 @@ const AfterLoginHeader = ({ onChangePassword }: Props) => {
     };
 
     const matchedKey = Object.keys(pageNameMap)
-        .sort((a, b) => b.length - a.length) // longest match first
+        .sort((a, b) => b.length - a.length)
         .find((key) => pathname.includes(key));
 
     const PageName = matchedKey ? pageNameMap[matchedKey] : '';
@@ -133,8 +133,6 @@ const AfterLoginHeader = ({ onChangePassword }: Props) => {
             </div>
 
             <LogoutModal open={isLogoutModalOpen} setOpen={setIsLogoutModalOpen} />
-
-            <ToastContainer />
         </>
     );
 };

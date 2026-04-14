@@ -1,3 +1,4 @@
+import React from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { showToast } from '@/components/ui/Toaster/constant';
 import { LOADING_TIME_DURATION } from '@/constant/appConstants';
@@ -12,7 +13,13 @@ type ApiError = {
     message?: string;
 };
 
-export const useChangePassword = ({ setLoader }: { setLoader: (val: boolean) => void }) =>
+export const useChangePassword = ({
+    setLoader,
+    setOpen,
+}: {
+    setLoader: (val: boolean) => void;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) =>
     useMutation({
         mutationFn: changePasswordApiCall,
 
@@ -25,6 +32,10 @@ export const useChangePassword = ({ setLoader }: { setLoader: (val: boolean) => 
                 type: 'success',
                 message: data?.message || 'Password updated successfully',
             });
+
+            setTimeout(() => {
+                setOpen(false);
+            }, LOADING_TIME_DURATION);
         },
 
         onError(error: ApiError) {

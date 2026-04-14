@@ -33,7 +33,7 @@ const ChangePassword = ({ open, setOpen }: Props) => {
                 <CrossIcon className={styles['cross-icon']} onClick={handleClose} />
             </div>
             <div className={styles['drawer-middle']}>
-                <ChangePasswordForm />
+                <ChangePasswordForm setOpen={setOpen} />
             </div>
         </Drawer>
     );

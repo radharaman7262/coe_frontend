@@ -19,9 +19,8 @@ import { formatDate, formatTime } from '@/utils/formatDate';
 
 import TableUi from './TableUi';
 
-import { CENTRE_TRACKING_TEXT as text } from './constant';
-
 import { getCenterStudentListType } from '../../../../type';
+
 import { useGetCenterStudentList } from '../../../../queries';
 
 import styles from './styles.module.scss';
@@ -46,7 +45,7 @@ const CenterStudentTrack = () => {
 
     const { response } = data || {};
 
-    const { data: studentList = [], total = 0 } = response || {};
+    const { data: studentList = [], total = 0, staffName, specializationName } = response || {};
 
     const handleRedirection = (item: getCenterStudentListType) => {
         router.push(`/super-admin/profile/${item?.studentId}`);
@@ -114,7 +113,7 @@ const CenterStudentTrack = () => {
 
     return (
         <div className={styles['assessment-page']}>
-            <PageHeader title={text.centerName} description={text.simplifyCenter} />
+            <PageHeader title={staffName || '_'} description={specializationName || ''} />
 
             {isLoading || isFetching ? (
                 <ShimmerUiContainer className={styles['shimmer-data']} />

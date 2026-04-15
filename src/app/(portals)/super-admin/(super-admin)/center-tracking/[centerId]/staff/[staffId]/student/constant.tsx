@@ -7,8 +7,6 @@ export const COLUMNS = [
 ];
 
 export const CENTRE_TRACKING_TEXT = {
-    centerName: 'lorem Ipsum',
-    simplifyCenter: 'Clinical psychologist.',
     clear: 'Clear',
     searchByStaffName: 'Search by Student name',
 };

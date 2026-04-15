@@ -46,7 +46,7 @@ const CenterStaffTrack = () => {
 
     const { response } = data || {};
 
-    const { data: staffList = [], total = 0 } = response || {};
+    const { data: staffList = [], total = 0, centerName } = response || {};
 
     const getCenterStaffList = (results: getCenterStaffListType[]) => {
         const data = results?.map((item) => ({
@@ -75,7 +75,7 @@ const CenterStaffTrack = () => {
 
     return (
         <div className={styles['assessment-page']}>
-            <PageHeader title={text.centerName} description={text.simplifyCenter} />
+            <PageHeader title={centerName || '_'} description={text.simplifyCenter} />
 
             {isLoading || isFetching ? (
                 <ShimmerUiContainer className={styles['shimmer-data']} />

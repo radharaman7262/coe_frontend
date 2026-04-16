@@ -24,6 +24,7 @@ import { getCenterStudentListType } from '../../../../type';
 import { useGetCenterStudentList } from '../../../../queries';
 
 import styles from './styles.module.scss';
+import { STATUS_LABEL_MAP } from './constant';
 
 const CenterStudentTrack = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -54,6 +55,7 @@ const CenterStudentTrack = () => {
     const getCenterStudentList = (results: getCenterStudentListType[]) => {
         const data = results?.map((item) => ({
             ...item,
+
             studentID: (
                 <div className={styles['capsule-container']}>{`STU-${item?.studentId}`}</div>
             ),
@@ -93,7 +95,11 @@ const CenterStudentTrack = () => {
                 </div>
             ),
 
-            sessionStatus: item?.status,
+            sessionStatus: (
+                <div className={styles[`status-${item?.status}`] || ''}>
+                    {STATUS_LABEL_MAP[item?.status] ?? 'Unknown'}{' '}
+                </div>
+            ),
 
             action: (
                 <EditIcon
@@ -113,7 +119,7 @@ const CenterStudentTrack = () => {
 
     return (
         <div className={styles['assessment-page']}>
-            <PageHeader title={staffName || '_'} description={specializationName || ''} />
+            <PageHeader title={staffName || ' '} description={specializationName || ''} />
 
             {isLoading || isFetching ? (
                 <ShimmerUiContainer className={styles['shimmer-data']} />

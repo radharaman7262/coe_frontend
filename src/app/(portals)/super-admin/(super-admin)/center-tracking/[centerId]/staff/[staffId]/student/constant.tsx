@@ -10,3 +10,15 @@ export const CENTRE_TRACKING_TEXT = {
     clear: 'Clear',
     searchByStaffName: 'Search by Student name',
 };
+
+export enum AssessmentStatusType {
+    PENDING = '0',
+    DONE = '1',
+    SCHEDULED = '2',
+}
+
+export const STATUS_LABEL_MAP: Record<string, string> = {
+    [AssessmentStatusType.PENDING]: 'Pending',
+    [AssessmentStatusType.DONE]: 'Done',
+    [AssessmentStatusType.SCHEDULED]: 'Scheduled',
+};

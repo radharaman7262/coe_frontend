@@ -1,5 +1,10 @@
 export enum HomeEnvironmentFormKeys {
-    PATTERNS_OF_PARENTAL_FUNCTIONING = 'data',
+    PATTERNS_OF_PARENTAL_FUNCTIONING = 'parental',
+    CONSISTENCY = 'consistency',
+    DISCIPLINE = 'discipline',
+    APPROVAL = 'approval',
+    PROTECTIVENESS = 'protectiveness',
+    DEVIANCE = 'deviance',
     CHILD_EXPECTATIONS = 'childExpectation',
     FAMILY_DYNAMICS = 'familyDynamics',
 }

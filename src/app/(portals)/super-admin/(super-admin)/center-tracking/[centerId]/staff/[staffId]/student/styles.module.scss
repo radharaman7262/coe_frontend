@@ -87,3 +87,33 @@
 .email {
     color: $gray-400;
 }
+
+.status-0 {
+    padding: 2px 8px;
+    border-radius: 16px;
+    background-color: $orange-0;
+    color: $orange-700;
+    text-align: center;
+    cursor: pointer;
+    width: 92px;
+}
+
+.status-1 {
+    padding: 2px 8px;
+    border-radius: 16px;
+    background-color: $green-0;
+    color: $green-700;
+    text-align: center;
+    cursor: pointer;
+    width: 92px;
+}
+
+.status-2 {
+    padding: 2px 8px;
+    border-radius: 16px;
+    background-color: $gray-100;
+    color: $black;
+    text-align: start;
+    cursor: pointer;
+    width: 92px;
+}

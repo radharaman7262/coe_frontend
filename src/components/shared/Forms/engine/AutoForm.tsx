@@ -34,7 +34,7 @@ export const AutoForm = <T extends string>(props: AutoFormProps<T>) => {
         formGridClassName,
         tableRowClassName,
         dropdownClassName,
-        labelContainerClassName
+        labelContainerClassName,
     } = props;
 
     const { values, setValue, handleSubmit, isLoading, isFetching, percentage } = formHook;

@@ -62,7 +62,7 @@ const TableField = <T extends string>(props: TableFieldProps<T>) => {
                             {/* First column → label */}
                             <Text className={styles.label}>{item.label}</Text>
 
-                            {/* 🔥 Dynamic columns */}
+                            {/* Dynamic columns */}
                             {field.columns.slice(1).map((col) => {
                                 const cellValue = tableValue[item.key]?.[col.key];
 

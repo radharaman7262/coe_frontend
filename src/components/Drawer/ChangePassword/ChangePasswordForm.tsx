@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, ChangeEvent } from 'react';
+import React, { useRef, useState, ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 import Text from '@/components/ui/Text';
 import Input from '@/components/ui/Input';
@@ -21,7 +21,8 @@ import {
 import { PASSWORD_PATTERN } from '@/utils/regex';
 
 import { ToastContainer } from 'react-toastify';
-import { CHANGE_PASSWORD_PAGE_DATA as text, INITIAL_STATE } from './constant';
+
+import { CHANGE_PASSWORD_PAGE_DATA as text } from './constant';
 
 import { useChangePassword } from './mutation';
 
@@ -29,12 +30,13 @@ import styles from './styles.module.scss';
 
 interface changepassWordFormType {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    formValues: ChangePasswordFormType;
+    setFormValues: Dispatch<SetStateAction<ChangePasswordFormType>>;
 }
 
 const ChangePasswordForm = (props: changepassWordFormType) => {
-    const { setOpen } = props;
+    const { setOpen, formValues, setFormValues } = props;
 
-    const [formValues, setFormValues] = useState<ChangePasswordFormType>(INITIAL_STATE);
     const [errorMessages, setErrorMessages] = useState<ErrorMessagesType>({});
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState({
@@ -110,6 +112,7 @@ const ChangePasswordForm = (props: changepassWordFormType) => {
             confirmPassword: formValues.confirmPassword,
         });
     };
+
     const isFormValid =
         formValues.oldPassword.trim() !== '' &&
         formValues.newPassword.trim() !== '' &&

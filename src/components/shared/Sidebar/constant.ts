@@ -17,25 +17,28 @@ export interface MenuItem {
 }
 
 export const buildMenuTree = (list: MenuItem[]): MenuItem[] => {
+    const filteredList = list.filter((item) => item.menuName && item.menuName.trim() !== '');
+
     const map = new Map<string, MenuItem>();
     const roots: MenuItem[] = [];
 
-    list.forEach((item) => {
+    filteredList.forEach((item) => {
         map.set(String(item.menuId), {
             ...item,
             children: [],
         });
     });
 
-    list.forEach((item) => {
+    // Step 3: Build tree
+    filteredList.forEach((item) => {
         const current = map.get(String(item.menuId))!;
 
         if (item.parentId === null) {
             roots.push(current);
         } else {
             const parent = map.get(String(item.parentId));
-            if (parent?.children) {
-                parent.children.push(current);
+            if (parent) {
+                parent.children!.push(current);
             }
         }
     });

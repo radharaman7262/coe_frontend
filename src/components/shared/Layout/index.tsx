@@ -10,6 +10,10 @@ import { AssignedMenuType } from '@/types/assignedMenuType';
 
 import ChangePassword from '@/components/Drawer/ChangePassword';
 
+import { ChangePasswordFormType } from '@/types/changePasswordFormType';
+
+import { UPDATE_PASSWORD_INITIAL_STATE } from '@/components/Drawer/ChangePassword/constant';
+
 import { ICON_MAP } from './constant';
 
 import styles from './styles.module.scss';
@@ -20,9 +24,21 @@ interface ClientLayoutProps {
 
 const ClientLayout = ({ children }: ClientLayoutProps) => {
     const [userMenuList, setUserMenuList] = useState<AssignedMenuType[]>([]);
-    const [openChangePasswordDrawer, setOpenChangePasswordDrawer] = useState(false);
-    const [loading, setLoading] = useState(true);
+
+    const [openChangePasswordDrawer, setOpenChangePasswordDrawer] = useState<boolean>(false);
+
+    const [loading, setLoading] = useState<boolean>(true);
+
     const [error, setError] = useState<string | null>(null);
+
+    const [formValuesUpdatePass, setFormValuesUpdatePass] = useState<ChangePasswordFormType>(
+        UPDATE_PASSWORD_INITIAL_STATE,
+    );
+
+    const handleChangePasswordDrawer = () => {
+        setFormValuesUpdatePass(UPDATE_PASSWORD_INITIAL_STATE);
+        setOpenChangePasswordDrawer(true);
+    };
 
     useEffect(() => {
         const fetchMenu = async () => {
@@ -80,11 +96,16 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
             </aside>
 
             <div className={styles.header}>
-                <AfterLoginHeader onChangePassword={() => setOpenChangePasswordDrawer(true)} />
+                <AfterLoginHeader onChangePassword={() => handleChangePasswordDrawer()} />
 
                 <main className={styles['main-children']}>{children}</main>
             </div>
-            <ChangePassword open={openChangePasswordDrawer} setOpen={setOpenChangePasswordDrawer} />
+            <ChangePassword
+                open={openChangePasswordDrawer}
+                setOpen={setOpenChangePasswordDrawer}
+                formValues={formValuesUpdatePass}
+                setFormValues={setFormValuesUpdatePass}
+            />
         </div>
     );
 };

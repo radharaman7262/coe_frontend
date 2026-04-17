@@ -75,6 +75,7 @@ const StudentDrawerController = ({
         formData.append('districtName', parentData.district?.name ?? '');
         formData.append('blockId', String(parentData.block?.id ?? 0));
         formData.append('blockName', parentData.block?.name ?? '');
+        formData.append('address', parentData.addressLine ?? '');
 
         if (parentData.files && parentData.files.length > 0) {
             parentData.files.forEach((file) => {

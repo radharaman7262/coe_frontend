@@ -50,6 +50,8 @@ interface ChildInformationFormProps {
         fatherOccupation: string;
         motherOccupation: string;
         status: string;
+
+        briefHistory: string;
     };
 }
 
@@ -125,6 +127,8 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
 
             [ChildInformationFormKeys.PREPETUATING_FACTORS]:
                 studentDetail.perpetuatingFactors || '',
+
+            [ChildInformationFormKeys.BRIEF_HISTORY]: studentDetail.briefHistory || '',
         }));
     }, [studentDetail]);
 
@@ -214,6 +218,8 @@ const ChildInformationForm = (props: ChildInformationFormProps) => {
                 formData[ChildInformationFormKeys.MOTHER_EDUCATION],
             [ChildInformationFormKeys.COURSE]: formData[ChildInformationFormKeys.COURSE],
             [ChildInformationFormKeys.ADDRESS]: formData[ChildInformationFormKeys.ADDRESS],
+            [ChildInformationFormKeys.BRIEF_HISTORY]:
+                formData[ChildInformationFormKeys.BRIEF_HISTORY],
         };
 
         mutate(payload, {

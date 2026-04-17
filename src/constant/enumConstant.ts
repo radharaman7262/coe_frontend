@@ -15,4 +15,5 @@ export enum TOASTER_STATUS {
 export enum AuthDrawerStep {
     LOGIN = 'LOGIN',
     ROLE_SELECTION = 'ROLE_SELECTION',
+    FORGOT_PASSWORD_SCREEN = 'FORGOT_PASSWORD_SCREEN',
 }

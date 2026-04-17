@@ -14,7 +14,7 @@ export const CHANGE_PASSWORD_PAGE_DATA = {
     atleast1specialcharacter: 'At least 1 special character (@, #, $, %, etc.)',
 };
 
-export const INITIAL_STATE = {
+export const UPDATE_PASSWORD_INITIAL_STATE = {
     [ChangePasswordFormKeys.OLD_PASSWORD]: '',
     [ChangePasswordFormKeys.NEW_PASSWORD]: '',
     [ChangePasswordFormKeys.CONFIRM_PASSWORD]: '',

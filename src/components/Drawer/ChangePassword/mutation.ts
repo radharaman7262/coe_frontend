@@ -28,9 +28,15 @@ export const useChangePassword = ({
         },
 
         onSuccess(data) {
+            const { status, message } = data || {};
+
+            if (!status) {
+                throw new Error(message);
+            }
+
             showToast({
                 type: 'success',
-                message: data?.message || 'Password updated successfully',
+                message: message || 'Password updated successfully',
             });
 
             setTimeout(() => {

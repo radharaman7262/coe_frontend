@@ -300,6 +300,7 @@ const CLP_COMMUNICATION_EXAMINATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/clp-comm
 /* Change Password */
 
 const CHANGE_PASSWORD_ENDPOINT = `${API_URL}/change-password`;
+const FORGOT_PASSWORD = `${API_URL}/forgot`;
 
 export {
     LOGIN_ENDPOINT,
@@ -488,4 +489,5 @@ export {
     CENTER_STAFF_LIST,
     CENTER_STUDENT_LIST,
     CHANGE_PASSWORD_ENDPOINT,
+    FORGOT_PASSWORD,
 };

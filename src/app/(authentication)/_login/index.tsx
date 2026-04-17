@@ -11,6 +11,7 @@ import { LoggedRoleType } from '@/types/roleType';
 
 import LoginForm from './LoginForm';
 import RoleSelection from './RoleSelection';
+import ForgotEmail from './_forgotPassword/ForgotEmail';
 
 interface LoginPropsType {
     openLoginDrawer: boolean;
@@ -57,6 +58,8 @@ const Login = ({
                         formValues={formValues}
                     />
                 );
+            case AuthDrawerStep.FORGOT_PASSWORD_SCREEN:
+                return <ForgotEmail />;
 
             default:
                 return null;

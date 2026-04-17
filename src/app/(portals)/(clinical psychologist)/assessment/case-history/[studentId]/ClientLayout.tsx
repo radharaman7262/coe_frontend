@@ -36,7 +36,7 @@ const ClientLayout = (props: ClientLayoutProps) => {
         const user = getClientUserDetails();
 
         if (user) {
-            setSpecialization(user?.userSpecializations?.name || '');
+            setSpecialization(user?.userSpecializations?.[0]?.name || '');
         }
     }, []);
 

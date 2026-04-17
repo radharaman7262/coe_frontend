@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Button, Text } from '@/components';
 
@@ -25,6 +25,10 @@ interface ChildPropsType {
 }
 
 const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsType) => {
+    const [udiseError, setUdiseError] = useState('');
+
+    const [isUdiseSuccess, setIsUdiseSuccess] = useState<boolean | null>(null);
+
     const isFormValid = useMemo(() => {
         const schoolTypeName = formValues.schoolType?.name;
 
@@ -42,9 +46,11 @@ const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsTyp
             !!formValues.difficultiesFaced?.trim() &&
             formValues.difficultiesFaced.trim().length >= 10 &&
             (isNoOrHome ? true : isSchoolNameValid) &&
-            (isGovtOrPvt ? isGradeValid : true)
+            (isGovtOrPvt ? isGradeValid : true) &&
+            !udiseError?.length &&
+            isUdiseSuccess
         );
-    }, [formValues]);
+    }, [formValues, udiseError, isUdiseSuccess]);
 
     return (
         <>
@@ -69,6 +75,10 @@ const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsTyp
                 <ChildInformationData
                     formValues={formValues}
                     setFormValues={setFormValues}
+                    udiseError={udiseError}
+                    setUdiseError={setUdiseError}
+                    isUdiseSuccess={isUdiseSuccess}
+                    setIsUdiseSuccess={setIsUdiseSuccess}
                     setUdiseValid={() => {}}
                 />
             </div>

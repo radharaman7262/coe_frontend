@@ -39,6 +39,7 @@ const SmallTableBody = (props: SmallTableBodyProps) => {
                         <Text
                             color='text-idle'
                             font={[FontType.text_xxs_medium, FontType.text_xxs_medium]}
+                            className={styles['text-span-align']}
                         >
                             {col.header}
                         </Text>
@@ -67,6 +68,7 @@ const SmallTableBody = (props: SmallTableBodyProps) => {
                                         ? [FontType.text_xs_semibold, FontType.text_xs_semibold]
                                         : [FontType.text_xs_medium, FontType.text_xs_medium]
                                 }
+                                className={styles['text-span-align']}
                             >
                                 {row[col.accessor] || 'N/A'}
                             </Text>

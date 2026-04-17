@@ -16,6 +16,10 @@
     font-size: 13px;
     color: #667085;
     margin-bottom: 12px;
+    position: sticky;
+    background: white;
+    top: 0;
+    z-index: 99999;
 }
 
 .row {
@@ -43,4 +47,8 @@
 .box-position-width {
     width: 50px;
     word-wrap: break-word;
+}
+
+.text-span-align {
+    word-break: break-all;
 }

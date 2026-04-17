@@ -35,7 +35,7 @@ const page = async ({
 
     const parsedUser = userCookie?.value ? JSON.parse(decodeURIComponent(userCookie.value)) : null;
 
-    const specializationName = parsedUser?.userSpecializations?.name;
+    const specializationName = parsedUser?.userSpecializations?.[0]?.name;
 
     let apiResponse;
 

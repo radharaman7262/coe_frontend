@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { BasicDatePicker, Dropdown, Input, Text } from '@/components/index';
 import { Textarea } from '@/components/ui/TextArea';
@@ -28,15 +28,26 @@ interface Props {
     formValues: FormValues;
     setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
     setUdiseValid: React.Dispatch<React.SetStateAction<boolean>>;
+    udiseError: string;
+    setUdiseError: React.Dispatch<React.SetStateAction<string>>;
+    isUdiseSuccess: boolean | null;
+    setIsUdiseSuccess: React.Dispatch<React.SetStateAction<boolean | null>>;
 }
 
-const ChildInformationData = ({ formValues, setFormValues, setUdiseValid }: Props) => {
-    const [errors, setErrors] = React.useState<Partial<Record<ChildFormKeys, string>>>({});
-    const [udiseError, setUdiseError] = React.useState('');
-    const [udiseApiMessage, setUdiseApiMessage] = React.useState('');
-    const [isUdiseSuccess, setIsUdiseSuccess] = React.useState<boolean | null>(null);
+const ChildInformationData = ({
+    formValues,
+    setFormValues,
+    setUdiseValid,
+    udiseError,
+    setUdiseError,
+    isUdiseSuccess,
+    setIsUdiseSuccess,
+}: Props) => {
+    const [errors, setErrors] = useState<Partial<Record<ChildFormKeys, string>>>({});
 
-    const prevSchoolTypeRef = React.useRef(formValues.schoolType);
+    const [udiseApiMessage, setUdiseApiMessage] = useState('');
+
+    const prevSchoolTypeRef = useRef(formValues.schoolType);
 
     const { data: grades = [], isLoading: gradeLoading } = useGradeList();
 
@@ -83,6 +94,7 @@ const ChildInformationData = ({ formValues, setFormValues, setUdiseValid }: Prop
                 });
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [school, formValues.udiseCode, setFormValues]);
 
     const handleChange =
@@ -174,6 +186,7 @@ const ChildInformationData = ({ formValues, setFormValues, setUdiseValid }: Prop
         }
 
         prevSchoolTypeRef.current = current;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formValues.schoolType, setFormValues]);
 
     const getUdiseHelperText = (isUdiseSuccess: boolean | null) => {

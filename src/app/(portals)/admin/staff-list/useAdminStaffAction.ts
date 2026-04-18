@@ -32,8 +32,8 @@ export const useUserAdminStaffAction = ({
             }
 
             const messageMap = {
-                create: 'Center admin created successfully',
-                update: 'Center admin Updated Successfully',
+                create: 'Staff created successfully',
+                update: 'Staff Updated Successfully',
                 status:
                     payload.type === 'status' && payload.status === StatusNumberString.ACTIVE
                         ? 'Activated Successfully'

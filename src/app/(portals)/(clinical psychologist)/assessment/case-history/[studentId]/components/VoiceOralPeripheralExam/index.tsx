@@ -31,7 +31,7 @@ const VoiceOralPeripheralExam = () => {
         vegetativeSkills: {},
     });
 
-    const [percentage, setPercentage] = useState(0);
+    // const [percentage, setPercentage] = useState(0);
     const [loader, setLoader] = useState(false);
 
     const [ddk, setDdk] = useState('');
@@ -122,10 +122,10 @@ const VoiceOralPeripheralExam = () => {
         setDdk(data.function?.ddk || '');
     };
 
-    useEffect(() => {
-        const percent = calculatePercentage(form);
-        setPercentage(percent);
-    }, [form, ddk]);
+    // useEffect(() => {
+    //     const percent = calculatePercentage(form);
+    //     setPercentage(percent);
+    // }, [form, ddk]);
 
     useEffect(() => {
         if (response?.length) {
@@ -252,14 +252,14 @@ const VoiceOralPeripheralExam = () => {
             </div>
             <div className={styles.footer}>
                 <div className={styles.actions}>
-                    <Text
+                    {/* <Text
                         tagType='span'
                         font={[FontType.text_sm_bold, FontType.text_sm_bold]}
                         color='dark-blue'
                         className={styles.progress}
                     >
                         {percentage}%
-                    </Text>
+                    </Text> */}
                     <Button
                         label='save'
                         StartIcon={<DocIcon />}

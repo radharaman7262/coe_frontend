@@ -5,12 +5,12 @@ import { useParams, useSearchParams } from 'next/navigation';
 
 import DocIcon from '@public/assets/svg/doc-icon.svg';
 
-import { Button, Dropdown, Input, Text } from '@/components';
+import { Button, Dropdown, Input } from '@/components';
 
 import { useAppMutation } from '@/hooks/useAppMutation';
 import { QueryKeys } from '@/utils/queryKeys';
 
-import { ButtonVariant, FontType } from '@/types/typographyCommon';
+import { ButtonVariant } from '@/types/typographyCommon';
 
 import { useGetCaseHistoryFormDetails } from '../../../queries';
 
@@ -66,8 +66,6 @@ const BalanceForm = () => {
             },
         }));
     };
-
-    console.warn("Bug")
 
     const calculatePercentage = () => {
         const totalSections = Object.keys(form).length;
@@ -148,14 +146,14 @@ const BalanceForm = () => {
             </div>
             <div className={styles.footer}>
                 <div className={styles.actions}>
-                    <Text
+                    {/* <Text
                         tagType='span'
                         font={[FontType.text_sm_bold, FontType.text_sm_bold]}
                         color='dark-blue'
                         className={styles.progress}
                     >
                         {calculatePercentage()} %
-                    </Text>
+                    </Text> */}
 
                     <Button
                         label='Save'

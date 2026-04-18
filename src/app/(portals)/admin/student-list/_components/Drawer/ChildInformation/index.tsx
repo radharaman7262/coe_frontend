@@ -46,11 +46,9 @@ const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsTyp
             !!formValues.difficultiesFaced?.trim() &&
             formValues.difficultiesFaced.trim().length >= 10 &&
             (isNoOrHome ? true : isSchoolNameValid) &&
-            (isGovtOrPvt ? isGradeValid : true) &&
-            !udiseError?.length &&
-            isUdiseSuccess
+            (isGovtOrPvt ? isGradeValid : true)
         );
-    }, [formValues, udiseError, isUdiseSuccess]);
+    }, [formValues]);
 
     return (
         <>

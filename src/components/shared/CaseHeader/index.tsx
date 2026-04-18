@@ -56,7 +56,11 @@ const CaseHeader = () => {
     };
 
     const handleback = () => {
-        router.back();
+        const route = ASSESSMENT_ROUTE_MAPPING[name];
+
+        if (route) {
+            router.push(`/${route}`);
+        }
     };
 
     return (

@@ -388,14 +388,14 @@ const CommunicationProfile = () => {
 
             <div className={styles.footer}>
                 <div className={styles.actions}>
-                    <Text
+                    {/* <Text
                         tagType='span'
                         font={[FontType.text_sm_bold, FontType.text_sm_bold]}
                         color='dark-blue'
                         className={styles.progress}
                     >
                         {`${calculatePercentage()}%`}
-                    </Text>
+                    </Text> */}
                     <Button
                         label='save'
                         StartIcon={<DocIcon />}

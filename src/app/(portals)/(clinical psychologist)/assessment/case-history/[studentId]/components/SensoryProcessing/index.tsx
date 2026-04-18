@@ -196,14 +196,14 @@ const SensoryProcessing = () => {
                 </div>
             </div>
             <div className={styles.footer}>
-                <Text
+                {/* <Text
                     tagType='p'
                     color='dark-blue'
                     font={[FontType.text_sm_bold, FontType.text_sm_bold]}
                     className={styles.progress}
                 >
                     {percentage} %
-                </Text>
+                </Text> */}
                 <Button
                     label='Save'
                     variant={ButtonVariant.SOLID}

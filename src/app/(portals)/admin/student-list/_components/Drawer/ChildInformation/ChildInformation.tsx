@@ -204,7 +204,6 @@ const ChildInformationData = ({
 
         return '';
     };
-
     return (
         <div className={styles['container-wrapper']}>
             <div className={styles['drawer-form']}>

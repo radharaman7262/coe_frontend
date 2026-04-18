@@ -61,7 +61,6 @@ const OTChildInformationForm = ({ studentDetail }: ChildInformationFormProps) =>
             age: studentDetail.age ? dayjs(studentDetail.age) : null,
             dob: studentDetail.dob ? dayjs(studentDetail.dob) : null,
             diagnosis: studentDetail.diagnosis || '',
-
             referralSource: studentDetail.referralSource || '',
             informant: studentDetail.informant?.type || '',
             informantOther: studentDetail.informant?.other || '',

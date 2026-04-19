@@ -30,7 +30,7 @@ const CaseHistoryItem = (props: Props) => {
     const id = searchParams.get('id');
 
     const handleClick = () => {
-        router.push(
+        router.replace(
             // eslint-disable-next-line max-len
             `/${AppRoutes.ASSESSMENT_CASE_HISTORY}/${studentId}?id=${section.id}&sectionId=${parentId}&p_id=${section.parentId}`,
         );

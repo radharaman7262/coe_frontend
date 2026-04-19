@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 import { toast } from 'react-toastify';
+import { useQueryClient } from '@tanstack/react-query';
 
 import Modal from '@/components/shared/Modal';
 import { Button, Checkbox, Text } from '@/components';
@@ -14,6 +16,7 @@ import { ButtonVariant, FontType } from '@/types/typographyCommon';
 
 import { LARGE_MODAL_STYLING } from '@/constant/appConstants';
 
+import { QueryKeys } from '@/utils/queryKeys';
 import { AssessmentItem, SelectAssessmentPayload } from './type';
 
 import { SELECT_ASSESSMENT_TEXT as text } from './constant';
@@ -43,6 +46,10 @@ const SelectAssessmentModal = ({
 }: Props) => {
     const { mutate } = usePostSelectAssessment();
 
+    const router = useRouter();
+
+    const queryClient = useQueryClient();
+
     const handleContinue = () => {
         const selected = data?.filter((item) => item.isSelected === '1');
 
@@ -63,6 +70,10 @@ const SelectAssessmentModal = ({
                 if (result?.status) {
                     onContinue(selected);
                     onClose?.();
+                    router.refresh();
+                    queryClient.invalidateQueries({
+                        queryKey: [QueryKeys.CASE_HISTORY_SPEECH_ASSESSMENT],
+                    });
                 }
             },
             onError: (error) => {

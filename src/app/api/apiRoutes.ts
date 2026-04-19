@@ -244,6 +244,7 @@ const SUBMIT_MATHEMATICAL_SKILLS_ENDPOINT = `${SPECIAL_EDUCATOR_URL}/sec-mathema
 const SPEECH_THERAPIST_URL = `${API_URL}/speech-therapist`;
 const BEHAVIORAL_OBSERVATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/gsl-behavioral-observation`;
 const DIAGNOSTIC_FORMULATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/gsl-diagnostic-formulation`;
+const SPEECH_VOICE_ORO_MOTOR_PROFILE_ENDPOINT = `${SPEECH_THERAPIST_URL}/gsl-speech-voice-oro-motor-profile`;
 const PROVISIONAL_DIAGNOSIS_ENDPOINT = `${SPEECH_THERAPIST_URL}/gsl-provisional-diagnosis`;
 const GSL_FORMAL_TOOLS_ENDPOINT = `${SPEECH_THERAPIST_URL}/gsl-formal-tool-used`;
 const IMPULSE_CONTROLE_ENDPOINT = `${SPEECH_THERAPIST_URL}/gsl-attention-impulse-control-activity-level`;
@@ -490,4 +491,5 @@ export {
     CENTER_STUDENT_LIST,
     CHANGE_PASSWORD_ENDPOINT,
     FORGOT_PASSWORD,
+    SPEECH_VOICE_ORO_MOTOR_PROFILE_ENDPOINT,
 };

@@ -103,6 +103,7 @@ import FluencyInformalFormalTools from './FluencyInformalFormalTools';
 import CPSpeechMotorAssessment from './CPSpeechMotorAssessment';
 import BalanceForm from './Balance';
 import CognitiveSkillAssessment from './CognitiveSkillAssessment';
+import SpeechVoiceOroMotorProfile from './Speechvoiceoromotorprofile';
 // import CommunicationProfile from './CommunicationProfile';
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
@@ -160,6 +161,7 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '158': <BehavioralObservation />,
     '159': <GSLCommunicationProfile />,
     '160': <ImpulseControl />,
+    '161': <SpeechVoiceOroMotorProfile />,
     '162': <GSLSensoryProfile />,
     '163': <GSLFormalTools />,
     '164': <DiagnosticFormulation />,

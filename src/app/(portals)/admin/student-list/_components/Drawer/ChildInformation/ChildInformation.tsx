@@ -16,6 +16,8 @@ import {
 
 import { NO_LEADING_SPACES_REGEX } from '@/utils/regex';
 
+import dayjs from 'dayjs';
+
 import { MAX_LENGTHS, MIN_LENGTHS, DRAWER_DATA as text, VALIDATION_RULES } from './constant';
 
 import { ChildFormKeys, FormValues } from './type';
@@ -59,43 +61,6 @@ const ChildInformationData = ({
             [key]: value,
         }));
     };
-
-    useEffect(() => {
-        const status = school?.data?.status;
-        const response = school?.data?.response;
-        const udiseLength = formValues.udiseCode?.length;
-
-        if (udiseLength === ELEVEN_MAX_LENGTH) {
-            if (status === 1 && response?.length > ZERO_DATA) {
-                const fetchedSchoolName = response?.[0]?.schoolName || '';
-
-                setUdiseApiMessage('School found successfully');
-                setIsUdiseSuccess(true);
-
-                setFormValues((prev) => {
-                    if (prev.schoolName === fetchedSchoolName) return prev;
-
-                    return {
-                        ...prev,
-                        [ChildFormKeys.SCHOOL_NAME]: fetchedSchoolName,
-                    };
-                });
-            } else if (status === ZERO_DATA) {
-                setUdiseApiMessage('Invalid UDISE code');
-                setIsUdiseSuccess(false);
-
-                setFormValues((prev) => {
-                    if (prev.schoolName === '') return prev;
-
-                    return {
-                        ...prev,
-                        schoolName: '',
-                    };
-                });
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [school, formValues.udiseCode, setFormValues]);
 
     const handleChange =
         (field: ChildFormKeys) =>
@@ -204,6 +169,46 @@ const ChildInformationData = ({
 
         return '';
     };
+
+    const maxDate = dayjs().subtract(3, 'year');
+
+    useEffect(() => {
+        const status = school?.data?.status;
+        const response = school?.data?.response;
+        const udiseLength = formValues.udiseCode?.length;
+
+        if (udiseLength === ELEVEN_MAX_LENGTH) {
+            if (status === 1 && response?.length > ZERO_DATA) {
+                const fetchedSchoolName = response?.[0]?.schoolName || '';
+
+                setUdiseApiMessage('School found successfully');
+                setIsUdiseSuccess(true);
+
+                setFormValues((prev) => {
+                    if (prev.schoolName === fetchedSchoolName) return prev;
+
+                    return {
+                        ...prev,
+                        [ChildFormKeys.SCHOOL_NAME]: fetchedSchoolName,
+                    };
+                });
+            } else if (status === ZERO_DATA) {
+                setUdiseApiMessage('Invalid UDISE code');
+                setIsUdiseSuccess(false);
+
+                setFormValues((prev) => {
+                    if (prev.schoolName === '') return prev;
+
+                    return {
+                        ...prev,
+                        schoolName: '',
+                    };
+                });
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [school, formValues.udiseCode, setFormValues]);
+
     return (
         <div className={styles['container-wrapper']}>
             <div className={styles['drawer-form']}>
@@ -257,6 +262,7 @@ const ChildInformationData = ({
                         <BasicDatePicker
                             value={formValues.dateoFBirth}
                             onChange={(date) => updateFormValue(ChildFormKeys.DATE_OF_BIRTH, date)}
+                            maxDate={maxDate}
                         />
                     </div>
                 </div>

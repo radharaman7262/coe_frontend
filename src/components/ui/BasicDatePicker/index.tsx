@@ -47,7 +47,7 @@ type BasicDatePickerProps = DatePickerProps & {
     /**
      * minDate
      */
-    minDate?: Dayjs;
+    maxDate?: Dayjs;
 };
 
 const customStyles = {
@@ -179,7 +179,8 @@ const BasicDatePicker = (props: BasicDatePickerProps) => {
         isDisableFutureDate = true,
         sx: additionalStyles,
         Views,
-        minDate,
+        maxDate,
+        // minDate,
         ...restProps
     } = props;
 
@@ -203,8 +204,9 @@ const BasicDatePicker = (props: BasicDatePickerProps) => {
                         sx={{ ...customStyles, ...additionalStyles }}
                         value={value}
                         disableFuture={isDisableFutureDate}
-                        disablePast={!!minDate}
-                        minDate={minDate}
+                        maxDate={maxDate}
+                        // disablePast={!!minDate}
+                        // minDate={minDate}
                         // slots={{ openPickerIcon: OpenCalenderIcon }}
                         slotProps={
                             {

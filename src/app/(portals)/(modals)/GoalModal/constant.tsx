@@ -1,17 +1,17 @@
-import { THIRTY_MAX_LENGTH, THREE_MIN_LENGTH } from '@/constant/appConstants';
+import { FIFTY_MAX_LENGTH, THREE_MIN_LENGTH } from '@/constant/appConstants';
 
 import { CENTER_NAME_REGEX } from '@/utils/regex';
 
 import { GoalSetupFormKeys } from './type';
 
 export const MAX_LENGTHS: Partial<Record<GoalSetupFormKeys, number>> = {
-    [GoalSetupFormKeys.GOAL_TITLE]: THIRTY_MAX_LENGTH,
+    [GoalSetupFormKeys.GOAL_TITLE]: FIFTY_MAX_LENGTH,
     // [GoalSetupFormKeys.BEHAVIOUR]: THIRTY_MAX_LENGTH,
     [GoalSetupFormKeys.ACCURACY]: THREE_MIN_LENGTH,
 };
 
 export const ERROR_MESSAGES = {
-    goalTitleCreation: 'Goal Title be between 3 to 30 characters.',
+    goalTitleCreation: 'Goal Title be between 3 to 50 characters.',
 };
 
 export const VALIDATION_RULES = {

@@ -85,7 +85,7 @@ const AddNewCentre = ({
             (adminDropDownList ?? []).filter((admin: AdminType) =>
                 (admin?.fullName ?? '')
                     .toLowerCase()
-                    .includes((dropDownFilter ?? '').toLowerCase()),
+                    .startsWith((dropDownFilter ?? '').toLowerCase()),
             ),
         [adminDropDownList, dropDownFilter],
     );

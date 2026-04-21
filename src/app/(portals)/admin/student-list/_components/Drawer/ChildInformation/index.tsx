@@ -39,6 +39,8 @@ const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsTyp
         const isSchoolNameValid = !!formValues.schoolName?.trim();
         const isGradeValid = !!formValues.grade;
 
+        const isUdiseInavalid = udiseError || isUdiseSuccess === false;
+
         return (
             !!formValues.fullName?.trim() &&
             formValues.fullName.trim().length >= 3 &&
@@ -46,9 +48,10 @@ const Child = ({ formValues, setFormValues, onContinue, onclose }: ChildPropsTyp
             !!formValues.difficultiesFaced?.trim() &&
             formValues.difficultiesFaced.trim().length >= 10 &&
             (isNoOrHome ? true : isSchoolNameValid) &&
-            (isGovtOrPvt ? isGradeValid : true)
+            (isGovtOrPvt ? isGradeValid : true) &&
+            !isUdiseInavalid
         );
-    }, [formValues]);
+    }, [formValues, udiseError, isUdiseSuccess]);
 
     return (
         <>

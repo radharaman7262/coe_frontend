@@ -49,6 +49,7 @@ export const useUserCenterAdminAction = ({
                 queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_ADMIN] }),
                 queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_LIST] }),
                 queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_TRACK] }),
+                queryClient.refetchQueries({ queryKey: [QueryKeys.CENTER_ADMIN_DROPDOWN_LIST] }),
             ]);
 
             if (payload.type !== 'status') {

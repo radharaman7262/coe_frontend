@@ -104,7 +104,23 @@ import CPSpeechMotorAssessment from './CPSpeechMotorAssessment';
 import BalanceForm from './Balance';
 import CognitiveSkillAssessment from './CognitiveSkillAssessment';
 import SpeechVoiceOroMotorProfile from './Speechvoiceoromotorprofile';
+import AuditoryProcessing from './AuditoryProcessing';
+import VisualProcessing from './VisualProcessing';
+import VestibularProcessing from './VestibularProcessing';
+import TouchProcessing from './TouchProcessing';
+import MultiSensoryProcessing from './MultiSensoryProcessing';
+import OralSensoryProcessing from './OralSensoryProcessing';
+import SensoryProcessingTone from './ToneSensoryProcessing';
+import ModulationBodyProcessing from './ModulationBodyProcessing';
+import ModulationMovementProcessing from './ModulationMovementBodyProcessing';
+import ModulationMovementSensoryProcessing from './ModulationMovementSensoryProcess';
+import ModulationMovementEmotionalProcessing from './ModulationMovementEmotionalProcess';
+import EmotionalProcessing from './EmotionalSensoryProcess';
+import BehaviouralOutcomeProcessing from './BehaviouralOutcomeProcess';
+import BehaviouralSensoryProcessing from './BehaviouralSensoryProcess';
 // import CommunicationProfile from './CommunicationProfile';
+
+// All Assesments form here import
 
 export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '15': <PrenatalBirthHistory />,
@@ -211,4 +227,18 @@ export const COMPONENT_MAP: Record<string, React.JSX.Element> = {
     '178': <CPCommunicationProfile />,
     '179': <CPSpeechMotorAssessment />,
     '138': <CognitiveSkillAssessment />,
+    '211': <AuditoryProcessing />,
+    '212': <VisualProcessing />,
+    '213': <VestibularProcessing />,
+    '214': <TouchProcessing />,
+    '215': <MultiSensoryProcessing />,
+    '216': <OralSensoryProcessing />,
+    '217': <SensoryProcessingTone />,
+    '218': <ModulationBodyProcessing />,
+    '219': <ModulationMovementProcessing />,
+    '220': <ModulationMovementSensoryProcessing />,
+    '221': <ModulationMovementEmotionalProcessing />,
+    '222': <EmotionalProcessing />,
+    '223': <BehaviouralOutcomeProcessing />,
+    '224': <BehaviouralSensoryProcessing />,
 };

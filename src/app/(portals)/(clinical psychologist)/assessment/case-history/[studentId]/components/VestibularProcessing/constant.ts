@@ -1,0 +1,87 @@
+export const VESTIBULAR_QUESTIONS = [
+    {
+        id: 18,
+        key: 'q18',
+        type: 'L',
+        category: 'vestibular_sensitivity',
+        label: 'Becomes anxious or distressed when feet leave the ground',
+    },
+    {
+        id: 19,
+        key: 'q19',
+        type: 'L',
+        category: 'vestibular_sensitivity',
+        label: 'Dislikes activities where head is upside down (for example, somersaults, roughhousing)',
+    },
+    {
+        id: 20,
+        key: 'q20',
+        type: 'L',
+        category: 'vestibular_sensitivity',
+        label: 'Avoids playground equipment or moving toys (for example, swing set, merry-go-round)',
+    },
+    {
+        id: 21,
+        key: 'q21',
+        type: 'L',
+        category: 'vestibular_sensitivity',
+        label: 'Dislikes riding in a car',
+    },
+    {
+        id: 22,
+        key: 'q22',
+        type: 'L',
+        category: 'vestibular_posture',
+        label: 'Holds head upright even when bending over or leaning (for example, maintains a rigid posture during activity)',
+    },
+    {
+        id: 23,
+        key: 'q23',
+        type: 'L',
+        category: 'vestibular_processing',
+        label: 'Becomes disoriented after bending over sink or table (for example, falls or gets dizzy)',
+    },
+    {
+        id: 24,
+        key: 'q24',
+        type: 'H',
+        category: 'vestibular_seeking',
+        label: 'Seeks all kinds of movement and this interferes with daily routines (for example, can’t sit still, fidgets)',
+    },
+    {
+        id: 25,
+        key: 'q25',
+        type: 'H',
+        category: 'vestibular_seeking',
+        label: 'Seeks out all kinds of movement activities (for example, being whirled by adult, merry-go-rounds, playground equipment, moving toys)',
+    },
+    {
+        id: 26,
+        key: 'q26',
+        type: 'H',
+        category: 'vestibular_seeking',
+        label: 'Twirls/spins self frequently throughout the day (for example, likes dizzy feeling)',
+    },
+    {
+        id: 27,
+        key: 'q27',
+        type: 'H',
+        category: 'vestibular_seeking',
+        label: 'Rocks unconsciously (for example, while watching TV)',
+    },
+    {
+        id: 28,
+        key: 'q28',
+        type: 'H',
+        category: 'vestibular_seeking',
+        label: 'Rocks in desk/chair/on floor',
+    },
+];
+
+export const SCALE_OPTIONS = [
+    { label: 'Always', value: 1 },
+    { label: 'Frequently', value: 2 },
+    { label: 'Occasionally', value: 3 },
+    { label: 'Seldom', value: 4 },
+    { label: 'Never', value: 5 },
+];

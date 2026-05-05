@@ -1,0 +1,66 @@
+export const MULTI_SENSORY_QUESTIONS = [
+    {
+        id: 47,
+        key: 'q47',
+        type: ' ',
+        unicode: '1F441',
+        category: 'multi_sensitivity',
+        label: 'Gets lost easily (even in familiar places)',
+    },
+    {
+        id: 48,
+        key: 'q48',
+        type: ' ',
+        unicode: '1F3C3',
+        category: 'multi_sensitivity',
+        label: 'Has difficulty paying attention',
+    },
+    {
+        id: 49,
+        key: 'q49',
+        type: 'L',
+        unicode: '1F441',
+        category: 'multi_sensitivity',
+        label: 'Looks away from tasks to notice all actions in the room',
+    },
+    {
+        id: 50,
+        key: 'q50',
+        type: 'H',
+        unicode: '1F442',
+        category: 'multi_sensitivity',
+        label: 'Seems oblivious within an active environment (for example, unaware of activity',
+    },
+    {
+        id: 51,
+        key: 'q51',
+        type: 'H',
+        unicode: '1F6B9',
+        category: 'multi_sensitivity',
+        label: 'Hangs on people, furniture, or objects even in familiar situations',
+    },
+    {
+        id: 52,
+        key: 'q52',
+        type: 'H',
+        unicode: '1F6B9',
+        category: 'multi_sensitivity',
+        label: 'Walks on toes',
+    },
+    {
+        id: 53,
+        key: 'q53',
+        type: 'H',
+        unicode: '1F446',
+        category: 'multi_sensitivity',
+        label: 'Leaves clothing twisted on body',
+    },
+];
+
+export const SCALE_OPTIONS = [
+    { label: 'Always', value: 1 },
+    { label: 'Frequently', value: 2 },
+    { label: 'Occasionally', value: 3 },
+    { label: 'Seldom', value: 4 },
+    { label: 'Never', value: 5 },
+];

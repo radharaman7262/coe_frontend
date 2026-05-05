@@ -1,0 +1,66 @@
+export const ACTIVITY_LEVEL_QUESTIONS = [
+    {
+        id: 85,
+        key: 'q85',
+        type: 'L',
+        unicode: '1F3C3',
+        category: 'activity_level',
+        label: 'Spends most of the day in sedentary play (for example, does quiet things)',
+    },
+    {
+        id: 86,
+        key: 'q86',
+        type: 'L',
+        unicode: '1F4FA',
+        category: 'activity_level',
+        label: 'Prefers quiet, sedentary play (for example, watching TV, books, computers)',
+    },
+    {
+        id: 87,
+        key: 'q87',
+        type: 'L',
+        unicode: '1F6CB',
+        category: 'activity_level',
+        label: 'Seeks sedentary play options',
+    },
+    {
+        id: 88,
+        key: 'q88',
+        type: 'L',
+        unicode: '1F6CB',
+        category: 'activity_level',
+        label: 'Prefers sedentary activities',
+    },
+    {
+        id: 89,
+        key: 'q89',
+        type: 'H',
+        unicode: '1F3C3',
+        category: 'activity_level',
+        label: 'Becomes overly excitable during movement activity',
+    },
+    {
+        id: 90,
+        key: 'q90',
+        type: 'H',
+        unicode: '1F3C3',
+        category: 'activity_level',
+        label: '"On the go"',
+    },
+    {
+        id: 91,
+        key: 'q91',
+        type: 'H',
+        unicode: '1F3C3',
+        category: 'activity_level',
+        label: 'Avoids quiet play activities',
+    },
+];
+
+export const SCALE_OPTIONS = [
+    { label: 'Always', value: 1 },
+    { label: 'Frequently', value: 2 },
+    { label: 'Occasionally', value: 3 },
+    { label: 'Seldom', value: 4 },
+    { label: 'Never', value: 5 },
+];

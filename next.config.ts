@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
     reactStrictMode: true,
-
+    turbopack: {},
     /* config options here */
     webpack(config) {
         config.module.rules.push({

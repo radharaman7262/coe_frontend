@@ -298,8 +298,22 @@ const CP_ORAL_PERIPHERAL_EXAMINATION = `${SPEECH_THERAPIST_URL}/cp-oral-peripher
 const CP_SPEECH_MOTOR_EXAMINATION = `${SPEECH_THERAPIST_URL}/cp-speech-motor-assessment`;
 const CLP_COMMUNICATION_EXAMINATION_ENDPOINT = `${SPEECH_THERAPIST_URL}/clp-communication-profile`;
 
-/* Change Password */
+const OT_SENSORY_AUDITORY_PROCESS = `${API_URL}/ot/auditory-processing`;
+const OT_VISUAL_PROCESSING = `${API_URL}/ot/visual-processing`;
+const OT_VESTIBULAR_PROCESSING = `${API_URL}/ot/vestibular-processing`;
+const OT_TOUCH_PROCESSING = `${API_URL}/ot/touch-processing`;
+const OT_MULTI_SENSORY_PROCESSING = `${API_URL}/ot/multisensory-processing`;
+const OT_ORAL_SENSORY_PROCESSING = `${API_URL}/ot/oral-sensory-processing`;
+const OT_ENDURANCE_TONE_PROCESSING = `${API_URL}/ot/endurance-tone-processing`;
+const OT_MODULATION_BODY_POSITION = `${API_URL}/ot/modulation-body-position`;
+const OT_MOVEMENT_ACTIVITY = `${API_URL}/ot/modulation-movement-activity`;
+const OT_MODULATION_SENSORY = `${API_URL}/ot/modulation-sensory-emotional`;
+const OT_MODULATION_VISUAL_SENSORY = `${API_URL}/ot/modulation-visual-emotional`;
+const OT_EMOTIONAL_SENSORY = `${API_URL}/ot/emotional-sensory-responses`;
+const OT_BEHAVIORAL_OUTCOMES_EMOTIONAL = `${API_URL}/ot/behavioral-outcomes-emotional`;
+const OT_BEHAVIORAL_OUTCOMES_SENSORY = `${API_URL}/ot/behavioral-outcomes-sensory`;
 
+/* Change Password */
 const CHANGE_PASSWORD_ENDPOINT = `${API_URL}/change-password`;
 const FORGOT_PASSWORD = `${API_URL}/forgot`;
 
@@ -492,4 +506,18 @@ export {
     CHANGE_PASSWORD_ENDPOINT,
     FORGOT_PASSWORD,
     SPEECH_VOICE_ORO_MOTOR_PROFILE_ENDPOINT,
+    OT_SENSORY_AUDITORY_PROCESS,
+    OT_VISUAL_PROCESSING,
+    OT_VESTIBULAR_PROCESSING,
+    OT_TOUCH_PROCESSING,
+    OT_MULTI_SENSORY_PROCESSING,
+    OT_ORAL_SENSORY_PROCESSING,
+    OT_ENDURANCE_TONE_PROCESSING,
+    OT_MODULATION_BODY_POSITION,
+    OT_MOVEMENT_ACTIVITY,
+    OT_MODULATION_SENSORY,
+    OT_MODULATION_VISUAL_SENSORY,
+    OT_EMOTIONAL_SENSORY,
+    OT_BEHAVIORAL_OUTCOMES_EMOTIONAL,
+    OT_BEHAVIORAL_OUTCOMES_SENSORY,
 };

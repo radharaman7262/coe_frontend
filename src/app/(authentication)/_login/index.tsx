@@ -6,12 +6,14 @@ import { Toaster } from '@/components/index';
 
 import { AuthDrawerStep } from '@/constant/enumConstant';
 
-import { SignInFormType } from '@/types/signInFormType';
+import { ForgotInFormType, SignInFormType } from '@/types/signInFormType';
 import { LoggedRoleType } from '@/types/roleType';
 
 import LoginForm from './LoginForm';
 import RoleSelection from './RoleSelection';
 import ForgotEmail from './_forgotPassword/ForgotEmail';
+import EmailSent from './_emailSent';
+import NewPasswordCreation from './_newPasswordCreation';
 
 interface LoginPropsType {
     openLoginDrawer: boolean;
@@ -21,6 +23,8 @@ interface LoginPropsType {
     setFormValues: React.Dispatch<React.SetStateAction<SignInFormType>>;
     setSelectSpecialization: React.Dispatch<React.SetStateAction<LoggedRoleType | null>>;
     selectSpecialization: LoggedRoleType | null;
+    forgotValues: ForgotInFormType;
+    setForgotValues: React.Dispatch<React.SetStateAction<ForgotInFormType>>;
 }
 
 const Login = ({
@@ -31,6 +35,8 @@ const Login = ({
     setFormValues,
     setSelectSpecialization,
     selectSpecialization,
+    forgotValues,
+    setForgotValues,
 }: LoginPropsType) => {
     const [multiSelectionUser, setMultiSelectionUser] = useState<LoggedRoleType[] | null>(null);
 
@@ -59,7 +65,19 @@ const Login = ({
                     />
                 );
             case AuthDrawerStep.FORGOT_PASSWORD_SCREEN:
-                return <ForgotEmail />;
+                return (
+                    <ForgotEmail
+                        forgotValues={forgotValues}
+                        setForgotValues={setForgotValues}
+                        setStep={setStep}
+                    />
+                );
+
+            case AuthDrawerStep.LINK_SUCCESSFULL_SENT:
+                return <EmailSent forgotValues={forgotValues} setStep={setStep} />;
+
+            case AuthDrawerStep.PASSWORD_CREATION:
+                return <NewPasswordCreation setStep={setStep} />;
 
             default:
                 return null;

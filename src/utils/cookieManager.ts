@@ -14,6 +14,8 @@ const PARENT_ID = 'parnetFormId';
 
 export const USER_EMAIL = 'x-m';
 
+export const FORGOT_EMAIL = 'x_forgot_email';
+
 const clearJwtToken = () => Cookies.remove(JWT_TOKEN);
 const clearUserDetail = () => Cookies.remove(USER_DETAIL);
 const clearClientUserDetail = () => Cookies.remove(CLIENT_USER_DETAIL);
@@ -63,6 +65,7 @@ const setFormId = (formId: string) => {
         path: '/',
     });
 };
+
 const setParentId = (id: string) => {
     if (!id) {
         return;

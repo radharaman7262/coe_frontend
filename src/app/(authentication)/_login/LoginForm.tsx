@@ -173,6 +173,10 @@ const LoginForm = (props: LoginFormType) => {
         setShowPassword((prev) => !prev);
     };
 
+    const handleforgotRedirection = () => {
+        setStep(AuthDrawerStep.FORGOT_PASSWORD_SCREEN);
+    };
+
     useEffect(() => {
         if (userNameRef.current) {
             userNameRef.current.focus();
@@ -243,7 +247,7 @@ const LoginForm = (props: LoginFormType) => {
                 </div>
 
                 <div className={styles['form-remember']}>
-                    <div className={styles['check-box']}>
+                    {/* <div className={styles['check-box']}>
                         <input type='checkbox' id='remember' />
 
                         <Text
@@ -252,7 +256,16 @@ const LoginForm = (props: LoginFormType) => {
                         >
                             {staticLabel.rememberMe}
                         </Text>
-                    </div>
+                    </div> */}
+
+                    <Text
+                        font={[FontType.text_sm_medium, FontType.text_sm_medium]}
+                        color='primary-cta'
+                        className={styles.pointer}
+                        onClick={handleforgotRedirection}
+                    >
+                        {staticLabel.forgotPassword}
+                    </Text>
                     <Button
                         label={button.login}
                         type='button'

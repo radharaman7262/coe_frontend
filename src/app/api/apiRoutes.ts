@@ -317,6 +317,10 @@ const OT_BEHAVIORAL_OUTCOMES_SENSORY = `${API_URL}/ot/behavioral-outcomes-sensor
 const CHANGE_PASSWORD_ENDPOINT = `${API_URL}/change-password`;
 const FORGOT_PASSWORD = `${API_URL}/forgot`;
 
+/* Update Password */
+
+const UPDATE_PASSWORD_ENDPOINT = `${API_URL}/update-password`;
+
 export {
     LOGIN_ENDPOINT,
     USER_TYPE_ENDPOINT,
@@ -520,4 +524,5 @@ export {
     OT_EMOTIONAL_SENSORY,
     OT_BEHAVIORAL_OUTCOMES_EMOTIONAL,
     OT_BEHAVIORAL_OUTCOMES_SENSORY,
+    UPDATE_PASSWORD_ENDPOINT,
 };

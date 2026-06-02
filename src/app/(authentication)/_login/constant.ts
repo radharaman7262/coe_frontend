@@ -9,6 +9,7 @@ export const LOGIN_PAGE_DATA = {
     userNameLabel: 'Username',
     passwordLabel: 'Password',
     rememberMe: 'Remember me',
+    forgotPassword: 'Forgot password?',
     loginButtonText: 'Login',
     copyRight: '© Copyright 2025,',
     rupantar: 'Rupantar',

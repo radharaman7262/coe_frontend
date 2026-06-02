@@ -58,13 +58,13 @@ export const validateInput = (
 };
 
 export const checkAllValueValidOrNot = (args: {
-    formValues: ForgotInFormType;
+    forgotValues: ForgotInFormType;
     errorMessages: ForgotErrorMessageType;
 }) => {
-    const { formValues, errorMessages } = args;
+    const { forgotValues, errorMessages } = args;
 
-    const isAllFieldsFilled = Object.keys(formValues).every(
-        (key) => formValues[key as ForgotInFormKeys].trim() !== '',
+    const isAllFieldsFilled = Object.keys(forgotValues).every(
+        (key) => forgotValues[key as ForgotInFormKeys].trim() !== '',
     );
 
     const areAllErrorsFalse = Object.values(errorMessages).every((message) => message === '');

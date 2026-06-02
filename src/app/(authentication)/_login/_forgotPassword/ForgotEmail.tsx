@@ -9,19 +9,24 @@ import RightIcon from '@/public/assets/svg/right-arrow-icon.svg';
 
 import { ForgotErrorMessageType, ForgotInFormKeys, ForgotInFormType } from '@/types/signInFormType';
 
-import { KeyboardEvent } from '@/constant/enumConstant';
+import { AuthDrawerStep, KeyboardEvent } from '@/constant/enumConstant';
 
 import { showToast } from '@/components/ui/Toaster/constant';
 
-import { LOADING_TIME_DURATION } from '@/constant/appConstants';
-import { FORGOT_INITIAL_STATE, LOGIN_PAGE_DATA as staticLabel } from '../constant';
+import { LOGIN_PAGE_DATA as staticLabel } from '../constant';
 
 import { checkAllValueValidOrNot, getResetPasswordLinkApiCall, validateInput } from './utils';
 
 import styles from './styles.module.scss';
 
-const ForgotEmail = () => {
-    const [formValues, setFormValues] = useState<ForgotInFormType>(FORGOT_INITIAL_STATE);
+interface ForgotEmailType {
+    forgotValues: ForgotInFormType;
+    setForgotValues: React.Dispatch<React.SetStateAction<ForgotInFormType>>;
+    setStep: React.Dispatch<React.SetStateAction<AuthDrawerStep>>;
+}
+
+const ForgotEmail = (props: ForgotEmailType) => {
+    const { forgotValues, setForgotValues, setStep } = props;
     const [errorMessages, setErrorMessages] = useState<ForgotErrorMessageType>({});
     const [loading, setLoading] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
@@ -29,7 +34,7 @@ const ForgotEmail = () => {
     const forgotPasswordRef = useRef<HTMLInputElement | null>(null);
 
     const updateFormValues = (key: ForgotInFormKeys, value: string) => {
-        setFormValues((prevValues) => ({
+        setForgotValues((prevValues) => ({
             ...prevValues,
             [key]: value,
         }));
@@ -43,38 +48,29 @@ const ForgotEmail = () => {
     };
 
     useEffect(() => {
-        const isValid = checkAllValueValidOrNot({ formValues, errorMessages });
+        const isValid = checkAllValueValidOrNot({ forgotValues, errorMessages });
 
         setIsFormValid(isValid);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [formValues]);
+    }, [forgotValues]);
 
     const handleForgotPassword = async () => {
         try {
             setLoading(true);
 
             const body = {
-                email: formValues[ForgotInFormKeys.FORGOT_PASSWORD],
+                email: forgotValues[ForgotInFormKeys.FORGOT_PASSWORD],
             };
 
             const response = await getResetPasswordLinkApiCall(body);
 
-            const { isSuccess, error, data } = response || {};
+            const { status, error } = response || {};
 
-            if (!isSuccess) {
+            if (!status) {
                 throw new Error(error);
             }
 
-            // setEmail(formValues[ForgotPasswordFormKeys.EMAIL]);
-
-            showToast({
-                type: 'success',
-                message: data,
-            });
-
-            setTimeout(() => {
-                // setCurrentStep(AUTHENTICATION_FLOW_STEPS_MAPPING.EMAIL_SEND_SUCCESSFULLY);
-            }, LOADING_TIME_DURATION);
+            setStep(AuthDrawerStep.LINK_SUCCESSFULL_SENT);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
 
@@ -126,7 +122,7 @@ const ForgotEmail = () => {
                         EndAdornment={MailIcon}
                         name={ForgotInFormKeys.FORGOT_PASSWORD}
                         placeholder={staticLabel.forgotMailPlaceholder}
-                        value={formValues[ForgotInFormKeys.FORGOT_PASSWORD]}
+                        value={forgotValues[ForgotInFormKeys.FORGOT_PASSWORD]}
                         error={!!errorMessages[ForgotInFormKeys.FORGOT_PASSWORD]}
                         helperText={errorMessages[ForgotInFormKeys.FORGOT_PASSWORD] || ''}
                         onChange={handleChange}

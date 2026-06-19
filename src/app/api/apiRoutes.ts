@@ -1,4 +1,10 @@
-const API_URL = `${process.env.NEXT_PUBLIC_APP_URL}api/v1`;
+// const API_URL = `${process.env.NEXT_PUBLIC_APP_URL}api/v1`;
+
+// for container
+const API_URL =
+  typeof window === "undefined"
+    ? `${process.env.INTERNAL_API_URL}/api/v1`
+    : `${process.env.NEXT_PUBLIC_APP_URL}api/v1`;
 
 /** Authentication Endpoint */
 const LOGIN_ENDPOINT = `${API_URL}/login`;
